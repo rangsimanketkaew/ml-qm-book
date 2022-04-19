@@ -1,0 +1,97 @@
+% LaTeX source for ``ปัญญาประดิษฐ์สำหรับเคมีควอนตัม (Machine Learning for Quantum Chemistry)''
+% Copyright (c) 2022 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+% License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+% https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+\documentclass[a4paper,12pt]{book}
+\usepackage[
+    width=5.5in,
+    height=8.5in,
+    hmarginratio=3:2,
+    vmarginratio=1:1
+]{geometry}
+
+% Adjust size of the body text
+\AtBeginDocument{\fontsize{14}{16.2}\selectfont}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{booktabs}  % For nicely typeset tabular material
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{physics}
+% \usepackage{exercise}
+\usepackage{setspace}
+\usepackage{csquotes}
+\usepackage{enumitem}
+\usepackage{hyphenat}
+\usepackage{appendix}
+\usepackage[bookmarks]{hyperref}
+\usepackage{indentfirst}
+
+\usepackage{imakeidx}
+\makeindex
+
+%----------------------------------------------------
+
+%%% Option 1. Font for Thai %%%
+
+\usepackage[utf8]{inputenc}
+\usepackage{xltxtra} % this will load the fontspec, metalogo, and realscripts packages
+\XeTeXlinebreaklocale "th_TH"
+\XeTeXlinebreakskip = 0pt plus 1pt  
+\defaultfontfeatures{Scale=1.23}
+\setmainfont[
+  Renderer=Basic,
+  BoldFont={THSarabunNew_Bold.ttf},
+  ItalicFont={THSarabunNew_Italic.ttf},
+  BoldItalicFont={THSarabunNew_BoldItalic.ttf},
+]{THSarabunNew.ttf} 
+
+% \setmainfont{TH Sarabun New}
+
+%%% Option 2. Fonts for different languages %%%
+% Fonts need to be installed on the system
+
+% \usepackage{fontspec,xunicode}
+% \defaultfontfeatures{Mapping=tex-text}
+% \setmainfont[Renderer=Basic, Numbers=OldStyle, Scale = 1.0]{TeX Gyre Pagella}
+% \setmathrm[Renderer=Basic, Scale=0.90]{TeX Gyre Pagella}
+% \setsansfont[Renderer=Basic, Scale=0.90]{TeX Gyre Heros} 
+% \setmonofont[Renderer=Basic]{TeX Gyre Cursor}
+% \newfontfamily{\thaifont}{TH Sarabun New}[Scale=MatchLowercase] 
+
+% \usepackage[Latin, Thai]{ucharclasses}
+% \setTransitionTo{Thai}{\thaifont}
+% \setTransitionFrom{Thai}{\normalfont}
+
+% \XeTeXlinebreaklocale "th_TH"
+% \XeTeXlinebreakskip = 0pt plus 1pt  
+
+% \defaultfontfeatures{Scale=1.23}
+
+%----------------------------------------------------
+
+\usepackage[
+  backend=bibtex,
+  autocite=superscript,
+  sorting=none,
+  style=numeric, 
+  natbib=true,
+  mincitenames=1,
+  doi=false,
+  url=false, 
+  isbn=false,
+  backref=true
+]{biblatex}
+\addbibresource{references.bib}
+
+\setlength{\parindent}{2em}
+\setlength{\parskip}{1em}

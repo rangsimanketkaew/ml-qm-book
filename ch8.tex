@@ -1,0 +1,189 @@
+% LaTeX source for ``การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม (Machine Learning for Quantum Chemistry)''
+% Copyright (c) 2022 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+% License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+% https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+\chapter{ลักษณะเฉพาะของอะตอมและโมเลกุล}
+\label{ch:feature}
+
+ลักษณะเฉพาะ (Feature) คือคุณลักษณะเด่นที่มีความพิเศษและบ่งบอกความเฉพาะตัวของอะตอมหรือโมเลกุลนั้น ๆ ซึ่งอาจจะเรียกว่าเป็นคุณลักษณะแบบพิเศษก็ได้ 
+(Special Attributes) นอกจากนี้เรายังเรียกสิ่งที่เป็น Feature ว่ามันคือการแสดงความเป็นตัวแทนของสิ่งที่เราสนใจอีกด้วยหรือ Representation
+คำถามที่ตามมาก็คือแล้ว Feature หรือ Representation มีความสำคัญอย่างไร จริง ๆ แล้วมีความสำคัญมาก ๆ อาจจะกล่าวได้ว่าสำคัญที่สุดเลยก็ว่าได้ 
+เพราะมันเป็น Input ที่เรานำมาใช้สร้าง Model ดังนั้นมันจึงเป็นปัจจัยที่กำหนดประสิทธิภาพของ Model นั่นเอง 
+
+เนื่องจากว่ามนุษย์สามารถแยกแยะโมเลกุลแต่ละตัวออกจากกันได้ แต่ว่าคอมพิวเตอร์ไม่สามารถทำได้ เพราะว่ามันเข้าใจข้อมูลที่เป็นแบบดิจิตอลในภาษาเครื่องจักรเท่านั้น (Machine Language)
+ดังนั้นเราจึงต้องมีการใช้ Representation เพื่ออธิบายโมเลกุลในรูปแบบของค่า Parameter ที่คอมพิวเตอร์สามารถเข้าใจได้ เช่น แปลงโมเลกุลเป็นเวกเตอร์ของตัวเลข 
+สำหรับการอธิบายโมเลกุลแบบง่าย ๆ นั้นสามารถทำได้โดยใช้ Representation เพื่อมาอธิบายข้อมูลเชิงโครงสร้าง (Structural Properties) 
+ซึ่งสามารถใช้ข้อมูลทางเคมีทั่วไปได้ ยกตัวอย่างเช่น รูปร่างของโมเลกุล, จำนวนหมู่ฟังก์ชัน, ชนิดของพันธะระหว่างอะตอมคาร์บอน, และจำนวนวงเบนซีน 
+ซึ่งข้อมูลเหล่านี้เราสามารถคำนวณออกมาได้ง่าย ๆ ไม่มีความซับซ้อนอะไร แต่ปัญหาคือ Representation ที่เป็น Structural-based นั้นมีข้อมูลที่น้อยเกินไป
+จึงทำให้ไม่สามารถถูกนำมาใช้เป็น Input สำหรับการสร้าง Model เพื่อทำนายคุณสมบัติหรือ Parameter ทางเคมีที่ซับซ้อนหรือละเอียดกว่าได้ เช่น 
+พลังงานพันธะ (Bond Energy), ค่าความถี่การสั่น (Vibration), ไดโพลโมเมนต์ (Dipole Moment), ฯลฯ 
+นั่นก็เพราะว่า Input ของเรามันเป็น Representation ที่ไม่มี Correlation กับ Output ที่เราต้องการทำนายโดยตรง
+
+ดังนั้นถ้าหากเราต้องการที่จะทำนาย Output ที่มีความละเอียดอยู่ในระดับอะตอมหรือเชิงอิเล็กทรอนิกส์ เราควรจะใช้ Representation ที่อยู่ในระดับเดียวกัน 
+และ Representation Input เหล่านี้ควรจะต้องเก็บข้อมูลทางควอนตัมเคมีและฟิสิกส์ไว้ด้วย โดยการพัฒนา Representation โดยใช้องค์ความรู้ทางฟิสิกส์
+(Physics-inspired Representation) ก็เป็นหนึ่งในหัวข้องานวิจัยที่กำลังมาแรงในขณะนี้ ข้อมูลทางฟิสิกส์ที่เราเพิ่มเข้าไปก็เปรียบเสมือนเป็นองค์ประกอบที่เพิ่มความถูกต้อง
+(Correction) ให้กับ Representation ให้มากขึ้น เราใส่ระบุความเป็นสมมาตร (Symmetricity) ของโมเลกุลเข้าไปได้ เป็นต้น 
+
+%--------------------------
+\section{การแปลงข้อมูลเชิงโมเลกุล}
+%--------------------------
+
+โมเลกุลประกอบไปด้วยอะตอมหลายอะตอมมารวมกัน เราจึงเปรียบเทียบโมเลกุลเป็นประโยคหรือข้อความและเปนียบเทียบอะตอมเป็นคำแต่ละคำได้
+ดังที่บอกไปในข้างต้นว่าการทำให้คอมพิวเตอร์เข้าใจความเชื่อมโยงระหว่างอะตอมในโมเลกุลนั้นต้องมีการกำหนดหรือเลือกใช้ Representation ที่เหมาะสม
+โดยคุณสมบัติของ Representation ที่ดีนั้นไม่เพียงแต่จะต้องไม่ขึ้นกับการเคลื่อนที่เชิงการหมุน (Rotational Motion) และ การเคลื่อนที่เชิงเส้นด้วย (Transitional Motion) เท่านั้น 
+แต่ควรจะต้องมีความเรียบง่ายและไม่ซับซ้อนหรือยุ่งยากเกินไปในการคำนวณเพื่อสร้าง Machine Code จากพิกัดตำแหน่งคาร์ทคีเชียน (Cartesian Coordinates)
+
+%--------------------------
+\section{ลักษณะเฉพาะเชิงโครงสร้าง}
+%--------------------------
+
+%--------------------------
+\subsection{Internal Coordinates}
+%--------------------------
+
+$Z$ matrix หรือเรียกอย่างว่า Internal Coordinates (แปลตรงว่าพิกัดภายในของโมเลกุล) เป็น Representation แบบที่ง่ายมาก 
+อาจจะเรียกได้ว่าง่ายที่สุดเลยก็ว่าได้ ถูกใช้เป็น Descriptor มาอย่างยาวนาน โดยถูกใช้อย่างแพร่หลายในยุคแรก ๆ ของการเรียนรู้ของเครื่องสำหรับเคมี
+Internal Coordinates สามารถอธิบายได้ทั้งโมเลกุล โดยองค์ประกอบของ Representation อันนี้มีความยาวพันธะระหว่างอะตอม (Bond Distance) 
+มุมพันธะ (Bond Angle) และมุมบิดเบี้ยว (Dihedral Angle หรือ Torsion) ซึ่งจำนวนของอะตอมที่ถูกเลือกมาคำนวณ Internal Coordinates 
+นั้นมักจะเป็นอะตอมที่เรียงกันอยู่หรืออยู่ใกล้กัน อย่างไรก็ตาม เราสามารถคำนวณหา Internal Coordinates ของโมเลกุลได้โดยพิจารณาอะตอมทุก ๆ คู่
+หรือทุกความเป็นไปได้ทั้งหมดภายในโมเลกุล
+
+%--------------------------
+\subsection{Geometric Descriptors}
+%--------------------------
+
+Geometric Descriptors คือลักษณะเฉพาะเชิงเรขาคณิต
+
+All geometric descriptors that provide information about the spatial coordinates of atoms in 
+a molecule relate to the symbolic representation of the molecule. There are several geometric descriptors, 
+including the molecular $Z$ matrix, standard and effective coordination numbers. 
+The descriptor of the molecular matrix represents each atom's coordinates $(x, y, z)$ in Cartesian space. 
+In contrast to most descriptors, these descriptors are able to distinguish isomeric molecules 
+(e.g. cis/trans stereoisomers). However, geometric-based representations can still be problematic 
+since they omit electronic structure. More sophisticated representations developed in 
+the last decade leverage and include electronic descriptions such as atomic force, electron configuration, 
+and correlation between orbitals.\cite{musil2021} It can also be difficult to calculate 
+the geometric descriptors due to their complexity.\cite{keith2021}
+
+%--------------------------
+\subsection{Inverse Distance Matrix}
+%--------------------------
+
+%--------------------------
+\section{ลักษณะเฉพาะเชิงอิเล็กทรอนิกส์}
+%--------------------------
+
+%--------------------------
+\subsection{Coulomb Matrix}
+%--------------------------
+
+Coulomb Matrix หรือ เมทริกซ์คูลอมบ์
+
+The Coulomb matrix (CM) introduced by \citeauthor{rupp2012} is widely employed because of its simplicity 
+and relatively less requirement of \textit{a priori} knowledge of chemical properties of a molecule.\cite{rupp2012}
+It stores information about how atoms interact with each other. Each pair of atoms in a molecule carries 
+the pairwise electrostatic potential energy. In addition, every atom has a set of Cartesian coordinates 
+representing its location in space and has a charge attached to it. The CM between atoms $i$ and $j$ 
+is simply given by
+
+\begin{equation}
+C_{ij} =
+\begin{cases}
+ & 0.5 Z_i^{2.4} \text{ if } i = j \\ 
+ & \frac{Z_i Z_j}{R_{ij}} \text{ if } i \neq j
+\end{cases}
+\end{equation}
+
+\noindent where $Z$ is the atomic number and $R_{ij}$ is the interatomic separation. The off-diagonal entries 
+of the CM reflect Coulomb's repulsions between the nuclei, and the exponents in the diagonal entries 
+correspond to a polynomial fit linking the atomic number to the overall energies of the unbound atoms. 
+
+Despite being invariant to molecular translation and rotation, the CM is not geometrically invariant to 
+atom permutations. To solve this puzzle, a variety of alternative representation methods, such as 
+Permutation-Invariant Polynomials (PIP)\cite{braams2009}, Randomly Sorted Coulomb Matrices (RSCM)\cite{hansen2013}, 
+Bag of Bonds (BoB)\cite{hansen2013}, and Permutation Invariant Vectors (PIV)\cite{gallet2013} have been 
+proposed for producing a representation of the molecule that is independent of the ordering of the atoms.
+
+%--------------------------
+\subsection{Smooth Overlap of Atomic Positions}
+%--------------------------
+
+Smooth Overlap of Atomic Positions (SOAP) can encode atomic geometries in their chemical environment 
+using a local expansion of a Gaussian smeared atomic density based on the radial basis ($g_{n}(r)$) and 
+real spherical harmonic functions ($Y_{lm}(\theta, \phi)$).\cite{bartok2013,de2016} SOAP is suitable for predicting 
+local properties such as atomic forces or chemical shifts but requires partitioning of global properties 
+such as total energies. The SOAP kernel between two atomic environments ($\mathcal{X}$ and $\mathcal{X}'$) 
+can be retrieved as a normalized polynomial kernel of the partial power spectra. The working equation of 
+the SOAP kernel ($K^\mathrm{SOAP}$) retrieved as a normalized polynomial kernel of the two neighbor partial 
+power spectra $\mathbf{p}$ and $\mathbf{p}'$ is given by
+
+\begin{equation}
+    K^\mathrm{SOAP}(\mathbf{p}, \mathbf{p'}) = \left( \frac{\mathbf{p} \cdot \mathbf{p'}}{\sqrt{\mathbf{p} 
+    \cdot \mathbf{p}~\mathbf{p'} \cdot \mathbf{p'}}}\right)^{\xi},
+\end{equation}
+
+\noindent where $\xi$ is a positive integer. The elements of the $\mathbf{p}$ vector are defined as 
+
+\begin{equation}
+    p^{Z_1 Z_2}_{n n' l} = \pi \sqrt{\frac{8}{2l+1}}\sum_m {c^{Z_1}_{n l m}}^{\dagger} c^{Z_2}_{n' l m}
+\end{equation}
+
+\noindent where $n$ and $n'$ are indices for radial basis functions up to $n_{max}$, $l$ is 
+the angular degree of the spherical harmonics up to $l_{max}$, $m$ is an integer such that 
+$\abs{m} \leq l$, and $Z_{1}$ and $Z_{2}$ are atomic species. The coefficients $c^{Z}_{n'lm}$ and 
+${c^{Z}_{nlm}}^{\dagger}$ are defined as the inner products of spherical harmonic functions with 
+the Gaussian smoothed atomic density for atoms with the atomic number $Z$ ($\rho^Z$), and its complex conjugate, 
+respectively.\cite{de2016}
+
+%--------------------------
+\subsection{Atom-centered Symmetry Functions}
+%--------------------------
+
+Atom-centered Symmetry Functions (ACSF) generalize the output of multiple two- and three-body functions 
+to estimate the local electronic environment near atoms using a fingerprint method that can be customized 
+to detect specific structural features for symmetric functions.\cite{behler2011} Radial symmetric functions 
+for the central atom $i$ with neighboring atom $j$ are given as follows:
+
+\begin{equation}
+    G^{radial}_{i} = \sum^{N_{atom}}_{j \neq i} e^{\eta (\boldsymbol{r}_{ij} - \mu)^{2}} f_{c}(\boldsymbol{r}_{ij})
+\end{equation}
+
+\noindent where $\eta$ and $\mu$ are the parameters controlling the width and the position of 
+the Gaussian function. $f_{c}$ is a cutoff function that selects the relevant regions close to 
+the central nucleus to be encoded into the ACSF and $\boldsymbol{r}_{ij}$ is the displacement between 
+the atoms $i$ and $j$. Angular symmetric functions have been defined.\cite{behler2011} 
+Moreover, an input required to ACSFs is fine-tuning of internal parameters that can be properly used 
+to define the Gaussian function. A similar representation to ACSFs is the Spectrum of London and 
+Axilrod-Teller-Muto (SLATM), which has been recently used in the literature, but mostly for 
+kernel ridge regression (KRR) models.\cite{faber2018} Polynomial functions of the inverse of 
+the interatomic distances have also been suggested but are not discussed in this review.\cite{musil2021}
+
+%--------------------------
+\subsection{Gaussian-type Orbital-based Density Vectors}
+%--------------------------
+
+Gaussian-type Orbital (GTO)-based Density Vector is a descriptor function alternative to 
+the ACSF and symmetric polynomial function.\cite{kwac2021} The GTO-based density vector is given by
+
+\begin{equation}
+    \rho^{i}_{L,\alpha,r_{s}} = \sum^{l_{x}+l_{y}+l_{z} = L}_{l_{x},l_{y},l_{z}} 
+    \frac{L!}{l_{x}!l_{y}!l_{z}!} \left ( \sum^{n_{type}}_{t=1} c_{t} \sum^{N^{t}_{atom}}_{j=1} 
+    \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) \right )
+\end{equation}
+
+\noindent where $l_{x}+l_{y}+l_{z} = L$ specifies the orbital angular momentum, $n_{type}$ is the atomic type 
+in the molecule under study, $c_{t}$ is the type-dependent weight, $N^{t}_{atom}$ is the number of atoms of 
+the type $t$, and $\phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (r_{ij})$ is the Gaussian orbital centered at 
+each atom with the parameters $\alpha$ and $r_{s}$ which determine the radial distributions of orbital functions, 
+given as
+
+\begin{equation}
+    \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) = x^{l_{x}}y^{l_{y}}z^{l_{z}} e^{-\alpha 
+    |r-r_{s}|^{2}}
+\end{equation}
+
+\noindent where $\boldsymbol{r}_{ij} = (x,y,z)$ indicates the vector from nuclei $i$ to nuclei $j$ and $r$ 
+is the magnitude of $\boldsymbol{r}_{ij}$. GTOs with $L=0,1$ are usually considered for constructing 
+the density vectors for small organic molecules containing light atoms such as C, H, O, and N.\cite{kwac2021}

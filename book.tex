@@ -1,0 +1,91 @@
+% LaTeX source for ``การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม (Machine Learning for Quantum Chemistry)''
+% Copyright (c) 2022 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+% License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+% https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+\input{book_style}
+
+%% Avoid create page after chapter
+\let\cleardoublepage\clearpage
+% \let\clearpage\relax
+
+% Book metadata
+\title{การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม}
+\author{รังสิมันต์ เกษแก้ว}
+
+\begin{document}
+
+% Front matter
+\frontmatter
+
+% Full title page
+% \maketitle
+\thispagestyle{empty}
+
+\begin{flushright}
+\vspace*{2.0in}
+
+\begin{spacing}{3}
+{\huge การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม}\\
+{\LARGE Machine Learning for Quantum Chemistry}
+\end{spacing}
+
+\vspace{0.25in}
+
+{ฉบับพิมพ์ครั้งที่ 1}
+
+% \date{}
+\vspace{1in}
+
+{\Large รังสิมันต์ เกษแก้ว}\\
+\vspace{0.5in}
+
+%\includegraphics[width=1in]{figs/logo.pdf}
+\vfill
+
+\end{flushright}
+
+% Copyright
+\include{copyright}
+
+% Introduction
+\include{preface} 
+
+% Contents
+\tableofcontents\label{cha:toc}
+% \listoffigures
+% \listoftables
+
+% Quote
+
+\mainmatter
+
+\include{quote}
+
+\include{ch1} 
+\include{ch2} 
+\include{ch3} 
+\include{ch4} 
+\include{ch5} 
+\include{ch6} 
+\include{ch7} 
+\include{ch8} 
+\include{ch9} 
+\include{ch10} 
+\include{ch11} 
+\include{ch12} 
+\appendix
+\include{ap1} 
+\include{ap2} 
+
+\backmatter
+
+\chapter*{เอกสารอ้างอิง}
+\addcontentsline{toc}{chapter}{เอกสารอ้างอิง}
+
+\printbibliography[heading=none]
+
+\printindex
+
+\end{document}

@@ -1,0 +1,59 @@
+% LaTeX source for ``การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม (Machine Learning for Quantum Chemistry)''
+% Copyright (c) 2022 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+% License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+% https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+\chapter{การเรียนรู้แบบมีผู้สอน}
+\label{ch:sup_ml}
+
+การเรียนรู้แบบมีผู้สอนหรือ Supervised learning เป็นเทคนิค ML ในช่วงยุคเริ่มต้นซึ่งเป็นแนวคิดที่ใช้ Input และ Output ในการเทรนโมเดล
+
+%--------------------------
+\section{Partial Least Squares (PLS)}
+%--------------------------
+
+วิธีกำลังสองน้อยที่สุดบางส่วน (partial least squares: PLS) 
+เป็นวิธีเชิงสถิติที่ใช้สำหรับการวิเคราะห์หลาย ตัวแปรเพื่อสร้างตัวแบบความสัมพันธ์ระหว่างกลุ่มของ ตัวแปรทำนาย (Predictor variable) 
+โดยอาศัยตัวแปรแฝง (Latent variable) ซึ่งเทคนิคนี้มีความคล้ายกับ Principle Component Analysis (PCA) 
+ซึ่งจะเป็นการลดจำนวนมิติของข้อมูล.\cite{wold1984} ในช่วงยุคเริ่มต้นของ AI ในด้านเคมี เทคนิคนี้ได้ถูกนำมาใช้อย่างแพร่หลาย เช่น 
+นำมาใช้สำหรับการระบุ vibrational bands สำหรับ vibrational spectra และนำผลที่ได้มาเปรียบเทียบกับค่าการทำนายที่ได้จากวิธีอื่น เช่น
+ANN และ PCA-ANN.
+
+%--------------------------
+\section{Gaussian Process Regression (GPR)}
+%--------------------------
+
+การถดถอยของกระบวนการเกาส์เซี่ยน เป็นวิธีการถดถอยของเบส์แบบหนึ่งโดยใช้ Kernel function ที่สามารถบ่งบอกหรือแสดงค่าความแปรปรวน (covariance) 
+ในขั้นตอน Gaussian process ได้\cite{rasmussen2005} โดย GPR จะทำการสร้างโมเดลแบบ non-parametric และสามารถคำนวณค่าความเชื่อมั่น 
+(Confidence intervals) ไปพร้อม ๆ กับการทำนาย
+
+%--------------------------
+\section{Random Forest}
+%--------------------------
+
+Random Forest (RF) เป็นวิธีหนึ่งในกลุ่มของโมเดลที่เรียกว่า Ensemble learning (การเรียนรู้แบบกลุ่มก้อน) 
+ที่มีหลักการคือการเทรนโมเดลที่เหมือนกันหลาย ๆ ครั้ง (Multitude) บนข้อมูลชุดเดียวกัน โดยแต่ละครั้งของการเทรนจะเลือกส่วนของข้อมูลที่เทรนไม่เหมือนกัน 
+แล้วเอาการตัดสินใจของโมเดลเหล่านั้นมาโหวตกันว่า Class ไหนถูกเลือกมากที่สุด\cite{breiman2001,quinlan1986}
+
+%--------------------------
+\section{Artificial Neural Network}
+%--------------------------
+
+Artificial Neural Network (ANN) โครงสร้างประสาทเทียมเป็นอัลกิริธึมรูปแบบหนึ่งที่เลียนแบบการทำงานของสมองมนุษย์
+โดยทำการสร้างโมเดลเรียนรู้ที่ประกอบไปด้วยชั้นเรียนรู้ระหว่างกลาง (Hidden Layer) และหน่วยย่อยที่เกิดการเรียนรู้ (Node หรือ Artiticial neuron หรือ Unit)
+
+โดยโมเดล ANN ที่มีการนำไปใช้มากที่สุดคือข่ายงานประสาทแบบป้อนไปหน้า (Feedforward Network) และ ANN ยังสามารถแบ่งออกเป็น
+หลายประเภท ดังนี้
+
+\begin{itemize}
+    \item เพอร์เซ็ปตรอนชั้นเดียว (Single-layer Perceptron)
+    \item เพอร์เซ็ปตรอนหลายชั้น (Multi-layer Perceptron
+    \item โครงข่ายแบบวนซ้ำ (Recurrent Network)
+    \item แผนผังจัดระเบียบเองได้ (Self-organizing Map)
+    \item เครื่องจักรโบลทซ์แมน (Boltzmann Machine)
+    \item กลไกแบบคณะกรรมการ (Committee of Machines)
+    \item โครงข่ายความสัมพันธ์ (Associative Neural Network)
+    \item โครงข่ายกึ่งสำเร็จรูป (Instantaneously Trained Networks)
+    \item โครงข่ายแบบยิงกระตุ้น (Spiking Neural Networks) 
+\end{itemize}

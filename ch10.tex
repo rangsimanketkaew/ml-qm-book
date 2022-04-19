@@ -1,0 +1,73 @@
+% LaTeX source for ``การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม (Machine Learning for Quantum Chemistry)''
+% Copyright (c) 2022 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+% License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+% https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+\chapter{การทำนายคุณสมบัติเชิงโมเลกุล}
+\label{ch:predict_molprop}
+
+%--------------------------
+\section{Best Practice}
+%--------------------------
+
+Best Practice หรือแนวทางปฏิบัติหรือลำดับขั้นตอนสำหรับการนำ ML มาประยุกต์กับเคมีควอนตัมสามารถแบ่งออกเป็น 5 ขั้นตอนง่าย ๆ ได้ดังนี้
+
+\begin{enumerate}
+    \item การเลือก dataset
+    \item การทำความสะอาดข้อมูลดิบ (raw data)
+    \item คำนวณหา Representation ต่อไปได้ ซึ่งขั้นตอนนี้ก็สำคัญมาก ๆ เพราะการเลือก Representation 
+    ที่จะใช้ในการเทรนโมเดลก็ต้องสอดคล้องกับ output ที่เราต้องการจะทำนาย -> และหลังจากนั้นก็เป็นขั้นตอนของ
+    \item การเลือก ML algorithm เพื่อให้เหมาะสมกับโจทย์ของเรา 
+    \item การเทรนโมเดลและการประเมินโมเดลโดยการทำ Validation
+\end{enumerate}
+
+%--------------------------
+\section{การเลือกโมเดลที่เหมาะสม}
+%--------------------------
+
+%--------------------------
+\section{การทำนายพลังงาน Potential Energy Surface}
+%--------------------------
+
+การทำนายพื้นผิวพลังงานศักย์ (Potential Energy Surface หรือ PES)
+
+Machine Learning Potentials (MLP) แบ่งออกได้เป็นสองประเภทคือ Kernel-based Potential กับ Neural Network-based Potential
+
+- Gaussian Approximation Potentials (GAP)\cite{bartok2010}
+- Moment Tensor Potentials (MTP)\cite{shapeev2016}
+- Spectral Neighbor Analysis Potentials (SNAP)\cite{thompson2015}
+
+
+- High-dimensional Neural Network Potentials (HDNNP)\cite{behler2007}
+- ANAKIN-ME หรือเรียกสั้น ๆ ว่า ANI (ชื่อเต็มคือ (Accurate NeurAl networK engINe for Molecular Energies)
+    - ANI-1x\cite{smith2017}
+    - ANI-1ccx\cite{smith2018}
+    - ANI-2x\cite{smith2019}
+
+%--------------------------
+\section{การจำลอง Force Field}
+%--------------------------
+
+%--------------------------
+\section{การทำนายพลังงานกระตุ้นของปฏิกิริยาเคมี}
+%--------------------------
+
+Activation energy หรือพลังงานกระตุ้น เป็นค่าพลังงานที่บ่งบอกถึงความยากง่ายในการทำให้ปฏิริยาเคมีสามารถดำเนินไปได้ ณ สภาวะหนึ่ง ๆ
+
+%--------------------------
+\section{การทำนาย Dipole Moment}
+%--------------------------
+
+%--------------------------
+\section{การทำนาย Electronic Coupling}
+%--------------------------
+
+Electronic Coupling คือค่าความเกี่ยวเนื่องเชิงอิเล็กทรอนิกส์ระหว่าง 2 สถานะใด ๆ เช่นสถานะเริ่มต้นและสถานะสิ้นสุดในกระบวนการทางควอนตัม
+
+- Nonadiabatic Coupling
+- Electron transfer Coupling
+
+%--------------------------
+\section{การทำนายสเปคตรัม}
+%--------------------------
