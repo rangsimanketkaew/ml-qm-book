@@ -50,28 +50,65 @@ Exchange-Correlation (XC) Functional ที่มันมีความ Univer
 ของโมเลกุลอย่างเห็นได้ชัด
 
 \begin{table}[!htp]
+    \label{tab:qm_complx}
     \centering
-    \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\cite{rupp2015}}
+    \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\cite{rupp2015} โดย $N$ คือจำนวนของอิเล็กตรอน}
+    \small
     \begin{tabular}{lll}\toprule
     ตัวย่อ &วิธี &Runtime \\\midrule
-    FCI &Full Configuration Interaction (CISDTQ) &$\mathcal(O)(N^{10})$ \\
-    CC &Coupled Cluster (CCSD(T)) &$\mathcal(O)(N^{7})$ \\
-    FCI &Full Configuration Interaction (CISD) &$\mathcal(O)(N^{6})$ \\
-    MP2 &M$\o$llor-Plesset second order perturbation theory &$\mathcal(O)(N^{5})$ \\
-    QMC &Quantum Monte Carlo &$\mathcal(O)(N^{3}) - \mathcal(O)(N^{4})$ \\
-    HF &Hartree-Fock &$\mathcal(O)(N^{3}) - \mathcal(O)(N^{4})$ \\
-    DFT &Density Functional Theory (Kohn-Sham) &$\mathcal(O)(N^{3})$ \\
-    TB &Tight Binding &$\mathcal(O)(N^{3})$ \\
-    MM &Molecular Mechanics &$\mathcal(O)(N^{2})$ \\
+    FCI &Full Configuration Interaction (CISDTQ) &$\mathcal{O}(N^{10})$ \\
+    CC &Coupled Cluster (CCSD(T)) &$\mathcal{O}(N^{7})$ \\
+    FCI &Full Configuration Interaction (CISD) &$\mathcal{O}(N^{6})$ \\
+    MP2 &M$\o$llor-Plesset second order perturbation theory &$\mathcal{O}(N^{5})$ \\
+    QMC &Quantum Monte Carlo &$\mathcal{O}(N^{3}) - \mathcal{O}(N^{4})$ \\
+    HF &Hartree-Fock &$\mathcal{O}(N^{3}) - \mathcal{O}(N^{4})$ \\
+    DFT &Density Functional Theory (Kohn-Sham) &$\mathcal{O}(N^{3})$ \\
+    TB &Tight Binding &$\mathcal{O}(N^{3})$ \\
+    MM &Molecular Mechanics &$\mathcal{O}(N^{2})$ \\
     \bottomrule
     \end{tabular}
 \end{table}
+
+ตารางที่ \ref{tab:qm_complx} แสดงค่าความซับซ้อนของการคำนวณของแต่ละวิธี โดยจะเห็นได้ว่าวิธี DFT นั้นมีความซับซ้อนคือ $\mathcal{O}(N^{3})$ 
+นั่นคือมันเป็นสัดส่วนโดยตรงกับจำนวนของอิเล็กตรอนของระบบ ($N$) ยกกำลังสาม ซึ่งมาจากการที่เราจะต้องทำการ Diagonalize Hamiltonian 
+ซึ่งความซับซ้อนของ Diagonalization สำหรับเมทริกซ์จตุรัสขนาด $n \times n$ คือ $\mathcal{O}(n^{3})$
+
+\begin{adjustwidth}{-2.5 cm}{-2.5 cm}
+    \label{tab:ml_complx}
+    \centering
+    \begin{threeparttable}[!htb]
+    \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\cite{zotero-328} โดย $n$ คือจำนวนของข้อมูล $p$ คือจำนวน Feature
+    $n_{trees}$ คือจำนวนของต้นไม้ (Trees) $n_{sv}$ คือจำนวนของ Support Vectors $n_{L_{i}}$ คือจำนวนของ Neuron หรือ Node ของชั้นที่ $i$
+    และ $t$ คือจำนวนของ Epochs ที่ใช้ในการเทรน Model}
+    \small
+    \begin{tabular}{lll}\toprule
+    \multirow{2}{*}{อัลกอริทึม} &\multicolumn{2}{c}{Runtime} \\\cmidrule{2-3}
+    &การเทรน Model &การทำนาย Output \\\midrule
+    Decision Tree &$\mathcal{O}(n^{2}p)$ &$\mathcal{O}(p)$ \\
+    Random Forest &$\mathcal{O}(n^{2}pn_{trees})$ &$\mathcal{O}(pn_{trees})$ \\
+    Gradient Boosting (n\_{trees}) &$\mathcal{O}(npn_{trees})$ &$\mathcal{O}(pn_{trees})$ \\
+    Linear Regression &$\mathcal{O}(p^{2}n+p^{3})$ &$\mathcal{O}(p)$ \\
+    SVM (Kernel) &$\mathcal{O}(n^{2}p+n^{3})$ &$\mathcal{O}(n_{sv}p)$ \\
+    Neural Network &$\mathcal{O}(npt*(n_{L_{1}}n_{L_{2}}+ n_{L_{2}}n_{L_{3}} + \dots)$ &$\mathcal{O}(pn_{L_{1}}+n_{L_{1}}n_{L_{2}}+ \dots)$ \\
+    \bottomrule
+    \end{tabular}
+\end{threeparttable}\end{adjustwidth}
+
+ตารางที่ \ref{tab:ml_complx} แสดงค่าความซับซ้อนของการคำนวณของอัลกอริทึม ML แบบต่าง ๆ เช่นเดียวกับตารางก่อนหน้านี้ 
+โดยอัลกอธิทึมที่แสดงนั้นถูกใช้กับโจทย์ปัญหา Classification และ Regression (ยกเว้น Linear Regression ที่ใช้สำหรับ Regression เท่านั้น)
+จะเห็นได้ว่าความซับซ้อนของวิธี ML นั้นจะขึ้นอยู่กับจำนวนของข้อมูลและจำนวน Feature ของของข้อมูลแต่ละตัวเป็นหลัก ยกเว้นกรณีของการเรียนรู้เชิงลึก 
+หรือ Neural Network (NN) เท่านั้นที่ความซับซ้อนของมันจะขึ้นอยู่กับจำนวนรอบที่ใช้ในการฝึกสอน (เทรน) Model และจำนวนชั้นของ Network
+
+ถ้าหากเปรียบเทียบแล้วจะพบว่าวิธี ML นั้นมีความซับซ้อนน้อยกว่าวิธี QM อย่างมีนัยสำคัญ อย่างน้อย ๆ ก็ในระดับหลายเท่าตัว และยิ่งไปกว่านั้น
+ความซับซ้อนเชิงการคำนวณในการทำนายค่า Output ของ Model ที่ผ่านการฝึกสอนมาแล้วนั้นต่ำมาก ซึ่งโดยส่วนใหญ่แล้วจะอยู่ในรูปของผลคูณเชิงเส้นแบบดีกรี 1 
+ระหว่างจำนวนของข้อมูลกับจำนวนของ Feature นี่จึงเป็นเหตุผลที่ทำให้งานวิจัยทางด้านเคมี โดยเฉพาะด้าน QM ในช่วงระยะเวลา 10 ปีที่ผ่านมานั้น 
+นักวิจัยเริ่มให้ความสนใจในการประยุกต์ใช้ ML เพื่อมาใช้ในการสร้าง Model สำหรับประมาณค่าหรือทำนายค่าต่าง ๆ ทางควอนตัม นั่นก็เพราะ ML เป็นวิธีที่สิ้นเปลืองน้อยกว่า
 
 %--------------------------
 \section{เริ่มต้นศึกษา ML}
 %--------------------------
 
-การมีความรู้พื้นฐานก่อนเริ่มศึกษา ML อย่างจริงจังนั้นมันเป็นสิ่งสำคัญ ผู้เขียนได้สรุป 5 สิ่งสำคัญที่ควรจะต้องรู้
+การมีความรู้พื้นฐานก่อนเริ่มศึกษา ML อย่างจริงจังนั้นมันเป็นสิ่งสำคัญ ผู้เขียนได้สรุป 5 สิ่งสำคัญที่ควรจะต้องรู้ 
 
 \begin{enumerate}
     \item \textbf{พีชคณิตเชิงเส้นและแคลคูลัสแบบหลายตัวแปร} : ทั้งสองวิชานี้ถือว่าเป็นรากฐานของ ML เลยก็ว่าได้ 
@@ -103,9 +140,9 @@ Exchange-Correlation (XC) Functional ที่มันมีความ Univer
     \item[Classification] การจำแนกข้อมูลหรือการทำนายค่าที่มีความไม่ต่อเนื่อง เช่น ประเภทของยานพาหนะ ชนิดของผลไม้
     \item[Data set หรือ Dataset] ชุดข้อมูลที่ได้เตรียมไว้ ประกอบไปด้วยข้อมูล input และ/หรือ output
     \item[Descriptor] Vector ของข้อมูล เช่น Feature vector
-    \item[Features/Attribute/Representation] คุณลักษณะเด่นของข้อมูล
+    \item[Features / Attribute / Representation] คุณลักษณะเด่นของข้อมูล
     \item[Model]  ชุดคำสั่งหรือโปรแกรมที่ถูกสร้างขึ้นมาโดยมีความสามารถในการคำนวณ ประมวลผลและตัดสินใจ
-    \item[Target/Class/Label/Output] คำตอบหรือเป้าหมายที่ต้องการคำนวณ ประมาณค่า หรือทำนาย
+    \item[Target / Class / Label / Output] คำตอบหรือเป้าหมายที่ต้องการคำนวณ ประมาณค่า หรือทำนาย
     \item[Training] กระบวนการสร้างและฝึกสอน Model โดยใช้ Training set 
     \item[Prediction] กระบวนการทำนายค่าของ Model โดยจะทำนายค่า Output ของข้อมูลใหม่ที่ถูกป้อนเข้าไป
     \item[Regression]  การทำนายค่าที่มีความต่อเนื่อง เช่น ราคาสินค้า ปริมาณน้ำมัน
