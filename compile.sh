@@ -6,7 +6,8 @@
 
 BASE="${1%.*}"
 
-OPT="-synctex=1 -interaction=nonstopmode -file-line-error -pdf"
+OPT="-synctex=1 -interaction=batchmode -file-line-error"
+# for printing warnings use -interaction=nonstopmode instead
 
 xelatex $OPT $BASE.tex
 if [ $? -ne 0 ]; then
