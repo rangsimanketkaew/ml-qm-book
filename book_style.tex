@@ -4,7 +4,7 @@
 % License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
 % https://creativecommons.org/licenses/by-nc-nd/4.0/
 
-\documentclass[a4paper,12pt]{book}
+\documentclass[a4paper,12pt,twoside]{book}
 \usepackage[
     width=5.5in,
     height=8.5in,
@@ -21,6 +21,8 @@
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{booktabs}  % For nicely typeset tabular material
+\usepackage{multirow}  % For multple rows table
+\usepackage{changepage,threeparttable}  % For wide tables
 
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -35,6 +37,8 @@
 \usepackage{appendix}
 \usepackage[bookmarks]{hyperref}
 \usepackage{indentfirst}
+\usepackage{caption}
+\captionsetup{labelsep=space,justification=justified,singlelinecheck=off}
 
 \usepackage{imakeidx}
 \makeindex
