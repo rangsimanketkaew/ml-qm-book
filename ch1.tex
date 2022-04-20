@@ -50,9 +50,9 @@ Exchange-Correlation (XC) Functional ที่มันมีความ Univer
 ของโมเลกุลอย่างเห็นได้ชัด
 
 \begin{table}[!htp]
-    \label{tab:qm_complx}
     \centering
     \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\cite{rupp2015} โดย $N$ คือจำนวนของอิเล็กตรอน}
+    \label{tab:qm_complx}
     \small
     \begin{tabular}{lll}\toprule
     ตัวย่อ &วิธี &Runtime \\\midrule
@@ -74,12 +74,12 @@ Exchange-Correlation (XC) Functional ที่มันมีความ Univer
 ซึ่งความซับซ้อนของ Diagonalization สำหรับเมทริกซ์จตุรัสขนาด $n \times n$ คือ $\mathcal{O}(n^{3})$
 
 \begin{adjustwidth}{-2.5 cm}{-2.5 cm}
-    \label{tab:ml_complx}
     \centering
     \begin{threeparttable}[!htb]
     \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\cite{zotero-328} โดย $n$ คือจำนวนของข้อมูล $p$ คือจำนวน Feature
     $n_{trees}$ คือจำนวนของต้นไม้ (Trees) $n_{sv}$ คือจำนวนของ Support Vectors $n_{L_{i}}$ คือจำนวนของ Neuron หรือ Node ของชั้นที่ $i$
     และ $t$ คือจำนวนของ Epochs ที่ใช้ในการเทรน Model}
+    \label{tab:ml_complx}
     \small
     \begin{tabular}{lll}\toprule
     \multirow{2}{*}{อัลกอริทึม} &\multicolumn{2}{c}{Runtime} \\\cmidrule{2-3}
@@ -92,7 +92,8 @@ Exchange-Correlation (XC) Functional ที่มันมีความ Univer
     Neural Network &$\mathcal{O}(npt*(n_{L_{1}}n_{L_{2}}+ n_{L_{2}}n_{L_{3}} + \dots)$ &$\mathcal{O}(pn_{L_{1}}+n_{L_{1}}n_{L_{2}}+ \dots)$ \\
     \bottomrule
     \end{tabular}
-\end{threeparttable}\end{adjustwidth}
+\end{threeparttable}
+\end{adjustwidth}
 
 ตารางที่ \ref{tab:ml_complx} แสดงค่าความซับซ้อนของการคำนวณของอัลกอริทึม ML แบบต่าง ๆ เช่นเดียวกับตารางก่อนหน้านี้ 
 โดยอัลกอธิทึมที่แสดงนั้นถูกใช้กับโจทย์ปัญหา Classification และ Regression (ยกเว้น Linear Regression ที่ใช้สำหรับ Regression เท่านั้น)
@@ -138,15 +139,16 @@ Exchange-Correlation (XC) Functional ที่มันมีความ Univer
 \begin{description}[style=nextline]
     \item[Algorithm] วิธีหรือขั้นตอนกระบวนการคิดคำนวณทางคณิตศาสตร์เพื่อให้ได้ผลลัพธ์ออกมา
     \item[Classification] การจำแนกข้อมูลหรือการทำนายค่าที่มีความไม่ต่อเนื่อง เช่น ประเภทของยานพาหนะ ชนิดของผลไม้
-    \item[Data set หรือ Dataset] ชุดข้อมูลที่ได้เตรียมไว้ ประกอบไปด้วยข้อมูล input และ/หรือ output
+    \item[Data set หรือ Dataset] ชุดข้อมูลที่ได้เตรียมไว้ ประกอบไปด้วยข้อมูล Input และ/หรือ Output
     \item[Descriptor] Vector ของข้อมูล เช่น Feature vector
-    \item[Features / Attribute / Representation] คุณลักษณะเด่นของข้อมูล
+    \item[Features / Attribute] คุณลักษณะเด่นของข้อมูล
     \item[Model]  ชุดคำสั่งหรือโปรแกรมที่ถูกสร้างขึ้นมาโดยมีความสามารถในการคำนวณ ประมวลผลและตัดสินใจ
     \item[Target / Class / Label / Output] คำตอบหรือเป้าหมายที่ต้องการคำนวณ ประมาณค่า หรือทำนาย
     \item[Training] กระบวนการสร้างและฝึกสอน Model โดยใช้ Training set 
     \item[Prediction] กระบวนการทำนายค่าของ Model โดยจะทำนายค่า Output ของข้อมูลใหม่ที่ถูกป้อนเข้าไป
     \item[Regression]  การทำนายค่าที่มีความต่อเนื่อง เช่น ราคาสินค้า ปริมาณน้ำมัน
     \item[Reinforment learning] การเรียนรู้แบบเสริมแรง 
+    \item[Representation] Descriptor ของโมเลกุลในรูปแบบสัญลักษณ์ (Symbolic) เช่น SMILES, InChI, สูตรโมเลกุล
     \item[Supervised learning] การเรียนรู้ของ Model แบบมีผู้สอน (Output)
     \item[Test set] ชุดข้อมูลที่ใช้ทดสอบความถูกต้องและแม่นยำของ Model
     \item[Training set] ชุดข้อมูลที่นำมาใช้ในการสอนคอมพิวเตอร์เพื่อสร้าง Model
