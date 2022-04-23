@@ -81,16 +81,21 @@
 \include{ch12}
 
 \begin{appendices}
+\renewcommand{\thesection}{\arabic{section}} % remove chapter number
+\fancyhead[RE,LO]{\textbf{ภาคผนวก}}
 \include{ap1}
 \include{ap2}
 \end{appendices}
 
 \backmatter
 
+\begin{@empty}
 \chapter*{บรรณานุกรม}
+\fancyhead[RE,LO]{\textbf{บรรณานุกรม}}
 \addcontentsline{toc}{chapter}{บรรณานุกรม}
 
 \printbibliography[heading=none]
+\end{@empty}
 
 \printindex[th]
 \addcontentsline{toc}{chapter}{ดรรชนีภาษาไทย}
