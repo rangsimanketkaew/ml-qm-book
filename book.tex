@@ -53,12 +53,15 @@
 \include{preface} 
 
 % Contents
-\tableofcontents\label{cha:toc}
+\pagestyle{empty} % make sure that no header on TOC pages
+\tableofcontents
 % \listoffigures
 % \listoftables
 
 % Quote
 \include{quote}
+
+\pagestyle{fancy} % Add header from this page on
 
 \mainmatter
 

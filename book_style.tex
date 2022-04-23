@@ -37,7 +37,7 @@
 
 % Table of Contents
 \usepackage{tocloft}
-\renewcommand{\contentsname}{\bfseries\huge สารบัญ}
+\renewcommand{\contentsname}{\hspace*{\fill}\bfseries\huge สารบัญ\hspace*{\fill}}
 \setcounter{tocdepth}{1} % Level of TOC
 \renewcommand\cftchapafterpnum{\vskip10pt}
 \renewcommand\cftsecafterpnum{\vskip10pt}
@@ -45,7 +45,6 @@
 
 % Header
 \usepackage{fancyhdr}
-\pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LE,RO]{\textbf{\thepage}}
 \fancyhead[RE,LO]{\textbf{\leftmark}}
