@@ -33,9 +33,7 @@
 \usepackage{csquotes}
 \usepackage{enumitem}
 \usepackage{hyphenat}
-\usepackage{appendix}
 \usepackage[bookmarks]{hyperref}
-\usepackage{indentfirst}
 
 % Table of Contents
 \usepackage{tocloft}
@@ -56,8 +54,14 @@
 \renewcommand\thepart{\arabic{part}}
 
 % Chapter
-\renewcommand{\chaptername}{บทที่}
 \renewcommand{\partname}{ส่วนที่}
+\renewcommand{\chaptername}{บทที่}
+
+% Appendix
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixname}{ภาคผนวก}
+\renewcommand{\appendixtocname}{ภาคผนวก}
+\renewcommand{\appendixpagename}{ภาคผนวก}
 
 % Figure & Table Captions
 \usepackage{caption}
@@ -66,14 +70,15 @@
 \captionsetup[table]{name={ตาราง}}
 
 % Paragraph
+\usepackage{indentfirst}
 \setlength{\parindent}{2em}
 \setlength{\parskip}{1em}
 
 % Indices
 \usepackage{imakeidx}
 \makeindex
-\makeindex[name=th,title={Index ภาษาไทย}]
-\makeindex[name=en,title={Index ภาษาอังกฤษ}]
+\makeindex[name=th,title={ดรรชนีภาษาไทย}]
+\makeindex[name=en,title={ดรรชนีภาษาอังกฤษ}]
 \newcommand{\idxth}[1]{\index[th]{#1}}
 \newcommand{\idxen}[1]{\index[en]{#1}}
 \newcommand{\idxboth}[2]{\index[th]{#1}\index[en]{#2}}
