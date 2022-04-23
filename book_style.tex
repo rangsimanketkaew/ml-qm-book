@@ -18,7 +18,6 @@
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{url}
-\usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{booktabs}  % For nicely typeset tabular material
 \usepackage{multirow}  % For multple rows table
@@ -37,11 +36,40 @@
 \usepackage{appendix}
 \usepackage[bookmarks]{hyperref}
 \usepackage{indentfirst}
+
+% Table of Contents
+\usepackage{tocloft}
+\renewcommand{\contentsname}{\bfseries\huge สารบัญ}
+\setcounter{tocdepth}{1} % Level of TOC
+\renewcommand\cftchapafterpnum{\vskip10pt}
+\renewcommand\cftsecafterpnum{\vskip10pt}
+\renewcommand\cftsubsecafterpnum{\vskip10pt}
+
+% Header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\textbf{\thepage}}
+\fancyhead[RE,LO]{\textbf{\leftmark}}
+
+% Part
+\renewcommand\thepart{\arabic{part}}
+
+% Chapter
+\renewcommand{\chaptername}{บทที่}
+\renewcommand{\partname}{ส่วนที่}
+
+% Figure & Table Captions
 \usepackage{caption}
 \captionsetup{labelsep=space,justification=centering,singlelinecheck=off}
 \captionsetup[figure]{name={ภาพ}}
 \captionsetup[table]{name={ตาราง}}
 
+% Paragraph
+\setlength{\parindent}{2em}
+\setlength{\parskip}{1em}
+
+% Indices
 \usepackage{imakeidx}
 \makeindex
 \makeindex[name=th,title={Index ภาษาไทย}]
@@ -90,6 +118,7 @@
 
 %----------------------------------------------------
 
+% Bibliography
 \usepackage[
   backend=bibtex,
   autocite=superscript,
@@ -103,6 +132,3 @@
   backref=true
 ]{biblatex}
 \addbibresource{references.bib}
-
-\setlength{\parindent}{2em}
-\setlength{\parskip}{1em}
