@@ -44,6 +44,11 @@
 
 \usepackage{imakeidx}
 \makeindex
+\makeindex[name=th,title={Index ภาษาไทย}]
+\makeindex[name=en,title={Index ภาษาอังกฤษ}]
+\newcommand{\idxth}[1]{\index[th]{#1}}
+\newcommand{\idxen}[1]{\index[en]{#1}}
+\newcommand{\idxboth}[2]{\index[th]{#1}\index[en]{#2}}
 
 %----------------------------------------------------
 
