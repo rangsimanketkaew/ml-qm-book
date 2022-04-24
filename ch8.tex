@@ -248,33 +248,33 @@ Cutoff ขึ้นมาก่อน ดังนี้
 
 นอกจากนี้ยังมี Representation อื่น ๆ ที่คล้ายกับ ACSF นั่นคือถูกพัฒนาขึ้นมาด้วยไอเดีย Symmetry Function เหมือนกัน เช่น 
 Spectrum of London and Axilrod-Teller-Muto (SLATM) ซึ่งถูกใช้อย่างแพร่พลายเหมือนกันแต่จะนิยมใช้กับ KRR มากกว่า\cite{faber2018} 
-แล้วก็ยังมีการใช้ Polynomial functions ของส่วนกลับของระยะห่างระหว่างอะตอมด้วย\cite{musil2021}
+แล้วก็ยังมีการใช้ Polynomial functions ของส่วนกลับของระยะห่างระหว่างอะตอมด้วย\cite{kwac2019,musil2021}
 
 %--------------------------
 \subsection{Gaussian-type Orbital-based Density Vectors}
 %--------------------------
 
+Gaussian-type Orbital-based Density Vector (เรียกสั้น ๆ ว่า GTB-based Density Vector) เป็น Representation 
+อีกอันหนึ่งที่ใช้หลักการของ Molecular/Atomic Orbitals ซึ่งถูกพัฒนาขึ้นมาเพื่อให้เป็นอีกทางเลือกหนึ่งนอกเหนือจาก ACSF และ 
+Symmstric Polynomial Function\cite{kwac2021} โดยสมการที่ใช้คำนวณ GTO-based Density Vector คือ
 \idxen{Representation!Gaussian-type Orbital-based Density Vectors}
-% Gaussian-type Orbital (GTO)-based Density Vector is a descriptor function alternative to 
-% the ACSF and symmetric polynomial function.\cite{kwac2021} The GTO-based density vector is given by
 
-% \begin{equation}
-%     \rho^{i}_{L,\alpha,r_{s}} = \sum^{l_{x}+l_{y}+l_{z} = L}_{l_{x},l_{y},l_{z}} 
-%     \frac{L!}{l_{x}!l_{y}!l_{z}!} \left ( \sum^{n_{type}}_{t=1} c_{t} \sum^{N^{t}_{atom}}_{j=1} 
-%     \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) \right )
-% \end{equation}
+\begin{equation}
+    \rho^{i}_{L,\alpha,r_{s}} = \sum^{l_{x}+l_{y}+l_{z} = L}_{l_{x},l_{y},l_{z}} 
+    \frac{L!}{l_{x}!l_{y}!l_{z}!} \left ( \sum^{n_{type}}_{t=1} c_{t} \sum^{N^{t}_{atom}}_{j=1} 
+    \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) \right )
+\end{equation}
 
-% \noindent where $l_{x}+l_{y}+l_{z} = L$ specifies the orbital angular momentum, $n_{type}$ is the atomic type 
-% in the molecule under study, $c_{t}$ is the type-dependent weight, $N^{t}_{atom}$ is the number of atoms of 
-% the type $t$, and $\phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (r_{ij})$ is the Gaussian orbital centered at 
-% each atom with the parameters $\alpha$ and $r_{s}$ which determine the radial distributions of orbital functions, 
-% given as
+\noindent โดยกำหนดให้ $l_{x}+l_{y}+l_{z} = L$ เป็นเลข Angular Momentum ของออบิทัล, $n_{type}$ ชนิดของอะตอมในโมเลกุลที่ศึกษา, 
+$c_{t}$ เป็นค่าถ่วงน้ำหนักที่ขึ้นกับชนิดของอะตอม (The Type-dependent Weight), $N^{t}_{atom}$ คือจำนวนอะตอมของชนิดนั้น ๆ
+และ $\phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (r_{ij})$ เป็นออบิทัลแบบเกาส์เซียนของแต่ละอะตอม นอกจากนี้ยังมีการกำหนด 
+Parameter เพิ่มเติมคือ $\alpha$ และ $r_{s}$ ซึ่งเป็นตัวกำหนดฟังก์ชันออบิทัลของ Radial Distribution
 
-% \begin{equation}
-%     \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) = x^{l_{x}}y^{l_{y}}z^{l_{z}} e^{-\alpha 
-%     |r-r_{s}|^{2}}
-% \end{equation}
+\begin{equation}
+    \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) = x^{l_{x}}y^{l_{y}}z^{l_{z}} e^{-\alpha 
+    |r-r_{s}|^{2}}
+\end{equation}
 
-% \noindent where $\boldsymbol{r}_{ij} = (x,y,z)$ indicates the vector from nuclei $i$ to nuclei $j$ and $r$ 
-% is the magnitude of $\boldsymbol{r}_{ij}$. GTOs with $L=0,1$ are usually considered for constructing 
-% the density vectors for small organic molecules containing light atoms such as C, H, O, and N.\cite{kwac2021}
+\noindent โดยกำหนดให้ $\boldsymbol{r}_{ij} = (x,y,z)$ แสดงถึงเวกเตอร์จากอะตอม $i$ ไปยังอะตอม $j$ และ $r$ 
+เป็นขนาด (Magnitude) ของ $\boldsymbol{r}_{ij}$ โดยทั่วไปแล้วเรามักจะกำหนดให้ค่า $L=0,1$ สำหรับการสร้าง Density Vector ด้วย GTO
+สำหรับโมเลกุลขนาดเล็ก เช่น โมเลกุลเคมีอินทรีย์ที่ประกอบไปด้วยอะตอมขนาดเล็ก เช่น คาร์บอน, ไฮโดรเจน, ออกซิเจน, และไนโตรเจน\cite{kwac2021}
