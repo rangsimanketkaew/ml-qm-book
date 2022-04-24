@@ -11,6 +11,7 @@
 (Special Attributes) นอกจากนี้เราสามารถตีความได้ว่า Feature นั้นจริง ๆ แล้วก็คือเป็นตัวแทนของสิ่งที่เราสนใจอีกด้วย ซึ่งในบริบททางเคมีนั้น
 สิ่งที่เป็นคัสแทนของโมเลกุลนั้นเราเรียกว่า Molecular Representation (จริง ๆ แล้ว Feature กับ Representation ก็ไม่ได้มีความหมายเหมือนกันเสียทีเดียว
 ขึ้นอยู่กับประเภทของข้อมูลที่ใช้เป็น Feature แต่ผู้เขียนจะขออนุญาตใช้ Representation เพราะว่าให้ความหมายที่สื่อการเป็นตัวแทนของโมเลกุลที่เราสนใจได้ดีกว่า)\cite{stepisnik2021}
+\idxen{Representation}
 
 คำถามที่ตามมาก็คือแล้ว Molecular Representation มีความสำคัญมากไหม และมีความสำคัญอย่างไร คำตอบก็คือมีความสำคัญและสำคัญมากด้วย 
 อาจจะกล่าวได้ว่าสำคัญที่สุดเลยก็ว่าได้ เพราะ Representation ก็คือ Input ที่เรานำมาใช้สร้าง Model นั่นเอง ดังนั้นมันจึงเป็นปัจจัยหลักที่กำหนดประสิทธิภาพของ Model นั่นเอง 
@@ -42,6 +43,7 @@ Representation ที่ไม่มี Correlation กับ Output ที่�
 %--------------------------
 \section{ลักษณะเฉพาะเชิงโครงสร้างแบบทั่วไป}
 %--------------------------
+\idxen{Representation!Structural Representation}
 
 %--------------------------
 \subsection{Internal Coordinates}
@@ -53,6 +55,7 @@ Internal Coordinates สามารถอธิบายได้ทั้ง�
 มุมพันธะ (Bond Angle) และมุมบิดเบี้ยว (Dihedral Angle หรือ Torsion) ซึ่งจำนวนของอะตอมที่ถูกเลือกมาคำนวณ Internal Coordinates 
 นั้นมักจะเป็นอะตอมที่เรียงกันอยู่หรืออยู่ใกล้กัน อย่างไรก็ตาม เราสามารถคำนวณหา Internal Coordinates ของโมเลกุลได้โดยพิจารณาอะตอมทุก ๆ คู่
 หรือทุกความเป็นไปได้ทั้งหมดภายในโมเลกุล
+\idxen{Representation!Internal Coordinates}
 
 %--------------------------
 \subsection{Geometric Descriptors}
@@ -64,6 +67,7 @@ Geometric Descriptors (ลักษณะเฉพาะเชิงเรขา
 นั่นก็เพราะว่าความสามารถในการกักเก็บข้อมูลเชิงอิเล็กทรอนิกส์นั้นน้อยมากเมื่อเทียบกับ Representation ประเภทที่เป็นแบบเชิงอะตอมหรือ Atom-wise Descriptor 
 และยังมีโมเลกุลบางประเภทที่ Geometric Descriptors ไม่สามารถนำไปใช้ได้ อย่างเช่นโมเลกุลไอโซเมอร์ เช่น cis/trans สเตอริโอไอโซเมอร์
 ดังนั้น Representation ประเภทนี้จึงไม่เป็นที่นิยมในการนำมาเทรน Model ML ในงานวิจัยทางด้านเคมีควอนตัม\cite{keith2021,musil2021}
+\idxen{Representation!Geometric Descriptors}
 
 %--------------------------
 \section{ลักษณะเฉพาะเชิงโครงสร้างสำหรับโมเลกุล}
@@ -86,6 +90,7 @@ Inverse Distance Matrix (เมทริกซ์ของส่วนกลั�
 
 เมื่อเราคำนวณออกมาเป็นเมทริกซ์ขนาด $i \times j$ แล้ว เราจะพบว่าสมาชิกของเมทริกซ์ในแนวทแยง (Diagonal Elements) นั้นจะไม่มีความหมาย 
 ดังนั้นเราจึงสนใจเฉพาะสมาชิกนอกแนวทแยง (Off-diagonal Elements)
+\idxen{Representation!Inverse Distance Matrix}
 
 %--------------------------
 \subsection{Coulomb Matrix}
@@ -120,6 +125,7 @@ Coulomb Matrix (เมทริกซ์คูลอมบ์) เป็น Repr
 Permutation-Invariant Polynomials (PIP)\cite{braams2009}, Randomly Sorted Coulomb Matrices (RSCM)\cite{hansen2013}, 
 Bag of Bonds (BoB)\cite{hansen2013}, และ Permutation Invariant Vectors (PIV)\cite{gallet2013} 
 โดย Representation เหล่านี้ได้แก้ปัญหาเกี่ยวลำดับของอะตอม ทำให้ Representation ประเภทนี้มีประสิทธิภาพมากขึ้นและลด Bias ที่อาจจะเกิดขึ้นด้วย
+\idxen{Representation!Coulomb Matrix}
 
 %--------------------------
 \section{ลักษณะเฉพาะเชิงอิเล็กทรอนิกส์สำหรับอะตอม}
@@ -166,54 +172,109 @@ Representation ที่เป็นประเภทเชิงอิเล�
 (Complex Conjugate) ตามลำดับ\cite{de2016} เนื่องจากว่ารายละเอียดในการพิสูจน์สมการ Kernel ของ SOAP นั้นมีความซับซ้อนมาก
 ผู้อ่านสามารถศึกษาเพิ่มเติมได้ที่บทความต้นฉบับ ส่วนรายละเอียดในการคำนวณหรือการเขียนโปรแกรมสำหรับคำนวณ SOAP นั้นสามารถดูได้ที่
 \url{https://singroup.github.io/dscribe/latest/tutorials/descriptors/soap.html}
+\idxen{Representation!Smooth Overlap of Atomic Positions}
 
 %--------------------------
 \subsection{Atom-centered Symmetry Functions}
 %--------------------------
 
-Atom-centered Symmetry Functions (ACSF) generalize the output of multiple two- and three-body functions 
-to estimate the local electronic environment near atoms using a fingerprint method that can be customized 
-to detect specific structural features for symmetric functions.\cite{behler2011} Radial symmetric functions 
-for the central atom $i$ with neighboring atom $j$ are given as follows:
+Representation ลำดับถัดมาคือ Atom-centered Symmetry Functions (ACSF) เป็นวิธีที่ทำการสร้างผลลัพธ์หรือคำตอบจากฟังก์ชันหลายวัตถุ
+(Many-body Functions) อีกทีหนึ่งเพื่อทำการประมาณค่า Electronic Environment รอบ ๆ อะตอมที่เราสนใจในโมเลกุล
+ซึ่ง ACSF นี้ได้ถูกพัฒนาโดย J{\"o}rg Behler ซึ่งตีพิมพ์ในปี ค.ศ. 2011\cite{behler2011} โดยถูกออกแบบเพื่อนำมาใช้กับ Neuranl Network
+\idxen{Representation!Atom-centered Symmetry Functions}
+
+ไอเดียของ ACSF ก็คือจะเป็นการแปลง (Transformation) พิกัดคาร์ทีเชียนให้เป็น Symmetry Function โดยจะมีการกำหนดฟังก์ชันสำหรับ 
+Cutoff ขึ้นมาก่อน ดังนี้
 
 \begin{equation}
-    G^{radial}_{i} = \sum^{N_{atom}}_{j \neq i} e^{\eta (\boldsymbol{r}_{ij} - \mu)^{2}} f_{c}(\boldsymbol{r}_{ij})
+    \label{eq:acsf_cutoff}
+    f_{c}(R_{ij}) = 
+    \begin{cases}
+        \frac{1}{2}[\cos(\frac{\pi R_{ij}}{R_{c}}) + 1], & R_{ij} \le R_{c} \\
+        0,                                             & R_{ij} \ge R_{c}
+    \end{cases}
 \end{equation}
 
-\noindent where $\eta$ and $\mu$ are the parameters controlling the width and the position of 
-the Gaussian function. $f_{c}$ is a cutoff function that selects the relevant regions close to 
-the central nucleus to be encoded into the ACSF and $\boldsymbol{r}_{ij}$ is the displacement between 
-the atoms $i$ and $j$. Angular symmetric functions have been defined.\cite{behler2011} 
-Moreover, an input required to ACSFs is fine-tuning of internal parameters that can be properly used 
-to define the Gaussian function. A similar representation to ACSFs is the Spectrum of London and 
-Axilrod-Teller-Muto (SLATM), which has been recently used in the literature, but mostly for 
-kernel ridge regression (KRR) models.\cite{faber2018} Polynomial functions of the inverse of 
-the interatomic distances have also been suggested but are not discussed in this review.\cite{musil2021}
+\noindent โดยที่ $R_{ij}$ คือระยะห่างระหว่างอะตอมท $i$ กับ $j$ และ $R_{c}$ คือค่า Cutoff
+
+สำหรับ Symmetry Function ทั้งหมดที่เราสามารถนำมาคำนวณออกมาเป็น Descriptor ได้นั้นจะมีประเภทนั่นคือฟังก์ชันแบบสองวัตถุ
+(Two-body Function) และฟังก์ชันแบบสามวัตถุ (Three-body Function) นั่นก็คือฟังก์ชันเชิงรัศมี (Radial Function) และฟังก์ชันเชิงมุม 
+(Angular Function) ตามลำดับ โดยเรามาดูกันที่ Radial Function ก่อน ซึ่งจะมีด้วยกัน 3 แบบย่อย ดังนี้
+
+\begin{equation}
+    G^{1}_{i} = \sum_{j} f_{c}(R_{ij})
+\end{equation}
+
+\begin{equation}
+    G^{2}_{i} = \sum_{j} e^{-\eta(R_{ij} - R_{s})^{2}} f_{c}(R_{ij})
+\end{equation}
+
+\begin{equation}
+    G^{3}_{i} = \sum_{j} \cos(\kappa R_{ij}) f_{c}(R_{ij})
+\end{equation}
+
+\noindent ซึ่ง $G^{1}_{i}$ ก็คือฟังก์ชันผลรวมของ Cutoff Function (\ref{eq:acsf_cutoff}), $G^{2}_{i}$ คือผลรวม Gaussian Function
+คูณด้วย Cutoff Function และ $G^{3}_{i}$ คือฟังก์ชัน Cosine ที่ถูกปรับการหน่วงโดยค่า Parameter $\kappa$ 
+
+นอกจากนี้ยังมี Angular Function อีกสองอันย่อยด้วยกัน ดังนี้
+
+\begin{align}
+    G^{4}_{i} = &2^{1 - \xi}\sum^{\text{all}}_{j,k \neq i} (1+\lambda \cos \theta_{ijk})^{\xi}
+    \cdot e^{-\eta(R^{2}_{ij} + R^{2}_{ik} + R^{2}_{jk})} \nonumber \\
+    & \cdot f_{c}(R_{ij}) \cdot f_{c}(R_{ik}) \cdot f_{c}(R_{jk})
+\end{align}
+
+\begin{align}
+    G^{5}_{i} = &2^{1 - \xi}\sum^{\text{all}}_{j,k \neq i} (1+\lambda \cos \theta_{ijk})^{\xi}
+    \cdot e^{-\eta(R^{2}_{ij} + R^{2}_{ik})} \nonumber \\
+    & \cdot f_{c}(R_{ij}) \cdot f_{c}(R_{ik}))
+\end{align}
+
+สำหรับการคำนวณหาแรง (Force) และเทนเซอร์แรงผลัก (Stress Tensor) สำหรับกรณีของ ACSF นั้นสามารถทำได้โดยใช้กฎลูกโซ่ (Chain Rule) 
+ซึ่งต้องการทำพิสูจน์จากสมการของพลังงานที่เกิดขึ้นจากการคำนวณใน Neural Network โดยสำหรับค่าพลังงานย่อยต่อหนึ่งหน่วย Neuron นั้นมีนิยามตามนี้
+
+\begin{equation}
+    \label{eq:acsf_sub_ener}
+    E_{\text{Neuron}} = f(w G + b) 
+\end{equation}
+
+\noindent โดยที่ $f$ คือฟังก์ชันกระตุ้น, $w$ คือ Weight Parameter, $b$ คือ Bias Parameter และ $G$ คือ Input ของ Neuron นั้น ๆ 
+ซึ่งก็คือ Symmetry Function ตามด้านบนที่ได้อธิบายไป โดยที่พลังงานรวมทั้งหมดของโมเลกุล (Total Energy, $E$) 
+สามารถคำนวณได้จากผลรวมของพลังงานย่อย ๆ ที่เกิดขึ้นจากแต่ละอะตอม (\ref{eq:acsf_sub_ener}) ซึ่งมีสมการง่าย ๆ ดังนี้
+
+\begin{equation}
+    E = \sum_{i} E_{i}
+\end{equation}
+
+นอกจากนี้ยังมี Representation อื่น ๆ ที่คล้ายกับ ACSF นั่นคือถูกพัฒนาขึ้นมาด้วยไอเดีย Symmetry Function เหมือนกัน เช่น 
+Spectrum of London and Axilrod-Teller-Muto (SLATM) ซึ่งถูกใช้อย่างแพร่พลายเหมือนกันแต่จะนิยมใช้กับ KRR มากกว่า\cite{faber2018} 
+แล้วก็ยังมีการใช้ Polynomial functions ของส่วนกลับของระยะห่างระหว่างอะตอมด้วย\cite{musil2021}
 
 %--------------------------
 \subsection{Gaussian-type Orbital-based Density Vectors}
 %--------------------------
 
-Gaussian-type Orbital (GTO)-based Density Vector is a descriptor function alternative to 
-the ACSF and symmetric polynomial function.\cite{kwac2021} The GTO-based density vector is given by
+\idxen{Representation!Gaussian-type Orbital-based Density Vectors}
+% Gaussian-type Orbital (GTO)-based Density Vector is a descriptor function alternative to 
+% the ACSF and symmetric polynomial function.\cite{kwac2021} The GTO-based density vector is given by
 
-\begin{equation}
-    \rho^{i}_{L,\alpha,r_{s}} = \sum^{l_{x}+l_{y}+l_{z} = L}_{l_{x},l_{y},l_{z}} 
-    \frac{L!}{l_{x}!l_{y}!l_{z}!} \left ( \sum^{n_{type}}_{t=1} c_{t} \sum^{N^{t}_{atom}}_{j=1} 
-    \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) \right )
-\end{equation}
+% \begin{equation}
+%     \rho^{i}_{L,\alpha,r_{s}} = \sum^{l_{x}+l_{y}+l_{z} = L}_{l_{x},l_{y},l_{z}} 
+%     \frac{L!}{l_{x}!l_{y}!l_{z}!} \left ( \sum^{n_{type}}_{t=1} c_{t} \sum^{N^{t}_{atom}}_{j=1} 
+%     \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) \right )
+% \end{equation}
 
-\noindent where $l_{x}+l_{y}+l_{z} = L$ specifies the orbital angular momentum, $n_{type}$ is the atomic type 
-in the molecule under study, $c_{t}$ is the type-dependent weight, $N^{t}_{atom}$ is the number of atoms of 
-the type $t$, and $\phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (r_{ij})$ is the Gaussian orbital centered at 
-each atom with the parameters $\alpha$ and $r_{s}$ which determine the radial distributions of orbital functions, 
-given as
+% \noindent where $l_{x}+l_{y}+l_{z} = L$ specifies the orbital angular momentum, $n_{type}$ is the atomic type 
+% in the molecule under study, $c_{t}$ is the type-dependent weight, $N^{t}_{atom}$ is the number of atoms of 
+% the type $t$, and $\phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (r_{ij})$ is the Gaussian orbital centered at 
+% each atom with the parameters $\alpha$ and $r_{s}$ which determine the radial distributions of orbital functions, 
+% given as
 
-\begin{equation}
-    \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) = x^{l_{x}}y^{l_{y}}z^{l_{z}} e^{-\alpha 
-    |r-r_{s}|^{2}}
-\end{equation}
+% \begin{equation}
+%     \phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (\boldsymbol{r}_{ij}) = x^{l_{x}}y^{l_{y}}z^{l_{z}} e^{-\alpha 
+%     |r-r_{s}|^{2}}
+% \end{equation}
 
-\noindent where $\boldsymbol{r}_{ij} = (x,y,z)$ indicates the vector from nuclei $i$ to nuclei $j$ and $r$ 
-is the magnitude of $\boldsymbol{r}_{ij}$. GTOs with $L=0,1$ are usually considered for constructing 
-the density vectors for small organic molecules containing light atoms such as C, H, O, and N.\cite{kwac2021}
+% \noindent where $\boldsymbol{r}_{ij} = (x,y,z)$ indicates the vector from nuclei $i$ to nuclei $j$ and $r$ 
+% is the magnitude of $\boldsymbol{r}_{ij}$. GTOs with $L=0,1$ are usually considered for constructing 
+% the density vectors for small organic molecules containing light atoms such as C, H, O, and N.\cite{kwac2021}
