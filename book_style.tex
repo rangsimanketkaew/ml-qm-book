@@ -39,7 +39,13 @@
 \usepackage{tocloft}
 \renewcommand{\contentsname}{\hspace*{\fill}\bfseries\huge สารบัญ\hspace*{\fill}}
 \setcounter{tocdepth}{1} % Level of TOC
+% https://tex.stackexchange.com/a/397486/117615
+\renewcommand\cftchappresnum{บทที่ }
 \renewcommand\cftchapafterpnum{\vskip10pt}
+\newlength\mylen
+\settowidth\mylen{\bfseries บทที่ :\hspace{3em}}
+\cftsetindents{chap}{0pt}{\mylen}
+
 \renewcommand\cftsecafterpnum{\vskip10pt}
 \renewcommand\cftsubsecafterpnum{\vskip10pt}
 
