@@ -231,13 +231,15 @@ LASSO ซึ่งย่อมาจาก Least Absolute Shrinkage and Selectio
 \section{Kernel Ridge Regression}
 %--------------------------
 
-Kernel Ridge Regression (KRR) เป็นการต่อยอดจาก Ridge Regression หรืออธิบายง่าย ๆ ว่า KRR คือ RR ในเวอร์ชันที่เป็น Nonlinear problem
+Kernel Ridge Regression (KRR) เป็นการต่อยอดจาก Ridge Regression หรืออธิบายง่าย ๆ ว่า KRR ก็คือ RR ในเวอร์ชันที่เป็น Nonlinear 
+Problem ซึ่งมีการผสม Kernel Trick เข้าไปด้วย (Kernel + Ridge Regression) โดยรูปแบบของโมเดลที่ถูกสอนให้เรียนรู้โดย KRR นั้นก็ยัง%
+มีรูปแบบอื่น ๆ แยกย่อยไปอีกหลายเทคนิค เช่น เทคนิค Support Vector Regression (SVR) โดยความแตกต่างระหว่าง KRR กับ SVM ก็คือการใช้
+Loss Function ที่ต่างกัน โดย KRR จะใช้ค่า Loss Error ยกกำลังสอง ในขณะที่ SVR จะใช้ $\epsilon$-incentive Loss
+
+นอกจากนี้ยังมีเทคนิคอื่น ๆ อีกที่อาศัยหลักการของ Kernel Trick โดยหนึ่งในนั้นก็คือ Gaussian Process Regression ซึ่งถูกนำมาใช้ในการ%
+พัฒนาเทคนิค Gaussian Approximation Potential (GAP) ซึ่งเป็นเทคนิคที่มีการใช้อย่างแพร่หลายโดยเฉพาะการศึกษาการทำนายพลังงาน%
+ของโมเลกุล
 
 %--------------------------
 \section{Gaussian Process Regression}
 %--------------------------
-
-%--------------------------
-\section{Support Vector Machine}
-%--------------------------
-
