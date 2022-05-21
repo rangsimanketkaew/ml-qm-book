@@ -242,4 +242,26 @@ Loss Function ที่ต่างกัน โดย KRR จะใช้ค่
 
 %--------------------------
 \section{Gaussian Process Regression}
+\label{sec:kernel_gpr}
 %--------------------------
+
+การถดถอยแบบกระบวนการเกาส์เซียน (Gaussian Process Regression หรือ GPR)  เป็นเทคนิคที่มีความคล้ายกับ KRR นั่นก็คือทำการเรียนรู้
+ฟังก์ชันคำตอบ (Target Function) ของโดยการใช้ Kernel Trick เหมือนกัน แต่ว่าจะมีความแตกต่างกันก็คือ ในกรณีของ KRR นั้นจะทำการ%
+เรียนรู้ฟังก์ชันเชิงเส้นในในปริภูมิที่ถูกสร้างขึ้นมาใหม่ด้วยเคอร์เนลที่เรากำหนดเข้าไปซึ่งจะสอดคล้องหรือเชื่อมโยงกับฟังก์ชันแบบไม่เป็นเชิงเส้นในปริภูมิเดิม 
+ซึ่งฟังก์ชันเชิงเส้นในปริภูมิของเคอร์เนลนั้นก็จะขึ้นอยู่กับ Loss Function (ในกรณีทั่วไปคือ Mean Square Error) กับ Ridge Regularization 
+ในกรณีของ GPR นั้นจะเป็นการใช้เคอร์เนลในการกำหนดความแปรปรวนร่วม (Covariance) ของการแจกแจงก่อน (Prior Distribution) 
+ซึ่ง Covariance นี้เป็นพารามิเตอร์ที่สามารถบ่งบอกถึงแนวโน้มของข้อมูลว่ามีการเปลี่ยนแปลงไปในทิศทางเดียวกันมากน้อยแค่ไหน 
+กล่าวง่าย ๆ ก็คือ GPR จะเป็นการพยายามที่จะมาเล่นกับ Covariance มากกว่าจะเป็นการทำนายฟังก์ชันคำตอบและใช้ชุดข้อมูลที่ใช้ในการฝึกสอน%
+โมเดลมาทำการกำหนดฟังก์ชันควรจะเป็น (Likelihood Function) นอกจากนี้แล้ว GPR ยังใช้หลักการของ Bayes Theorem ซึ่งจะมีการกำหนด%
+การแจกแจงภายหลัง (Posterior Distribution) โดยใช้ Gaussian เพื่อนำค่าเฉลี่ยมาใช้ในการทำนายคำตอบอีกด้วย
+
+รายละเอียดของ Gaussian Process นั้นมีเยอะมาก ถ้าหากผู้อ่านสนใจหาข้อมูลเพิ่มเติมเกี่ยวกับทฤษฎีเชิงลึกและคณิตศาสตร์ที่ใช้ในการอธิบายวิธีนี้
+ผู้เขียนแนะนำหนังสือ \textit{Gaussian Processes for Machine Learning} ของ Carl Edward Rasmussen and 
+Christopher K. I. Williams ซึ่งสามารถอ่านและดาวน์โหลดได้ฟรี \footnote{\url{http://gaussianprocess.org/gpml/}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/plot_gpr_kernel.png}
+    \caption{เปรียบเทียบการเรียนรู้ Target ระหว่างเทคนิค KRR และ GPR (เครดิตภาพ: https://scikit-learn.org)}
+    \label{fig:krr_gpr}
+\end{figure}
