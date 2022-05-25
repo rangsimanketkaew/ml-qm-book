@@ -7,6 +7,99 @@
 \chapter{การเรียนรู้เชิงลึก}
 \label{ch:dl}
 
+เอาล่ะครับในบทนี้เราจะมาดูหัวข้อการเรียนรู้ลึกหรือ Deep Learning ซึ่งเป็นหนึ่งในคำศัพท์ Buzzword ที่หลาย ๆ คนต่างก็พูดถึงในช่วงระยะเวลา
+10 ปีที่ผ่านมา ไม่ว่าจะเป็นวงการอาชีพไหน ๆ ก็จะต้องมีการนำ Deep Learning ไปใช้ทั้งนั้น และแน่นอนว่าหนึ่งในนั้นก็คือการนำ Deep Learning 
+มาประยุกต์ใช้ในงานวิจัยทางด้านเคมี ซึ่งข้อมูลที่นักเคมีมีอยู่ในมือนั้นมากมายมหาศาล ดังนั้นจึงน่าสนใจว่า Deep Learning จะช่วยนักเคมีในการขับเคลื่อน%
+งานวิจัยได้อย่างไร
+
+ในบทก่อนหน้านี้นั้นเราได้พูดถึง Supervised Learning กันไปแล้ว ซึ่งจะเป็นการทำนายค่า $y$ จากข้อมูลนำเข้า $x$ โดยเป็นการพิจารณาในกรณี%
+ของการถดถอยเชิงเส้น ในลำดับถัดมา (ซึ่งก็คือในบทนี้) เราจะมาพิจารณากรณีที่พารามิเตอร์ของเรานั้นมีความไม่เป็นเชิงเส้น (Non-linear) กันครับ
+ซึ่งโมเดลปัญญาประดิษฐ์ที่ถูกนำมาใช้อย่างแพร่หลายนั้นก็คือ Neural Network นั่นเอง แต่ว่าอย่าเพิ่งสับสนกับคำศัพท์ระหว่าง Neural Network กับ
+Deep Learning นะครับ เพราะว่าจริง ๆ แล้วทั้งสองคำนี้ก็มีความเชื่อมโยงกัน ซึ่ง Deep Learning นั้นถือว่าเป็น Neural Network นั่นเอง
+
+%--------------------------
+\section{การเรียนรู้ของโมเดลที่ไม่เป็นเชิงส้น}
+%--------------------------
+
+สมมติว่าเรามี $\{(x^{(i)}, y^{(i)})\}^n_{i=1}$ ซึ่งเป็นตัวอย่างชุดข้อมูลฝึกสอน (Training Data) และเราจะเริ่มกันด้วยกรณีที่ง่ายที่สุด%
+นั่นก็คือ $y^{(i)} \in \mathbb{R}$ และ $h_\theta(x) \in \mathbb{R}$ 
+
+เราจะทำการกำหนด Cost/Loss Function ขึ้นมา ซึ่งเราจะใช้ Least Square Cost function สำหรับข้อมูลลำดับที่ $i$ นั่นก็คือคู่อันดับ 
+$(x^{(i)} ,y^{(i)} )$ ดังนี้ 
+
+\begin{equation}\label{eq:loss}
+    J^{(i)} (\theta) = \frac{1}{2} \left(h_\theta (x^{(i)}) - y^{(i)}\right)^2
+\end{equation}
+
+\noindent และกำหนด Mean-Square Cost Function สำหรับชุดข้อมูลดังนี้
+
+\begin{equation}\label{eq:mse_loss}
+    J(\theta) = \frac 1 n \sum_{i=1}^n J^{(i)}(\theta)
+\end{equation}
+
+\noindent ซึ่งผู้อ่านอาจจะสังเกตได้ว่าสมการข้างต้นนั้นจะเหมือนกับในกรณีของ Linear Regression เว้นแต่จะต่างกันตรงที่เราได้มีการเพิ่ม $1/n$
+เข้าไปในด้านหน้าของ Cost Function \footnote{การคูณ Cost Function ด้วยปริมาณสเกลาร์ เช่น ตัวเลข จะไม่ทำให้จุดต่ำสุดสัทพันธ์ 
+(Local minima) และจุดต่ำสุดสัมบูรณ์ (Global Minima) เปลี่ยนไป} นอกจากนี้ผู้อ่านจะต้องทำความเข้าใจด้วยว่าการปรับค่าพารามิเตอร์ 
+(Parameterization) ของ $h_\theta(x)$ นั้นจะแตกต่างจากกรณีของ Linear Regression ถึงแม้ว่าเราจะใช้ Cost Function ที่เหมือน%
+กันก็ตาม 
+
+ลำดับถัดมาคือตัวปรับค่าพารามิเตอร์ (Optimizer) ซึ่งโดยทั่วไปแล้วเรามักจะใช้ Stochastic Gradient Descent (SGD) นั่นก็เพราะว่าเป็นวิธีที่%
+ง่ายและไม่ซับซ้อนสำหรับการปรับค่าให้เหมาะสม (Optimize) Loss Function ของเราซึ่งเขียนแทนด้วย $J(\theta)$ ซึ่งการปรับค่านั้นจะใช้%
+สมการดังต่อไปนี้\footnote{สังเกตว่าเราใช้เครื่องหมาย $a := b$ เพื่อบ่งบอกการดำเนินการ (Operation) ซึ่งเป็นการระบุค่าให้กับตัวแปรใน%
+โปรแกรมคอมพิวเตอร์}
+
+\begin{equation}
+    \theta := \theta - \alpha\nabla_\theta J(\theta)
+\end{equation}
+
+\noindent โดยที่ $\alpha$ คืออัตราเร็วในการเรียนรู้ \textit{Learning Rate} หรืออาจจะเรียกว่า \textit{Step Size} ก็ได้ 
+โดยเรามักจะกำหนดให้ค่า $\alpha$ มีค่ามากกว่าศูนย์ ด้านล่างคืออัลกอลิทึมของ SGD
+
+\begin{algorithm}[ht]
+    \caption{อัลกอลิทึมของ Stochastic Gradient Descent}
+    \label{alg:sgd_dl}
+    \begin{algorithmic}
+    \State Hyperparameter: learning rate $\alpha$, number of total iteration $n_\text{iter}$.
+    \State Initialize $\theta$ randomly.
+    \For{$i = 1$ to $n_\text{iter}$}
+        \State Sample $j$ uniformly from ${1,\ldots,n}$, and update $\theta$ by
+        \begin{equation*}
+            \theta := \theta - \alpha\nabla_\theta J^{(j)}(\theta)
+        \end{equation*}
+    \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+ในทางปฏิบัตินั้นการคำนวณ Gradient ของ $B$ หลาย ๆ ครั้งสามารถทำพร้อมกันได้เพราะว่าในปัจจุบันเรามีเทคนิคการทำการคำนวณแบบขนาน 
+(Parallelization) สำหรับการปรับค่า $\theta$ ซึ่งจะเร็วกว่าการคำนวณ Gradient ของ $B$ แบบแยกกันทีละค่าแน่นอน ซึ่งการที่เราจะทำ%
+การคำนวณแบบพร้อม ๆ กันได้นั้นเราจะต้องมีการแบ่ง Data ของเราออกเป็นส่วนย่อย ๆ แล้วทำการคำนวณแยกกัน (Batch) ซึ่งเราจะต้องมีการปรับ%
+อัลกอลิทึมเล็กน้อย โดยด้านล่างคืออัลกอลิทึมของ Mini-batch SGD ซึ่งได้จากการปรับอัลกอลิทึมของ SGD แบบธรรมดา  
+
+\begin{algorithm}[ht]
+    \caption{Mini-batch stochastic gradient descent}
+    \label{alg:sgd_minibatch}
+    \begin{algorithmic}
+    \State Hyperparameter: learning rate $\alpha$, batch size $B$, \# iteration $n_\text{iter}$.
+    \State Initialize $\theta$ randomly.
+    \For{$i = 1$ to $n_\text{iter}$}
+        \State Sample $j$ uniformly from ${1,\ldots,n}$, and update $\theta$ by
+        \State Sample $B$ examples $j_1,\ldots,j_B$ (without replacement) uniformly from $\{1,\ldots,n\}$, 
+        and update $\theta$ by
+        \begin{equation*}
+            \theta := \theta - \frac{\alpha}{B}\sum_{k=1}^B\nabla_\theta J^{(j_k)}(\theta)
+        \end{equation*}
+    \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+โดยทั่วไปแล้วโมเดล Deep Learning นั้นจะมีการเรียนรู้ซึ่งอาศัยอัลกอลิทึมตามด้านบนโดยทำตามขั้นตอนดังต่อไปนี้
+
+\begin{enumerate}
+    \item กำหนด $h_\theta(x)$
+    \item เขียนอัลกอลิทึม Backpropagation เพื่อคำนวณ Gradient ของ Loss Function $J^{(j)}(\theta)$
+    \item ทำการปรับ Loss Function โดยใช้ SGD หรือ Mini-batch SGD หรือใช้ Optimizer ตัวอื่น ๆ
+\end{enumerate}
+
 %--------------------------
 \section{โครงข่ายประสาทเทียม}
 %--------------------------
@@ -16,7 +109,7 @@
 การเรียนรู้เชิงลึกรูปแบบที่มาตรฐานที่สุดคือการเรียนรู้แบบมีผู้สอนด้วยโมเดลแบบไม่เป็นเชิงเส้น (Supervised learning with nonlinear model)
 
 %--------------------------
-\subsection{Forwardpropagation}
+\subsection{Forward Propagation}
 %--------------------------
 
 %--------------------------
