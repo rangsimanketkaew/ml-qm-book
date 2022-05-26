@@ -48,6 +48,20 @@ Output ในการเทรนโมเดล ซึ่งผู้เขี
 \noindent ซึ่งจะมีความคล้ายกันกับ Ordinary Least Square นั่นเอง โดยในหัวข้อต่อไปเราจะมาดูรายละเอียดของเทคนิคที่เราสามารถนำมาใช้%
 ในการแก้ปัญหาของ Coss Function
 
+เสริม: สำหรับฟังก์ชันที่มีความเป็นเชิงเส้นนั้นจะต้องสอดคล้องกับเงื่อนไขดังต่อไปนี้
+
+\begin{equation}
+    f(\vec{x} + \vec{y}) = f(\vec{x}) + f(\vec{y})
+\end{equation}
+
+\noindent สำหรับ $\vec{x}$ และ $\vec{y}$ ทุกค่า และเงื่อนไขที่สองคือ
+
+\begin{equation}
+    f(s\vec{x}) = sf(x)
+\end{equation}
+
+\noindent ถ้าหากฟังก์ชันไม่สอดคล้องกับเงื่อนไขทั้งสองข้อด้านบน ฟังก์ชันนั้นจะมีความไม่เป็นเชิงเส้น (Non-linearity)
+
 %--------------------------
 \section{Linear Classification}
 \label{sec:lin_class}

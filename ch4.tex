@@ -257,3 +257,104 @@ Loss Function หรือ Cost Function หรือ Error Function คือ�
 
 สถาปัตยกรรมของโครงข่ายประสาทเทียม
 
+%--------------------------
+\section{ตัวอย่างการสร้างและฝึกสอนโมเดลด้วย TensorFlow}
+%--------------------------
+
+ในหัวข้อนี้จะเป็นการยกตัวอย่างประกอบโค้ดของการสร้างและฝึกสอนโมเดลในการทำนายค่าสภาพการละลายของโมเดล ซึ่งค่าสภาพการละลายหรือ
+Solubility เป็นความสามารถของสสารในการละลายในน้ำ ยิ่งมีค่าเยอะหมายความว่าสสารนั้นยิ่งละลายในน้ำได้ดี โดยเราจะใช้ Module Keras 
+ซึ่งเป็น Library ที่ถูกติดตั้งและพัฒนาให้เป็น API ของ TensorFlow ในการสร้างโมเดล
+\footnote{ดูรายละเอียดของ Keras ได้ที่ \url{https://keras.io/guides/sequential_model/}}
+
+\begin{enumerate}
+\item ขั้นตอนแรกเราจะต้องทำการกำหนดรายละเอียดของ Neural Network
+
+\begin{lstlisting}[style=MyPython]
+import numpy as np
+import tensorflow as tf
+
+# our hidden layer
+# We only need to define the output dimension - 32.
+hidden_layer = tf.keras.layers.Dense(32, activation="tanh")
+# Last layer - which we want to output one number
+# the predicted solubility.
+output_layer = tf.keras.layers.Dense(1)
+
+# Now we put the layers into a sequential model
+model = tf.keras.Sequential()
+model.add(hidden_layer)
+model.add(output_layer)
+\end{lstlisting}
+
+\vspace{1em}
+
+\item ทำการทดสอบโดยเรียกใช้โมเดลเพื่อแสดงข้อมูลของสสารสามตัวแรกในชุดข้อมูล
+
+\begin{lstlisting}[style=MyPython]
+# Try out our model on first few datapoints
+model(soldata[feature_names].values[:3])
+
+# Output
+<tf.Tensor: shape=(3, 1), dtype=float32, numpy=
+array([[ 0.18162721],
+        [-0.416314  ],
+        [-0.32956678]], dtype=float32)>
+\end{lstlisting}
+
+\vspace{1em}
+
+\item คอมไพล์โมเดล
+
+\begin{lstlisting}[style=MyPython]
+model.compile(optimizer="SGD", loss="mean_squared_error")
+\end{lstlisting}
+
+\vspace{1em}
+
+\item ฝึกสอนโมเดล
+
+\begin{lstlisting}[style=MyPython]
+model.fit(train_data, epochs=50)
+\end{lstlisting}
+
+\vspace{1em}
+
+\item ทำนายค่าความสามารถในการละลายของโมเลกุล
+
+\begin{lstlisting}[style=MyPython]
+yhat = np.squeeze(model.predict(test_data))
+test_y = soldata["Solubility"].values[:test_N]
+\end{lstlisting}
+
+\vspace{1em}
+
+\item พลอตกราฟเปรียบเทียบค่าสภาพการละลายที่ได้จากการทำนายและค่าอ้างอิง
+
+\begin{lstlisting}[style=MyPython]
+plt.plot(test_y, yhat, ".")
+plt.plot(test_y, test_y, "-")
+plt.xlabel("Measured Solubility $y$")
+plt.ylabel("Predicted Solubility $\hat{y}$")
+plt.text(
+    min(test_y) + 1,
+    max(test_y) - 2,
+    f"correlation = {np.corrcoef(test_y, yhat)[0,1]:.3f}",
+)
+plt.text(
+    min(test_y) + 1,
+    max(test_y) - 3,
+    f"loss = {np.sqrt(np.mean((test_y - yhat)**2)):.3f}",
+)
+plt.show()
+\end{lstlisting}
+
+\noindent ได้กราฟดังต่อไปนี้
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/predict_solubility.png}
+    \caption{เปรียบเทียบค่าสภาพการละลายที่ได้จากการทำนายและค่าอ้างอิง}
+    \label{fig:krr_gpr}
+\end{figure}
+
+\end{enumerate}
