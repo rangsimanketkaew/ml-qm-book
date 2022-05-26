@@ -53,10 +53,10 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 \end{equation}
 
 \noindent โดยที่ $\alpha$ คืออัตราเร็วในการเรียนรู้ \textit{Learning Rate} หรืออาจจะเรียกว่า \textit{Step Size} ก็ได้ 
-โดยเรามักจะกำหนดให้ค่า $\alpha$ มีค่ามากกว่าศูนย์ ด้านล่างคืออัลกอลิทึมของ SGD
+โดยเรามักจะกำหนดให้ค่า $\alpha$ มีค่ามากกว่าศูนย์ ด้านล่างคืออัลกอริทึมของ SGD
 
 \begin{algorithm}[ht]
-    \caption{อัลกอลิทึมของ Stochastic Gradient Descent}
+    \caption{อัลกอริทึมของ Stochastic Gradient Descent}
     \label{alg:sgd_dl}
     \begin{algorithmic}
     \State Hyperparameter: learning rate $\alpha$, number of total iteration $n_\text{iter}$.
@@ -73,7 +73,7 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 ในทางปฏิบัตินั้นการคำนวณ Gradient ของ $B$ หลาย ๆ ครั้งสามารถทำพร้อมกันได้เพราะว่าในปัจจุบันเรามีเทคนิคการทำการคำนวณแบบขนาน 
 (Parallelization) สำหรับการปรับค่า $\theta$ ซึ่งจะเร็วกว่าการคำนวณ Gradient ของ $B$ แบบแยกกันทีละค่าแน่นอน ซึ่งการที่เราจะทำ%
 การคำนวณแบบพร้อม ๆ กันได้นั้นเราจะต้องมีการแบ่ง Data ของเราออกเป็นส่วนย่อย ๆ แล้วทำการคำนวณแยกกัน (Batch) ซึ่งเราจะต้องมีการปรับ%
-อัลกอลิทึมเล็กน้อย โดยด้านล่างคืออัลกอลิทึมของ Mini-batch SGD ซึ่งได้จากการปรับอัลกอลิทึมของ SGD แบบธรรมดา  
+อัลกอริทึมเล็กน้อย โดยด้านล่างคืออัลกอริทึมของ Mini-batch SGD ซึ่งได้จากการปรับอัลกอริทึมของ SGD แบบธรรมดา  
 
 \begin{algorithm}[ht]
     \caption{Mini-batch stochastic gradient descent}
@@ -92,11 +92,11 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
     \end{algorithmic}
 \end{algorithm}
 
-โดยทั่วไปแล้วโมเดล Deep Learning นั้นจะมีการเรียนรู้ซึ่งอาศัยอัลกอลิทึมตามด้านบนโดยทำตามขั้นตอนดังต่อไปนี้
+โดยทั่วไปแล้วโมเดล Deep Learning นั้นจะมีการเรียนรู้ซึ่งอาศัยอัลกอริทึมตามด้านบนโดยทำตามขั้นตอนดังต่อไปนี้
 
 \begin{enumerate}
     \item กำหนด $h_\theta(x)$
-    \item เขียนอัลกอลิทึม Backpropagation เพื่อคำนวณ Gradient ของ Loss Function $J^{(j)}(\theta)$
+    \item เขียนอัลกอริทึม Backpropagation เพื่อคำนวณ Gradient ของ Loss Function $J^{(j)}(\theta)$
     \item ทำการปรับ Loss Function โดยใช้ SGD หรือ Mini-batch SGD หรือใช้ Optimizer ตัวอื่น ๆ
 \end{enumerate}
 
