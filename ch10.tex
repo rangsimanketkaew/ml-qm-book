@@ -22,9 +22,30 @@ Best Practice หรือแนวทางปฏิบัติหรือล
     \item การเทรนโมเดลและการประเมินโมเดลโดยการทำ Validation
 \end{enumerate}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/ml_pipeline.png}
+    \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์ (เครดิตภาพ: https://vitalflux.com)}
+    \label{fig:ml_pipeline}
+\end{figure}
+
 %--------------------------
 \section{การเลือกโมเดลที่เหมาะสม}
 %--------------------------
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/ml_map.png}
+    \caption{แผนภาพการเลือกใช้โมเดลปัญญาประดิษฐ์ (เครดิตภาพ: https://scikit-learn.org)}
+    \label{fig:ml_map}
+\end{figure}
+
+\begin{itemize}
+    \item Linear kernel : $K(x_i, x_j) = x_i \cdot x_j$
+    \item Polynomial : $K(x_i, x_j; a, b) = (x_i \cdot x_j + a)^b$
+    \item Gaussian kernel : $K(x_i, x_j; w, \sigma) = \mathrm{exp}\left(-\frac{|x_i-x_j|^2}{2\sigma^2}\right)$
+    \item Laplacian kernel : $K(x_i, x_j; w, \gamma) = \mathrm{exp}\left(-{|x_i-x_j|}\right)$
+\end{itemize}
 
 %--------------------------
 \section{การทำนายพลังงาน Potential Energy Surface}

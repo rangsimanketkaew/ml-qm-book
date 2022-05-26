@@ -1,0 +1,44 @@
+% LaTeX source for ``การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม (Machine Learning for Quantum Chemistry)''
+% Copyright (c) 2022 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+% License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+% https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+%--------------------------
+\section{เทคนิคการเขียนโมเดล TensorFlow}
+%--------------------------
+\label{ap:programming}
+
+%--------------------------
+\subsection{การปรับแต่ง Loss Function}
+%--------------------------
+
+\begin{lstlisting}[style=MyPython]
+import tensorflow as tf
+import tensorflow.keras.backend as kb
+import numpy as np
+
+def custom_loss(y_actual, y_pred): 
+    custom_loss=tf.experimental.numpy.log10(kb.sum(kb.abs(y_actual - y_pred)) / y_actual.shape[0])
+    return custom_loss
+
+x = np.random.randint(1, 4, size=(1000,))
+x = np.asarray(x).T
+
+y = x ** 2
+y = np.asarray(y).T
+x = x.astype(np.float32)
+y = y.astype(np.float32)
+
+keras_model = tf.keras.Sequential(
+    [
+        tf.keras.layers.Dense(32, activation=tf.nn.relu, input_shape=[1]),
+        tf.keras.layers.Dense(32, activation=tf.nn.relu),
+        tf.keras.layers.Dense(1),
+    ]
+)
+
+optimizer = tf.keras.optimizers.RMSprop(0.001)
+keras_model.compile(loss=custom_loss, optimizer=optimizer)
+keras_model.fit(x, y, batch_size=20, epochs=50)
+\end{lstlisting}

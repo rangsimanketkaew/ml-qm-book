@@ -109,8 +109,68 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 การเรียนรู้เชิงลึกรูปแบบที่มาตรฐานที่สุดคือการเรียนรู้แบบมีผู้สอนด้วยโมเดลแบบไม่เป็นเชิงเส้น (Supervised learning with nonlinear model)
 
 %--------------------------
+\section{Learning Propagation}
+%--------------------------
+
+การแผร่กระจายการเรียนรู้ (Learning Propagation) เป็นขั้นตอนการเรียนรู้ของโมเดล Neural Network ที่เลียนแบบการทำงานของสมอง 
+
+
+\begin{center}
+% NEURAL NETWORK with coefficients, arrows
+\begin{tikzpicture}[x=2.2cm,y=1.4cm]
+    \message{^^JNeural network with arrows}
+    \readlist\Nnod{4,5,5,5,3} % array of number of nodes per layer
+    
+    \message{^^J  Layer}
+    \foreachitem \N \in \Nnod{ % loop over layers
+    \edef\lay{\Ncnt} % alias of index of current layer
+    \message{\lay,}
+    \pgfmathsetmacro\prev{int(\Ncnt-1)} % number of previous layer
+    \foreach \i [evaluate={\y=\N/2-\i; \x=\lay; \n=\nstyle;}] in {1,...,\N}{ % loop over nodes
+    
+    % NODES
+    \node[node \n] (N\lay-\i) at (\x,\y) {$a_\i^{(\prev)}$};
+    %\node[circle,inner sep=2] (N\lay-\i') at (\x-0.15,\y) {}; % shifted node
+    %\draw[node] (N\lay-\i) circle (\R);
+    
+    % CONNECTIONS
+    \ifnum\lay>1 % connect to previous layer
+    \foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
+    \draw[connect arrow] (N\prev-\j) -- (N\lay-\i); % connect arrows directly
+    %\draw[connect arrow] (N\prev-\j) -- (N\lay-\i'); % connect arrows to shifted node
+    }
+    \fi % else: nothing to connect first layer
+    
+    }
+    
+    }
+    
+    % LABELS
+    \node[above=5,align=center,mygreen!60!black] at (N1-1.90) {input\\[-0.2em]layer};
+    \node[above=2,align=center,myblue!60!black] at (N3-1.90) {hidden layers};
+    \node[above=8,align=center,myred!60!black] at (N\Nnodlen-1.90) {output\\[-0.2em]layer};
+    
+    \end{tikzpicture}
+\end{center}
+
+%--------------------------
 \subsection{Forward Propagation}
 %--------------------------
+
+ในขั้นเริ่มต้นของการฝึกสอนโมเดล Neural Network นั้น โมเดลจะยังไม่มีพารามิเตอร์ที่ถูกต้อง ดังนั้นเราจึงต้องสุ่มค่าเริ่มต้นของพารามิเตอร์ขึ้นมาก่อน
+หลังจากนั้นจึงทำ Forward Propagation รอบที่หนึ่งแล้วก็เปรียบเทียบผลการทำนายกับคำตอบ ($Output$) ที่โมเดลทราบก่อนหน้านั้นแล้ว
+ขั้นตอนต่อมาคือการปรับพารามิเตอร์ที่สำคัญอีกสองตัวนั่นคือน้ำหนัก (Weight) และความอคติหรือความโน้มเอียง (Bias) ให้มีค่าที่ถูกต้อง ซึ่งใน%
+ขั้นตอนนี้เราจะใช้กระบวนการที่ตรงข้ามกันเรียกว่า Backward propagation โดยการทำ Propagation ทั้งสองแบบพร้อม ๆ กันครบหนึ่งรอบนั้น%
+จะเรียกว่า 1 Epoch แต่ต้องระวังนะครับว่า Epoch, Batch Size และ Iteration นั้นมีความหมายต่างกัน โดยความแตกตางมีดังนี้
+
+\begin{description}[font=$\bullet$~\normalfont\scshape\bfseries\color{red!50!black}]
+    \item[1 Epoch] การทำ Forward และ Backward Propagation 1 ครั้ง
+    \item[Batch Size] จำนวนของข้อมูลที่ใช้ในการฝึกสอนในการทำ Forward และ Backward Propagation 1 รอบ
+    \item[Iteration] จำนวนของรอบในการฝึกสอน ซึ่งแต่ละรอบจะใช้ Batch Size ที่ถูกกำหนดไว้ก่อนการฝึกสอน
+\end{description}
+
+เพื่อให้เห็นภาพมากขึ้น เราลองมาดูตัวอย่างกัน เช่น ถ้าเรามีจำนวนข้อมูลในการฝึกสอน 1000 ตัวอย่างและกำหนด Batch Size เป็น 500 จะได้ว่าโมเดลของเรา%
+จะใช้ 2 Iterations สำหรับการฝึกสอน 1 Epoch
 
 %--------------------------
 \subsection{Backpropagation}
@@ -123,16 +183,51 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 ฟังก์ชันกระตุ้น
 
 %--------------------------
-\section{Learning Layers}
-%--------------------------
-
-ชั้นการเรียนรู้
-
-%--------------------------
 \section{Loss Function}
 %--------------------------
 
 Loss Function หรือ Cost Function หรือ Error Function คือฟังก์ชันความคลาดเคลื่อน
+
+\begin{equation}
+    \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} | \tilde{x}_{i} - x_{i} |
+\end{equation}
+
+\begin{equation}
+    \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{\tilde{x}_{i} - x_{i}}{x_{i}} \right| \times 100
+\end{equation}
+
+\begin{equation}
+    \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} \left( \tilde{x}_{i} - x_{i} \right)^2
+\end{equation}
+
+\begin{equation}
+    \text{MaxAE} = max\{\tilde{x}_{i} - x_{i}\}, i = 1, 2, ..., n
+\end{equation}
+
+\begin{equation}
+    \text{MaxAPE} = max\left\{\left| \frac{\tilde{x}_{i} - x_{i}}{x_{i}} \right| \times 100 \right\}, i = 1, 2, ..., n
+\end{equation}
+
+\begin{equation}
+    \text{RMSD} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (\tilde{x}_{i} - x_{i})^{2} }
+    \label{eq:rmsd}
+\end{equation}
+
+\begin{equation}
+    \text{GRMSD} = \sqrt[2n]{ \prod_{i=1}^{n} (\tilde{x}_{i} - x_{i})^{2} }
+    \label{eq:grmsd}
+\end{equation}
+
+\begin{equation}
+    \text{GWRMSD} = \sqrt{ \frac{\sum_{i=1}^{n} \zeta_{i} (\tilde{x}_{i} - x_{i})^{2}}{\sum_{i=1}^{n} \zeta_{i} } }
+    \label{eq:gwrmsd}
+\end{equation}
+
+\indent โดยที่
+
+\begin{equation}
+    \zeta_{i} = e^{-(\tilde{x}_{i} - x_{i}) / c}
+\end{equation}
 
 %--------------------------
 \section{Optimizer}

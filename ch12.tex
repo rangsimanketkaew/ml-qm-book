@@ -33,6 +33,25 @@ SchNetPack\cite{schutt2019}
 \subsection{sGDML}
 %--------------------------
 
+เราสามารถติดตั้ง sGDML โดยใช้ Python Package Manager เช่น PIP ได้ด้วยคำสั่งต่อไปนี้
+
+\begin{lstlisting}[style=MyBash]
+pip install sgdml
+\end{lstlisting}
+
+ตรวจสอบว่า sGDML ถูกติดตั้งและพร้อมใช้งานหรือไม่
+
+\begin{lstlisting}[style=MyBash]
+(sgdml) nutt@SURFACE:~/sGDML$ which sgdml
+/home/nutt/sgdml/bin/sgdml
+
+(sgdml) nutt@SURFACE:~$ sgdml
+usage: sgdml [-h] [--version] {all,create,train,validate,select,test,show,reset} ...
+sgdml: error: the following arguments are required: command
+\end{lstlisting}
+
+คู่มือการใช้งานอ่านได้ที่ \url{http://quantum-machine.org/gdml/doc/}
+
 sGDML\cite{chmiela2019}
 
 %--------------------------

@@ -1,0 +1,155 @@
+%%%%%%% List of commands: %%%%%%%
+% Code block:
+% \begin{lstlisting}[style=MyBash]{}
+% \begin{lstlisting}[style=MyPython]{}
+% \begin{lstlisting}[style=MyC++]{}
+% \begin{lstlisting}[style=MyJSON]{}
+% ----------------------------------
+% Code in line:
+% \bashinline{}
+% \pyinline{}
+% \cppinline{}
+% \inlinehighlight{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{listings} % for code listing
+\usepackage{xcolor} % for color
+
+% define color
+\colorlet{shadecolor}{gray!10} % increase the value will produce darker color
+\colorlet{punct}{red!60!black}
+\colorlet{numb}{magenta!60!black}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{pythoncolor}{RGB}{102,102,255}
+
+\lstset{
+  backgroundcolor=\color{shadecolor},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\ttfamily\small\linespread{0.5},        % the size of the fonts that are used for the code
+  keywordstyle=\color{blue}\ttfamily,       % keyword style
+  commentstyle=\color{pink}\ttfamily,    	   % comment style
+  breaklines=true,                 % sets automatic line breaking
+  breakatwhitespace=true,         % sets if automatic breaks should only happen at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+%   firstnumber=1000,                % start line enumeration with line 1000
+  frame=tlrb,	                   % adds a frame around the code, use a combination of t l r and b
+  frameshape={RYR}{Y}{Y}{RYR},     % rounded corner
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  columns=flexible,
+%   basewidth={.88em},
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=10pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{gray}, % the style that is used for the line-numbers
+  rulecolor=\color{lightgray},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  xleftmargin = 0.8cm,             % left margin for the code
+  xrightmargin = -0.5cm,           % right margin for the code
+  framexleftmargin = 2em,          % left margin for the whole frame
+%   aboveskip=3mm,
+  belowskip=-1.5 \baselineskip,
+}
+
+\lstdefinestyle{MyBash}{
+    language=Bash,
+    keywordstyle=\color{blue},
+    stringstyle=\color{black},
+    commentstyle=\color{pink},
+    morekeywords={}, % for letter 
+    otherkeywords={}, % for non-letter
+    deletekeywords={cd,echo,enable,export,jobs,local,source,test},
+    morecomment=[l][\color{magenta}]{\#},
+}
+
+\lstdefinestyle{MyPython}{
+    language=Python,
+    keywordstyle=\color{deepblue},
+    emph={MyClass,__init__},          % Custom highlighting
+    emphstyle=\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    commentstyle=\color{pink},
+    morekeywords={self},              % Add keywords here
+    morecomment=[l][\color{magenta}]{\#},
+}
+
+\lstdefinestyle{MyC++}{
+    language=C++,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{pink},
+    morekeywords={},
+    morecomment=[l][\color{magenta}]{\/\/},
+}
+
+\lstdefinestyle{MyFortran}{
+    language=Fortran,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{green},
+    morecomment=[l][\color{magenta}]{!\ } % Comment only with space after !
+}
+
+\lstdefinelanguage{MyJSON}{
+    stringstyle=\color{black},
+    morestring=[b]",
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{mymauve}{\{}}}}{1}
+      {\}}{{{\color{mymauve}{\}}}}}{1}
+      {[}{{{\color{mymauve}{[}}}}{1}
+      {]}{{{\color{mymauve}{]}}}}{1},
+}
+
+\lstdefinestyle{nonumber}{
+    number=none,
+}
+
+% for skipping lines with dots
+% https://tex.stackexchange.com/questions/476658/how-to-skip-lines-in-lstlisting-with-dots
+%------------------------
+\let\origthelstnumber\thelstnumber
+\makeatletter
+\newcommand*\Suppressnumber{%
+  \lst@AddToHook{OnNewLine}{%
+    \let\thelstnumber\relax%
+  }%
+}
+
+\newcommand*\Reactivatenumber{%
+  \lst@AddToHook{OnNewLine}{%
+   \let\thelstnumber\origthelstnumber%
+  }%
+}
+\makeatother
+%------------------------
+
+% define code in line with highlighting
+\newcommand{\bashinline}[1]{\colorbox{shadecolor}{\lstinline[style=MyBash]{#1}}}
+\newcommand{\pyinline}[1]{\colorbox{shadecolor}{\lstinline[style=MyPython]{#1}}}
+% inline highlight using a special color
+\newcommand{\inlinehighlight}[1]{\colorbox{shadecolor}{\lstinline[
+    style=MyPython,
+    basicstyle=\ttfamily\small\linespread{0.5}\color{pythoncolor},
+]{#1}}}
+\newcommand{\cppinline}[1]{\colorbox{shadecolor}{\lstinline[style=MyC++]{#1}}}
