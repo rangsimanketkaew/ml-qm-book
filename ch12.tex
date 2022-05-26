@@ -17,7 +17,46 @@
 
 DScribe เป็นไลบรารี่ที่สามารถคำนวณ Representation ได้เยอะมาก\cite{himanen2020}
 
-https://singroup.github.io/dscribe/latest/index.html
+คู่มือการใช้งานอ่านได้ที่ \url{https://singroup.github.io/dscribe/latest/index.html}
+
+\noindent ตัวอย่างโค้ดของการใช้ DScribe ในการสร้าง Coulomb Matrix (CM)
+
+\begin{lstlisting}[style=MyPython]
+from dscribe.descriptors import CoulombMatrix
+
+atomic_numbers = [1, 8]
+rcut = 6.0
+nmax = 8
+lmax = 6
+
+# Setting up the CM descriptor
+cm = CoulombMatrix(
+    n_atoms_max=6,
+)
+\end{lstlisting}
+
+\noindent ตัวอย่างโค้ดของการใช้ DScribe ในการสร้าง SOAP kernel
+
+\begin{lstlisting}[style=MyPython]
+from ase.build import molecule
+
+# Molecule created as an ASE.Atoms
+water = molecule("H2O")
+
+# Create SOAP output for the system
+soap_water = soap.create(water, positions=[0])
+
+print(soap_water)
+print(soap_water.shape)
+
+# Create output for multiple system
+samples = [molecule("H2O"), molecule("NO2"), molecule("CO2")]
+positions = [[0], [1, 2], [1, 2]]
+# Serial
+coulomb_matrices = soap.create(samples, positions)
+# Parallel     
+coulomb_matrices = soap.create(samples, positions, n_jobs=2)
+\end{lstlisting}
 
 %--------------------------
 \section{ไลบรารี่สำหรับสร้าง Model}
@@ -33,13 +72,16 @@ SchNetPack\cite{schutt2019}
 \subsection{sGDML}
 %--------------------------
 
-เราสามารถติดตั้ง sGDML โดยใช้ Python Package Manager เช่น PIP ได้ด้วยคำสั่งต่อไปนี้
+sGDML เป็นไลบรารี่ที่รับความนิยมในการสร้างโมเดลของโมเลกุลโดยการใช้ค่าพลังงานและแรงในการฝึกสอนโมเดล\cite{chmiela2019}
+คู่มือการใช้งานอ่านได้ที่ \url{http://quantum-machine.org/gdml/doc/}
+
+\noindent เราสามารถติดตั้ง sGDML โดยใช้ Python Package Manager เช่น PIP ได้ด้วยคำสั่งต่อไปนี้
 
 \begin{lstlisting}[style=MyBash]
 pip install sgdml
 \end{lstlisting}
 
-ตรวจสอบว่า sGDML ถูกติดตั้งและพร้อมใช้งานหรือไม่
+\noindent ตรวจสอบว่า sGDML ถูกติดตั้งและพร้อมใช้งานหรือไม่
 
 \begin{lstlisting}[style=MyBash]
 (sgdml) nutt@SURFACE:~/sGDML$ which sgdml
@@ -50,9 +92,7 @@ usage: sgdml [-h] [--version] {all,create,train,validate,select,test,show,reset}
 sgdml: error: the following arguments are required: command
 \end{lstlisting}
 
-คู่มือการใช้งานอ่านได้ที่ \url{http://quantum-machine.org/gdml/doc/}
 
-sGDML\cite{chmiela2019}
 
 %--------------------------
 \subsection{PiNN}

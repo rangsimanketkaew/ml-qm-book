@@ -17,6 +17,49 @@
 \section{ชุดข้อมูลมาตรฐาน}
 %--------------------------
 
+QM9 เป็นหนึ่งใน Dataset ที่ได้รับความนิยมมากในสายงานวิจัยเคมีควอนตัม โดยเฉพาะงานวิจัยทางด้าน ML และ DL ซึ่งถูกใช้อย่างแพร่หลายตั้งแต่ปี
+ค.ศ. 2014 เป็นต้นมา โดยบทความวิจัยชิ้นแรกที่ได้รับการตีพิมพ์นั้นได้รายงานค่าความแม่นยำและความผิดพลาดว่าไม่เกิน 10 kcal/mol ซึ่งถือว่า%
+เยอะมาก ๆ และต่อมาได้มีการพัฒนาระเบียบวิธีวิจัยรวมไปถึงโมเดล ML และ Descriptor ใหม่ ๆ จนทำให้ในปัจจุบันนั้นนักวิจัยสามารถที่จะทำนายหรือ%
+พยากรณ์ค่าพลังงานของโมเลกุลทางเคมีอินทรีย์ขนาดเล็กได้แม่นยำมากโดยมีค่าความคลาดเคลื่อนประมาณ 1 kcal/mol หรือต่ำกว่านั้น ซึ่งเป็นค่า%
+ที่เรียกว่า Chemical Accuracy หรือเทียบเท่ากับค่าความคลาดเคลื่อนของเครื่องมือทดลองทางเคมี 
+
+QM9 ประกอบไปด้วยข้อมูลคุณสมบัติอิเล็กทรอนิกส์ของโมเลกุลมากถุง 134,000 โมเลกุล โดยโมเลกุลทั้งหมดนั้นจะเป็นโมเลกุลที่มีธาตุพื้นฐานเป็น%
+องค์ประกอบ ประกอบไปด้วย คาร์บอน ไนโตรเจน ออกซิเจน ไฮโดรเจน และฟลูออรีน โดย Feature หลักของ QM9 ก็จะมีพิกัดคาร์ทีเชียนของอะตอม%
+ในโมเลกุลซึ่งได้มาจากการคำนวณการปรับโครงสร้างด้วยระเบียบวิธี B3LYP/6-31G(2df,p) และนอกจากนี้ยังมีค่า Label หรือค่าที่ไว้ใช้ในการเปรียบ%
+เทียบการพยากรณ์ดังแสดงในตารางที่ \ref{tab:qm9_feature}
+\footnote{โมเดล ML ที่เหมาะสมสำหรับการฝึกสอนด้วย QM9 นั้นจะต้องไม่ขึ้นกับ Translation, Rotation และ Permutation}
+
+\begin{table}[H]
+    \centering
+    \caption{ข้อมูล Feature ของชุดข้อมูล QM9}
+    \label{tab:qm9_feature}
+    \small
+    \begin{tabular}{llll}\toprule
+    \textbf{ดัชนี} &\textbf{ชื่อ} &\textbf{หน่วย} &\textbf{คำอธิบาย} \\\midrule
+    0 &index &- &Consecutive, 1-based integer identifier of molecule \\
+    1 &A &GHz &Rotational constant A \\
+    2 &B &GHz &Rotational constant B \\
+    3 &C &GHz &Rotational constant C \\
+    4 &mu &Debye &Dipole moment \\
+    5 &alpha &Bohr$^3$ &Isotropic polarizability \\
+    6 &homo &Hartree &พลังงานของ Highest occupied molecular orbital (HOMO) \\
+    7 &lumo &Hartree &พลังงานของ Lowest unoccupied molecular orbital (LUMO) \\
+    8 &gap &Hartree &Gap (พลังงานระหว่าง LUMO and HOMO) \\
+    9 &r2 &Bohr$^2$ &Electronic spatial extent \\
+    10 &zpve &Hartree &Zero point vibrational energy \\
+    11 &U0 &Hartree &Internal energy at 0 K \\
+    12 &U &Hartree &Internal energy at 298.15 K \\
+    13 &H &Hartree &Enthalpy at 298.15 K \\
+    14 &G &Hartree &Free energy at 298.15 K \\
+    15 &Cv &cal/(mol K) &Heat capacity at 298.15 K \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+นอกจาก QM9 แล้วยังมีชุดข้อมูลอื่น ๆ ที่นักวิจัยมักจะนำมาใช้ในการฝึกสอนโมเดลและทำวิจัย เช่น QM7 และ QM8 ซึ่งก็จะมี Label สำหรับวัตถุประสงค์%
+ในการฝึกสอนโมเดลในการเพิ่มความสามารถการพยากรณ์คุณสมบัติเคมีของโมเลกุลที่ต่างกันออกไป โดยชุดข้อมูลที่กล่าวมาทั้งหมดนั้นสามารถดาวน์โหลด%
+ได้ฟรีจากเว็บไซต์ \url{http://quantum-machine.org/datasets}
+
 %--------------------------
 \section{การสร้างชุดข้อมูล}
 %--------------------------
