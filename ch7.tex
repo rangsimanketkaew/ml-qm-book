@@ -228,12 +228,51 @@ Basis Function นั่นเอง\footnote{Basis Function ก็คือ Bas
 (สำหรับ Minimum Point) และลบ (สำหรับ Maximum Point) ตามลำดับ
 
 %--------------------------
-\section{Electron Density และ Density Matrix}
+\section{Charge Density และ Density Matrix}
 %--------------------------
 
-\idxen{Electron Density}
+ความหนาแน่นเชิงประจุ (Charge Density) เป็นปริมาณที่บ่งบอกถึงประจุของอะตอมที่อยู่ในโมเลกุล ถ้าหากเราทำการอินทิเกรต Charge Density 
+ทั่วทั้งปริมาตรเราจะได้ผลลัพธ์เป็นจำนวนของอิเล็กตรอนในระบบของเรา (โมเลกุล) ดังนี้
 
+\begin{equation}
+    N = \int \rho (\mathbf{r}) dV
+\end{equation}
+
+โดยนิยามของ Charge Density จะเป็นผลรวมของโอกาสที่เราจะพบอิเล็กตรอนที่อยู่ภายใน Molecular Orbitals ของทั้งระบบ ดังนี้
+\idxen{Charge Density}
+
+\begin{equation}
+    \rho (\mathbf{r}) = 2 \sum^{N/2}_{i=1} \int |\varphi_{i}(\mathbf{r})|^{2}
+\end{equation}
+
+\noindent โดยเลข 2 ด้านหน้าเครื่องหมาย Summation ก็คือจำนวนเลข Occupation Number สำหรับกรณีที่ Molecular Orbital ($i$) 
+นั้นมีอิเล็กตรอนทั้งแบบ Spin Up และ Spin Down และ $\varphi_{i}(\mathbf{r})$ คือ Wavefunction ซึ่งเราสามารถเขียน Wavefunction 
+ให้อยู่ในรูปผลรวมเชิงเส้นของ Basis Function ($\phi_{i}$) ซึ่ง Basis Function นี้จะเป็นฟังก์ชันอะไรก็ได้ที่สามารถอธิบายการมีอยู่ของ 
+Molecular Orbitals โดยในกรณีแบบที่ง่ายที่สุดคือเราจะมองว่า Molecular Orbitals นั้นเกิดขึ้นมาจากการรวมกันของ Atomic Orbitals 
+ดังนั้นเราจะกำหนดให้ Atomic Orbitals เป็น Basis Function\footnote{Basis Function ในที่นี้คือ Atomic Orbitals ที่ถูกกำหนดให้%
+มีจุดศูนย์กลางอยู่ที่อะตอมนั้น ๆ} ดังนั้นผลรวมเชิงเส้นดังกล่าวจึงมีเรียกว่า Linear Combination of Atomic Orbitals หรือ LCAO 
+ตามสมการดังต่อไปนี้
+
+\begin{equation}
+    \rho (\mathbf{r}) = 2 \sum_{i} \big( \sum_{\mu} c_{\mu i} \phi_{\mu}^{*} \big) 
+    \big( \sum_{\nu} c^{*}_{\nu i}  \phi_{nu} \big)
+\end{equation}
+
+\noindent โดยที่ $c$ คือสัมประสิทธิ์ของ Linear Combination ของ Atomic Orbitals (LCAO) ลำดับต่อมาคือเมื่อเราจัดรูปให้มีเทอมที่%
+เป็นผลคูณของ Basis Function ($\phi_{\mu}^{*} \phi_{\nu}$) เราจะกำหนดให้เทอมนี้เป็นสิ่งที่เรียกว่า Overlap Matrix ($S_{\mu\nu}$) 
+โดยจะได้สมการที่จัดรูปแล้ว ดังนี้
+
+\begin{equation}
+    \rho (\mathbf{r}) = 2 \sum_{i}\sum_{\mu\nu} c_{\mu i} c^{*}_{\nu i} S_{\mu\nu}
+\end{equation}
+
+หลังจากนั้นเราจะพบว่าจะมีเทอมที่เป็นผลคูณระหว่าง $c$ ซึ่งเราจะกำหนดให้ผลคูณแบบนี้เรียกว่า Density Matrix 
+($P_{\mu\nu} = c_{\mu i} c^{*}_{\nu i}$) ซึ่งเราจะได้สมการดังต่อไปนี้
 \idxen{Density Matrix}
+
+\begin{equation}     
+    \rho (\mathbf{r}) = 2 \sum_{i} \sum_{\mu\nu} P_{\mu\nu}S_{\mu\nu}
+\end{equation}
 
 %--------------------------
 \section{พลังงานของ Frontier Orbitals}
