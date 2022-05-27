@@ -175,12 +175,12 @@ $x$ และ $z$ อยู่ห่างกัน
  เราจะทำการ Mapping โดยเลือกใช้ทุกฟังก์ชันนั้นจึงแทบจะเป็นไปไม่ได้เลยเพราะว่ามีขีดจำกัดด้านการคำนวณ
 
 %--------------------------
-\subsection{Linear Regression}
+\subsection{การถดถอยแบบเชิงเส้น}
 \idxen{Kernel!Linear Regression}
 %--------------------------
 
-กรณีแบบแรกของ Regression ก็คือ Linear Regression ซึ่งเราได้ศึกษากันไปแล้วในหัวข้อที่ \ref{sec:lin_res} ของบทที่ \ref{ch:sup_ml}
-ซึ่งเราใช้สมการดังต่อไปนี้ในการแก้ปัญหา Minimization (การปรับค่าลงให้ต่ำที่สุด)
+กรณีแบบแรกของการถดถอย (Regression) ก็คือการถดถอยแบบเชิงเส้น (Linear Regression) ซึ่งเราได้ศึกษากันไปแล้วในหัวข้อที่ 
+\ref{sec:lin_res} ของบทที่ \ref{ch:sup_ml} ซึ่งเราใช้สมการดังต่อไปนี้ในการแก้ปัญหา Minimization (การปรับค่าลงให้ต่ำที่สุด)
 
 \begin{equation}
     \min_{w} \lVert X_{w} - y \rVert_{2}^{2}
@@ -198,7 +198,8 @@ $x$ และ $z$ อยู่ห่างกัน
 ด้านซ้ายไปยังด้านขวา ดังนั้นเส้นตรงที่ได้จากการ Fit นั้นจึงมีแนวโน้มไปในทางเดียวกัน ซึ่งมีความชันเป็นบวกนั่นเอง
 
 %--------------------------
-\subsection{Ridge Regression}
+\subsection{การถดถอยแบบริดจ์}
+\idxth{การถดถอย!การถดถอยแบบริดจ์}
 \idxen{Kernel!Ridge Regression}
 %--------------------------
 
@@ -233,11 +234,13 @@ LASSO ซึ่งย่อมาจาก Least Absolute Shrinkage and Selectio
 \end{equation}
 
 %--------------------------
-\section{Kernel Ridge Regression}
+\section{การถดถอยแบบริดจ์ด้วยเคอร์เนล}
+\label{sec:kernel_ridge}
+\idxth{การถดถอย!การถดถอยแบบริดจ์ด้วยเคอร์เนล}
 \idxen{Kernel!Kernel Ridge Regression}
 %--------------------------
 
-Kernel Ridge Regression (KRR) เป็นการต่อยอดจาก Ridge Regression หรืออธิบายง่าย ๆ ว่า KRR ก็คือ RR ในเวอร์ชันที่เป็น Nonlinear 
+การถดถอยแบบริดจ์ด้วยเคอร์เนล (Kernel Ridge Regression หรือ KRR) เป็นการต่อยอดจาก Ridge Regression หรืออธิบายง่าย ๆ ว่า KRR ก็คือ RR ในเวอร์ชันที่เป็น Nonlinear 
 Problem ซึ่งมีการผสม Kernel Trick เข้าไปด้วย (Kernel + Ridge Regression) โดยรูปแบบของโมเดลที่ถูกสอนให้เรียนรู้โดย KRR นั้นก็ยัง%
 มีรูปแบบอื่น ๆ แยกย่อยไปอีกหลายเทคนิค เช่น เทคนิค Support Vector Regression (SVR) โดยความแตกต่างระหว่าง KRR กับ SVM ก็คือการใช้
 Loss Function ที่ต่างกัน โดย KRR จะใช้ค่า Loss Error ยกกำลังสอง ในขณะที่ SVR จะใช้ $\epsilon$-incentive Loss
@@ -247,8 +250,9 @@ Loss Function ที่ต่างกัน โดย KRR จะใช้ค่
 ของโมเลกุล
 
 %--------------------------
-\section{Gaussian Process Regression}
-\label{sec:kernel_gpr}
+\section{การถดถอยแบบกระบวนการเกาส์เซียน}
+\label{sec:gaussian_process}
+\idxth{การถดถอย!การถดถอยแบบกระบวนการเกาส์เซียน}
 \idxen{Kernel!Gaussian Process Regression}
 %--------------------------
 
