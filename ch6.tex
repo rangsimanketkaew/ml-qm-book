@@ -100,16 +100,26 @@ Network ที่เฉพาะตัวนั่นก็คือจะทำ
 \idxen{K-means Clustering}
 %--------------------------
 
-การแบ่งกลุ่มข้อมูลแบบเคมีนหรือ K-means Clustering
+การแบ่งกลุ่มข้อมูลแบบเคมีนหรือ K-means Clustering เป็นหนึ่งในวิธีการแบ่งเวกเตอร์ซึ่งจะเป็นการแบ่งชุดข้อมูลที่มี n ข้อมูลออกเป็น k กลุ่ม
+ซึ่งเทคนิคนี้ได้ถูกใช้มาอย่างยาวนานตั้งแต่ในช่วงยุคเริ่มต้นของการทำ Data Mining\cite{macqueen1967}
 
 \begin{figure}[H]
     \centering
-    \subfloat[\label{fig:k_mean_step1}]{\includegraphics[width=0.4\linewidth]{fig/k-mean-step1.png}}
-    \subfloat[\label{fig:k_mean_step2}]{\includegraphics[width=0.4\linewidth]{fig/k-mean-step2.png}}
+    \subfloat[เลือกค่าเฉลี่ย\label{fig:k_means_step1}]{\includegraphics[width=0.4\linewidth]{fig/k-means-step1.png}}
+    \hspace{1em}
+    \subfloat[สร้างคลัสเตอร์ k กลุ่ม\label{fig:k_means_step2}]{\includegraphics[width=0.4\linewidth]{fig/k-means-step2.png}}
     \\
-    \subfloat[\label{fig:k_mean_step3}]{\includegraphics[width=0.4\linewidth]{fig/k-mean-step3.png}}
-    \subfloat[\label{fig:k_mean_step4}]{\includegraphics[width=0.4\linewidth]{fig/k-mean-step4.png}}
-    \caption{ขั้นตอนการทำ K-mean Clustering (เครดิตภาพ: \url{https://en.wikipedia.org/wiki/K-means_clustering})}
-    \label{fig:k_mean}
+    \vspace{1em}
+    \subfloat[คำนวณค่าเฉลี่ยใหม่\label{fig:k_means_step3}]{\includegraphics[width=0.4\linewidth]{fig/k-means-step3.png}}
+    \hspace{1em}
+    \subfloat[ทำซ้ำจนกระทั่งค่ากลางลู่เข้า\label{fig:k_means_step4}]{\includegraphics[width=0.4\linewidth]{fig/k-means-step4.png}}
+    \caption{ขั้นตอนการทำ K-means Clustering (เครดิตภาพ: \url{https://en.wikipedia.org/wiki/K-means_clustering})}
+    \label{fig:k_means}
 \end{figure}
  
+ภาพที่ \ref{fig:k_means} แสดงอัลกอริทึมของ K-means Clustering ที่มี 4 ขั้นตอน โดยขั้นตอนที่หนึ่งจะเป็นเลือกค่าเฉลี่ยเริ่มต้น k 
+(ในกรณีนี้ k=3) แบบสุ่มจากโดเมนข้อมูล ขั้นตอนที่สองเป็นการสร้างคลัสเตอร์ k กลุ่มรอบ ๆ ค่าเฉลี่ยทีได้กำหนดไว้โดยการเชื่อมโยงทุกข้อมูล%
+การสังเกตด้วยค่าเฉลี่ยที่ใกล้ที่สุด (สังเกตระยะห่างระหว่างจุดวงกลมในแต่ละคลัสเตอร์ไปจนถึงเส้นแบ่ง) เส้นแบ่งในที่นี้แสดงให้เห็นแผนภาพของโวโรนอย 
+(Voronoi Diagram) ที่สร้างขึ้นจากค่าเฉลี่ย ขั้นตอนที่สามคือคำนวณจุดศูนย์กลางหรือจุดเซนทรอยด์ (Centroid) ของโวโรนอยของแต่ละคลัสเตอร์%
+และทำการกำหนดเป็นค่าเฉลี่ยค่าใหม่ ขั้นตอนที่สี่จะเป็นการทำสามขั้นตอนแรกซ้ำ ซึ่งจะทำซ้ำไปเรื่อย ๆ จนกว่าค่ากลางของแต่ละคลัสเตอร์จะไม่เปลี่ยนแปลง
+โดยเมื่อค่ากลางลู่เข้าแล้ว เราจะได้ฟังก์ชันที่มีเส้นแบ่งสำหรับการนำไปจัดคลัสเตอร์ของข้อมูล Test Set ต่อไป
