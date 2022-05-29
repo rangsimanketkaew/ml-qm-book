@@ -142,6 +142,37 @@ Coulomb Matrix (เมทริกซ์คูลอมบ์) เป็น Mole
 (RSCM)\cite{hansen2013}, Bag of Bonds (BoB)\cite{hansen2013}, และ Permutation Invariant Vectors (PIV)\cite{gallet2013} 
 โดย Representation เหล่านี้ได้แก้ปัญหาเกี่ยวลำดับของอะตอม ทำให้ Representation ประเภทนี้มีประสิทธิภาพมากขึ้นและลด Bias ที่อาจจะเกิดขึ้นด้วย
 
+ตัวอย่างโค้ดของการคำนวณ Coulomb Matrix โดยใช้ไลบรารี่ molml\cite{collins2018}
+
+\begin{lstlisting}[style=MyPython]
+>>> from molml.features import CoulombMatrix
+>>> feat = CoulombMatrix()
+>>> H2 = (
+...         ['H', 'H'],
+...         [
+...             [0.0, 0.0, 0.0],
+...             [1.0, 0.0, 0.0],
+...         ]
+... )
+>>> HCN = (
+...         ['H', 'C', 'N'],
+...         [
+...             [-1.0, 0.0, 0.0],
+...             [ 0.0, 0.0, 0.0],
+...             [ 1.0, 0.0, 0.0],
+...         ]
+... )
+>>> feat.fit([H2, HCN])
+CoulombMatrix(input_type='list', n_jobs=1, sort=False, eigen=False, drop_values=False, only_lower_triangle=False)
+>>> feat.transform([H2])
+array([[ 0.5,  1. ,  0. ,  1. ,  0.5,  0. ,  0. ,  0. ,  0. ]])
+>>> feat.transform([H2, HCN])
+array([[  0.5      ,   1.       ,   0.       ,   1.       ,   0.5      ,
+        0.       ,   0.       ,   0.       ,   0.       ],
+        [  0.5      ,   6.       ,   3.5      ,   6.       ,  36.8581052,
+        42.       ,   3.5      ,  42.       ,  53.3587074]])
+\end{lstlisting}
+
 %--------------------------
 \section{ลักษณะเฉพาะเชิงอิเล็กทรอนิกส์สำหรับอะตอม}
 \idxth{ลักษณะเฉพาะ!เชิงอิเล็กทรอนิกส์สำหรับอะตอม}

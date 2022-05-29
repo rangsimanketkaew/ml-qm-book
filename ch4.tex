@@ -210,48 +210,141 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 \idxboth{ฟังก์ชันความคลาดเคลื่อน}{Loss Function}
 %--------------------------
 
-ฟังก์ชันความคลาดเคลื่อน (Loss Function หรือ Cost Function หรือ Error Function)
+ฟังก์ชันความคลาดเคลื่อน (Loss Function หรือ Cost Function หรือ Error Function) สำหรับโจทย์ประเภท Regression ของชุดข้อมูล%
+ที่มี $n$ จำนวนข้อมูล และมีค่าที่ได้จากการทำนายที่เป็น $\hat{y}$ และคำตอบ (Label) คือ $y$ มีดังต่อไปนี้
 
-\begin{equation}
-    \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} | \tilde{x}_{i} - x_{i} |
+\begin{equation}\label{eq:mae}
+    \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} | y_{i} - \hat{y}_{i} |
 \end{equation}
 
-\begin{equation}
-    \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{\tilde{x}_{i} - x_{i}}{x_{i}} \right| \times 100
+\begin{equation}\label{eq:mape}
+    \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_{i} - \hat{y}_{i}}{x_{i}} \right| \times 100
 \end{equation}
 
-\begin{equation}
-    \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} \left( \tilde{x}_{i} - x_{i} \right)^2
+\begin{equation}\label{eq:mse}
+    \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} \left( y_{i} - \hat{y}_{i} \right)^2
 \end{equation}
 
-\begin{equation}
-    \text{MaxAE} = max\{\tilde{x}_{i} - x_{i}\}, i = 1, 2, ..., n
+\begin{equation}\label{eq:maxae}
+    \text{MaxAE} = max\{y_{i} - \hat{y}_{i}\}, i = 1, 2, ..., n
 \end{equation}
 
-\begin{equation}
-    \text{MaxAPE} = max\left\{\left| \frac{\tilde{x}_{i} - x_{i}}{x_{i}} \right| \times 100 \right\}, i = 1, 2, ..., n
+\begin{equation}\label{eq:maxape}
+    \text{MaxAPE} = max\left\{\left| \frac{y_{i} - \hat{y}_{i}}{x_{i}} \right| \times 100 \right\}, i = 1, 2, ..., n
 \end{equation}
 
-\begin{equation}
-    \text{RMSD} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (\tilde{x}_{i} - x_{i})^{2} }
-    \label{eq:rmsd}
+\begin{equation}\label{eq:rmsd}
+    \text{RMSD} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} (y_{i} - \hat{y}_{i})^{2} }
 \end{equation}
 
-\begin{equation}
-    \text{GRMSD} = \sqrt[2n]{ \prod_{i=1}^{n} (\tilde{x}_{i} - x_{i})^{2} }
-    \label{eq:grmsd}
+\begin{equation}\label{eq:grmsd}
+    \text{GRMSD} = \sqrt[2n]{ \prod_{i=1}^{n} (y_{i} - \hat{y}_{i})^{2} }
 \end{equation}
 
-\begin{equation}
-    \text{GWRMSD} = \sqrt{ \frac{\sum_{i=1}^{n} \zeta_{i} (\tilde{x}_{i} - x_{i})^{2}}{\sum_{i=1}^{n} \zeta_{i} } }
-    \label{eq:gwrmsd}
+\begin{equation}\label{eq:gwrmsd}
+    \text{GWRMSD} = \sqrt{ \frac{\sum_{i=1}^{n} \zeta_{i} (y_{i} - \hat{y}_{i})^{2}}{\sum_{i=1}^{n} \zeta_{i} } }
 \end{equation}
 
 \indent โดยที่
 
 \begin{equation}
-    \zeta_{i} = e^{-(\tilde{x}_{i} - x_{i}) / c}
+    \zeta_{i} = e^{-(y_{i} - \hat{y}_{i}) / c}
 \end{equation}
+
+\begin{equation}\label{eq:huber}
+    L_{\delta}=
+    \left\{\begin{matrix}
+        \frac{1}{2}(y - \hat{y})^{2} & \text{if} \left | (y - \hat{y})  \right | < \delta\\
+        \delta ((y - \hat{y}) - \frac1 2 \delta) & \text{otherwise}
+    \end{matrix}\right.
+\end{equation}
+
+สำหรับ Loss Function ที่ \ref{eq:mae} - \ref{eq:gwrmsd} จะมีความคล้ายคลึงกัน แต่จะต่างกันตรงที่การปรับรูปแบบให้ฟังก์ชันที่เป็นความ%
+แตกต่างระหว่างค่าอ้างอิงและค่าทำนายนั้นมีความไว (Sensitivity) ต่อ Outlier ที่ต่างกันไป สำหรับสมการที่ \ref{eq:huber} นั้นคือ Huber
+Loss ซึ่งจะมีความไวต่อค่าที่ห่างค่าผิดปกติ (Outlier)\footnote{ค่าผิดปกติหรือ Outlier คือค่าที่อยู่ห่างจากค่าส่วนใหญ่ในชุดข้อมูลมากเกินไป} 
+ที่น้อยกว่ากรณีของ MSE (สมการที่ \ref{eq:mse}) เพราะว่าใน MSE เทอม $y_{i} - \hat{y}_{i}$ ถูกกำลังสองอยู่นั่นเอง
+
+ฟังก์ชันความคลาดเคลื่อนสำหรับโจทย์ประเภท Classification
+
+\noindent $\bullet$ Cross-entropy คือการวัดความแตกต่างระหว่างการกระจายตัวของความน่าจะเป็น 2 กลุ่มของตัวแปรแบบสุ่มของเหตุการณ์%
+ที่เราสนใจ (กลุ่มหรือ Class ในชุดข้อมูล) โดยกรณีที่มีแค่ 2 Class $(M = 2)$ เราจะเรียกประเภทนี้ว่า Binary Cross-entropy และกรณีที่%
+มีมากกว่า 2 Class ($M > 2$) เราจะเรียกว่า Multiclass Cross-entropy ซึ่งทั้งสองแบบมีสมการดังต่อไปนี้
+
+\begin{equation}
+    H(p) = -{(y\log(p) + (1 - y)\log(1 - p))}
+\end{equation}
+
+\begin{equation}
+    H(p) = -\sum_{c=1}^My_{o,c}\log(p_{o,c})
+\end{equation}
+
+
+\noindent โดยที่ $p$ คือความน่าจะเป็นของการสังเกต $o$ ใน Class $c$ และ $y$ คือตัวระบุ Class (เช่น 0 กับ 1)
+
+\noindent $\bullet$ Negative Log-likelihood (NLL)
+
+\begin{equation}
+    l(y) = -{\log(p(y))}
+\end{equation}
+
+\noindent $\bullet$ Hinge loss
+
+\begin{equation}
+    l(y) = max(0, 1 - y \cdot \hat{y})
+\end{equation}
+
+\noindent $\bullet$ Kullback-Leibler (KL) Divergence
+
+\begin{equation}
+    KL(\hat{y} || y) = \sum_{c=1}^{M}\hat{y}_c \log \bigg( {\frac{\hat{y}_c}{y_c}} \bigg)
+\end{equation}
+
+\noindent $\bullet$ Jensen-Shannon (JS) Divergence
+
+\begin{equation}
+    JS(\hat{y} || y) = \frac{1}{2}(KL(y||\frac{y+\hat{y}}{2}) + KL(\hat{y}||\frac{y+\hat{y}}{2}))
+\end{equation}
+
+%--------------------------
+\section{ตัวประเมินโมเดล}
+\label{sec:metrics}
+\idxboth{ตัวประเมินโมเดล}{Metrics}
+%--------------------------
+
+สิ่งที่เราใช้ในการประเมินหรือวัดประสิทธิภาพของโมเดลก็คือ Metrics ซึ่ง Metrics สำหรับโจทย์ประเภท Regression นั้นเราสามารถใช้ฟังก์ชัน%
+ที่เป็น Loss Function ได้เลย แต่กรณีโจทย์ประเภท Classification นั้นเราจะต้องใช้ฟังก์ชันที่ต่างกันออกไป ฟังก์ชันต่อไปนี้คือ Metrics 
+ที่มักจะถูกใช้เป็น Metrics สำหรับ Classification
+
+\noindent $\bullet$ ประเภทวัดความถูกต้องและแม่นยำ
+
+\begin{equation}
+    \text{Accuracy} = \frac{TP+TN}{TP+TN+FP+FN}
+\end{equation}
+
+\begin{equation}
+    \text{Precision} = \frac{TP}{TP+FP}
+\end{equation}
+
+\begin{equation}
+    \text{Recall} = \frac{TP}{TP+FN}
+\end{equation}
+
+\begin{align}
+    \text{F1} &= \frac{2*Precision*Recall}{Precision+Recall} \nonumber \\
+    &= \frac{2*TP}{2*TP+FP+FN}
+\end{align}
+
+\noindent $\bullet$ ประเภทวัดความว่องไวและความจำเพาะเจาะจง
+
+\begin{equation}
+    \text{Sensitivity} = \text{Recall} = \frac{TP}{TP+FN}
+\end{equation}
+
+\begin{equation}
+    \text{Sensitivity} = \frac{TN}{FP+TN}
+\end{equation}
+
+\noindent นอกจากนี้ยังมี Area Under the Curve (AUC) ซึ่งเป็นการใช้พื้นที่ใต้เส้นโค้งสำหรับการแบ่งกลุ่ม (Classifier) อีกด้วย
 
 %--------------------------
 \section{ตัวปรับความเหมาะสม}
