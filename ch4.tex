@@ -157,6 +157,20 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
     \end{tikzpicture}
 \end{center}
 
+จะเห็นได้ว่าไดอะแกรมด้านบนนั้นมีความซับซ้อนมาก ซึ่งจริง ๆ แล้วถ้าหากเราจะมาทำความเข้าใจองค์ประกอบของ Neural Network นั้น เราควร%
+พิจารณากรณีง่าย ๆ ด้วยโครงสร้างแบบเล็ก ๆ ก่อน
+
+\begin{figure}[H]
+    \centering
+    \subfloat[ชั้นการเรียนรู้ (Learning Layer)\label{fig:plot_simple_reg_1}]{
+        \includegraphics[width=0.4\linewidth]{fig/nn_layer.png}}
+    \hspace{1em}
+    \subfloat[โครงข่ายแบบค่าน้ำหนักหลายตัว\label{fig:plot_simple_reg_2}]{
+        \includegraphics[width=0.4\linewidth]{fig/nn_w_matrices.png}}
+    \caption{}
+    \label{fig:nn_layer_w}
+\end{figure}
+
 %--------------------------
 \subsection{การแผ่กระจายแบบไปข้างหน้า}
 \label{sec:forward_prop}
@@ -164,7 +178,7 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 %--------------------------
 
 ในขั้นเริ่มต้นของการฝึกสอนโมเดล Neural Network นั้น โมเดลจะยังไม่มีพารามิเตอร์ที่ถูกต้อง ดังนั้นเราจึงต้องสุ่มค่าเริ่มต้นของพารามิเตอร์ขึ้นมาก่อน
-หลังจากนั้นจึงทำ Forward Propagation รอบที่หนึ่งแล้วก็เปรียบเทียบผลการทำนายกับคำตอบ ($Output$) ที่โมเดลทราบก่อนหน้านั้นแล้ว
+หลังจากนั้นจึงทำ Forward Propagation รอบที่หนึ่งแล้วก็เปรียบเทียบผลการทำนายกับคำตอบ (Output) ที่โมเดลทราบก่อนหน้านั้นแล้ว
 ขั้นตอนต่อมาคือการปรับพารามิเตอร์ที่สำคัญอีกสองตัวนั่นคือน้ำหนัก (Weight) และความอคติหรือความโน้มเอียง (Bias) ให้มีค่าที่ถูกต้อง ซึ่งใน%
 ขั้นตอนนี้เราจะใช้กระบวนการที่ตรงข้ามกันเรียกว่า Backward propagation โดยการทำ Propagation ทั้งสองแบบพร้อม ๆ กันครบหนึ่งรอบนั้น%
 จะเรียกว่า 1 Epoch แต่ต้องระวังนะครับว่า Epoch, Batch Size และ Iteration นั้นมีความหมายต่างกัน โดยความแตกตางมีดังนี้
@@ -178,6 +192,20 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 เพื่อให้เห็นภาพมากขึ้น เราลองมาดูตัวอย่างกัน เช่น ถ้าเรามีจำนวนข้อมูลในการฝึกสอน 1000 ตัวอย่างและกำหนด Batch Size เป็น 500 จะได้ว่าโมเดลของเรา%
 จะใช้ 2 Iterations สำหรับการฝึกสอน 1 Epoch
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/nn_feedforward_matrices.png}
+    \caption{}
+    \label{fig:nn_ff_mat}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/nn_feedforward_matrix_weighted_input.png}
+    \caption{}
+    \label{fig:nn_ff_mat_w}
+\end{figure}
+
 %--------------------------
 \subsection{การแผ่กระจายแบบย้อนกลับ}
 \label{sec:backprop}
@@ -185,6 +213,13 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 %--------------------------
 
 การแผ่กระจายแบบย้อนกลับ (Backpropagation)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/nn_backprop.png}
+    \caption{}
+    \label{fig:nn_bp}
+\end{figure}
 
 %--------------------------
 \section{ฟังก์ชันกระตุ้น}
