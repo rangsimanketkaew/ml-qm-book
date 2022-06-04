@@ -78,7 +78,7 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 อัลกอริทึมเล็กน้อย โดยด้านล่างคืออัลกอริทึมของ Mini-batch SGD ซึ่งได้จากการปรับอัลกอริทึมของ SGD แบบธรรมดา  
 
 \begin{algorithm}[ht]
-    \caption{Mini-batch stochastic gradient descent}
+    \caption{อัลกอริทึมของ Mini-batch Stochastic Gradient Descent}
     \label{alg:sgd_minibatch}
     \begin{algorithmic}
     \State Hyperparameter: learning rate $\alpha$, batch size $B$, \# iteration $n_\text{iter}$.
@@ -158,18 +158,88 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 \end{center}
 
 จะเห็นได้ว่าไดอะแกรมด้านบนนั้นมีความซับซ้อนมาก ซึ่งจริง ๆ แล้วถ้าหากเราจะมาทำความเข้าใจองค์ประกอบของ Neural Network นั้น เราควร%
-พิจารณากรณีง่าย ๆ ด้วยโครงสร้างแบบเล็ก ๆ ก่อน
+พิจารณากรณีง่าย ๆ ด้วยโครงสร้างแบบเล็ก ๆ ก่อน ตามภาพที่ \ref{fig:nn_layer} ซึ่งเป็นชั้นการเรียนรู้ (Learning Layer) ประกอบไปด้วย
+3 ส่วน ดังนี้
+
+\begin{description}
+    \item[Input Layer] ชั้นอินพุต เก็บข้อมูลที่เราจะนำมาใช้ในการฝึกสอนโมเดล โดยในแต่ละหน่วยประสาท (Neuron) จะเป็นตัวที่เก็บคุณลักษณ์%
+    ที่อยู่ในข้อมูล เช่น ความยาวพันธะ จำนวนเวเลนซ์อิเล็กตรอนของอะตอม
+    \item[Hidden Layer] ชั้นที่ถูกซ่อนไว้ เป็นชั้นที่อยู่ระหว่างชั้นอินพุตและชั้นเอาต์พุต โดยข้อมูลที่ถูกส่งมาจากชั้นก่อนหน้า (ในที่นี้คือชั้นอินพุต)
+    จะถูกนำไปผ่านฟังก์ชันกระตุ้น (Activation Function) ในชั้นนี้ และหลังจากนั้นจะถูกส่งออกไปชั้นต่อไป (ในที่นี้คือชั้นเอาต์พุต)
+    \item[Output Layer] ชั้นเอาต์พุต เป็นชั้นสุดท้ายของโครงข่ายประสาท โดยจะรับข้อมูลหรืออินพุตมาจากชั้นก่อนหน้าซึ่งเป็น Hidden Layer
+    โดยในชั้นนี้อาจจะมีการนำฟังก์ชันกระตุ้นมาใช้หรือไม่ใช้ก็ได้
+\end{description}
 
 \begin{figure}[H]
     \centering
     \subfloat[ชั้นการเรียนรู้ (Learning Layer)\label{fig:nn_layer}]{
-        \includegraphics[width=0.4\linewidth]{fig/nn_layer.png}}
+        \includegraphics[width=0.45\linewidth]{fig/nn_layer.png}}
     \hspace{1em}
     \subfloat[โครงข่ายแบบค่าน้ำหนักหลายตัว\label{fig:nn_w_matrices}]{
-        \includegraphics[width=0.4\linewidth]{fig/nn_w_matrices.png}}
+        \includegraphics[width=0.45\linewidth]{fig/nn_w_matrices.png}}
     \caption{}
     \label{fig:nn_layer_w}
 \end{figure}
+
+โดยเราสามารถใช้โค้ดต่อไปนี้ในการสร้าง Neural Network แบบง่าย ๆ ได้
+
+\begin{lstlisting}[style=MyPython]
+def relu(z):
+    return max(0,z)
+
+def feed_forward(x, Wh, Wo):
+    # Hidden layer
+    Zh = x * Wh
+    H = relu(Zh)
+
+    # Output layer
+    Zo = H * Wo
+    output = relu(Zo)
+    return output
+\end{lstlisting}
+
+เมื่อเราพิจารณาภาพที่ \ref{fig:nn_w_matrices} ซึ่งมีความซับซ้อนมากขึ้นโดยมีการเพิ่มจำนวน Neuron เข้าไปในชั้น Hidden Layer และ 
+Output Layer เราจะพบว่าค่าน้ำหนักที่ถูกคำนวณออกมาจากชั้น Input จะถูกส่งไปยังชั้น Hidden และค่าน้ำหนักที่ออกมาจากชั้น Hidden ก็ถูก%
+ส่งต่อไปยังชั้น Output ตามลำดับ โดยจะเห็นว่าทุก ๆ Neuron ของชั้นที่ถูกติดกันนั้นจะมีการแลกเปลี่ยนกันทุก Neuron โดยสมการที่ใช้ในการคำนวณ%
+หาเอาต์พุตของแต่ละ Neuron มีดังนี้
+
+\noindent $\bullet$ อินพุต 1 ตัว
+\begin{align}\label{eq:nn_one_input}
+    Z &= Input \cdot Weight \nonumber \\
+    &= X W
+\end{align}
+
+\noindent $\bullet$ อินพุตมากกว่า 1 ตัว
+\begin{align}\label{eq:nn_multi_input}
+    Z &= \sum_{i=1}^{n}x_i w_i \nonumber \\
+    &= x_1 w_1 + x_2 w_2 + x_3 w_3
+\end{align}ฃ
+
+เราจะสังเกตได้ว่าสมการข้างต้นที่ \ref{eq:nn_one_input} และ \ref{eq:nn_multi_input} เป็นสมการที่เหมือนกับที่เราใช้ใน Linear 
+Regression เป๊ะ ๆ เลย ซึ่งจริง ๆ แล้ว Neural Network ที่มีจำนวน Neuron แค่ 1 อันนั้นคือ Linear Regression เลย แต่สิ่งที่ต่างกันก็คือ%
+Neural Network จะมีกระบวนที่เกี่ยวข้องกับค่าน้ำหนักและฟังก์ชันกระตุ้นด้วย สำหรับการกำหนดค่าน้ำหนักในช่วงเริ่มต้นของการฝึกสอนนั้นเราสามารถ%
+กำหนดค่าได้โดยใช้การสุ่มค่าตามตัวอย่างโค้ดดังนี้
+
+\begin{lstlisting}[style=MyPython]
+INPUT_LAYER = 1
+HIDDEN_LAYER = 2
+OUTPUT_LAYER = 2
+
+def init_weights():
+    Wh = np.random.randn(INPUT_LAYER, HIDDEN_LAYER) \
+            * np.sqrt(2.0/INPUT_LAYER)
+    Wo = np.random.randn(HIDDEN_LAYER, OUTPUT_LAYER) \
+            * np.sqrt(2.0/HIDDEN_LAYER)
+\end{lstlisting}
+
+\noindent และเรามักจะกำหนดค่าเริ่มต้นของความโน้มเอียง (Bias) ด้วยค่าน้อย ๆ เช่น 0.1 หรือ 0.2 ดังนี้
+
+\begin{lstlisting}[style=MyPython]
+def init_bias():
+    Bh = np.full((1, HIDDEN_LAYER), 0.1)
+    Bo = np.full((1, OUTPUT_LAYER), 0.1)
+    return Bh, Bo
+\end{lstlisting}
 
 %--------------------------
 \subsection{การแผ่กระจายแบบไปข้างหน้า}
@@ -194,9 +264,16 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/nn_feedforward_matrices.png}
+    \includegraphics[width=0.9\linewidth]{fig/nn_feedforward_matrices.png}
     \caption{}
     \label{fig:nn_ff_mat}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/nn_feedforward_dyn_resizing.png}
+    \caption{}
+    \label{fig:nn_ff_dyn_resize}
 \end{figure}
 
 \begin{figure}[H]
@@ -280,11 +357,7 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
     \text{GWRMSD} = \sqrt{ \frac{\sum_{i=1}^{n} \zeta_{i} (y_{i} - \hat{y}_{i})^{2}}{\sum_{i=1}^{n} \zeta_{i} } }
 \end{equation}
 
-\indent โดยที่
-
-\begin{equation}
-    \zeta_{i} = e^{-(y_{i} - \hat{y}_{i}) / c}
-\end{equation}
+\noindent โดยที่ $\zeta_{i} = e^{-(y_{i} - \hat{y}_{i}) / c}$
 
 \begin{equation}\label{eq:huber}
     L_{\delta}=
