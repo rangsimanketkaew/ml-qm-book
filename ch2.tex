@@ -63,6 +63,129 @@
 \noindent ถ้าหากฟังก์ชันไม่สอดคล้องกับเงื่อนไขทั้งสองข้อด้านบน ฟังก์ชันนั้นจะมีความไม่เป็นเชิงเส้น (Nonlinearity)
 
 %--------------------------
+\subsection{การถดถอยแบบง่าย}
+\label{sec:simple_lin_res}
+\idxen{Supervised Learning!Simple Regression}
+%--------------------------
+
+เรามาดูตัวอย่างของกรณีแรกของการถดถอย นั่นก็คือการถดถอยแบบง่าย (Simple Regression) โดยพิจารณาข้อมูลในตาราง 
+\ref{tab:simple_reg_data} ดังต่อไปนี้ 
+
+\begin{table}[H]
+    \centering
+    \caption{แสดงเงินที่ใช้ในการลงทุนการโฆษณาของบริษัทต่าง ๆ กับยอดขายรายปี}
+    \label{tab:simple_reg_data}
+    \small
+    \begin{tabular}{lcc}\toprule
+    \textbf{บริษัท} &\textbf{วิทยุ} &\textbf{ยอดขาย (ต่อหน่วย)} \\\midrule
+    Amazon &37.8 &22.1 \\
+    Google &39.3 &10.4 \\
+    Facebook &45.9 &18.3 \\
+    Apple &41.3 &18.5 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+ซึ่งแสดงความสัมพันธ์ระหว่างเงินที่ใช้ในการลงทุนในสื่อวิทยุของบริษัทต่าง ๆ กับยอดขายรายปีต่อหน่วยการลงทุน โดยเราสามารถกำหนดตัวแปรได้เป็น%
+ตัวแปร $x$ กับ $y$ ซึ่งเป็นอินพุตและเอาต์พุตตามลำดับ ดังสมการต่อไปนี้
+
+\begin{equation}
+    y = mx + b
+\end{equation}
+
+\noindent โดยที่ $m$ คือความชันหรือน้ำหนัก (Weight) และ $b$ คือจุดตัดแกน $y$ หรือความโน้มเอียง (Bias) นั่นเอง สำหรับ Loss 
+Function ที่เราจะเลือกใช้นั้น คือ Mean Square Error (MSE)
+
+\begin{equation}
+    \text{MSE} = \frac{1}{N} \sum_{i=1}^{n} (y_i - (m x_i + b))^2
+\end{equation}
+
+ในการ Optimize ฟังก์ชัน MSE ด้านบนนั้นเราจะใช้เทคนิค Gradient Descent ซึ่งเป็นเทคนิคที่เราจะคำนวณหา Gradient ซึ่งสามารถใช้สมการที่
+\ref{eq:grad_simple_reg} ในการคำนวณได้
+
+\begin{align}\label{eq:grad_simple_reg}
+    f'(m,b) =
+      \begin{bmatrix}
+        \dv{f}{m}\\
+        \dv{f}{b}\\
+      \end{bmatrix}
+    &=
+      \begin{bmatrix}
+        \frac{1}{N} \sum -x_i \cdot 2(y_i - (mx_i + b)) \\
+        \frac{1}{N} \sum -1 \cdot 2(y_i - (mx_i + b)) \\
+      \end{bmatrix}\\
+    &=
+      \begin{bmatrix}
+         \frac{1}{N} \sum -2x_i(y_i - (mx_i + b)) \\
+         \frac{1}{N} \sum -2(y_i - (mx_i + b)) \\
+      \end{bmatrix}
+\end{align}
+
+หลังจากนั้นเราจะทำการฝึกสอนโมเดลโดยการใช้วิธีวนซ้ำเพื่อปรับค่าพารามิเตอร์ต่าง ๆ ทั้ง Weight และ Bias โดยภาพด้านล่างแสดงการเปลี่ยนแปลง%
+ของการทาบเส้นตรงกับข้อมูล (Fitting) ระหว่างการฝึกสอน เราจะพบว่าเส้นตรง (Linear Line) ของเรานั้นจะลากผ่านข้อมูลที่อยู่ในช่วงบริเวณ%
+ตรงกลางได้ดีขึ้นเรื่อย ๆ 
+
+\begin{figure}[H]
+    \centering
+    \subfloat[ครั้งที่ 1\label{fig:plot_simple_reg_1}]{\includegraphics[width=0.4\linewidth]{fig/plot_simple_reg_1.png}}
+    \hspace{1em}
+    \subfloat[ครั้งที่ 2\label{fig:plot_simple_reg_2}]{\includegraphics[width=0.4\linewidth]{fig/plot_simple_reg_2.png}}
+    \\
+    \vspace{1em}
+    \subfloat[ครั้งที่ 3\label{fig:plot_simple_reg_3}]{\includegraphics[width=0.4\linewidth]{fig/plot_simple_reg_3.png}}
+    \hspace{1em}
+    \subfloat[ครั้งที่ 4\label{fig:plot_simple_reg_4}]{\includegraphics[width=0.4\linewidth]{fig/plot_simple_reg_4.png}}
+    \caption{การเปลี่ยนแปลงของเส้นตรงที่ถูกทาบ (Fitting) เข้ากับชุดข้อมูลอย่างง่าย}
+    \label{fig:simple_reg_change}
+\end{figure}
+
+%--------------------------
+\subsection{การถดถอยแบบหลายตัวแปร}
+\label{sec:multi_lin_res}
+\idxen{Supervised Learning!Multivariate Regression}
+%--------------------------
+
+สำหรับกรณีที่เรามีอินพุตหรือ Feature มากกว่าหนึ่งตัว เช่น ข้อมูลในตาราง \ref{tab:multi_reg_data} ด้านล่างที่เป็นการนำข้อมูลในตาราง 
+\ref{tab:simple_reg_data} มาเพิ่มข้อมูลเงินที่ใช้ในการลงทุนสำหรับการโฆษณาทางสื่อโทรทัศน์และหนังสือพิมพ์เข้าไป (คอลัมน์ที่ 3 กับ 4) 
+
+\begin{table}[H]
+    \centering
+    \caption{แสดงเงินที่ใช้ในการลงทุนการโฆษณาของบริษัทต่าง ๆ กับยอดขายรายปี}
+    \label{tab:multi_reg_data}
+    \small
+    \begin{tabular}{lcccc}\toprule
+    \textbf{บริษัท} &\textbf{วิทยุ} &\textbf{โทรทัศน์} &\textbf{หนังสือพิมพ์} &\textbf{ยอดขาย (ต่อหน่วย)} \\\midrule
+    Amazon &37.8 &230.1 &69.1 &22.1 \\
+    Google &39.3 &44.5 &23.1 &10.4 \\
+    Facebook &45.9 &17.2 &34.7 &18.3 \\
+    Apple &41.3 &151.5 &13.2 &18.5 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/plot_multivar_reg.png}
+    \caption{ความสัมพันธ์ของข้อมูลหลายตัวแปร (Multivariables Data)}
+    \label{fig:multi_var_reg}
+\end{figure}
+
+โดยในกรณีที่ข้อมูลมีความซับซ้อนมากขึ้นแบบนี้ เราไม่สามารถใช้สมการเส้นตรงแบบง่าย ๆ ที่เราใช้ไปก่อนหน้านี้มาอธิบายความสัมพันธ์ระหว่าง Feature
+ได้ ดังนั้นเราจะต้องมีการกำหนด Loss Function ขึ้นมาใหม่ โดยตอนนี้เราจะต้องมีการกำหนดค่า Weight ขึ้นมา 3 ค่า นั่นคือจากที่เราเคยมีฟังก์ชัน 
+$mx + b$ ก็จะหลายเป็นฟังก์ชัน $W_1 x_1 + W_2 x_2 + W_3 x_3$ โดยสมการ Loss Function ใหม่ของเราจะมีหน้าตาดังนี้
+
+\begin{equation}
+    \text{MSE} = \frac{1}{2N} \sum_{i=1}^{n} (y_i - (W_1 x_1 + W_2 x_2 + W_3 x_3))^2
+\end{equation}
+
+สำหรับสมการที่เราจะมาใช้ในการหา Gradient ของกรณีนี้สามารถพิสูจน์ได้โดยใช้กฎลูกโซ่ (Chain Rule) เช่นเดียวกับกรณีก่อนหน้านี้
+
+\begin{align}
+    f'(W_1) = -x_1(y - (W_1 x_1 + W_2 x_2 + W_3 x_3)) \\
+    f'(W_2) = -x_2(y - (W_1 x_1 + W_2 x_2 + W_3 x_3)) \\
+    f'(W_3) = -x_3(y - (W_1 x_1 + W_2 x_2 + W_3 x_3))
+\end{align}
+
+%--------------------------
 \section{การจำแนกประเภท}
 \label{sec:classification}
 \idxen{Supervised Learning!Classification}
