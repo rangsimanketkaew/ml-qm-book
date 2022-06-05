@@ -120,8 +120,9 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 การแผร่กระจายการเรียนรู้ (Learning Propagation) เป็นขั้นตอนการเรียนรู้ของโมเดล Neural Network ที่เลียนแบบการทำงานของสมอง 
 
 
+\begin{figure}[H]
 \begin{center}
-\begin{tikzpicture}[x=2.2cm,y=1.4cm]
+    \begin{tikzpicture}[x=2.2cm,y=1.4cm]
     \message{^^JNeural network with arrows}
     \readlist\Nnod{4,5,5,5,3} % array of number of nodes per layer
     
@@ -155,7 +156,9 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
     \node[above=8,align=center,myred!60!black] at (N\Nnodlen-1.90) {output\\[-0.2em]layer};
     
     \end{tikzpicture}
+    \caption{โครงข่ายประสาทแบบสมบูรณ์ (Dense Neural Network)}
 \end{center}
+\end{figure}
 
 จะเห็นได้ว่าไดอะแกรมด้านบนนั้นมีความซับซ้อนมาก ซึ่งจริง ๆ แล้วถ้าหากเราจะมาทำความเข้าใจองค์ประกอบของ Neural Network นั้น เราควร%
 พิจารณากรณีง่าย ๆ ด้วยโครงสร้างแบบเล็ก ๆ ก่อน ตามภาพที่ \ref{fig:nn_layer} ซึ่งเป็นชั้นการเรียนรู้ (Learning Layer) ประกอบไปด้วย
@@ -177,7 +180,7 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
     \hspace{1em}
     \subfloat[โครงข่ายแบบค่าน้ำหนักหลายตัว\label{fig:nn_w_matrices}]{
         \includegraphics[width=0.45\linewidth]{fig/nn_w_matrices.png}}
-    \caption{}
+    \caption{ตัวอย่างของโครงข่ายประสาทแบบง่าย}
     \label{fig:nn_layer_w}
 \end{figure}
 
@@ -265,21 +268,21 @@ def init_bias():
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/nn_feedforward_matrices.png}
-    \caption{}
+    \caption{แผนภาพการดำเนินการคูณเมทริกซ์อินพุนด้วยเมทริกซ์น้ำหนัก}
     \label{fig:nn_ff_mat}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/nn_feedforward_dyn_resizing.png}
-    \caption{}
+    \caption{แผนภาพขนาดของเมทริกซ์ที่สามารถปรับขนาดได้แบบไดนามิกส์}
     \label{fig:nn_ff_dyn_resize}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/nn_feedforward_matrix_weighted_input.png}
-    \caption{}
+    \caption{แผนภาพการดำเนินการคูณเมทริกซ์น้ำหนักและการเพิ่มความโน้มเอียง}
     \label{fig:nn_ff_mat_w}
 \end{figure}
 
@@ -294,7 +297,7 @@ def init_bias():
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/nn_backprop.png}
-    \caption{}
+    \caption{การคำนวณการแผ่กระจายแบบย้อนกลับจากชั้นเอาต์พุตไปยังชั้นอินพุน}
     \label{fig:nn_bp}
 \end{figure}
 

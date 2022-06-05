@@ -47,8 +47,9 @@ Weighted Pair Group Method with Arithmetic Mean (WPGMA) เป็นเทคน
 
 การเข้ารหัสแบบอัตโนมัติหรือ Autoencoder
 
+\begin{figure}[H]
 \begin{center}
-\begin{tikzpicture}[x=2.1cm,y=1.2cm]
+    \begin{tikzpicture}[x=2.1cm,y=1.2cm]
     % \large
     \message{^^JNeural network without arrows}
     \readlist\Nnod{6,5,4,3,4,5,6} % array of number of nodes per layer
@@ -87,8 +88,10 @@ Weighted Pair Group Method with Arithmetic Mean (WPGMA) เป็นเทคน
     \node[above=2,align=center,mygreen!60!black] at (N1-1.90) {Input};
     \node[above=2,align=center,myred!60!black] at (N\Nnodlen-1.90) {Output};
     
-\end{tikzpicture}
+    \end{tikzpicture}
+    \caption{โครงข่ายประสาทของ Autoencoder ที่มีลักษณะความเป็นสมมาตร}
 \end{center}
+\end{figure}
 
 ตัวเข้ารหัสแบบอัตโนมัติ (Autoencoder หรือ AE) เป็นอัลกอริทึม Unsupervised Learning แบบหนึ่งที่ใช้โมเดล ANN โดยมีรูปแบบของ 
 Network ที่เฉพาะตัวนั่นก็คือจะทำการลดมิติของข้อมูลโดยทำการบีบอัดข้อมูลหรือเข้ารหัส (Encoding) และทำการถอดรหัส (Decoding) 
