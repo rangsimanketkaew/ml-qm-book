@@ -26,6 +26,7 @@
 \usepackage{changepage,threeparttable}  % For wide tables
 \usepackage{wrapfig} % wrapping text around figure
 \usepackage[perpage]{footmisc} % reset footnote counter each page
+\usepackage{alertmessage} % alert box
 
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -91,6 +92,9 @@
 \usepackage{indentfirst}
 \setlength{\parindent}{2em}
 \setlength{\parskip}{1em}
+
+% Equation
+\counterwithin{equation}{chapter}
 
 % Indices
 \usepackage{imakeidx}
