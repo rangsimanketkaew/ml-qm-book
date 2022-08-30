@@ -309,11 +309,17 @@ $\mathcal{O}(n^{3})$
     \item[Outlier] ค่าที่ผิดปกติไปจากข้อมูลตัวอื่นในชุดข้อมูล
     \idxen{Outlier}
 
-    \item[Parameter] คุณสมบัติของข้อมูลที่ถูกเรียนรู้โดยโมเดลปัญญาประดิษฐ์
+    \item[Parameter] คุณสมบัติของข้อมูลที่ถูกเรียนรู้โดยโมเดลปัญญาประดิษฐ์ โดยพารามิเตอร์จะถูกปรับให้มีความเหมาะสมตามอัลกอริทึมที่ใช้
+    เช่น Optimization ตัวอย่างของพารามิเตอร์มีดังนี้
+    \begin{itemize}
+        \item น้ำหนัก (Wegiths) ในเทคนิค Neural network
+        \item Support vectors ในเทคนิค Support vector machine
+        \item ค่าสัมประสิทธิ์ (Coefficients) ในเทคนิค Linear regression
+    \end{itemize}
     \idxboth{พารามิเตอร์}{Parameter}
 
     \item[Precision] ความแม่นยำของการทำนาย มีสูตรในการคำนวณดังนี้
-    \begin{equation}
+    \begin{equation}\label{eq:precision}
         P = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}
     \end{equation}
 
@@ -324,6 +330,10 @@ $\mathcal{O}(n^{3})$
     เช่น พลังงานภายในของโมเลกุล, พลังงานอิสระของโมเลกุล และพลังงานกระตุ้น
     \idxen{Regression}
 
+    \item[Regularization] การทำให้ถูกต้อง เป็นเทคนิคสำหรับการแก้ปัญหา Overfitting โดยการเพิ่มพจน์พิเศษที่มีความซับซ้อนเข้าไปใน 
+    Loss function โดยเทคนิคนี้มีประโยชน์อย่างมากในการสร้างโมเดลที่มีความซับซ้อน
+    \idxboth{การทำให้ถูกต้อง}{Regularization}
+
     \item[Reinforment learning] การเรียนรู้แบบเสริมแรง 
     \idxboth{การเรียนรู้แบบเสริมแรง}{Reinforment learning}
 
@@ -332,6 +342,14 @@ $\mathcal{O}(n^{3})$
 
     \item[Segmentation] กระบวนการหรือขั้นตอนการแบ่งส่วนของชุดข้อมูลออกเป็นหลาย ๆ ชุดข้อมูลย่อย
     \idxen{Segmentation}
+
+    \item[Specificity] ความจำเพาะเจาะจง เป็นพารามิเตอร์ที่วัเประสิทธิภาพของโมเดลในการจำแนกกรณีที่เป็นเท็จหรือไม่เป็นจริง (Negative)
+    กล่าวอีกอย่างคือ เมื่อคำตอบคือ Negative พารามิเตอร์ตัวนี้จะบอกเราว่าการทำนายของโมเดลของเรานั้นถูกต้องมากน้อย (บ่อย) แค่ไหน
+    โดยมีสูตรในการคำนวณคือ
+    \begin{equation}\label{eq:specficity}
+        S = \frac{\text{True Negatives}}{\text{True Negatives} + \text{False Positives}}
+    \end{equation}
+    \idxboth{ความจำเพาะเจาะจง}{Specificity}
 
     \item[Supervised learning] การเรียนรู้ของโมเดลแบบมีผู้สอน (Output)
     \idxboth{การเรียนรู้แบบมีผู้สอน}{Supervised Learning}
@@ -350,6 +368,11 @@ $\mathcal{O}(n^{3})$
 
     \item[Training set] ชุดข้อมูลที่นำมาใช้ในการสอนคอมพิวเตอร์เพื่อสร้าง Model
     \idxboth{ชุดข้อมูล!ชุดข้อมูลสำหรับการฝึกสอน}{Training set}
+
+    \item[Transfer learning] การเรียนรู้แบบส่งต่อ เป็นการนำโมเดล ML ที่ผ่านการฝึกสอนแล้วและสามารถทำงานอย่างหนึ่งได้อยู่แล้วมาฝึกสอน%
+    อีกครั้งหนึ่งเพื่อให้สามารถทำงานที่สองได้ โดยวิธีการทำ Transfer learning ก็คือเรานำค่าพารามิเตอร์ที่ถูกปรับโดยผ่านการฝึกสอนแล้ว
+    เช่น น้ำหนัก นำมาใช้ต่อในการทำนายค่าอื่น ๆ นั่นเอง
+    \idxboth{การเรียนรู้แบบส่งต่อ}{Transfer learning}
 
     \item[Unsupervised learning] การเรียนรู้ของโมเดลแบบไม่มีผู้สอน (Output-free)
     ซึ่งยังสามารถแบ่งออกได้เป็นสองประเภทคือ 1. Binary classification กับ 2. Multi-class classification
