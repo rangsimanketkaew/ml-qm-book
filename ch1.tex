@@ -110,13 +110,16 @@ XC ก็เปรียบเสมือนเป็นกล่องดำ (
 
 \begin{table}[H]
     \centering
-    \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\autocite{rupp2015} โดย $N$ คือจำนวนของอิเล็กตรอน}
+    \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\autocite{rupp2015} โดย $N$ คือจำนวนของอิเล็กตรอนหรือ%
+    จำนวนของ Basis function}
     \label{tab:qm_complx}
     \small
     \begin{tabular}{lll}\toprule
     ตัวย่อ &วิธี &Runtime \\\midrule
     FCI &Full Configuration Interaction (CISDTQ) &$\mathcal{O}(N^{10})$ \\
+    CC &Coupled Cluster (CCSDT) &$\mathcal{O}(N^{8})$ \\
     CC &Coupled Cluster (CCSD(T)) &$\mathcal{O}(N^{7})$ \\
+    CC &Coupled Cluster (CCSD) &$\mathcal{O}(N^{6})$ \\
     FCI &Full Configuration Interaction (CISD) &$\mathcal{O}(N^{6})$ \\
     MP2 &M$\o$llor-Plesset second order perturbation theory &$\mathcal{O}(N^{5})$ \\
     QMC &Quantum Monte Carlo &$\mathcal{O}(N^{3}) - \mathcal{O}(N^{4})$ \\
@@ -224,11 +227,40 @@ $\mathcal{O}(n^{3})$
 %--------------------------
 
 \begin{description}[style=nextline]
+    \item[Accuracy] ค่าความถูกต้องของการทำนายของโมเดล ส่วนมักมักจะรายงานค่าความถูกต้องเป็นเปอร์เซ็นต์
+    \idxboth{ค่าความถูกต้อง}{Accuracy}
+
     \item[Algorithm] วิธีหรือขั้นตอนกระบวนการคิดคำนวณทางคณิตศาสตร์เพื่อให้ได้ผลลัพธ์ออกมา
     \idxboth{อัลกอริทึม}{Algorithm}
 
+    \item[Attribute] ปริมาณที่ได้จากการสังเกตซึ่งบ่งบอกถึงคุณลักษณะของสิ่งที่สนใจ เช่น สี, ขนาด, ความสูง พูดง่่าย ๆ คือถ้าเป็นชุดข้อมูล 
+    Attribute ก็คือชื่อของแต่ละคอลัมน์นั่นเอง
+    \idxboth{คุณลักษณะ}{Attribute}
+
+    \item[Categorical variables] ตัวแปรจัดกลุ่ม ไม่มีความต่อเนื่อง เป็นข้อมูลประเภทแบบแยกออกจากกันและไม่ขึ้นต่อค่าอื่น ๆ เช่น 
+    เพศ เชื้อชาติ พันธ์สุนัข ชนิดของผลไม้ ชนิดของหมู่ฟังก์ชันในโมเลกุล
+    \idxboth{ตัวแปรจัดกลุ่ม}{Categorical variables}
+
     \item[Classification] การจำแนกข้อมูลหรือการทำนายค่าที่มีความไม่ต่อเนื่อง เช่น ประเภทของยานพาหนะ ชนิดของผลไม้
     \idxboth{การจำแนก}{Classification}
+ 
+    \item[Clustering] การจัดกลุ่มข้อมูล
+    \idxboth{การจัดกลุ่ม}{Clustering}
+
+    \item[Confusion matrix] เมทริกซ์ที่แสดงการประเมินผลลัพธ์ของการทำนาย
+    \begin{itemize}
+        \item True Positives (TP): ทำนายว่าจริง และสิ่งที่เกิดขึ้นก็จริง
+        \item True Negatives (TN): ทำนายว่าไม่จริง และสิ่งที่เกิดขึ้นก็ไม่จริง
+        \item False Positives (FP): ทำนายว่าจริง แต่สิ่งที่เกิดขึ้นคือไม่จริง
+        \item False Negatives (FN): ทำนายว่าไม่จริง แต่สิ่งที่เกิดขึ้นคือจริง
+    \end{itemize}
+    \idxen{Confusion matrix}
+
+    \item[Continuous variables] ตัวแปรต่อเนื่อง เป็นตัวแปรเชิงปริมาณที่มีค่าในช่วงที่กำหนด เช่น น้ำหนัก จำนวนรถ ความยาวพันธะ
+    \idxboth{ตัวแปรต่อเนื่อง}{Continuous variables}
+
+    \item[Convergence] สถานะของโมเดลเมื่อการเปลี่ยนของค่า Loss ระหว่าง Interation มีขนาดน้อยมาก ๆ
+    \idxboth{การลู่เข้า}{Convergence}
 
     \item[Data set หรือ Dataset] ชุดข้อมูลที่ได้เตรียมไว้ ประกอบไปด้วยข้อมูลอินพุต (Input) และ/หรือเอาต์พุต (Output)
     \idxboth{ชุดข้อมูล}{Data set}
@@ -236,17 +268,46 @@ $\mathcal{O}(n^{3})$
     \item[Descriptor] วิธีที่ใช้ในการแปลงข้อมูล เช่น ข้อมูลของโครงสร้างโมเลกุล ให้เป็นข้อมูลเวกเตอร์ที่เป็น Feature
     \idxen{Descriptor}
 
-    \item[Feature / Attribute] คุณลักษณะเฉพาะของสิ่งที่สนใจ โดยเป็นข้อมูลแบบ 1 มิติที่ถูกสร้างโดย Descriptor
+    \item[Epoch] จำนวนครั้งหรือจำนวนรอบที่อัลกอริทึมมองเห็นหรือได้รับชุดข้อมูลทั้งหมดเข้ามาเพื่อทำการเรียนรู้
+    \idxen{Epoch}
+
+    \item[Extrapolation] เป็นการทำนายที่อยู่นอกเหนือจากชุดข้อมูลที่ใช้ในการฝึกสอนโมเดล
+    \idxen{Extrapolation}
+
+    \item[Feature] คุณลักษณะเฉพาะของสิ่งที่สนใจ โดยเป็นข้อมูลแบบ 1 มิติที่ถูกสร้างโดย Descriptor
     \idxboth{คุณลักษณะเฉพาะ}{Feature}
+
+    \item[Hyperparameter] พารามิเตอร์ขั้นสูงที่กำหนดคุณสมบัติของโมเดล เช่น ความเร็วในการเรียนรู้ ความซับซ้อนของโมเดล
+    ซึ่งผู้ใช้งานจะต้องทำการกำหนดพารามิเตอร์เหล่านี้ก่อนทำการสร้างหรือฝึกสอนโมเดล
+    \idxboth{ไฮเปอร์พารามิเตอร์}{Hyperparameter}
+
+    \item[Learning rate] อัตราเร็วในการเรียนรู้ของโมเดล หรือในทางทฤษฎีคือขนาดของก้าวในการปรับปรุง (Update step) ในกระบวนการ 
+    Optimization โดยการใช้อัลกอริทึม เช่น Gradient descent
+    \idxboth{อัตราเร็วในการเรียนรู้}{Learning rate}
+
+    \item[Loss] ค่าความคลาดเคลื่อนหรือความแตกต่างระหว่างค่าที่ได้จากการทำนาย (Prediction) และค่าอ้างอิง (Ground truth หรือ 
+    Reference) ยิ่ง Loss มีค่าน้อย หมายความว่าโมเดลของเรายิ่งมีประสิทธิภาพสูง โดยค่า Loss จะถูกคำนวณในระหว่างการฝึกสอนโมเดล
+    \idxboth{ค่่าความคลาดเคลื่อน}{Loss}
 
     \item[Model] ชุดคำสั่งหรือโปรแกรมที่ถูกสร้างขึ้นมาโดยมีความสามารถในการคำนวณ ประมวลผลและตัดสินใจ
     \idxboth{แบบจำลอง}{Model}
 
+    \item[Noise] ข้อมูลที่มีความผิดปรกติและไม่มีความเกี่ยวข้องกับข้อมูลที่เราสนใจ รวมไปถึงค่าที่เกิดจากการสุ่ม (Randomness)
+
+    \item[Normalization] การทำให้เป็นปรกติ เป็นการกำหนดหรือบังคับค่าของน้ำหนัก (Weights) ในการทำ Regression เพื่อป้องกันปัญหา
+    Overfitting (การ Fit ข้อมูลที่ดีเกินไป) และเพิ่มความเร็วในการคำนวณ
+    \idxboth{การทำให้เป็นปรกติ}{Normalization}
+
     \item[Outlier] ค่าที่ผิดปกติไปจากข้อมูลตัวอื่นในชุดข้อมูล
-    \idxen{Outlier} 
+    \idxen{Outlier}
 
     \item[Parameter] คุณสมบัติของข้อมูลที่ถูกเรียนรู้โดยโมเดลปัญญาประดิษฐ์
     \idxboth{พารามิเตอร์}{Parameter}
+
+    \item[Precision] ความแม่นยำของการทำนาย มีสูตรในการคำนวณดังนี้
+    \begin{equation}
+        P = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}
+    \end{equation}
 
     \item[Prediction] กระบวนการทำนายค่าของโมเดลโดยจะทำนายค่าเอาต์พุตของข้อมูลใหม่ที่ถูกป้อนเข้าไป
     \idxboth{การทำนาย}{Prediction}
