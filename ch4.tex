@@ -324,12 +324,31 @@ def init_bias():
 
 \begin{itemize}
     \item Linear
+    \begin{figure}[H]
+        \centering
+        \subfloat[%
+        \begin{equation}
+            \begin{split}R(z,m) = \begin{Bmatrix} z*m \\
+            \end{Bmatrix}\end{split}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_linear.png}}
+        \hspace{1em}
+        \subfloat[%
+        \begin{equation}
+            \begin{split}R'(z,m) = \begin{Bmatrix} m \\
+            \end{Bmatrix}\end{split}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_linear_der.png}}
+    \end{figure}
     \item ELU
     \item ReLU
     \item LeakyReLU
     \item Sigmoid
     \item Tanh
     \item Softmax
+    \begin{equation}
+        \sigma(z_i) = \frac{e^{z_{i}}}{\sum_{j=1}^K e^{z_{j}}} \ \ \ for\ i=1,2,\dots,K
+    \end{equation}
 \end{itemize}
 
 %--------------------------
