@@ -340,11 +340,93 @@ def init_bias():
         \end{equation}
         ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_linear_der.png}}
     \end{figure}
+
     \item ELU
+    \begin{figure}[H]
+        \centering
+        \subfloat[%
+        \begin{equation}
+            \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
+                \alpha (e^z – 1) & z <= 0 \end{Bmatrix}\end{split}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_elu.png}}
+        \hspace{1em}
+        \subfloat[%
+        \begin{equation}
+            \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
+                \alpha e^z & z<0 \end{Bmatrix}\end{split}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_elu_der.png}}
+    \end{figure}
+
     \item ReLU
+    \begin{figure}[H]
+        \centering
+        \subfloat[%
+        \begin{equation}
+            \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
+                0 & z <= 0 \end{Bmatrix}\end{split}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_relu.png}}
+        \hspace{1em}
+        \subfloat[%
+        \begin{equation}
+            \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
+                0 & z<0 \end{Bmatrix}\end{split}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_relu_der.png}}
+    \end{figure}
+
     \item LeakyReLU
+    \begin{figure}[H]
+        \centering
+        \subfloat[%
+        \begin{equation}
+            \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
+                \alpha z & z <= 0 \end{Bmatrix}\end{split}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_leakyrelu.png}}
+        \hspace{1em}
+        \subfloat[%
+        \begin{equation}
+            \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
+                \alpha & z<0 \end{Bmatrix}\end{split}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_leakyrelu_der.png}}
+    \end{figure}
+
     \item Sigmoid
+    \begin{figure}[H]
+        \centering
+        \subfloat[%
+        \begin{equation}
+            S(z) = \frac{1} {1 + e^{-z}}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_sigmoid.png}}
+        \hspace{1em}
+        \subfloat[%
+        \begin{equation}
+            S'(z) = S(z) \cdot (1 - S(z))
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_sigmoid_der.png}}
+    \end{figure}
+    
     \item Tanh
+    \begin{figure}[H]
+        \centering
+        \subfloat[%
+        \begin{equation}
+            tanh(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_tanh.png}}
+        \hspace{1em}
+        \subfloat[%
+        \begin{equation}
+            tanh'(z) = 1 - tanh(z)^{2}
+        \end{equation}
+        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_tanh_der.png}}
+    \end{figure}
+
     \item Softmax
     \begin{equation}
         \sigma(z_i) = \frac{e^{z_{i}}}{\sum_{j=1}^K e^{z_{j}}} \ \ \ for\ i=1,2,\dots,K
