@@ -42,3 +42,24 @@ optimizer = tf.keras.optimizers.RMSprop(0.001)
 keras_model.compile(loss=custom_loss, optimizer=optimizer)
 keras_model.fit(x, y, batch_size=20, epochs=50)
 \end{lstlisting}
+
+%--------------------------
+\subsection{การฝึกสอนโมเดลด้วยขนานบน GPU หลายตัว}
+%--------------------------
+\begin{lstlisting}[style=MyPython]
+import tensorflow as tf
+
+# Use all avialable GPUs
+mirrored_strategy = tf.distribute.MirroredStrategy()
+# Specify which GPU to be used
+mirrored_strategy = tf.distribute.MirroredStrategy(devices=["/gpu:0", "/gpu:1"])
+
+with mirrored_strategy.scope():
+    model = tf.keras.Sequential([tf.keras.layers.Dense(1, input_shape=(1,))])
+
+model.compile(loss='mse', optimizer='sgd')
+
+dataset = tf.data.Dataset.from_tensors(([1.], [1.])).repeat(100).batch(10)
+model.fit(dataset, epochs=2)
+model.evaluate(dataset)
+\end{lstlisting}
