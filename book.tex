@@ -16,8 +16,8 @@
 
 \begin{document}
 
-% Book cover
-\includepdf[pages=-]{book_cover.pdf}
+% Book front cover
+\includepdf[pages=-]{cover_front.pdf}
 
 \newpage
 \ % empty page
@@ -96,6 +96,7 @@
 \include{ap1}
 \include{ap2}
 \include{ap3}
+\include{ap4}
 \end{appendices}
 
 \backmatter
@@ -113,5 +114,13 @@
 \addcontentsline{toc}{chapter}{ดรรชนีภาษาอังกฤษ}
 
 \include{author_bio}
+
+% Book back cover
+\newpage
+\ % empty page
+\pagestyle{empty} % make sure that no header on TOC pages
+\newpage
+
+\includepdf[pages=-]{cover_back.pdf}
 
 \end{document}
