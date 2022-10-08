@@ -66,7 +66,20 @@ coulomb_matrices = soap.create(samples, positions, n_jobs=2)
 \subsection{SchNetPack}
 %--------------------------
 
-SchNetPack\autocite{schutt2019}
+SchNetPack เป็นชุดโปรแกรมสำหรับการฝึกสอนโมเดล Neural Network สำหรับการทำนายคุณสมบัติเชิงอะตอม\autocite{schutt2019}
+ถูกเขียนโดยภาษา Python 100\% และใช้ไลบรารี PyTorch เป็น Backend สำหรับการสร้างโมเดล SchNet ซึ่งเป็นตัวโมเดลหลักของ SchNetPack
+ผู้อ่านสามารถดาวน์โหลดซอร์สโค้ดของ SchNetPack และศึกษาวิธีการติดตั้งและใช้งานได้ที่เว็บไซต์ \url{https://schnetpack.readthedocs.io/}
+
+\noindent Feature หลัก ๆ ของ SchNetPack มีดังนี้
+
+\begin{itemize}
+    \item รองรับการสร้างโมเดล SchNet ซึ่งถูกพัฒนาโดยใช้อัลกอริทึม Convolutional Neural Network สำหรับโมเลกุลโดยเฉพาะ%
+    \autocite{schutt2017,schutt2017a}
+    \item รองรับการสร้างโมเดล PaiNN ซึ่งเป็น Equivariant Message-Passing สำหรับโมเลกุลเช่นเดียวกัน\autocite{schutt2021}
+    \item สามารถทำนายค่าเอาต์พุตได้หลากหลาย เช่น Dipole Moments, Polarizability, Stress และคุณสมบัติอื่น ๆ ของโมเลกุล
+    \item มีโมดูลสำหรับ Electrostatics และ Ewald Summation
+    \item รองรับการเร่งความเร็วด้วย GPU
+\end{itemize}
 
 %--------------------------
 \subsection{sGDML}

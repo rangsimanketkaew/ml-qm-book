@@ -64,6 +64,66 @@
 \end{description}
 
 %--------------------------
+\subsection{ประเภทของเมทริกซ์}
+%--------------------------
+
+เมทริกซ์แบบพิเศษมีด้วยกันหลากหลายแบบด้วยกัน โดยเมทริกซ์แบบพิเศษที่มักเจอมีดังต่อไปนี้
+
+\paragraph{Zero Matrix หรือ Null Matrix} เมทริกซ์ที่มีสมาชิกทุกตัวเป็น 0 หมด มีนิยามดังต่อไปนี้
+
+\begin{equation}
+    0_{K_{m,n}} = 
+    \begin{bmatrix}
+    0_K & 0_K & \cdots & 0_K \\
+    0_K & 0_K & \cdots & 0_K \\
+    \vdots & \vdots & \ddots  & \vdots \\
+    0_K & 0_K & \cdots & 0_K 
+    \end{bmatrix}_{m \times n}
+\end{equation}
+
+\noindent ตัวอย่างของ Zero Matrix มีดังนี้
+
+\begin{align}
+    0_{1,1} &= \begin{bmatrix}
+    0 \end{bmatrix}
+    \\
+    0_{2,2} &= \begin{bmatrix}
+    0 & 0 \\
+    0 & 0 \end{bmatrix}
+    \\
+    0_{2,3} &= \begin{bmatrix}
+    0 & 0 & 0 \\
+    0 & 0 & 0 \end{bmatrix}
+\end{align}
+
+\paragraph{Identity Matrix หรือ Unit Matrix} ใช้สัญลักษณ์ $I$ หรือ $I_{n}$ เมทริกซ์ที่สมาชิกในแนวทแยง (Diagonal Elements) 
+มีค่ากับเท่า 1 ทุกตัวและสมาชิกที่ไม่ได้อยู่ในแนวทแยง (Off-diagonal Elements) เป็น 0 ทั้งหมด ถ้าในกรณีที่สมาชิกในแนวทแยงอย่างน้อย%
+หนึ่งตัวที่ไม่มีค่าเท่ากับ 1 แต่สมาชิกนอกแนวทแยงยังเป็น 0 อยู่ เราจะเรียกเมทริกซ์นั้นว่า เมทริกซ์แนวทแยง (Diagonal Matrix)
+
+\noindent ตัวอย่างของ Identity Matrix ตามขนาด มีดังนี้
+
+\begin{align}
+    I_1 &= \begin{bmatrix} 1 \end{bmatrix}
+    ,\ \\
+    I_2 &= \begin{bmatrix}
+    1 & 0 \\
+    0 & 1 \end{bmatrix}
+    ,\ \\
+    I_3 &= \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 \end{bmatrix}
+    ,\ \\ 
+    & \dots ,\ \\
+    I_n &= \begin{bmatrix}
+    1 & 0 & 0 & \cdots & 0 \\
+    0 & 1 & 0 & \cdots & 0 \\
+    0 & 0 & 1 & \cdots & 0 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & \cdots & 1 \end{bmatrix}
+\end{align}
+
+%--------------------------
 \subsection{การดำเนินการของเมทริกซ์}
 %--------------------------
 
@@ -100,35 +160,6 @@
     a_1 \cdot b_1 & a_2 \cdot b_2 \\
     a_3 \cdot b_3 & a_4 \cdot b_4 \\
 \end{bmatrix}
-\end{equation}
-
-%--------------------------
-\subsection{ประเภทของเมทริกซ์}
-%--------------------------
-
-เมทริกซ์แบบพิเศษมีด้วยกันหลากหลายแบบด้วยกัน โดยเมทริกซ์แบบพิเศษที่มักเจอมีดังต่อไปนี้
-
-\paragraph{Identity} เมทริกซ์ที่สมาชิกในแนวทแยงมีค่ากับเท่า 1 ทุกตัวและสมาชิกที่เหลือเป็น 0 ทั้งหมด โดยทั่วไปแล้ว Identity Matrix 
-จะเขียนแทนด้วย $I_{n}$ หรือ $I$
-
-\begin{equation}
-I_1 = \begin{bmatrix} 1 \end{bmatrix}
-,\ 
-I_2 = \begin{bmatrix}
-1 & 0 \\
-0 & 1 \end{bmatrix}
-,\ 
-I_3 = \begin{bmatrix}
-1 & 0 & 0 \\
-0 & 1 & 0 \\
-0 & 0 & 1 \end{bmatrix}
-,\ \dots ,\ 
-I_n = \begin{bmatrix}
-1 & 0 & 0 & \cdots & 0 \\
-0 & 1 & 0 & \cdots & 0 \\
-0 & 0 & 1 & \cdots & 0 \\
-\vdots & \vdots & \vdots & \ddots & \vdots \\
-0 & 0 & 0 & \cdots & 1 \end{bmatrix}
 \end{equation}
 
 %--------------------------
