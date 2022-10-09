@@ -240,6 +240,18 @@ Principle Component Analysis (PCA) ซึ่งจะเป็นการลด
 รายละเอียดเพิ่มเติมของ GPR สามารถศึกษาได้ในหัวข้อ\ref{sec:gaussian_process} ของบทที่ \ref{ch:kernel}
 
 %--------------------------
+\subsection{Support Vector Machine (SVM)}
+\label{sec:svm}
+\idxen{Machine Learning Techniques!Support Vector Machine}
+%--------------------------
+
+Support Vector Machine (SVM) เป็นวิธีเคอร์เนลแบบหนึ่งที่มีความคล้ายกับ GPR หรือ KRR เป็นอย่างมาก โดย SVM จะทำการทำนายค่าโดย%
+ทำการเปรียบเทียบข้อมูลใหม่กับข้อมูลอ้างอิง โดย SVM จะใช้ฟังก์ชัน $k(x_{i},x_{j})$ ในการเปรียบเทียบ (Comparison) 
+และคำนวณค่าความเหมือน (Similarity) ระหว่างจุดสองจุด ซึ่งเราเรียกสิ่งนี้ว่าเคอร์เนล (Kernel) โดยความซับซ้อนของวิธีนี้นั้นไม่มีกฎเกณฑ์%
+ที่แน่นอนในการกำหนด (Arbitrarily) ดังนั้นเราจะต้องทำการปรับ Hyperparameters เพื่อให้มีความเหมาะสมและสามารถควบคุมความซับซ้อนของวิธี 
+SVM ซึ่งเราเรียกวิธีการปรับนี้ว่า Regularization เพื่อทำการหลีกเลี่ยงปัญหา Overfit นั่นเอง
+
+%--------------------------
 \subsection{Random Forest}
 \label{sec:rs}
 \idxen{Machine Learning Techniques!Random Forest}
