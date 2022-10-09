@@ -4,18 +4,57 @@
 % License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
 % https://creativecommons.org/licenses/by-nc-nd/4.0/
 
-\chapter{ซอฟต์แวร์ฝึกสอนปัญญาประดิษฐ์สำหรับเคมีควอนตัม}
+\chapter{ไลบรารี่การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม}
 \label{ch:ml_lib}
 
 %--------------------------
-\section{ไลบรารี่สำหรับคำนวณ Representation}
+\section{ไลบรารี่สำหรับคำนวณลักษณะเฉพาะเชิงโครงสร้าง}
+\idxboth{ไลบรารี่:ลักษณะเฉพาะเชิงโครงสร้าง}{Library:Molecular Structural Feature}
 %--------------------------
+
+ลักษณะเฉพาะเชิงโครงสร้างของโมเลกุลไม่มีความซับซ้อนและสามารถคำนวณออกมาได้ง่าย จริง ๆ แล้วเราอาจจะเขียนสคริปต์สำหรับคำนวณลักษณเฉพาะ%
+ได้โดยที่ไม่ต้องใช้ไลบรารี่เลยก็ได้ อย่างไรก็ตาม ในกรณีที่เราต้องการที่จะคำนวณลักษณะเฉพาะเชิงโครงสร้างหลาย ๆ ตัวสำหรับหลาย ๆ โมเลกุลพร้อมกัน 
+การใช้ไลบรารี่ก็จะสะดวกกว่าในกรณีแบบนี้
+
+%--------------------------
+\subsection{RDkit}
+%--------------------------
+
+ไลบรารี่ RDKit เป็นไลบรารี่สำหรับงานทางด้านเคมีสารสนเทศน์ (Cheminformatics)\autocite{rdkit} ได้รับความนิยมเป็นอย่างมากเนื่องจาก%
+สามารถคำนวณลักษณะเฉพาะเชิงโครงสร้างได้หลากหลาย\footnote{\url{https://www.rdkit.org/}} ตัวอย่างโค้ดสำหรับการใช้งาน RDKit 
+สามารถดูได้ที่ \url{https://www.rdkit.org/docs/Cookbook.html} โดยจะมีโค้ดสำหรับการเปลี่ยนข้อมูลเชิงโมเลกุลจากโครงสร้างไปเป็น 
+SMILES และโค้ดสำหรับการแสดงข้อมูลเชิงโครงสร้างของโมเลกุล เช่น จำนวณของอะตอมแต่ละชนิด, จำนวนพันธะคู่, และจำนวนวงเบนซีน 
+
+%--------------------------
+\section{ไลบรารี่สำหรับคำนวณลักษณะเฉพาะเชิงอิเล็กทรอนิกส์}
+\idxboth{ไลบรารี่:ลักษณะเฉพาะเชิงอิเล็กทรอนิกส์}{Library:Molecular Electronic Feature}
+%--------------------------
+
+ลักษณะเฉพาะเชิงอิเล็กทรอนิกส์ (Molecular Electronic Feature) เช่น Electron Density, Electrostatic Map, และ Frontier 
+Molecular Orbitals (FMOs) มักจะถูกนำมาใช้ในการสร้างชุดข้อมูลเพื่อฝึกสอนโมเดลเพราะว่าคุณสมบัติเหล่านี้เป็นคุณสมบัติเชิงอิเล็กทรอนิกส์%
+ที่มักจะถูกคำนวณออกมาโดยปกติอยู่แล้วด้วยโปรแกรมทางเคมีควอนตัมเชิงคำนวณ (Computational Quantum Chemistry Software)%
+\footnote{\url{https://en.wikipedia.org/wiki/List_of_quantum_chemistry_and_solid-state_physics_software}}
+อย่างไรก็ตามลักษณะเฉพาะเหล่านี้อาจจะยังไม่สามารถที่จะอธิบายคุณลักษณะเชิงอิเล็กทรอนิกส์บางอย่างที่ซับซ้อนของโมเลกุลได้ดีเท่าที่ควร เช่น 
+คุณสมบัติที่เกี่ยวข้องกับควอนตัม ดังนั้นจึงมีลักษณะเฉพาะอื่น ๆ ที่ถูกพัฒนาขึ้นมาโดยรวมข้อมูลเชิงควอนตัมของเข้าไปด้วยเพื่อให้มีความถูกต้องมากขึ้น 
+ซึ่งการที่จะคำนวณลักษณะเฉพาะเหล่านี้ก็มีความซับซ้อนอยู่มิใช่น้อย ดังนั้นจึงได้มีผู้พัฒนาไลบรารี่ที่สามารถคำนวณพารามิเตอร์เหล่านี้ให้เราได้
 
 %--------------------------
 \subsection{DScribe}
 %--------------------------
 
-DScribe เป็นไลบรารี่ที่สามารถคำนวณ Representation ได้เยอะมาก\autocite{himanen2020}
+DScribe เป็นไลบรารี่ที่สามารถคำนวณลักษณะเฉพาะเชิงอิเล็กทรอนิกส์ของโมเลกุลที่ซับซ้อนได้เยอะมาก\autocite{himanen2020}
+สำหรับเวอร์ชันปัจจุบันสามารถคำนวณลักษณะเฉพาะดังต่อไปนี้\footnote{$\ast$ สามารถคำนวณ Derivative ได้}
+
+\begin{itemize}
+    \item Coulomb Matrix$\ast$
+    \item Sine matrix
+    \item Ewald sum matrix
+    \item Atom-centered Symmetry Functions
+    \item Smooth Overlap of Atomic Positions$\ast$
+    \item Many-body Tensor Representation
+    \item Local Many-body Tensor Representation
+    \item Valle-Oganov descriptor
+\end{itemize}
 
 คู่มือการใช้งานอ่านได้ที่ \url{https://singroup.github.io/dscribe/latest/index.html}
 
