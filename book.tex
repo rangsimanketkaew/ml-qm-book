@@ -20,61 +20,20 @@
 \includepdf[pages=-]{cover_front.pdf}
 
 \newpage
-\ % empty page
 \pagenumbering{gobble}
 \newpage
 
-% Front matter
 \frontmatter
-
-% Full title page
-% \maketitle
-\thispagestyle{empty}
-
-\begin{flushright}
-\vspace*{2.0in}
-
-\begin{spacing}{3}
-{\Huge การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม}\\
-{\LARGE Machine Learning for Quantum Chemistry}
-\end{spacing}
-
-\vspace{0.25in}
-
-{\Large รังสิมันต์ เกษแก้ว}
-
-% \date{}
-\vspace{1in}
-
-{ฉบับพิมพ์ครั้งที่ 1}
-\vspace{0.5in}
-
-%\includegraphics[width=1in]{figs/logo.pdf}
-\vfill
-
-\end{flushright}
-
-% Copyright
+\include{cover_front_inside}
 \include{copyright}
-
-% Preface
 \include{preface}
-% Acknowledgement
 \include{acknowledgement}
-
-% Contents
-\pagestyle{empty} % make sure that no header on TOC pages
-\tableofcontents
-% \listoffigures
-% \listoftables
-
-% Quote
+\include{toc}
 \include{quote_1}
 
 \pagestyle{fancy} % Add header from this page on
 
 \mainmatter
-
 \part{การเรียนรู้ของเครื่อง}
 \include{ch1} % การเรียนรู้ของเครื่อง
 \include{ch2} % การเรียนรู้แบบมีผู้สอน
@@ -100,24 +59,10 @@
 \end{appendices}
 
 \backmatter
-
-\begin{@empty}
-\chapter*{บรรณานุกรม}
-\fancyhead[RE,LO]{\textbf{บรรณานุกรม}}
-\addcontentsline{toc}{chapter}{บรรณานุกรม}
-\printbibliography[heading=none]
-\end{@empty}
-
-\printindex[th]
-\addcontentsline{toc}{chapter}{ดรรชนีภาษาไทย}
-\printindex[en]
-\addcontentsline{toc}{chapter}{ดรรชนีภาษาอังกฤษ}
-
+\include{references}
+\include{index}
 \include{author_bio}
-
-% Quote
 \include{quote_2}
-
 % Book back cover
 \includepdf[pages=-]{cover_back.pdf}
 
