@@ -20,15 +20,16 @@
 \includepdf[pages=-]{cover_front.pdf}
 
 \newpage
+\ % empty page
 \pagenumbering{gobble}
 \newpage
 
 \frontmatter
 \include{cover_front_inside}
 \include{copyright}
+\include{toc}
 \include{preface}
 \include{acknowledgement}
-\include{toc}
 \include{quote_1}
 
 \pagestyle{fancy} % Add header from this page on
@@ -41,6 +42,7 @@
 \include{ch4} % การรเรียนรู้เชิงลึก
 \include{ch5} % การเลือกและปรับแต่งโมเดล
 \include{ch6} % การเรียนรู้แบบไม่มีผู้สอน
+\include{quote_2}
 \part{การทำนายคุณสมบัติเชิงเคมีควอนตัม}
 \include{ch7} % คุณสมบัติอิเล็กทรอนิกส์ของโมเลกุล
 \include{ch8} % ลักษณะเฉพาะของอะตอมและโมเลกุล
@@ -49,6 +51,7 @@
 \include{ch11} % โมเดลการเรียนรู้ของเครื่องสำหรับเคมีควอนตัม
 \include{ch12} % ไลบรารี่การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม
 
+\appendix
 \begin{appendices}
 \renewcommand{\thesection}{\arabic{section}} % remove chapter number
 \fancyhead[RE,LO]{\textbf{ภาคผนวก}}
@@ -62,7 +65,6 @@
 \include{references}
 \include{index}
 \include{author_bio}
-\include{quote_2}
 % Book back cover
 \includepdf[pages=-]{cover_back.pdf}
 
