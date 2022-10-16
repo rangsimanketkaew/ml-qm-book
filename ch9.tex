@@ -10,13 +10,71 @@
 %--------------------------
 \section{ปริภูมิเคมี}
 \label{sec:chem_space}
+\idxboth{ปริภูมิเคมี}{Chemical Space}
 %--------------------------
 
 ปริภูมิเคมี (Chemical space)\autocite{kirkpatrick2004}
 
 %--------------------------
+\section{การสร้างชุดข้อมูล}
+\label{sec:create_dataset}
+\idxth{ชุดข้อมูล!การสร้างชุดข้อมูล}
+%--------------------------
+
+ชุดข้อมูลที่ใช้ใน ML นั้นโดยทั่วไปแล้วมักจะมีอยู่ 2 ประเภทคือชุดข้อมูลสำหรับการฝึกสอน (Training Set) และชุดข้อมูลสำหรับการทดสอบ 
+(Test Set) ซึ่งวัตถุประสงค์ของชุดข้อมูลทั้งสองประเภทนี้ก็ตรงตัวเลยก็คือ Training Set จะถูกนำมาใช้ในการฝึกสอนโมเดล ส่วน Test Set 
+จะถูกเก็บไว้ใช้ในการทดสอบโมเดลหรือการทำนายคำตอบที่โมเดลถูกสอนมา (Prediction) อย่างไรก็ตาม การฝึกสอนโมเดลโดยการใช้ Train Set 
+ทั้งหมดนั้นมักจะทำให้เกิดความโน้มเอียง (Bias) ที่เกิดขึ้นจากชุดข้อมูลและส่งผลให้เกิด Biased ในขั้นตอน Prediction ด้วย เพราะป้องกันเหตุการณ์%
+ดังกล่าวและทำให้เกิด Bias น้อยที่สุด เรามักจะทำการแบ่ง (Split) ชุดข้อมูลฝึกสอนให้เป็นชุดข้อมูลสำหรับการฝึกสอนจริง ๆ (Actual Training 
+Set) และชุดข้อมูลสำหรับการตรวจสอบและยืนยันความถูกต้องซึ่งเรียกอีกอย่างว่า Validation Set
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/dataset.png}
+    \caption{การแบ่งชุดข้อมูลทั้งหมดออกเป็น (A) Training Set และ Test Set และ (B) Training Set, Validation Set และ 
+    Test Set (เครดิตภาพ: Wikimedia Commons)}
+    \label{fig:dataset}
+\end{figure}
+
+ภาพที่ \ref{fig:dataset} แสดงสัดส่วนแบบคร่าว ๆ ในการแบ่งชุดข้อมูลออกเป็น Training Set และ Test Set และแสดงการแบ่งชุดข้อมูล%
+อีกครั้งให้เป็น Training Set ที่จะถูกนำไปใช้ในการฝึกสอนโมเดลจริง ๆ และ Validation Set ที่จะถูกนำมาทดสอบโมเดลเพื่อเป็นการหยั่งเชิง%
+ความสามารถของโมเดลก่อนที่จะนำไปใช้ทำนายค่าของ Test Set\footnote{โดยทั่วไปแล้วหลาย ๆ คนมักจะทำการแบ่งโดยใช้อัตราส่วนคือ 
+80\% และ 20\% ตามหลักการของ Pareto \url{https://en.wikipedia.org/wiki/Pareto_principle}}
+
+แล้วขั้นตอนการลด Bias นั่นมันเกิดขึ้นได้อย่างไร คำตอบก็คือในการแบ่งข้อมูลออกมาเป็น Validation Set (เช่นแบ่งออกมา 20\% จากทั้งหมด)
+โดยทำการสุ่มเลือกบางส่วนของข้อมูลออกมา ซึ่งถ้าหากเราทำวนไปแบบนี้ไปเรื่อย ๆ เราจะเรียกว่าเป็นการทำ Validation แบบข้ามไปมาทั่วทั้ง 
+Training Set ซึ่งเมื่อเรานำ Training Set แต่ละชุดไปฝึกสอนโมเดล เราจะได้ประสิทธิภาพของโมเดลแบบเฉลี่ย เปรียบเสมือนเป็นการเกลี่ย% 
+หาความเท่ากันของข้อมูลนั่นเอง (กระจายออกไปให้เสมอกัน) ท้ายที่สุดแล้วถ้าเราแบ่งชุดข้อมูลตามที่ได้อธิบายมา เราจะมีอัตราส่วนของชุดข้อมูล%
+ย่อย ๆ แต่ละประเภท ดังนี้
+
+\begin{itemize}
+    \item Training: 80\%
+    \begin{itemize}
+        \item Actual Training Set: 60\%
+        \item Cross Validation: 20\%
+    \end{itemize}
+    \item Testing: 20\%
+\end{itemize}
+
+%--------------------------
+\subsection{ขั้นตอนการสร้างชุดข้อมูล}
+\label{ssec:step_create_dataset}
+\idxth{ชุดข้อมูล!ขั้นตอนการสร้างชุดข้อมูล}
+%--------------------------
+
+
+%--------------------------
+\subsection{การสร้างชุดข้อมูลเคมีควอนตัม}
+\label{ssec:step_create_qm_dataset}
+\idxth{ชุดข้อมูล!การสร้างชุดข้อมูลเคมีควอนตัม}
+\idxen{Dataset!Create Dataset}
+%--------------------------
+
+%--------------------------
 \section{ชุดข้อมูลมาตรฐาน}
-\label{sec:std_database}
+\label{sec:std_dataset}
+\idxth{ชุดข้อมูล!ชุดข้อมูลมาตรฐาน}
+\idxen{Dataset!Standard Dataset}
 %--------------------------
 
 QM9 เป็นหนึ่งใน Dataset ที่ได้รับความนิยมมากในสายงานวิจัยเคมีควอนตัม โดยเฉพาะงานวิจัยทางด้าน ML ซึ่งถูกใช้อย่างแพร่หลายตั้งแต่ปี ค.ศ. 
@@ -105,7 +163,7 @@ ase_mols = [aio.read('data/qm9/qm9_xyz/' + mol + '.xyz') for mol in qm9_data.mol
 \noindent ตรวจสอบขนาดของโมเลกุลที่ใหญ่ที่สุดในชุดข้อมูล
 
 \begin{lstlisting}[style=MyPython]
-#Check the size of molecules in the dataset
+# Check the size of molecules in the dataset
 size=[]
 for mol in ase_mols:
     num = len(mol.get_atomic_numbers())
@@ -120,6 +178,7 @@ max(size) #maximum size of the molecule in the dataset
 ของโมเลกุลของชุดข้อมูล QM9 \ref{ssec:pred_spec_ir}
 
 นอกจาก QM9 แล้วยังมีชุดข้อมูลอื่น ๆ ที่นักวิจัยมักจะนำมาใช้ในการฝึกสอนโมเดลและทำวิจัย เช่น 
+
 \begin{itemize}
     \item QM7\autocite{blum2009,rupp2012a}
     \item QM7b\autocite{blum2009,montavon2013}
@@ -131,52 +190,84 @@ max(size) #maximum size of the molecule in the dataset
 โดยชุดข้อมูลที่กล่าวมาทั้งหมดนั้นสามารถดาวน์โหลดได้ฟรีจากเว็บไซต์ \url{http://quantum-machine.org/datasets} เช่นกัน
 
 %--------------------------
-\section{การสร้างชุดข้อมูล}
-\label{sec:create_database}
-\idxth{ชุดข้อมูล!การสร้างชุดข้อมูล}
+\section{การวิเคราะห์ชุดข้อมูล}
+\label{sec:dataset_analysis}
+\idxth{ชุดข้อมูล!การวิเคราะห์ชุดข้อมูล}
+\idxen{Dataset!Dataset Analysis}
 %--------------------------
 
-ชุดข้อมูลที่ใช้ใน ML นั้นโดยทั่วไปแล้วมักจะมีอยู่ 2 ประเภทคือชุดข้อมูลสำหรับการฝึกสอน (Training Set) และชุดข้อมูลสำหรับการทดสอบ 
-(Test Set) ซึ่งวัตถุประสงค์ของชุดข้อมูลทั้งสองประเภทนี้ก็ตรงตัวเลยก็คือ Training Set จะถูกนำมาใช้ในการฝึกสอนโมเดล ส่วน Test Set 
-จะถูกเก็บไว้ใช้ในการทดสอบโมเดลหรือการทำนายคำตอบที่โมเดลถูกสอนมา (Prediction) อย่างไรก็ตาม การฝึกสอนโมเดลโดยการใช้ Train Set 
-ทั้งหมดนั้นมักจะทำให้เกิดความโน้มเอียง (Bias) ที่เกิดขึ้นจากชุดข้อมูลและส่งผลให้เกิด Biased ในขั้นตอน Prediction ด้วย เพราะป้องกันเหตุการณ์%
-ดังกล่าวและทำให้เกิด Bias น้อยที่สุด เรามักจะทำการแบ่ง (Split) ชุดข้อมูลฝึกสอนให้เป็นชุดข้อมูลสำหรับการฝึกสอนจริง ๆ (Actual Training 
-Set) และชุดข้อมูลสำหรับการตรวจสอบและยืนยันความถูกต้องซึ่งเรียกอีกอย่างว่า Validation Set
+หลังจากที่เราเลือกชุดข้อมูลที่ต้องการนำมาศึกษาแล้ว ลำดับต่อไปคือการคำนวณ Feature Vector ซึ่งจะถูกนำไปใช้ในการฝึกสอนโมเดล ML ต่อไป
+โดย Feature ที่ผู้เขียนจะยกตัวอย่างให้ได้ศึกษานั้นก็จะเป็น Feature ที่ใช้ Descriptor แบบง่ายนั่นก็คือ Coulomb Matrix (CM)
+ผู้เขียนจะยังคงใช้ชุดข้อมูล QM9 และใช้โค้ดต่อไปนี้ในการคำนวณ CM ของโมเลกุลตัวอย่างเพียงแค่ 3,000 โมเลกุลเท่านั้น
+
+\begin{lstlisting}[style=MyPython]
+import numpy as np
+from qml.representations import * 
+
+cm = []
+size = 27 # Maximum size of molecule in the set
+
+# Runs for loop over every molecule in the database
+for structure in ase_mols: 
+    # ASE prints atomic numbers 
+    atomic_numbers = structure.get_atomic_numbers() 
+    # ASE prints coordinates
+    coordinates=structure.get_positions() 
+    cm1 = generate_coulomb_matrix(atomic_numbers,
+    # CM representation is saved into cm1
+    coordinates, size = size, sorting="row-norm") 
+    # All CM representations are added into one variable
+    cm.append(cm1) 
+
+# Transforms cm into numpy array
+cm = np.array(cm) 
+# Check size of cm
+print(cm.shape)
+
+# OUTPUT
+(3000, 378)
+\end{lstlisting}
+
+หลังจากที่เราคำนวณ CM ของโมเลกุลในชุดข้อมูลเสร็จเรียบร้อยแล้ว สิ่งที่หลายคนทำในละดับต่อไปก็คือสร้างโมเดลแล้วนำ Feature Vector 
+หรืออินพุตที่ได้ไปใช้ในการฝึกสอนโมเดลทันทีเลย ซึ่งการทำแบบนี้นั้นจริง ๆ แล้วไม่เหมาะสมเท่าไหร่นัก นั่นก็เพราะว่าเราควรจะต้องทำความเข้าใจ 
+Feature ที่เราคำนวณออกมาก่อนโดยทำการวิเคราะห์เพื่อดูลักษณะการกระจายตัวหรือการจัดกลุ่มซึ่งสามารถบอกแนวโน้มรวมไปถึง Bias ได้
+
+เราสามารถใช้เทคนิค Unsupervised ML แบบง่าย ๆ ที่ไม่ซับซ้อน เช่น PCA และ t-SNE ในการวิเคราะห์เพื่อดูลักษณะหรืออธิบายง่าย ๆ คือดู 
+\enquote{\textit{รูปร่างหน้าตา}} ของ CM ของทั้ง 3,000 โมเลกุลได้โดยใช้โค้ดต่อไปนี้
+
+\noindent สร้างโมเดล t-SNE
+\begin{lstlisting}[style=MyPython]
+tsne_cm = sklearn.manifold.TSNE(n_components=2)
+tsne_cm_data = tsne_cm.fit_transform(cm)
+\end{lstlisting}
+
+\noindent สร้างโมเดล PCA
+\begin{lstlisting}[style=MyPython]
+    pca_cm = sklearn.decomposition.PCA(n_components=2)
+    pca_cm_data = pca_cm.fit_transform(cm)
+\end{lstlisting}
+
+\noindent พลอตกราฟค่าที่ได้จากการ Fit ข้อมูล
+\begin{lstlisting}[style=MyPython]
+import matplotlib.pyplot as plt
+
+fig, axs = plt.subplots(1,2,figsize=(15,9))
+axs[0].set_title('Principal Components')
+axs[1].set_title('t-SNE')
+
+plot1 = axs[0].scatter(pca_cm_data[:, 0], pca_cm_data[:, 1], c=target, cmap='jet', s=1)
+plot2 = axs[1].scatter(tsne_cm_data[:, 0], tsne_cm_data[:, 1], c=target, cmap='jet', s=1)
+
+cbar = fig.colorbar(plot2, ax=axs);
+cbar.set_label('Internal energy at 0 K [kcal/mol]')
+plt.show()
+\end{lstlisting}
+
+\noindent พลอตที่ได้จะเป็นแบบนี้ โดยข้อมูลแต่ละจุดนั้นจะถูกไฮไลต์ด้วยสีที่มีสเกลแตกต่างกันไปซึ่งแสดงค่าของพลังงานภายในของโมเลกุล
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/dataset.png}
-    \caption{การแบ่งชุดข้อมูลทั้งหมดออกเป็น (A) Training Set และ Test Set และ (B) Training Set, Validation Set และ 
-    Test Set (เครดิตภาพ: Wikimedia Commons)}
-    \label{fig:dataset}
+    \includegraphics[width=\linewidth]{fig/cm_pca_tsne.png}
+    \caption{การกระจายตัวของ Coulomb Matrix Feature ที่ถูกลดจำนวนมิติให้เหลือเพียงแค่ 2 มิติ (Principal Component = 2)}
+    \label{fig:cm_pca_tsne}
 \end{figure}
-
-ภาพที่ \ref{fig:dataset} แสดงสัดส่วนแบบคร่าว ๆ ในการแบ่งชุดข้อมูลออกเป็น Training Set และ Test Set และแสดงการแบ่งชุดข้อมูล%
-อีกครั้งให้เป็น Training Set ที่จะถูกนำไปใช้ในการฝึกสอนโมเดลจริง ๆ และ Validation Set ที่จะถูกนำมาทดสอบโมเดลเพื่อเป็นการหยั่งเชิง%
-ความสามารถของโมเดลก่อนที่จะนำไปใช้ทำนายค่าของ Test Set\footnote{โดยทั่วไปแล้วหลาย ๆ คนมักจะทำการแบ่งโดยใช้อัตราส่วนคือ 
-80\% และ 20\% ตามหลักการของ Pareto \url{https://en.wikipedia.org/wiki/Pareto_principle}}
-
-แล้วขั้นตอนการลด Bias นั่นมันเกิดขึ้นได้อย่างไร คำตอบก็คือในการแบ่งข้อมูลออกมาเป็น Validation Set (เช่นแบ่งออกมา 20\% จากทั้งหมด)
-โดยทำการสุ่มเลือกบางส่วนของข้อมูลออกมา ซึ่งถ้าหากเราทำวนไปแบบนี้ไปเรื่อย ๆ เราจะเรียกว่าเป็นการทำ Validation แบบข้ามไปมาทั่วทั้ง 
-Training Set ซึ่งเมื่อเรานำ Training Set แต่ละชุดไปฝึกสอนโมเดล เราจะได้ประสิทธิภาพของโมเดลแบบเฉลี่ย เปรียบเสมือนเป็นการเกลี่ย% 
-หาความเท่ากันของข้อมูลนั่นเอง (กระจายออกไปให้เสมอกัน) ท้ายที่สุดแล้วถ้าเราแบ่งชุดข้อมูลตามที่ได้อธิบายมา เราจะมีอัตราส่วนของชุดข้อมูล%
-ย่อย ๆ แต่ละประเภท ดังนี้
-
-\begin{itemize}
-    \item Training: 60\%
-    \item Cross Validation: 20\%
-    \item Testing: 20\%
-\end{itemize}
-
-%--------------------------
-\subsection{ขั้นตอนการสร้างชุดข้อมูล}
-\label{ssec:step_create_database}
-\idxth{ชุดข้อมูล!ขั้นตอนการสร้างชุดข้อมูล}
-%--------------------------
-
-
-%--------------------------
-\subsection{การสร้างชุดข้อมูลเคมีควอนตัม}
-\label{ssec:step_create_qm_database}
-\idxth{ชุดข้อมูล!การสร้างชุดข้อมูลเคมีควอนตัม}
-%--------------------------
