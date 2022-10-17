@@ -9,6 +9,45 @@
 \label{ap:coding_tf}
 %--------------------------
 
+TensorFlow ถือได้ว่าเป็นไลบรารี่ Neural Network ที่ได้รับความนิยทมากที่สุดในโลกก็ว่าได้ ด้วยฟังก์ชันและโมเดลที่มีให้เลือกใช้งานได้หลากหลาย
+ทำให้ TensorFlow ถูกนำมาใช้งานในการสร้างและฝึกสอนโมเดล Neural Network ในงานประเภทต่าง ๆ
+
+%--------------------------
+\subsection{การเขียน TensorFlow เบื้องต้น}
+%--------------------------
+
+ตัวอย่างด้านล่างคือการสร้างและฝึกสอนโมเดล Neural Network ด้วย Keras ซึ่งเป็น API ของ TensorFlow จะเห็นได้ว่าเราสามารถเขียนโค้ด 
+Python โดยเริ่มจากการนำเข้าชุดข้อมูลตัวอย่างซึ่งเป็น Mnist มีการแปลงข้อมูล ตามด้วยการสร้าง Neural Network โดยใช้วิธี Sequential 
+กำหนดจำนวนชั้น ประเภทของแต่ละชั้น และมีพารามิเตอร์ที่เราสามารถกำหนดได้ เช่น จำนวนโหนดหรือหน่วยเรียนรู้ของแต่ละชั้นและ Activation 
+function หลังจากนั้นก็ทำการ Compile โมเดลซึ่งเราสามารถกำหนด Optimizer และ Loss Function ได้ด้วย เมื่อทำการสร้างโมเดลเสร็จแล้ว 
+ก็จะต่อด้วยการฝึกสอนหรือเทรน (Train) โมเดลตามจำนวนรอบ (Epoch) และขั้นตอนสุดท้ายคือการทดสอบโมเดลโดยการทำนายและประเมินผล
+
+\begin{lstlisting}[style=MyPython]
+import tensorflow as tf
+mnist = tf.keras.datasets.mnist
+
+(x_train, y_train),(x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0
+
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Flatten(input_shape=(28, 28)),
+  tf.keras.layers.Dense(128, activation='relu'),
+  tf.keras.layers.Dropout(0.2),
+  tf.keras.layers.Dense(10, activation='softmax')
+])
+
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+model.fit(x_train, y_train, epochs=5)
+model.evaluate(x_test, y_test)
+\end{lstlisting}
+
+จากโค้ดด้านบนจะเห็นได้เลยว่าจริง ๆ แล้วการเขียนโค้ดการเรียนรู้ของเครื่องโดยเฉพาะ Neural Network ไม่ได้ยากเลย เพราะว่าในยุคสมัยนี้เรามี 
+Framework ต่าง ๆ ที่ถูกพัฒนาขึ้นมาเพื่อช่วยอำนวยความสะดวกให้เรากับในการเขียนโค้ด เพียงแค่ไม่กี่สิบบรรทัดเราก็สามารถสร้างโมเดลได้แล้ว
+เมื่อเราเข้าใจพื้นฐานในการสร้างโมเดลแล้ว ถ้าหากเราต้องการที่จะต่อยอดโดยการปรับแต่งโมเดลเพื่อให้สามารถจัดการกับงานที่ซับซ้อนขึ้นก็ไม่ใช่เรื่องยาก
+
 %--------------------------
 \subsection{การปรับแต่ง Loss Function}
 %--------------------------
