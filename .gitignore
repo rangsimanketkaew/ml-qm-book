@@ -23,7 +23,8 @@
 
 !fig/*
 !by-nc-nd.pdf
-!book_cover.pdf
+!cover_front.pdf
+!cover_back.pdf
 
 ## Generated if empty string is given at "Please type another file name for output:"
 # .pdf
