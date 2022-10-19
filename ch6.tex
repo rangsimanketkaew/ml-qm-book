@@ -100,14 +100,32 @@ Similarity Matrix\autocite{sokal1958} โดยนักชีววิทยา
 
 \begin{figure}[H]
     \centering
-    \subfloat[เลือกค่าเฉลี่ย\label{fig:k_means_step1}]{\includegraphics[width=0.4\linewidth]{fig/k-means-step1.png}}
-    \hspace{1em}
-    \subfloat[สร้างคลัสเตอร์ k กลุ่ม\label{fig:k_means_step2}]{\includegraphics[width=0.4\linewidth]{fig/k-means-step2.png}}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/k-means-step1.png}
+        \caption{เลือกค่าเฉลี่ย}
+        \label{fig:k_means_step1}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/k-means-step2.png}
+        \caption{สร้างคลัสเตอร์ k กลุ่ม}
+        \label{fig:k_means_step2}
+    \end{subfigure}
     \\
     \vspace{1em}
-    \subfloat[คำนวณค่าเฉลี่ยใหม่\label{fig:k_means_step3}]{\includegraphics[width=0.4\linewidth]{fig/k-means-step3.png}}
-    \hspace{1em}
-    \subfloat[ทำซ้ำจนกระทั่งค่ากลางลู่เข้า\label{fig:k_means_step4}]{\includegraphics[width=0.4\linewidth]{fig/k-means-step4.png}}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/k-means-step3.png}
+        \caption{คำนวณค่าเฉลี่ยใหม่}
+        \label{fig:k_means_step3}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/k-means-step4.png}
+        \caption{ทำซ้ำจนกระทั่งค่ากลางลู่เข้า}
+        \label{fig:k_means_step4}
+    \end{subfigure}
     \caption{ขั้นตอนการทำ K-means Clustering (เครดิตภาพ: \url{https://en.wikipedia.org/wiki/K-means_clustering})}
     \label{fig:k_means}
 \end{figure}

@@ -200,11 +200,18 @@ $(x^{(i)} ,y^{(i)} )$ ดังนี้
 
 \begin{figure}[H]
     \centering
-    \subfloat[ชั้นการเรียนรู้ (Learning Layer)\label{fig:nn_layer}]{
-        \includegraphics[width=0.45\linewidth]{fig/nn_layer.png}}
-    \hspace{1em}
-    \subfloat[โครงข่ายแบบค่าน้ำหนักหลายตัว\label{fig:nn_w_matrices}]{
-        \includegraphics[width=0.45\linewidth]{fig/nn_w_matrices.png}}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/nn_layer.png}
+        \caption{ชั้นการเรียนรู้ (Learning Layer)}
+        \label{fig:nn_layer}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/nn_w_matrices.png}
+        \caption{โครงข่ายแบบค่าน้ำหนักหลายตัว}
+        \label{fig:nn_w_matrices}
+    \end{subfigure}
     \caption{ตัวอย่างของโครงข่ายประสาทแบบง่าย}
     \label{fig:nn_layer_w}
 \end{figure}
@@ -349,105 +356,159 @@ Hidden Layer มีการคำนวณแบบเชิงเส้นอ�
     \item Linear
     \begin{figure}[H]
         \centering
-        \subfloat[%
-        \begin{equation}
-            \begin{split}R(z,m) = \begin{Bmatrix} z*m \\
-            \end{Bmatrix}\end{split}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_linear.png}}
-        \hspace{1em}
-        \subfloat[%
-        \begin{equation}
-            \begin{split}R'(z,m) = \begin{Bmatrix} m \\
-            \end{Bmatrix}\end{split}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_linear_der.png}}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_linear.png}
+            \caption{%
+                \begin{equation}
+                    \begin{split}R(z,m) = \begin{Bmatrix} z*m \\
+                    \end{Bmatrix}\end{split}
+                \end{equation}
+            }
+            \label{fig:actfunc_lin}
+        \end{subfigure}%
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_linear_der.png}
+            \caption{%
+                \begin{equation}
+                    \begin{split}R'(z,m) = \begin{Bmatrix} m \\
+                    \end{Bmatrix}\end{split}
+                \end{equation}
+            }
+            \label{fig:actfunc_lin_der}
+        \end{subfigure}
     \end{figure}
 
     \item ELU
     \begin{figure}[H]
         \centering
-        \subfloat[%
-        \begin{equation}
-            \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
-                \alpha (e^z – 1) & z <= 0 \end{Bmatrix}\end{split}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_elu.png}}
-        \hspace{1em}
-        \subfloat[%
-        \begin{equation}
-            \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
-                \alpha e^z & z<0 \end{Bmatrix}\end{split}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_elu_der.png}}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_elu.png}
+            \caption{%
+                \begin{equation}
+                    \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
+                        \alpha (e^z – 1) & z <= 0 \end{Bmatrix}\end{split}
+                \end{equation}
+            }
+            \label{fig:actfunc_elu}
+        \end{subfigure}%
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_elu_der.png}
+            \caption{%
+                \begin{equation}
+                    \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
+                        \alpha e^z & z<0 \end{Bmatrix}\end{split}
+                \end{equation}
+            }
+            \label{fig:actfunc_elu_der}
+        \end{subfigure}
     \end{figure}
 
     \item ReLU
     \begin{figure}[H]
         \centering
-        \subfloat[%
-        \begin{equation}
-            \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
-                0 & z <= 0 \end{Bmatrix}\end{split}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_relu.png}}
-        \hspace{1em}
-        \subfloat[%
-        \begin{equation}
-            \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
-                0 & z<0 \end{Bmatrix}\end{split}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_relu_der.png}}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_relu.png}
+            \caption{%
+                \begin{equation}
+                    \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
+                        0 & z <= 0 \end{Bmatrix}\end{split}
+                \end{equation}
+            }
+            \label{fig:actfunc_relu}
+        \end{subfigure}%
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_relu_der.png}
+            \caption{%
+                \begin{equation}
+                    \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
+                        0 & z<0 \end{Bmatrix}\end{split}
+                \end{equation}
+            }
+            \label{fig:actfunc_relu_der}
+        \end{subfigure}
     \end{figure}
 
     \item LeakyReLU
     \begin{figure}[H]
         \centering
-        \subfloat[%
-        \begin{equation}
-            \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
-                \alpha z & z <= 0 \end{Bmatrix}\end{split}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_leakyrelu.png}}
-        \hspace{1em}
-        \subfloat[%
-        \begin{equation}
-            \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
-                \alpha & z<0 \end{Bmatrix}\end{split}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_leakyrelu_der.png}}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_leakyrelu.png}
+            \caption{%
+                \begin{equation}
+                    \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
+                        \alpha z & z <= 0 \end{Bmatrix}\end{split}
+                \end{equation}
+            }
+            \label{fig:actfunc_leakyrelu}
+        \end{subfigure}%
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_leakyrelu_der.png}
+            \caption{%
+                \begin{equation}
+                    \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
+                        \alpha & z<0 \end{Bmatrix}\end{split}
+                \end{equation}
+            }
+            \label{fig:actfunc_leakyrelu_der}
+        \end{subfigure}
     \end{figure}
 
     \item Sigmoid
     \begin{figure}[H]
         \centering
-        \subfloat[%
-        \begin{equation}
-            S(z) = \frac{1} {1 + e^{-z}}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_sigmoid.png}}
-        \hspace{1em}
-        \subfloat[%
-        \begin{equation}
-            S'(z) = S(z) \cdot (1 - S(z))
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_sigmoid_der.png}}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_sigmoid.png}
+            \caption{%
+                \begin{equation}
+                    S(z) = \frac{1} {1 + e^{-z}}
+                \end{equation}
+            }
+            \label{fig:actfunc_sigmoid}
+        \end{subfigure}%
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_sigmoid_der.png}
+            \caption{%
+                \begin{equation}
+                    S'(z) = S(z) \cdot (1 - S(z))
+                \end{equation}
+            }
+            \label{fig:actfunc_sigmoid_der}
+        \end{subfigure}
     \end{figure}
     
     \item Tanh
     \begin{figure}[H]
         \centering
-        \subfloat[%
-        \begin{equation}
-            tanh(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_tanh.png}}
-        \hspace{1em}
-        \subfloat[%
-        \begin{equation}
-            tanh'(z) = 1 - tanh(z)^{2}
-        \end{equation}
-        ]{\includegraphics[width=0.4\linewidth]{fig/actfunc_tanh_der.png}}
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_tanh.png}
+            \caption{%
+                \begin{equation}
+                    tanh(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}
+                \end{equation}
+            }
+            \label{fig:actfunc_tanh}
+        \end{subfigure}%
+        \begin{subfigure}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\linewidth]{fig/actfunc_tanh_der.png}
+            \caption{%
+                \begin{equation}
+                    tanh'(z) = 1 - tanh(z)^{2}
+                \end{equation}
+            }
+            \label{fig:actfunc_tanh_der}
+        \end{subfigure}
     \end{figure}
 
     \item Softmax
