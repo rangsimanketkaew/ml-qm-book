@@ -126,15 +126,33 @@ Function ที่เราจะเลือกใช้นั้น คือ 
 ตรงกลางได้ดีขึ้นเรื่อย ๆ 
 
 \begin{figure}[H]
-    \centering
-    \subfloat[ครั้งที่ 1\label{fig:plot_simple_reg_1}]{\includegraphics[width=0.4\linewidth]{fig/plot_simple_reg_1.png}}
-    \hspace{1em}
-    \subfloat[ครั้งที่ 2\label{fig:plot_simple_reg_2}]{\includegraphics[width=0.4\linewidth]{fig/plot_simple_reg_2.png}}
+    % \centering
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_1.png}
+        \caption{ครั้งที่ 1}
+        \label{fig:plot_simple_reg_1}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_2.png}
+        \caption{ครั้งที่ 2}
+        \label{fig:plot_simple_reg_2}
+    \end{subfigure}
     \\
     \vspace{1em}
-    \subfloat[ครั้งที่ 3\label{fig:plot_simple_reg_3}]{\includegraphics[width=0.4\linewidth]{fig/plot_simple_reg_3.png}}
-    \hspace{1em}
-    \subfloat[ครั้งที่ 4\label{fig:plot_simple_reg_4}]{\includegraphics[width=0.4\linewidth]{fig/plot_simple_reg_4.png}}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_3.png}
+        \caption{ครั้งที่ 3}
+        \label{fig:plot_simple_reg_3}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_4.png}
+        \caption{ครั้งที่ 4}
+        \label{fig:plot_simple_reg_4}
+    \end{subfigure}
     \caption{การเปลี่ยนแปลงของเส้นตรงที่ถูกทาบ (Fitting) เข้ากับชุดข้อมูลอย่างง่าย}
     \label{fig:simple_reg_change}
 \end{figure}
