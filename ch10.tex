@@ -287,6 +287,20 @@ $\nabla_{\mathbf{r_i}} \mathbf{D}$ และมีข้อมูลเพิ่
 Descriptor $\mathbf{D}$ และ $\nabla_{\mathbf{r_i}} \mathbf{D}$ เป็น อนุพันธ์ของ Descriptor ที่เทียบกับตำแหน่งของอะตอม
 ซึ่งตามที่เราได้ศึกษามาก่อนหน้านี้ว่า Neural Network นั้นจะให้คำตอบที่เป็นแบบ Analytical Solution
 
+ตัวอย่างของโมเดล ML ที่ถูกพัฒนาขึ้นมาเพื่อเรียนรู้ Force Field ที่น่าสนใจมีดังนี้
+
+\paragraph{FFLUX}\autocite{hughes2019}
+
+\paragraph{TensorMol}\autocite{yao2018}
+
+%--------------------------
+\section{การทำนายพลังงานสหสัมพันธ์ของอิเล็กตรอน}
+\label{sec:pred_corre_ener}
+\idxth{การทำนายคุณสมบัติของโมเลกุล!พลังงานสหสัมพันธ์ของอิเล็กตรอน}
+%--------------------------
+
+\autocite{mcdonagh2018,nudejima2019,dick2020,han2021}
+
 %--------------------------
 \section{การทำนายพลังงานกระตุ้นของปฏิกิริยาเคมี}
 \label{sec:pred_act_ener}
@@ -485,7 +499,7 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
     \item Science Advances
 \end{itemize}
 
-\noindent โดยวารสาร 4 อันแรกจะเป็นวารสารเฉพาะทางด้านเคมีทฤษฎีและเคมีคอมพิวเตอร์ และวารสาร 3 อันที่เหลือเป็นวารสารทั่วไป
+\noindent โดยวารสาร 5 อันดับแรกเป็นวารสารเฉพาะทางด้านเคมีทฤษฎีและเคมีคอมพิวเตอร์ และวารสาร 3 อันดับสุดท้ายเป็นวารสารทั่วไป
 
 โดยผู้เขียนได้เลือกงานวิจัยที่มีความโดดเด่นและเหมาะสำหรับผู้เริ่มต้นศึกษา ML และเคมีควอนตัม ซึ่งน่าจะช่วยให้ผู้อ่านเห็นภาพรวมของโจทย์งานวิจัย%
 ในปัจจุบันที่กำลังมาแรง บทความที่คัดเลือกมาประกอบไปด้วยบทความการทบทวนงานวิจัย (Review) ที่ใช้ ML ในการเรียนรู้ Force Field 
@@ -505,9 +519,48 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
     ตีพิมพ์เมื่อวันที่ 13 เมษายน ค.ศ. 2020
 
     \item \enquote{Machine Learning Force Fields}\autocite{unke2021}\\
-    ตีพิมพ์เมื่อวันที่ 11 มีนาคม ค.ศ. 2021\\
+    ตีพิมพ์เมื่อวันที่ 11 มีนาคม ค.ศ. 2021
 
     \item \enquote{The Rise of Neural Networks for Materials and Chemical Dynamics}\autocite{kulichenko2021}\\
-    ตีพิมพ์เมื่อวันที่ 1 กรกฎาคม ค.ศ. 2021\\
+    ตีพิมพ์เมื่อวันที่ 1 กรกฎาคม ค.ศ. 2021
+
+\end{enumerate}
+
+นอกจากนี้ยังมีบทความรีวิวที่ผู้เขียนแนะนำให้ผู้สนใจศึกษาการเรียนรู้ของเครื่องสำหรับเคมีควอนตัมแบบเชิงลึกโดยเฉพาะการต่อยอดในงานวิจัย ดังนี้
+
+\begin{enumerate}
+    \item \enquote{Roadmap on Machine learning in electronic structure}\autocite{kulik2022}\\
+    อธิบายภาพรวมของการเรียนรู้ของเครื่องกับการศึกษาโครงสร้างเชิงอิเล็กทรอนิกส์ของโมเลกุล
+    
+    \item \enquote{Unsupervised Learning Methods for Molecular Simulation Data}\autocite{glielmo2021}\\
+    อธิบายการใช้เทคนิคการเรียนรู้แบบไม่มีผู้สอนสำหรับการจำลองและการวิเคราะห์ข้อมูลเชิงโมเลกุล
+
+    \item \enquote{Physics-Inspired Structural Representations for Molecules and Materials}\autocite{musil2021}\\
+    อธิบาย Representations สำหรับโมเลกุลและวัสดุ
+
+    \item \enquote{Combining Machine Learning and Computational Chemistry for Predictive Insights Into Chemical 
+    Systems}\autocite{keith2021}\\
+    อธิบายการใช้การเรียนรู้ของเครื่องในการทำนายคุณสมบัติเชิงเคมี
+
+    \item \enquote{Machine Learning for Electronically Excited States of Molecules}\autocite{westermayr2021a}\\
+    อธิบายการเรียนรู้ของเครื่องสำหรับการศึกษาโมเลกุลในสภาวะกระตุ้น
+
+    \item \enquote{Ab Initio Machine Learning in Chemical Compound Space}\autocite{huang2021}\\
+    อธิบายการใช้การเรียนรู้ของเครื่องสำหรับการศึกษาปริภูมิเคมีขนาดใหญ่
+
+    \item \enquote{Four Generations of High-Dimensional Neural Network Potentials}\autocite{behler2021}\\
+    อธิบายโครงข่ายประสาทสำหรับการทำนายพลังงานของโมเลกุลทั้ง 4 รุ่น
+
+    \item \enquote{Gaussian Process Regression for Materials and Molecules}\autocite{deringer2021}\\
+    อธิบายการใช้เทคนิค GPR ในการทำนายคุณสมบัติของโมเลกุลและวัสดุ
+
+    \item \enquote{Machine Learning Force Fields}\autocite{unke2021}\\
+    อธิบายการเรียนรู้และสร้าง Force Field โดยใช้การเรียนรู้ของเครื่อง
+
+    \item \enquote{Neural Network Potential Energy Surfaces for Small Molecules and Reactions}\autocite{manzhos2021}\\
+    อธิบายการศึกษาโมเลกุลและปฏิกิริยาเคมีระบบเล็กโดยใช้โครงข่ายประสาทของพื้นผิวพลังงานศักย์
+
+    \item \enquote{Machine Learning for Chemical Reactions}\autocite{meuwly2021}\\
+    อธิบายการใช้การเรียนรู้ของเครื่องสำหรับทำนายปฏิกิริยาเคมี
 
 \end{enumerate}
