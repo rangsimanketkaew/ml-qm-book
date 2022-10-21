@@ -69,9 +69,10 @@ function หลังจากนั้นก็ทำการ Compile โม�
 
 \begin{lstlisting}[style=MyPython]
 import tensorflow as tf
+
 mnist = tf.keras.datasets.mnist
 
-(x_train, y_train),(x_test, y_test) = mnist.load_data()
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
 
 model = tf.keras.models.Sequential([
@@ -81,9 +82,11 @@ model = tf.keras.models.Sequential([
   tf.keras.layers.Dense(10, activation='softmax')
 ])
 
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
+)
 
 model.fit(x_train, y_train, epochs=5)
 model.evaluate(x_test, y_test)
@@ -102,14 +105,15 @@ import tensorflow as tf
 import tensorflow.keras.backend as kb
 import numpy as np
 
-def custom_loss(y_actual, y_pred): 
-    custom_loss=tf.experimental.numpy.log10(kb.sum(kb.abs(y_actual - y_pred)) / y_actual.shape[0])
+def custom_loss(y_actual, y_pred):
+    custom_loss = tf.experimental.numpy.log10(kb.sum(kb.abs(y_actual - y_pred)) / y_actual.shape[0])
     return custom_loss
+
 
 x = np.random.randint(1, 4, size=(1000,))
 x = np.asarray(x).T
 
-y = x ** 2
+y = x**2
 y = np.asarray(y).T
 x = x.astype(np.float32)
 y = y.astype(np.float32)
@@ -128,8 +132,9 @@ keras_model.fit(x, y, batch_size=20, epochs=50)
 \end{lstlisting}
 
 %--------------------------
-\subsection{การฝึกสอนโมเดลด้วยขนานบน GPU หลายตัว}
+\subsection{การฝึกสอนโมเดลด้วยการประมวลผลแบบขนานบน GPU หลายตัว}
 %--------------------------
+
 \begin{lstlisting}[style=MyPython]
 import tensorflow as tf
 
@@ -141,9 +146,15 @@ mirrored_strategy = tf.distribute.MirroredStrategy(devices=["/gpu:0", "/gpu:1"])
 with mirrored_strategy.scope():
     model = tf.keras.Sequential([tf.keras.layers.Dense(1, input_shape=(1,))])
 
-model.compile(loss='mse', optimizer='sgd')
+model.compile(loss="mse", optimizer="sgd")
 
-dataset = tf.data.Dataset.from_tensors(([1.], [1.])).repeat(100).batch(10)
+dataset = tf.data.Dataset.from_tensors(([1.0], [1.0])).repeat(100).batch(10)
 model.fit(dataset, epochs=2)
 model.evaluate(dataset)
 \end{lstlisting}
+
+ตัวอย่างด้านบนเป็นการใช้ \pyinline{MirroredStrategy} ซึ่งเป็นวิธีหนึ่งของการทำ Distributed Training ของ TensorFlow 
+โดยเราทำการสร้าง Scope ขึ้นมาก่อน โดยในโค้ดด้านบนเราสร้าง \pyinline{mirrored_strategy} ซึ่งเราสามารถเลือก GPU ที่ต้องการใช้ใน%
+การฝึกสอนโมเดลได้ด้วย หลังจากนั้นก็ใช้ฟังก์ชัน \pyinline{with} สำหรับทำการกำหนด Scope และภายในฟังก์ชันนี้เราก็ทำการสร้าง Neural 
+Network ขึ้นมา หลังจากนั้นก็ทำการคอมไพล์โมเดลซึ่งสามารถกำหนดให้อยู่นอก Scope ได้แล้วก็ทำการฝึกสอนโมเดลโดยใช้วิธี \pyinline{fit}
+ตามปกติ
