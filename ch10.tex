@@ -259,7 +259,7 @@ plt.show()
     \includegraphics[width=\linewidth]{fig/qm9_cm_kernel_corr.png}
     \caption{ซ้าย: Correlation ของค่าพลังงานภายในของโมเลกุลระหว่างค่าอ้างอิงกับค่าจากการทำนาย, ขวา: Histrogram Density 
     ของค่าคลาดเคลื่อน}
-    \label{fig:qm9_cm_kernel_mae}
+    \label{fig:qm9_cm_kernel_corr}
 \end{figure}
 
 %--------------------------
@@ -496,11 +496,11 @@ nm หรือมีเลขคลื่น (Wavenumber) ในช่วง 14
 การทำนายสเปกตรัมอินฟราเรดด้วย ML นั้นได้รับการค้นคว้ามาอย่างต่อเนื่องเป็นระยะเวลาหลายสิบปี\autocite{gastegger2017} สำหรับงานวิจัย%
 ที่ผู้เขียนจะยกมาเป็นกรณีศึกษานั้นเป็นงานวิจัยที่มีชื่อบทความว่า \enquote{Infrared Spectra at Coupled Cluster Accuracy from Neural 
 Network Representations} หรือแปลเป็นภาษาไทยคือ \enquote{การทำนาย IR spectrum ที่ระดับความแม่นยำเดียวกับระเบียบวิธี CCSD(T) 
-ด้วยโครงข่ายประสาท}\autocite{beckmann2022} โดยงานวิจัยนี้ได้รับการตีพิมพ์ในวารสาร Journal of Chemical Theory and Computation 
+ด้วย Neural Network}\autocite{beckmann2022} โดยงานวิจัยนี้ได้รับการตีพิมพ์ในวารสาร Journal of Chemical Theory and Computation 
 (JCTC) ซึ่งเป็นวารสานวิชาการแนวหน้าในด้านเคมีทฤษฎี สำหรับรายละเอียดงานวิจัยในบทความฉบับนี้มีดังนี้
 
 ในงานนี้ผู้วิจัยได้สร้าง Neural Network (NN) โดยใช้สถาปัตยกรรมโครงสร้างประสาทของ Behler-Parrinello Neural Network (BPNN)
-\autocite{behler2007,behler2011b,behler2015} ซึ่งเป็นโครงข่ายประสาทเชิงโมเลกุลแบบมิติขั้นสูง (High-dimensional Molecular 
+\autocite{behler2007,behler2011b,behler2015} ซึ่งเป็นโ Neural Network เชิงโมเลกุลแบบมิติขั้นสูง (High-dimensional Molecular 
 Neural Network) ที่มีแนวคิดคือผลรวมของพลังงานทั้งหมดของโมเลกุลเกิดขึ้นจากการรวมกันของพลังงานของแต่ละอะตอม โดยที่ NN ที่สร้างขึ้นมาใน%
 งานวิจัยนี้ได้ถูกนำมาใช้ในการเรียนรู้ (Learn) โครงสร้างของโมเลกุลและ Fit เข้ากับค่า Dipole Moment ($\mu$) ของโมเลกุลนั้น ๆ ซึ่ง 
 $\mu$ คือพารามิเตอร์สำคัญที่เราสามารถนำไปใช้ในการคำนวณหาความเข้มหรือ Intensity ของ IR Spectrum (แต่ละ Peak) ต่อไปได้
@@ -592,11 +592,11 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
 
 \end{enumerate}
 
-นอกจากนี้ยังมีบทความรีวิวที่ผู้เขียนแนะนำให้ผู้สนใจศึกษาการเรียนรู้ของเครื่องสำหรับเคมีควอนตัมแบบเชิงลึกโดยเฉพาะการต่อยอดในงานวิจัย ดังนี้
+นอกจากนี้ยังมีบทความรีวิวที่ผู้เขียนแนะนำให้ผู้สนใจศึกษา ML สำหรับเคมีควอนตัมแบบเชิงลึกโดยเฉพาะการต่อยอดในงานวิจัย ดังนี้
 
 \begin{enumerate}
-    \item \enquote{Roadmap on Machine learning in electronic structure}\autocite{kulik2022}\\
-    อธิบายภาพรวมของการเรียนรู้ของเครื่องกับการศึกษาโครงสร้างเชิงอิเล็กทรอนิกส์ของโมเลกุล
+    \item \enquote{Roadmap on Machine Learning in Electronic Structure}\autocite{kulik2022}\\
+    อธิบายภาพรวมของ ML กับการศึกษาโครงสร้างเชิงอิเล็กทรอนิกส์ของโมเลกุล
     
     \item \enquote{Unsupervised Learning Methods for Molecular Simulation Data}\autocite{glielmo2021}\\
     อธิบายการใช้เทคนิคการเรียนรู้แบบไม่มีผู้สอนสำหรับการจำลองและการวิเคราะห์ข้อมูลเชิงโมเลกุล
@@ -606,13 +606,13 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
 
     \item \enquote{Combining Machine Learning and Computational Chemistry for Predictive Insights Into Chemical 
     Systems}\autocite{keith2021}\\
-    อธิบายการใช้การเรียนรู้ของเครื่องในการทำนายคุณสมบัติเชิงเคมี
+    อธิบายการใช้ ML ในการทำนายคุณสมบัติเชิงเคมี
 
     \item \enquote{Machine Learning for Electronically Excited States of Molecules}\autocite{westermayr2021a}\\
-    อธิบายการเรียนรู้ของเครื่องสำหรับการศึกษาโมเลกุลในสภาวะกระตุ้น
+    อธิบาย ML สำหรับการศึกษาโมเลกุลในสภาวะกระตุ้น
 
     \item \enquote{Ab Initio Machine Learning in Chemical Compound Space}\autocite{huang2021}\\
-    อธิบายการใช้การเรียนรู้ของเครื่องสำหรับการศึกษาปริภูมิเคมีขนาดใหญ่
+    อธิบายการใช้ ML สำหรับการศึกษาปริภูมิเคมีขนาดใหญ่
 
     \item \enquote{Four Generations of High-Dimensional Neural Network Potentials}\autocite{behler2021}\\
     อธิบายโครงข่ายประสาทสำหรับการทำนายพลังงานของโมเลกุลทั้ง 4 รุ่น
@@ -621,12 +621,12 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
     อธิบายการใช้เทคนิค GPR ในการทำนายคุณสมบัติของโมเลกุลและวัสดุ
 
     \item \enquote{Machine Learning Force Fields}\autocite{unke2021}\\
-    อธิบายการเรียนรู้และสร้าง Force Field โดยใช้การเรียนรู้ของเครื่อง
+    อธิบายการเรียนรู้และสร้าง Force Field โดยใช้ ML
 
     \item \enquote{Neural Network Potential Energy Surfaces for Small Molecules and Reactions}\autocite{manzhos2021}\\
     อธิบายการศึกษาโมเลกุลและปฏิกิริยาเคมีระบบเล็กโดยใช้โครงข่ายประสาทของพื้นผิวพลังงานศักย์
 
     \item \enquote{Machine Learning for Chemical Reactions}\autocite{meuwly2021}\\
-    อธิบายการใช้การเรียนรู้ของเครื่องสำหรับทำนายปฏิกิริยาเคมี
+    อธิบายการใช้ ML สำหรับทำนายปฏิกิริยาเคมี
 
 \end{enumerate}
