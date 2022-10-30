@@ -9,7 +9,7 @@
 
 # Tested with TeX Live 2018 v.6.3.0
 # Pipeline: xelatex -> bibtex -> xelatex -> xelatex
-# Usage: sh compile.tex book.tex
+# Usage: sh compile.sh book.tex
 
 BASE="${1%.*}"
 
