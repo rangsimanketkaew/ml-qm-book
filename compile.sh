@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Copyright (c) 2022 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+# License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+# https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+# --------------------------------------------------
+
 # Tested with TeX Live 2018 v.6.3.0
 # Pipeline: xelatex -> bibtex -> xelatex -> xelatex
 # Usage: sh compile.tex book.tex
