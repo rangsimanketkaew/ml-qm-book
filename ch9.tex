@@ -187,7 +187,8 @@ qm9_data = pd.read_csv('./qm9.csv', index_col=0)
 \noindent เราสามารถใช้คำสั่งด้านล่างในการแสดง Target ได้
 
 \begin{lstlisting}[style=MyPython]
-target = qm9_data['u0'] * 627.5096080305927 # we convert it from Hartree to kcal/mol
+# Convert energy from Hartree to kcal/mol
+target = qm9_data['u0'] * 627.5096080305927 
 print(target)
 
 # OUTPUT
@@ -262,7 +263,7 @@ from qml.representations import *
 cm = []
 size = 27 # Maximum size of molecule in the set
 
-# Runs for loop over every molecule in the database
+# Run for loop over every molecule in the database
 for structure in ase_mols: 
     # ASE prints atomic numbers 
     atomic_numbers = structure.get_atomic_numbers() 
@@ -274,7 +275,7 @@ for structure in ase_mols:
     # All CM representations are added into one variable
     cm.append(cm1) 
 
-# Transforms cm into numpy array
+# Transform cm into numpy array
 cm = np.array(cm) 
 # Check size of cm
 print(cm.shape)
