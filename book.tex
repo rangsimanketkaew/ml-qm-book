@@ -17,7 +17,7 @@
 \begin{document}
 
 % Book front cover
-\includepdf[pages=-]{cover_front.pdf}
+\includepdf[pages=-]{cover/cover_front.pdf}
 
 \newpage
 \ % empty page
@@ -25,12 +25,12 @@
 \newpage
 
 \frontmatter
-\include{cover_front_inside}
-\include{copyright}
-\include{toc}
-\include{preface}
-\include{acknowledgement}
-\include{quote_1}
+\include{front_matter/cover_front_inside}
+\include{front_matter/copyright}
+\include{front_matter/toc}
+\include{front_matter/preface}
+\include{front_matter/acknowledgement}
+\include{quote/quote_1}
 
 \pagestyle{fancy} % Add header from this page on
 
@@ -42,7 +42,7 @@
 \include{chapter/ch4} % การรเรียนรู้เชิงลึก
 \include{chapter/ch5} % การเลือกและปรับแต่งโมเดล
 \include{chapter/ch6} % การเรียนรู้แบบไม่มีผู้สอน
-\include{quote_2}
+\include{quote/quote_2}
 \part{การทำนายคุณสมบัติเชิงเคมีควอนตัม}
 \include{chapter/ch7} % คุณสมบัติอิเล็กทรอนิกส์ของโมเลกุล
 \include{chapter/ch8} % ลักษณะเฉพาะของอะตอมและโมเลกุล
@@ -62,10 +62,10 @@
 \end{appendices}
 
 \backmatter
-\include{references}
-\include{index}
-\include{author_bio}
+\include{back_matter/references}
+\include{back_matter/index}
+\include{back_matter/author_bio}
 % Book back cover
-\includepdf[pages=-]{cover_back.pdf}
+\includepdf[pages=-]{cover/cover_back.pdf}
 
 \end{document}
