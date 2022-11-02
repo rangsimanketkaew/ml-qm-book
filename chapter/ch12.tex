@@ -22,10 +22,14 @@
 \label{ssec:rdkit}
 %--------------------------
 
-ไลบรารี่ RDKit เป็นไลบรารี่สำหรับงานทางด้านเคมีสารสนเทศน์ (Cheminformatics)\autocite{rdkit} ได้รับความนิยมเป็นอย่างมากเนื่องจาก%
-สามารถคำนวณลักษณะเฉพาะเชิงโครงสร้างได้หลากหลาย\footnote{\url{https://www.rdkit.org/}} ตัวอย่างโค้ดสำหรับการใช้งาน RDKit 
-สามารถดูได้ที่ \url{https://www.rdkit.org/docs/Cookbook.html} โดยจะมีโค้ดสำหรับการเปลี่ยนข้อมูลเชิงโมเลกุลจากโครงสร้างไปเป็น 
-SMILES และโค้ดสำหรับการแสดงข้อมูลเชิงโครงสร้างของโมเลกุล เช่น จำนวณของอะตอมแต่ละชนิด, จำนวนพันธะคู่, และจำนวนวงเบนซีน 
+ไลบรารี่ RDKit\autocite{rdkit} เป็นไลบรารี่สำหรับงานทางด้านเคมีสารสนเทศน์ (Cheminformatics)\footnote{Cheminformatics
+หรือเรียกอีกอย่างว่า Chemoinformatics เป็นทฤษฎีทางเคมีเชิงฟิสิกส์ที่ใช้คอมพิวเตอร์และข้อมูลสารสนเทศน์ (Informatics) หรือที่เรียกใน%
+ภาษาละตินว่า \textit{in silico} มาใช้ในการแก้ปัญหาทางเคมี โดยมีการประยุกต์ใช้ Cheminformatics ทั้งในชีวิวทยาและเคมี นอกจากนี้%
+ยังถูกใช้ในงานวิจัยที่ศึกษาการค้นหาตัวยา (Drug Discovery) อีกด้วย} ได้รับความนิยมเป็นอย่างมากเนื่องจากสามารถคำนวณลักษณะเฉพาะเชิง%
+โครงสร้างได้หลากหลาย\footnote{\url{https://www.rdkit.org/}} ตัวอย่างโค้ดสำหรับการใช้งาน RDKit สามารถดูได้ที่ 
+\url{https://www.rdkit.org/docs/Cookbook.html} โดยจะมีโค้ดสำหรับการเปลี่ยนข้อมูลเชิงโมเลกุลจากโครงสร้างไปเป็น SMILES 
+และโค้ดสำหรับการแสดงข้อมูลเชิงโครงสร้างของโมเลกุล เช่น จำนวณของอะตอมแต่ละชนิด, จำนวนพันธะคู่, และจำนวนวงเบนซีน 
+\idxboth{เคมีสารสนเทศน์}{Cheminformatics}
 
 %--------------------------
 \section{ไลบรารี่สำหรับคำนวณลักษณะเฉพาะเชิงอิเล็กทรอนิกส์}
@@ -125,7 +129,7 @@ SchNetPack เป็นชุดโปรแกรมสำหรับการ
 \noindent Feature หลัก ๆ ของ SchNetPack มีดังนี้
 
 \begin{itemize}
-    \item รองรับการสร้างโมเดล SchNet ซึ่งถูกพัฒนาโดยใช้อัลกอริทึม Convolutional Neural Network สำหรับโมเลกุลโดยเฉพาะ%
+    \item รองรับการสร้างโมเดล SchNet ซึ่งถูกพัฒนาโดยใช้อัลกอริทึม Convolutional Neural Network (CNN) สำหรับโมเลกุลโดยเฉพาะ%
     \autocite{schutt2017,schutt2017a}
     
     \item รองรับการสร้างโมเดล PaiNN ซึ่งเป็น Equivariant Message-Passing สำหรับโมเลกุลเช่นเดียวกัน\autocite{schutt2021}
@@ -154,10 +158,10 @@ pip install sgdml
 \noindent ตรวจสอบว่า sGDML ถูกติดตั้งและพร้อมใช้งานหรือไม่
 
 \begin{lstlisting}[style=MyBash]
-(sgdml) nutt@SURFACE:~/sGDML$ which sgdml
-/home/nutt/sgdml/bin/sgdml
+(sgdml) rangsiman@linux:~$ which sgdml
+/home/rangsiman/sgdml/bin/sgdml
 
-(sgdml) nutt@SURFACE:~$ sgdml
+(sgdml) rangsiman@linux:~$ sgdml
 usage: sgdml [-h] [--version] {all,create,train,validate,select,test,show,reset} ...
 sgdml: error: the following arguments are required: command
 \end{lstlisting}
