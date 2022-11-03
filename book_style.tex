@@ -15,8 +15,10 @@
 % Adjust size of the body text
 \AtBeginDocument{\fontsize{14}{16.2}\selectfont}
 
-\usepackage[utf8]{inputenc} % for encoding
+% Encoded https://tex.stackexchange.com/a/44699/117615
 \usepackage[T1]{fontenc}
+% inputenc can be omitted if the file is already UTF-8 encoded
+% \usepackage[utf8]{inputenc} 
 \usepackage{textcomp}
 \usepackage{url}
 \usepackage{graphicx}
@@ -36,7 +38,7 @@
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{physics}
-\usepackage{bm}
+\usepackage{bm} % for \bm{}
 \usepackage[chapter]{algorithm}
 \usepackage{algpseudocode}
 % \usepackage{exercise}

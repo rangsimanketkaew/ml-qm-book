@@ -85,7 +85,8 @@ Optimize เกรเดียนต์ (สำหรับรายละเอ
 \noindent ซึ่งเราสามารถคำนวณ $\langle\phi(x),\phi(z)\rangle$ ได้โดยการใช้สมการต่อไปนี้
 
 \begin{align}
-    \langle\phi(x),\phi(z)\rangle =& 1 + \sum_{i=1}^d x_i z_i + \sum_{i,j\in\{1,\ldots,d\}} x_i x_j z_i z_j \\
+    \langle\phi(x),\phi(z)\rangle =& 1 + \sum_{i=1}^d x_i z_i + 
+    \sum_{i,j\in\{1,\ldots,d\}} x_i x_j z_i z_j \nonumber \\
     &+ \sum_{i,j,k \in \{1,\ldots,d\}} x_i x_j x_k z_i z_j z_k \nonumber \\
     =& 1 + \sum_{i=1}^d x_i z_i + \left(\sum_{i=1}^d x_i z_i \right)^2 + \left( \sum_{i=1}^d x_i z_i \right)^3 \\
     =& 1 + \langle x,z \rangle + \langle x,z \rangle^2 + \langle x,z \rangle^3\label{eq:feat_map_inner_product}
