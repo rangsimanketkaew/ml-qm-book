@@ -207,7 +207,7 @@ array([[0.5, 1. , 0. , 1. , 0.5,
 
 นอกจากนี้ยังมี Bag of Bonds (BoB)\autocite{hansen2015} ซึ่งเป็น Representation ที่พัฒนาต่อจาก Coulomb Matrix 
 โดยจะมีการจัดกลุ่มประเภทของพันธะเข้าด้วยกัน ซึ่งได้แรงบันดาลใจในการพัฒนามาจาก Bag of Words ที่ใช้ใน Natural Language Processing
-โดยคำว่า \textit{Bag} ในที่นี้คือประเภทของพันธะเคมีที่แตกต่างกันในโมเลกุลนั้น ๆ เช่น \ce{C-C}, \ce{C-O}, และ \ce{C-H} 
+(NLP) โดยคำว่า \textit{Bag} ในที่นี้คือประเภทของพันธะเคมีที่แตกต่างกันในโมเลกุลนั้น ๆ เช่น \ce{C-C}, \ce{C-O}, และ \ce{C-H} 
 ส่วน \textit{Bond} นั้นจะแยกตามชนิดของพันธะ คือพันธะเดี่ยว พันธะคู่ และพันธะสาม
 
 ตัวอย่างโค้ดของการคำนวณ Bag of Bonds ของโมเลกุล Methane\footnote{พิกัดคาร์ทีเซียนดูได้ที่ 
@@ -343,7 +343,7 @@ Cutoff ขึ้นมาก่อน ดังนี้
 
 สำหรับ Symmetry Function ทั้งหมดที่เราสามารถนำมาคำนวณออกมาเป็น Descriptor ได้นั้นจะมีประเภทนั่นคือฟังก์ชันแบบสองวัตถุ
 (Two-body Function) และฟังก์ชันแบบสามวัตถุ (Three-body Function) นั่นก็คือฟังก์ชันเชิงรัศมี (Radial Function) และฟังก์ชันเชิงมุม 
-(Angular Function) ตามลำดับ โดยเรามาดูกันที่ Radial Function ก่อน ซึ่งจะมีด้วยกัน 3 แบบย่อย ดังนี้
+(Angular Function) ตามลำดับ โดยเรามาดูกันที่ Radial Function ก่อนซึ่งจะมีด้วยกัน 3 แบบย่อย ดังนี้
 
 \begin{equation}\label{eq:rf_g1}
     G^{1}_{i} = \sum_{j} f_{c}(R_{ij})
@@ -392,7 +392,7 @@ $E$) สามารถคำนวณได้จากผลรวมของ
 \end{equation}
 
 นอกจากนี้ยังมี Representation อื่น ๆ ที่คล้ายกับ ACSF นั่นคือถูกพัฒนาขึ้นมาด้วยไอเดีย Symmetry Function เหมือนกัน เช่น 
-Spectrum of London and Axilrod-Teller-Muto (SLATM) ซึ่งถูกใช้อย่างแพร่พลายเหมือนกันแต่จะนิยมใช้กับ KRR มากกว่า%
+Spectrum of London and Axilrod-Teller-Muto (SLATM) ซึ่งถูกใช้อย่างแพร่หลายเหมือนกันแต่จะนิยมใช้กับ KRR มากกว่า%
 \autocite{faber2018,huang2020} แล้วก็ยังมีการใช้ฟังก์ชันพหุนาม (Polynomial functions) ของส่วนกลับของระยะห่างระหว่างอะตอม
 (Inverse Bond Distance) ด้วย\autocite{kwac2019,musil2021}
 
@@ -438,7 +438,7 @@ Vector คือ
 \end{equation}
 
 \noindent โดยกำหนดให้ $l_{x}+l_{y}+l_{z} = L$ เป็นเลข Angular Momentum ของออร์บิทัล, $n_{type}$ เป็นชนิดของอะตอมใน%
-โมเลกุล, $c_{t}$ เป็นค่าถ่วงน้ำหนักที่ขึ้นกับชนิดของอะตอม (The Type-dependent Weight), $N^{t}_{atom}$ คือจำนวนของอะตอมชนิด%
+โมเลกุล, $c_{t}$ เป็นค่าถ่วงน้ำหนักที่ขึ้นกับชนิดของอะตอม (Type-dependent Weight), $N^{t}_{atom}$ คือจำนวนของอะตอมชนิด%
 นั้น ๆ และ $\phi^{\alpha,r_{s}}_{l_{x}l_{y}l_{z}} (r_{ij})$ เป็นออร์บิทัลแบบเกาส์เซียนของแต่ละอะตอม นอกจากนี้ยังมีการกำหนด%
 พารามิเตอร์เพิ่มเติมคือ $\alpha$ และ $r_{s}$ ซึ่งเป็นตัวกำหนดฟังก์ชันออร์บิทัลของ Radial Distribution
 
