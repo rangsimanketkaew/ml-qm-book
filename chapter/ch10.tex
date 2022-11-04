@@ -189,10 +189,15 @@ for sigma in sigmas:
 เมื่อทำ Regression เสร็จแล้ว เราสามารถพลอตกราฟเพื่อดูความสัมพันธ์ค่า $\sigma$ ของ Kernel กับค่าความคลาดเคลื่อน MAE ได้ดังนี้
 
 \begin{lstlisting}[style=MyPython]
+import matplotlib.pyplot as plt
+
 fig, ax = plt.subplots()
+
 ax.plot(sigmas, test_maes)
-ax.set_ylabel('MAE kcal/mol')
-ax.set_xlabel('Kernel width $\sigma$')
+ax.set_ylabel('MAE kcal/mol', fontsize=15)
+ax.set_xlabel('Kernel width $\sigma$', fontsize=15)
+ax.tick_params(axis='both', which='major', labelsize=12)
+
 plt.show()
 \end{lstlisting}
 
@@ -251,23 +256,27 @@ MAE:  25.908959327933474 kcal/mol
 ของความคลาดเคลื่อนเพื่อตรวจสอบประสิทธิภาพของโมเดล
 
 \begin{lstlisting}[style=MyPython]
-fig, axes = plt.subplots(ncols=2, figsize=[12,4])
+import matplotlib.pyplot as plt
+
+fig, axes = plt.subplots(ncols=1, nrows=2, figsize=[6,8])
+
 ax = axes[0]
-ax.scatter(Y_cm_test, Y_cm_predicted)
-ax.set_ylabel('CM-KRR internal energies at 0 K \n prediction [kcal/mol]')
-ax.set_xlabel('Internal energies at 0 K [kcal/mol]')
+ax.scatter(Y_cm_test, Y_cm_predicted, s=16)
+ax.set_ylabel('CM-KRR internal energies at 0 K \n prediction [kcal/mol]', fontsize=15)
+ax.set_xlabel('Internal energies at 0 K [kcal/mol]', fontsize=15)
 
 ax = axes[1]
 ax.hist(Y_cm_test - Y_cm_predicted, bins=50, range=[-100,100], density=True)
-ax.set_ylabel('Histogram density')
-ax.set_xlabel('CM-KRR internal energies at 0 K errors [kcal/mol]')
+ax.set_ylabel('Histogram density', fontsize=15)
+ax.set_xlabel('CM-KRR internal energies at 0 K errors [kcal/mol]', fontsize=15)
+
 plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{fig/qm9_cm_kernel_corr.png}
+    \includegraphics[width=0.8\linewidth]{fig/qm9_cm_kernel_corr.png}
     \caption{ซ้าย: Correlation ของค่าพลังงานภายในของโมเลกุลระหว่างค่าอ้างอิงกับค่าจากการทำนาย, ขวา: Histrogram Density 
     ของค่าคลาดเคลื่อน}
     \label{fig:qm9_cm_kernel_corr}

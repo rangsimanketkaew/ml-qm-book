@@ -64,9 +64,9 @@ Set) และชุดข้อมูลสำหรับการตรวจ
 
 ภาพที่ \ref{fig:dataset_splitting} แสดงสัดส่วนแบบคร่าว ๆ ในการแบ่งชุดข้อมูลหลักออกเป็น Training Set และ Test Set 
 และแสดงการแบ่งชุดข้อมูล Training Set อีกครั้งให้เป็น Actual Training Set ที่จะถูกนำไปใช้ในการฝึกสอนโมเดลจริง ๆ และ Validation 
-Set ที่จะถูกนำมาทดสอบโมเดลเพื่อเป็นการหยั่งเชิงความสามารถของโมเดลก่อนที่จะนำไปใช้ทำนายค่าของเอาต์พุตของข้อมูลใน Test Set%
-\footnote{โดยทั่วไปแล้วหลาย ๆ คนมักจะทำการแบ่งชุดข้อมูลโดยใช้อัตราส่วนคือ 80\% (สำหรับ Training Set) และ 20\% (สำหรับ Test
-Set) ตามหลักการของ Pareto ซึ่งสามารถอ่านเพิ่มเติมได้ที่ \url{https://en.wikipedia.org/wiki/Pareto_principle}}
+Set ที่จะถูกนำมาทดสอบโมเดลเพื่อเป็นการหยั่งเชิงความสามารถของโมเดลก่อนที่จะนำไปใช้ทำนายค่าของเอาต์พุตของข้อมูลใน Test Set 
+โดยทั่วไปแล้วหลาย ๆ คนมักจะทำการแบ่งชุดข้อมูลโดยใช้อัตราส่วนคือ 80\% (สำหรับ Training Set) และ 20\% (สำหรับ Test Set) 
+ตามหลักการของ Pareto\footnote{\url{https://en.wikipedia.org/wiki/Pareto_principle}}
 
 แล้วขั้นตอนการลด Bias นั่นมันเกิดขึ้นได้อย่างไร คำตอบก็คือในการแบ่งข้อมูลออกมาเป็น Validation Set (เช่นแบ่งออกมา 20\% จากทั้งหมด)
 โดยทำการสุ่มเลือกบางส่วนของข้อมูลออกมา ซึ่งถ้าหากเราทำวนไปแบบนี้ไปเรื่อย ๆ เราจะเรียกว่าเป็นการทำ Validation แบบข้ามไปมาทั่วทั้ง 
@@ -325,15 +325,24 @@ pca_cm_data = pca_cm.fit_transform(cm)
 \begin{lstlisting}[style=MyPython]
 import matplotlib.pyplot as plt
 
-fig, axs = plt.subplots(1,2,figsize=(15,9))
-axs[0].set_title('Principal Components')
-axs[1].set_title('t-SNE')
+fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(10,10), constrained_layout=True)
 
-plot1 = axs[0].scatter(pca_cm_data[:, 0], pca_cm_data[:, 1], c=target, cmap='jet', s=1)
-plot2 = axs[1].scatter(tsne_cm_data[:, 0], tsne_cm_data[:, 1], c=target, cmap='jet', s=1)
+axs[0].set_title('Principal Components', fontsize=15)
+axs[1].set_title('t-SNE', fontsize=15)
+axs[0].set_xlabel('Component 1', fontsize=15)
+axs[0].set_ylabel('Component 2', fontsize=15)
+axs[1].set_xlabel('Component 1', fontsize=15)
+axs[1].set_ylabel('Component 2', fontsize=15)
+axs[0].tick_params(axis='both', which='major', labelsize=12)
+axs[1].tick_params(axis='both', which='major', labelsize=12)
 
-cbar = fig.colorbar(plot2, ax=axs);
-cbar.set_label('Internal energy at 0 K [kcal/mol]')
+plot1 = axs[0].scatter(pca_cm_data[:, 0], pca_cm_data[:, 1], c=target, cmap='jet', s=2)
+plot2 = axs[1].scatter(tsne_cm_data[:, 0], tsne_cm_data[:, 1], c=target, cmap='jet', s=2)
+
+cbar = fig.colorbar(plot2, ax=axs, orientation="horizontal", pad=0.05);
+cbar.set_label('Internal energy at 0 K [kcal/mol]', fontsize=15)
+cbar.ax.tick_params(labelsize=12)
+
 plt.show()
 \end{lstlisting}
 
@@ -342,6 +351,6 @@ plt.show()
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/cm_pca_tsne.png}
-    \caption{การกระจายตัวของ Coulomb Matrix Feature ที่ถูกลดจำนวนมิติให้เหลือเพียงแค่ 2 มิติ (Principal Component = 2)}
+    \caption{การกระจายตัวของ Coulomb Matrix Feature ที่ถูกลดจำนวนมิติให้เหลือเพียงแค่ 2 มิติ (Principal Components = 2)}
     \label{fig:cm_pca_tsne}
 \end{figure}
