@@ -239,49 +239,10 @@ $j$ จะถูกจับรวมกันเป็นกลุ่มที�
 %--------------------------
 
 \begin{figure}[H]
-\begin{center}
-    \begin{tikzpicture}[x=2.1cm,y=1.2cm]
-    % \large
-    \message{^^JNeural network without arrows}
-    \readlist\Nnod{6,5,4,3,4,5,6} % array of number of nodes per layer
-    
-    % TRAPEZIA
-    \node[above,align=center,myorange!60!black] at (3,2.4) {Encoder};
-    \node[above,align=center,myblue!60!black] at (5,2.4) {Decoder};
-    \draw[myorange!40,fill=myorange,fill opacity=0.02,rounded corners=2]
-    (1.6,-2.7) --++ (0,5.4) --++ (2.8,-1.2) --++ (0,-3) -- cycle;
-    \draw[myblue!40,fill=myblue,fill opacity=0.02,rounded corners=2]
-    (6.4,-2.7) --++ (0,5.4) --++ (-2.8,-1.2) --++ (0,-3) -- cycle;
-    
-    \message{^^J  Layer}
-    \foreachitem \N \in \Nnod{ % loop over layers
-    \def\lay{\Ncnt} % alias of index of current layer
-    \pgfmathsetmacro\prev{int(\Ncnt-1)} % number of previous layer
-    \message{\lay,}
-    \foreach \i [evaluate={\y=\N/2-\i+0.5; \x=\lay; \n=\nstyle;}] in {1,...,\N}{ % loop over nodes
-    
-    % NODES
-    \node[node \n,outer sep=0.6] (N\lay-\i) at (\x,\y) {};
-    
-    % CONNECTIONS
-    \ifnum\lay>1 % connect to previous layer
-    \foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
-    \draw[connect,white,line width=1.2] (N\prev-\j) -- (N\lay-\i);
-    \draw[connect] (N\prev-\j) -- (N\lay-\i);
-    %\draw[connect] (N\prev-\j.0) -- (N\lay-\i.180); % connect to left
-    }
-    \fi % else: nothing to connect first layer
-    
-    }
-    }
-    
-    % LABELS
-    \node[above=2,align=center,mygreen!60!black] at (N1-1.90) {Input};
-    \node[above=2,align=center,myred!60!black] at (N\Nnodlen-1.90) {Output};
-    
-    \end{tikzpicture}
+    \centering
+    \includegraphics[width=\linewidth]{fig/autoencoder.pdf}
     \caption{โครงข่ายประสาทของ Autoencoder ที่มีลักษณะความเป็นสมมาตร}
-\end{center}
+    \label{fig:autoencoder}
 \end{figure}
 
 ตัวเข้ารหัสแบบอัตโนมัติ (Autoencoder หรือ AE) เป็นอัลกอริทึม Unsupervised Learning แบบหนึ่งที่ใช้โมเดล ANN โดยมีรูปแบบของ 
