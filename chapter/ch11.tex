@@ -306,9 +306,50 @@ GAN และแอพพลิเคชั่น ผู้เขียนแน
     \idxen{Generative Adversarial Network!Discriminator}
 \end{enumerate}
 
-GAN นั้นถูกนำมาใช้ในงานวิจัยเคมีหลากหลายด้าน เช่น การค้นหาโมเลกุลชนิดใหม่\autocite{prykhodko2019,lee2021,blanchard2021},
-การทำนายโครงสร้างผลึก\autocite{kim2020}, การออกแบบสารประกอบอนินทรีย์\autocite{dan2020}, และการปรับปรุงการทำนายสเปกตรัม%
-\autocite{al-mualem2022}
+\begin{figure}[H]
+    \label{fig:gan}
+    \begin{center}
+        \begin{tikzpicture}[
+            ->, thick,
+            node/.style={circle, fill=teal!60},
+            label/.style={below, font=\footnotesize},
+          ]
+        
+          \node[node] (zin) {$\vec z_\text{in}$};
+          \node[node, right=5em of zin] (fake) {$\vec x_\text{fake}$};
+          \draw (zin) -- node[above] {$G(\vec x)$} node[label] {generator} (fake);
+        
+          \draw[<-] (zin) -- node[above] {$p_\theta(\vec z)$} node[label] {latent noise} ++(-3,0);
+          \node[node, above=of fake] (real) {$\vec x_\text{real}$};
+          \draw[<-] (real) -- node[above] {$p_\text{data}(\vec x)$} ++(-3,0);
+          \node[node, right=6em of fake] (D) at ($(fake)!0.5!(real)$) {$\vec x$};
+          \node[right=7em of D] (out) {real?};
+          \draw (D) -- node[above] {$D(\vec x)$} node[label] {discriminator} (out);
+        
+          \coordinate[right=2.5em of fake, circle, fill, inner sep=0.15em] (pt1);
+          \coordinate[right=2.5em of real, circle, fill, inner sep=0.15em] (pt2);
+        
+          \draw[-, dashed] (pt1) edge[bend left] coordinate[circle, fill=orange, inner sep=1mm, pos=0.7] (pt3) (pt2);
+          \draw (fake) -- (pt1) (real) -- (pt2) (pt3) -- (D);
+        
+        \end{tikzpicture}
+    \caption{โครงข่ายประสาทของ Generative Adversarial Network (GAJ) ซึ่งประกอบไปด้วย Generator Model และ 
+    Discriminator Model}
+\end{center}
+\end{figure}
+
+หลักการของ GAN คือโมเดลตัวแรกซึ่งเรียกว่า Generator จะสร้างข้อมูล (ปลอม) ที่มีลักษณะใกล้เคียงกันกับข้อมูลจริงขึ้นมา ในขณะที่โมเดล%
+อีกตัวซึ่งเรีบกว่า Discriminator จะทำการแยกประเภทของข้อมูลที่เราต้องการโดยประเมินการทำงานของโมเดลตัวแรกโดยการตัดสินว่าข้อมูลที่ 
+Generator สร้างขึ้นมานั้นมีความใกล้เคียงกับข้อมูลจริงมากน้อยแค่ไหน อธิบายให้ง่ายกว่านี้ก็คือโมเดลทั้งสองตัวนี้ถูกฝึกสอนให้ต่อสู้กันโดยที่
+Generator นั้นพยายามสร้างข้อมูลหลอก Discriminator และ Discriminator ก็ต้องพยายามจับผิด Generator ให้ได้ โดยในภาพที่ 
+\ref{fig:gan} แสดงองค์ประกอบของ GAN เริ่มต้นก็คือเรากำหนด Latent Noise ขึ้นมาก่อน แล้วให้ Generator นั้นสร้างข้อมูลปลอม 
+($\vec{x}_{\text{fake}}$) โดยเรียนรู้จากข้อมูลจริง ($\vec{x}_{\text{real}}$) แล้ว Discriminator จะทำตรวจสอบต่อไป
+
+ในปี ค.ศ. 2018 ได้มีการพัฒนา DeepFake ซึ่งเป็นปัญญาประดิษฐ์ที่สามารถสร้างภาพเคลื่อนไหวของบุคคลที่เราต้องการ โดยสามารถเลียน%
+แบบทั้งท่าทาง, น้ำเสียง, ลักษณะการพูด, การขยับปาก แล้วนำข้อความที่เป็นเท็จใส่ลงไปให้เหมือนกับว่าเป็นคำพูดของบุคคลคนนั้น ทั้ง ๆ 
+ที่บุคคลนั้นไม่ได้พูดประโยคเหล่านี้ออกมา สำหรับงานวิจัยทางด้านเคมีนั้นก็ได้มีการนำ GAN มาใช้ด้วยเช่นกัน เช่น การค้นหาโมเลกุลชนิดใหม่%
+\autocite{prykhodko2019,lee2021,blanchard2021}, การทำนายโครงสร้างผลึกที่สภาวะต่าง ๆ\autocite{kim2020}, การออกแบบ%
+สารประกอบอนินทรีย์\autocite{dan2020}, และการปรับปรุงการทำนายสเปกตรัม\autocite{al-mualem2022}
 
 สำหรับงานวิจัยที่ใช้ GAN ที่ผู้เขียนจะยกมาให้ผู้อ่านได้ศึกษานั้นคือ \enquote{Generative Adversarial Networks for Transition State 
 Geometry Prediction}\autocite{makos2021}
