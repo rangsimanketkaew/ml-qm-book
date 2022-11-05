@@ -120,22 +120,62 @@ E\left[\left(y - \hat{f}(\vec{x})\right)^2\right] =
 \idxen{Early Stopping}
 %--------------------------
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/early_stopping.png}
+    \caption{การทำ Regularization ด้วยวิธี Early Stopping สำหรับการฝึกสอนโมเดล High-degree Polynomial Regression 
+    โดยใช้ Batch Gradient Descent และใช้ RMSE ในการวัดค่าความคลาดเคลื่อน (เครดิตภาพ: https://www.oreilly.com)}
+    \label{fig:early_stopping}
+\end{figure}
+
 วิธี Early Stopping มีความหมายวิธีการทำงานตามชื่อเลยนั่นก็คือหยุดให้เร็วขึ้น เป็นวิธีการที่เราจะกำหนด (บังคับ) ให้การฝึกสอนหรือ Training 
 นั้นหยุดก่อนที่โมเดลของเราจะเริ่มเรียนรู้ Noise ที่อยู่ภายในชุดข้อมูล แทนที่จะเรียนรู้เฉพาะชุดข้อมูลอย่างเดียว ซึ่งวิธีการนี้จะเป็นการป้องกันการเปิด 
 Bias แบบตรงไปตรงมา อย่างไรก็ตามเราควรจะต้องระมัดระวังในการใช้เทคนิค Early Stopping เพราะว่าถ้าเราบังคับให้โมเดลหยุดเรียนรู้เร็วเกินไป
 ปัญหาที่อาจจะเกิดขึ้นแทนการ Overfitting นั่นก็คือการ Underfitting ของโมเดล ซึ่งการเลือกจุดที่จะให้โมเดลนั้นหยุดการเรียนรู้ก็ถือว่ามีความ%
 เป็น Art อย่างหนึ่ง ซึ่งจุดที่เราเลือกต้องมีความเหมาะสมระหว่าง Overfitting และ Underfitting
 
-โค้ดของการสร้าง Callback ของ Early Stopping โดยใช้ไลบรารี่ TensorFlow 
+\noindent โค้ดของการทำ Early Stopping โดยใช้ไลบรารี่ Scikit-Learn
 
 \begin{lstlisting}[style=MyPython]
->>> callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)
->>> model = tf.keras.models.Sequential([tf.keras.layers.Dense(10)])
->>> model.compile(tf.keras.optimizers.SGD(), loss='mse')
->>> history = model.fit(np.arange(100).reshape(5, 20), np.zeros(5),
-...                     epochs=10, batch_size=1, callbacks=[callback],
-...                     verbose=0)
->>> len(history.history['loss'])  # Only 4 epochs are run.
+from copy import deepcopy
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import StandardScaler
+
+X_train, y_train, X_valid, y_valid = [...]  # split the quadratic dataset
+
+preprocessing = make_pipeline(PolynomialFeatures(degree=90, include_bias=False),
+                              StandardScaler())
+X_train_prep = preprocessing.fit_transform(X_train)
+X_valid_prep = preprocessing.transform(X_valid)
+sgd_reg = SGDRegressor(penalty=None, eta0=0.002, random_state=42)
+n_epochs = 500
+best_valid_rmse = float('inf')
+
+# Training with applying early stopping
+for epoch in range(n_epochs):
+    sgd_reg.partial_fit(X_train_prep, y_train)
+    y_valid_predict = sgd_reg.predict(X_valid_prep)
+    val_error = mean_squared_error(y_valid, y_valid_predict, squared=False)
+    if val_error < best_valid_rmse:
+        best_valid_rmse = val_error
+        best_model = deepcopy(sgd_reg)
+\end{lstlisting}
+
+\noindent โค้ดของการสร้าง Callback ของ Early Stopping โดยใช้ไลบรารี่ TensorFlow 
+
+\begin{lstlisting}[style=MyPython]
+import tensorflow as tf
+
+callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)
+
+model = tf.keras.models.Sequential([tf.keras.layers.Dense(10)])
+model.compile(tf.keras.optimizers.SGD(), loss='mse')
+
+history = model.fit(np.arange(100).reshape(5, 20), np.zeros(5),
+                    epochs=10, batch_size=1, callbacks=[callback],
+                    verbose=0)
+
+len(history.history['loss'])  # Only 4 epochs are run.
 4
 \end{lstlisting}
 
