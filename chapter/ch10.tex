@@ -67,14 +67,14 @@
 Feature ที่เลือกใช้, เทคนิค ML และ Hyperparameters ต่าง ๆ ที่เราได้กำหนดและลองปรับเปลี่ยนค่าในระหว่างการฝึกสอนโมเดล 
 เมื่อเราได้โมเดลที่ถูกฝึกสอนมาอย่างดีและมีประสิทธิภาพที่อยู่ในเกณฑ์ที่ยอมรับได้แล้วนั้น เราก็จะมีโมเดลที่พร้อมจะไปใช้งานจริงครับ
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{fig/ml_workflow.png}
     \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์แบบที่ 1 (เครดิตภาพ: \url{https://learnbyinsight.com/})}
     \label{fig:ml_workflow}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{fig/ml_pipeline.png}
     \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์แบบที่ 2 (เครดิตภาพ: \url{https://vitalflux.com})}
@@ -87,7 +87,7 @@ Feature ที่เลือกใช้, เทคนิค ML และ Hyper
 \idxen{Model Selection}
 %--------------------------
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1.3\linewidth,angle=90]{fig/ml_map.png}
     \caption{แผนภาพการเลือกใช้โมเดลปัญญาประดิษฐ์ (เครดิตภาพ: \url{https://scikit-learn.org})}
@@ -203,7 +203,7 @@ ax.tick_params(axis='both', which='major', labelsize=12)
 plt.show()
 \end{lstlisting}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/qm9_cm_mae_sigma.png}
     \caption{ค่าความคลาดเคลื่อน MAE กับค่าความกว้างของ Kernel ($\sigma$)}
@@ -276,7 +276,7 @@ plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/qm9_cm_kernel_corr.png}
     \caption{ซ้าย: Correlation ของค่าพลังงานภายในของโมเลกุลระหว่างค่าอ้างอิงกับค่าจากการทำนาย, ขวา: Histrogram Density 
@@ -328,7 +328,7 @@ $s$ คือจำนวนของ Configuration (ขนาดของ Train
 ต่าง ๆ ที่ใช้ในการ Fit ได้นั่นเอง โดยเคอร์เนลในที่นี้คือการวัดความคล้ายคลึงกันระหว่าง Feature ของอะตอมแต่ละตัวในโมเลกุล (Atomic 
 Environment)
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{fig/gap_procedure.jpeg}
     \caption{ขั้นตอนการคำนวณ Representation และการใช้ Gaussian Approximation Potentials ในการทำนายพลังงานและแรง

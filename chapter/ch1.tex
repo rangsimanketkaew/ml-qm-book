@@ -27,7 +27,7 @@
 ทำซ้ำหรือเกิดขึ้นแบบเดิมจนมีแบบแผน (Pattern) ยกตัวอย่างเช่น ถ้าเรามีข้อมูล 2 ตัวแปร $(x,y)$ เราใช้ ML เพื่อหาฟังก์ชันที่สามารถเชื่อมโยง 
 (Correlate) ความสัมพันธ์ระหว่างสองตัวแปรนี้ได้ $f: x\rightarrow y$
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/cyborg.png}
     \caption{หุ่นยนต์ที่มีสมองเหมือนกับมนุษย์ที่มีความนึกคิดและสติปัญญา (เครดิตภาพ: https://pixabay.com)}
@@ -47,7 +47,7 @@ Arthur L. Samuel ได้เขียนโปรแกรมเล่นหม
 ถูกคิดค้นขึ้นในช่วงปี ค.ศ. 1967 และในปี ค.ศ. 1996 IBM ได้พัฒนาโปรแกรมที่ชื่อว่า Deep Blue ที่สามารถเอาชนะนักหมากรุกมือวางอันดับ%
 หนึ่งของโลกได้สำเร็จ
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{fig/malaria-parasite-protein-deepmind.jpeg}
     \caption{แบบจำลองโครงสร้างสามมิติการพับของโปรตีน Pfs48/45 ซึ่งเป็นองค์ประกอบสำคัญของปรสิตมาลาเรีย โครงสร้างนี้ทำนายด้วยโมเดล 
@@ -84,7 +84,7 @@ NLP และเผยแพร่ในปี ค.ศ. 2017} โดยอัล
 คณิตศาสตร์และวิทยาศาสตร์เท่านั้น แต่รวมไปถึงวงการอื่น ๆ ด้วยที่เทคนิคเหล่านี้เข้าไปมีบทบาท ซึ่งไม่เพียงแค่ในเฉพาะปัจจุบันเท่านั้นแต่ว่าใน%
 อนาคตนั้นเราอาจจะได้เห็นสิ่งใหม่ ๆ ที่ ML นั้นสามารถสร้างสรรค์ขึ้นมาได้เอง
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[scale=1]{fig/ML-concept.pdf}
     \caption{แผนภาพเปรียบเทียบการทำงานของโปรแกรมแบบดั้งเดิมกับการเรียนรู้ของเครื่อง}
@@ -105,7 +105,7 @@ NLP และเผยแพร่ในปี ค.ศ. 2017} โดยอัล
 \label{sec:ml_meets_chem}
 %--------------------------
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{fig/workflow_chem_ml.png}
     \caption{ขั้นตอนแสดงการสร้างโมเดลการเรียนรู้ของเครื่องเพื่อใช้ในการทำนายคุณสมบัติของโมเลกุล เริ่มจากการเปลี่ยนข้อมูลทางเคมีจาก%
@@ -185,14 +185,14 @@ XC ก็เปรียบเสมือนเป็นกล่องดำ (
 เชิงอิเล็กทรอนิกส์ (Electronic Properties) ของโมเลกุลอย่างเห็นได้ชัด
 \idxboth{ฟังก์ชันการแลกเปลี่ยนและสหสัมพันธ์}{Exchange-Correlation Functional}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/qm_scaling.png}
     \caption{แผนภาพแสดง Scaling ของวิธีทางเคมีควอนตัม (เครดิตภาพ: https://www.chemistryworld.com)}
     \label{fig:qm_scaling}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
     \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\autocite{rupp2015} โดย $N$ คือจำนวนของอิเล็กตรอนหรือ%
     จำนวนของ Basis function}
@@ -224,7 +224,7 @@ $\mathcal{O}(n^{3})$
 
 \begin{adjustwidth}{-2.5 cm}{-2.5 cm}
     \centering
-    \begin{threeparttable}[H]
+    \begin{threeparttable}[htbp]
     \caption{ตารางเปรียบเทียบความซับซ้อนเชิงคำนวณของวิธีทางเคมีควอนตัม\autocite{zotero-328} โดย $n$ คือจำนวนของข้อมูล, $p$ 
     คือจำนวน Feature, $n_{trees}$ คือจำนวนของต้นไม้ (Trees), $n_{sv}$ คือจำนวนของ Support Vectors, $n_{L_{i}}$ 
     คือจำนวนของ Neuron หรือ Node ของชั้นที่ $i$ และ $t$ คือจำนวนของ Epochs ที่ใช้ในการฝึกฝนโมเดล}
