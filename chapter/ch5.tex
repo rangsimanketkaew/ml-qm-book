@@ -24,14 +24,42 @@
 ด้วยข้อมูลส่วนที่ 2
 
 %--------------------------
-\section{การคัดเลือก Feature}
+\section{การคัดเลือกลักษณะเฉพาะ}
 \label{sec:select_feat}
 \idxen{Feature Selection}
 %--------------------------
 
-การคัดเลือก Feature (Feature Selection) เป็นการหา Feature ที่เหมาะสมที่สุดสำหรับการใช้อธิบายข้อมูลของโมเลกุล โดยเราจะทำการ%
-เรียงลำดับความสำคัญของ Feature แล้วทำการเลือกเฉพาะ Feature ที่คิดว่าสอดคล้องกับเอาต์พุตที่ต้องการทำนาย และคัด Feature 
-ที่มีความสำคัญน้อยออกไปเพื่อหลีกเลี่ยง Bias ที่อาจจะเกิดขึ้น
+\begin{algorithm}[ht]
+    \caption{อัลกอริทึม Forward Search สำหรับการทำ Feature Selection}
+    \label{alg:forward_search}
+    \begin{algorithmic}
+    \State Initialize $\mathcal{F} = \emptyset$.
+    \Repeat
+        \For{$i=1,\ldots,d$}
+            \If{$i \not\in \mathcal{F}$}
+                \State $\mathcal{F}_i = \mathcal{F} \cup \{i\}$
+                \State Use some version of cross validation to evaluate features $\mathcal{F}_i$.
+                \State (i.e., train your learning algorithm using only the features in $\mathcal{F}_i$, and 
+                estimate its generalization error.)
+            \EndIf
+        \EndFor
+        \State Set $\mathcal{F}$ to be the best feature subset found in the previous step. % DIFF.
+    \Until{convergence}
+    \State Select and output the best feature subset that was evaluated during the entire search procedure.
+    \end{algorithmic}
+\end{algorithm}
+
+การคัดเลือกลักษณะเฉพาะ (Feature Selection) เป็นการหา Feature ที่เหมาะสมที่สุดสำหรับการใช้อธิบายข้อมูลของโมเลกุล โดยเราจะทำการ%
+เรียงลำดับความสำคัญของ Feature แล้วทำการคัดเลือกเฉพาะ Feature ที่คิดว่าสอดคล้องกับเอาต์พุตที่ต้องการทำนายและคัด Feature ที่มีความ%
+สำคัญน้อยออกไปเพื่อหลีกเลี่ยง Bias ที่อาจจะเกิดขึ้น อธิบายง่าย ๆ คือเป็นเทคนิคที่เรานำมาใช้เพื่อลดจำนวณของ Feature นั่นเอง 
+
+อัลกอริทึมของ Feature Selection แบบที่ง่ายที่สุดนั้นชื่อว่า Forward Search ซึ่งดูได้ตามอัลกอริทึมที่ \ref{alg:forward_search} โดยเริ่ม%
+ต้นนั้นกำหนดให้ $\mathcal{F}$ เป็นเซตของจำนวน Feature ทั้งหมดซึ่งยังเป็นเซตว่างอยู่ แล้วเราก็ทำการ Cross Validation ไปทีละ Feature
+โดยในลูปด้านในนั้นจะเพิ่ม Feature เข้าไปใน $\mathcal{F}$ ทีละอันจนกระทั้งครบทุก Feature $\mathcal{F} = \{1,\ldots ,d\}$ 
+ซึ่งจะเป็นการสิ้นสุดกระบวนการทำ Feature Search 
+
+นอกจากนี้ยังมีอัลกอริทึมที่ตรงข้ามกับ Forward Search เรียกว่า Backward Search โดยแทนที่เราจะกำหนด $\mathcal{F}$ ให้เป็นเซตว่างนั้น%
+เราจะเริ่มด้วย $\mathcal{F}$ ที่เป็นเซตที่มี Feature อยู่ครบทั้งหมดแล้วทำการลบ Feature ออกทีละอันจนกระทั่ง $\mathcal{F}$ เป็นเซตว่าง
 
 %--------------------------
 \section{ปัญหา Bias-Variance}
@@ -73,9 +101,10 @@ E\left[\left(y - \hat{f}(\vec{x})\right)^2\right] =
     & + \sigma^2
 \end{align}
 
-โดยพจน์แรกนั้นจะเป็น Bias, พจน์ที่สองเป็น Variance และพจน์ที่สามเป็นค่าความแปรปรวนที่คำนวณจาก Standard Deviation ($\sigma$)
-ประเด็นก็คือว่าเราสามารถควบคุม Bias กับ Variance ได้ แต่เราไม่สามารถควบคุม Noise ได้เพราะมันเป็นสิ่งที่ผูกติดมากับชุดข้อมูล ซึ่งการที่เรา%
-มี Bias และ Variance ที่ไม่สมดุลกันนั้นจะทำให้เกิดผลลัพธ์ที่ตามมาในระหว่างการฝึกสอนโมเดล นั่นคือ Overfitting และ Underfitting
+โดยพจน์แรกนั้นเป็น Bias, พจน์ที่สองเป็น Variance และพจน์ที่สามเป็นค่าความแปรปรวนที่คำนวณจาก Standard Deviation ของ Noise 
+($\epsilon$) ประเด็นก็คือว่าเราสามารถควบคุม Bias กับ Variance ได้ แต่เราไม่สามารถควบคุม Noise ได้เพราะมันเป็นสิ่งที่ผูกติดมากับชุด%
+ข้อมูล ซึ่งการที่เรามี Bias และ Variance ที่ไม่สมดุลกันนั้นจะทำให้เกิดผลลัพธ์ที่ตามมาในระหว่างการฝึกสอนโมเดล นั่นคือ Overfitting และ 
+Underfitting
 
 %--------------------------
 \section{การเพิ่มประสิทธิภาพการเรียนรู้และแก้ปัญหา Overfitting}
@@ -100,6 +129,15 @@ E\left[\left(y - \hat{f}(\vec{x})\right)^2\right] =
     \item[Noisy] โมเดลไม่มี Overfitting และ Underfitting แต่ยังมีค่า Error ของการฝึกสอนที่ยังสูงอยู่มาก ซึ่งสาเหตุก็อาจจะมาจาก%
     การที่ชุดข้อมูลมี Noise มากเกินไปนั่นเอง
 \end{description}
+
+ภาพที่ \ref{fig:overfitting} แสดงการเปรียบเทียบระหว่างกรณีของ Underfitting และ Overfitting ซึ่งเป็นหนึ่งในปัญหาหลักที่มักจะพบ%
+เจอได้ทั่วไปใน ML โดยเราสามารถสรุปความสัมพันธ์จากกรณีได้กล่าวได้ดังนี้
+
+\begin{align*}
+    \text{Bias สูง} &\;\longleftrightarrow\; \text{Underfitting}\\
+    \text{Variance สูง} &\;\longleftrightarrow\; \text{Overfitting}\\
+    \text{$\sigma^2$ มาก} &\;\longleftrightarrow\; \text{Noisy Data}
+\end{align*}
 
 วิธีการจัดการกับ Overfitting แบบที่ง่ายที่สุดคือการเพิ่มจำนวนข้อมูลในการฝึกสอนโมเดล นอกจากนี้ยังมีวิธีอื่น ๆ ที่เราสามารถใช้ในการจัดการกับ%
 ปัญหาข้างต้นได้เช่นเดียวกัน มีดังต่อไปนี้
