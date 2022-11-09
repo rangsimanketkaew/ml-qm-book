@@ -70,7 +70,7 @@ Feature ที่เลือกใช้, เทคนิค ML และ Hyper
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{fig/ml_workflow.png}
-    \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์แบบที่ 1 (เครดิตภาพ: \url{https://learnbyinsight.com/})}
+    \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์แบบที่ 1 (เครดิตภาพ: \url{https://learnbyinsight.com})}
     \label{fig:ml_workflow}
 \end{figure}
 
@@ -94,16 +94,21 @@ Feature ที่เลือกใช้, เทคนิค ML และ Hyper
     \label{fig:ml_map}
 \end{figure}
 
-ตัวอย่างของ Kernel ที่มักถูกใช้สำหรับการทำ Regression
+ตัวอย่างของเคอร์เนล (Kernel) ที่มักถูกใช้สำหรับการทำ Regression
+\idxboth{เคอร์เนล}{Kernel}
 
-\begin{itemize}
-    \item Linear kernel : $K(x_i, x_j) = x_i \cdot x_j$
+\begin{itemize}[topsep=0pt]
+    \item Linear Kernel: $K(x_i, x_j) = x_i \cdot x_j$
+    \idxen{Kernel!Linear}
     
-    \item Polynomial : $K(x_i, x_j; a, b) = (x_i \cdot x_j + a)^b$
+    \item Polynomial Kernel: $K(x_i, x_j; a, b) = (x_i \cdot x_j + a)^b$
+    \idxen{Kernel!Polynomial}
     
-    \item Gaussian kernel : $K(x_i, x_j; w, \sigma) = \mathrm{exp}\left(-\frac{|x_i-x_j|^2}{2\sigma^2}\right)$
+    \item Gaussian Kernel: $K(x_i, x_j; w, \sigma) = \mathrm{exp}\left(-\frac{|x_i-x_j|^2}{2\sigma^2}\right)$
+    \idxen{Kernel!Gaussian}
     
-    \item Laplacian kernel : $K(x_i, x_j; w, \gamma) = \mathrm{exp}\left(-{|x_i-x_j|}\right)$
+    \item Laplacian Kernel: $K(x_i, x_j; w, \gamma) = \mathrm{exp}\left(-{|x_i-x_j|}\right)$
+    \idxen{Kernel!Laplacian}
 \end{itemize}
 
 %--------------------------
