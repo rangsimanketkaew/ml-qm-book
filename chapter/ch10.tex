@@ -97,19 +97,20 @@ Feature ที่เลือกใช้, เทคนิค ML และ Hyper
 ตัวอย่างของเคอร์เนล (Kernel) ที่มักถูกใช้สำหรับการทำ Regression
 \idxboth{เคอร์เนล}{Kernel}
 
-\begin{itemize}[topsep=0pt]
-    \item Linear Kernel: $K(x_i, x_j) = x_i \cdot x_j$
-    \idxen{Kernel!Linear}
-    
-    \item Polynomial Kernel: $K(x_i, x_j; a, b) = (x_i \cdot x_j + a)^b$
-    \idxen{Kernel!Polynomial}
-    
-    \item Gaussian Kernel: $K(x_i, x_j; w, \sigma) = \mathrm{exp}\left(-\frac{|x_i-x_j|^2}{2\sigma^2}\right)$
-    \idxen{Kernel!Gaussian}
-    
-    \item Laplacian Kernel: $K(x_i, x_j; w, \gamma) = \mathrm{exp}\left(-{|x_i-x_j|}\right)$
-    \idxen{Kernel!Laplacian}
-\end{itemize}
+\fbox{%
+\begin{minipage}{0.9\linewidth}
+    \begin{align*}  
+        &\text{Linear Kernel}: &&K(x_i, x_j) = x_i \cdot x_j \\[0.5ex]
+        &\text{Polynomial Kernel}: &&K(x_i, x_j; a, b) = (x_i \cdot x_j + a)^b \\[0.5ex]
+        &\text{Gaussian Kernel}: &&K(x_i, x_j; w, \sigma) = \mathrm{exp} \left(-\frac{|x_i-x_j|^2}{2\sigma^2} 
+        \right) \\[1.5ex]
+        &\text{Laplacian Kernel}: &&K(x_i, x_j; w, \gamma) = \mathrm{exp} \left(-{|x_i-x_j|}\right) \\[0.5ex]
+    \end{align*}
+\end{minipage}}
+\idxboth{เคอร์เนล!เชิงเส้น}{Kernel!Linear}
+\idxboth{เคอร์เนล!พหุนาม}{Kernel!Polynomial}
+\idxboth{เคอร์เนล!เกาส์เซียน}{Kernel!Gaussian}
+\idxboth{เคอร์เนล!ลาปลาเซียน}{Kernel!Laplacian}
 
 %--------------------------
 \section{การทำนายพลังงานรวมของโมเลกุล}
