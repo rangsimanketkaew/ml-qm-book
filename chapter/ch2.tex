@@ -114,16 +114,16 @@ Function ที่เราจะเลือกใช้นั้น คือ 
 \ref{eq:grad_simple_reg} ในการคำนวณได้
 
 \begin{align}\label{eq:grad_simple_reg}
-    f'(m,b) =
+    f'(m,b) &=
       \begin{bmatrix}
-        \dv{f}{m}\\
-        \dv{f}{b}\\
-      \end{bmatrix}
+        \dv{f}{m} \\
+        \dv{f}{b} \\
+      \end{bmatrix} \\
     &=
       \begin{bmatrix}
         \frac{1}{N} \sum -x_i \cdot 2(y_i - (mx_i + b)) \\
         \frac{1}{N} \sum -1 \cdot 2(y_i - (mx_i + b)) \\
-      \end{bmatrix}\\
+      \end{bmatrix} \\
     &=
       \begin{bmatrix}
          \frac{1}{N} \sum -2x_i(y_i - (mx_i + b)) \\
