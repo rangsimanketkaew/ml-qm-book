@@ -652,6 +652,33 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
 \idxen{Molecular Property Prediction!Spectra!Raman}
 %--------------------------
 
+\begin{table}[htbp]
+    \centering
+    \caption{บทความงานวิจัยที่เกี่ยวข้องกับวิธี Struc-to-Spec}
+    \label{tab:struc2spec}
+    \small
+    \begin{tabular}{clll}
+    \toprule
+    % \begin{tabular}{p{0.2cm} p{3cm} p{4cm} p{5cm} p{8cm} p{1cm}}
+    \textbf{Ref.} &\textbf{Learning Target} &\textbf{ML Method} &\textbf{Representation} \\
+    \midrule
+    \autocite{schuur1996,Schuur1997} & ความเข้มการดูดกลืน IR & PCA+CPG\autocite{hecht-nielsen1987}, 
+    CPG\autocite{hecht-nielsen1987} & คุณสมบัติเชิงอะตอม, ระยะห่างระหว่างอะตอม \\
+    
+    \autocite{selzer2000,kostka2001} & ความเข้มการดูดกลืน IR & \makecell[tl]{Query Driven Selection \\ + RDF + 
+    CPG\autocite{hecht-nielsen1987}} & คุณสมบัติเชิงอะตอม, ระยะห่างระหว่างอะตอม \\
+    
+    \autocite{yildiz2011,yildiz2012} & ความเข้ม IR/Raman & LFFN-EPFs\autocite{yildiz2011} & ความเข้ม IR/Raman \\
+    
+    \autocite{gastegger2017} & ประจุย่อยเชิงอะตอม & HDNNP\autocite{behler2007} + ED-GEKF\autocite{gastegger2015} 
+    & ACSFs\autocite{behler2011a}, Geometric Descriptors \\
+    
+    \autocite{sifain2018,nebgen2018} & ประจุย่อยเชิงอะตอม & HIP-NN\autocite{lubbers2018} & เลขอะตอม, 
+    ระยะห่างระหว่างอะตอม \\
+   \bottomrule
+\end{tabular}
+\end{table}
+
 %--------------------------
 \section{บทความวิชาการเพิ่มเติม}
 \label{sec:pred_misc_papers}
