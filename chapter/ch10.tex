@@ -432,7 +432,8 @@ f(\mathbf{D})$)\footnote{เครื่องหมาย $\hat{}$\, (อ่า
 \idxen{Molecular Property Prediction!Activation Energy}
 %--------------------------
 
-พลังงานกระตุ้น (Activation Energy) เป็นค่าพลังงานที่บ่งบอกถึงความยากง่ายในการทำให้ปฏิริยาเคมีสามารถดำเนินไปได้ ณ สภาวะหนึ่ง ๆ
+พลังงานกระตุ้น (Activation Energy) เป็นค่าพลังงานที่ต่ำที่สุดที่ใช้เพื่อกระตุ้นปฏิกิริยาเคมี บ่งบอกถึงความยากง่ายของการเกิดปฏิริยาเคมีที่%
+สามารถดำเนินไปได้ ณ สภาวะหนึ่ง ๆ ปัจจัยที่มีผลต่อพลังงานกระตุ้น เช่น ความร้อนและตัวเร่งปฏิกิริยา
 
 %--------------------------
 \section{การทำนายประจุของอะตอม}
@@ -501,23 +502,24 @@ Timeline มีดังนี้
     ในการฝึกสอนโมเดลและนำมาใช้ในทำนายประจุย่อยได้อย่างแม่นยำมาก ๆ
     
     \item \enquote{Transferable Dynamic Molecular Charge Assignment Using Deep Neural Networks}\autocite{nebgen2018} \\
-    งานวิจัยนี้ใช้ Neural network สำหรับทำนายประจุย่อยแบบไดนามิกส์
+    งานวิจัยนี้ใช้ Neural Network ในการทำนายประจุย่อยแบบไดนามิกส์
     
     \item \enquote{PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments, and Partial Charges}
     \autocite{unke2019} \\
-    โมเดล ML ที่ชื่อว่า PhysNet ซึ่งสามารถทำนายประจุย่อยได้ด้วย
+    งานวิจัยนี้นำเสนอโมเดล ML ที่ชื่อว่า PhysNet ซึ่งสามารถทำนายคุณสมบัติเชิงโมเลกุล ประกอบไปด้วย พลังงาน, แรง, ไดโพล โมเมนต์, 
+    และประจุย่อย
     
     \item \enquote{Fast and Accurate Machine Learning Strategy for Calculating Partial Atomic Charges in 
     Metal-Organic Frameworks}\autocite{kancharlapalli2021} \\ 
-    เป็นการทำนายประจุของอะตอมในสารประกอบ MOF
+    งานวิจัยนี้เป็นการทำนายประจุของอะตอมในสารประกอบ Metal-Organic Frameworks (MOFs)
     
     \item \enquote{High-Precision Atomic Charge Prediction for Protein Systems Using Fragment Molecular Orbital 
     Calculation and Machine Learning}\autocite{kato2020} \\ 
-    งานนี้สนใจโปรตีนและใช้ FMO
+    งานวิจัยนี้สนใจการทำนายประจุเชิงอะตอมของโปรตีโดยใช้ Fragment Molecular Orbital
     
     \item \enquote{DeepChargePredictor: A Web Server for Predicting QM-based Atomic Charges via State-of-the-art 
     Machine-learning Algorithms}\autocite{wang2021} \\ 
-    งานนี้พัฒนาเว็บไซต์ที่ช่วยให้เราสามารถทำนายประจุย่อยได้
+    งานวิจัยนี้พัฒนาเว็บไซต์ที่ช่วยให้เราสามารถทำนายประจุย่อยได้
 \end{itemize}
 
 %--------------------------
@@ -652,15 +654,22 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
 \idxen{Molecular Property Prediction!Spectra!Raman}
 %--------------------------
 
-\begin{table}[htbp]
+
+%--------------------------
+\subsection{วิธีการทำนายสเปกตรัมและโครงสร้าง}
+\label{ssec:pred_spec_struct}
+\idxth{การทำนายคุณสมบัติของโมเลกุล!การทำนายสเปกตรัม!วิธีการทำนายสเปกตรัมและโครงสร้าง}
+\idxen{Molecular Property Prediction!Spectra!Predicting Spectra and Structures}
+%--------------------------
+
+\begin{table}[H]
     \centering
     \caption{บทความงานวิจัยที่เกี่ยวข้องกับวิธี Struc-to-Spec}
     \label{tab:struc2spec}
     \small
     \begin{tabular}{clll}
     \toprule
-    % \begin{tabular}{p{0.2cm} p{3cm} p{4cm} p{5cm} p{8cm} p{1cm}}
-    \textbf{Ref.} &\textbf{Learning Target} &\textbf{ML Method} &\textbf{Representation} \\
+    \textbf{Ref.} &\textbf{Learning Target} &\textbf{โมเดล ML} &\textbf{Representation} \\
     \midrule
     \autocite{schuur1996,Schuur1997} & ความเข้มการดูดกลืน IR & PCA+CPG\autocite{hecht-nielsen1987}, 
     CPG\autocite{hecht-nielsen1987} & คุณสมบัติเชิงอะตอม, ระยะห่างระหว่างอะตอม \\
@@ -678,6 +687,60 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
    \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{บทความงานวิจัยที่เกี่ยวข้องกับวิธี Spec-to-Struc}
+    \label{tab:spec2struc}
+    \small
+    \begin{tabular}{clll}
+    \toprule
+    \textbf{Ref.} &\textbf{Learning Target} &\textbf{โมเดล ML} &\textbf{Representation} \\
+    \midrule
+    \autocite{visser1994,luinge1995} & โครงสร้างและหมู่ฟังก์ชัน & 
+    PLS\autocite{wold1984}, PCA-MLP, MLP & \makecell[tl]{Band Pattern \\ Full Spectrum} \\
+
+    \autocite{carrieri1995} & โมเลกุลทั่วไป & Binary และ Decimal-based NN & 
+    Band Pattern \\
+    
+    \autocite{fu2018} & คอนฟิกูเรชั่นเชิงนิวเคลียร์ & Basin-hopping Algorithm\autocite{wales1997} & 
+    Cosine Distances \\
+    
+    \autocite{fine2020} & หมู่ฟังก์ชัน & Autoencoder + MLP, RF\autocite{breiman2001} & 
+    Peak ของ FTIR \\
+    
+    \autocite{ren2021} & โครงสร้างที่มีหมู่ \ce{OH} และ \ce{C=O} & LSTM \autocite{hochreiter1997} & 
+    \makecell[tl]{Peak ของ IR และ Raman \\ ที่คำนวณด้วย DFT} \\
+   \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{itemize}[topsep=0pt,noitemsep]
+    \item CPG: Counterpropagation
+    
+    \item ED-GEKF: Element-decoupled Global Extended Kalman Filter
+    
+    \item FTIR: Fourier Transform Infrared
+    
+    \item HDNNP: High Dimensional Neural Network Potential
+    
+    \item HIP-NN: Hierarchically Interacting Particle Neural Network
+    
+    \item LFFN-EPFs: Layered Feed Forward Neural Network - Empirical Physical Formulas
+    
+    \item MLP: Multilayer Perceptron
+    
+    \item NMA: N-methylacetamide
+    
+    \item PCA: Principal component analysis
+    
+    \item PG-EA: Probability graph-evolutionary algorithm
+    
+    \item RDF: Radial Distribution Function
+\end{itemize}
+
+\idxen{Molecular Property Prediction!Spectra!Struc-to-Spec}
+\idxen{Molecular Property Prediction!Spectra!Spec-to-Struc}
 
 %--------------------------
 \section{บทความวิชาการเพิ่มเติม}
