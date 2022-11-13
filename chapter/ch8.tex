@@ -487,6 +487,17 @@ Vector คือ
 \label{ssec:other_feat_elec}
 %--------------------------
 
-นอกจากนี้ยังมีลักษณะเฉพาะเชิงอิเล็กทรอนิกส์อีกมากมายที่ถูกพัฒนาขึ้นมา\autocite{faber2018} เช่น Bonds and Angles based Machine 
-Learning (BAML)\autocite{huang2016}, Histogram of Distances, Angles, and Dihedrals (HDAD)\autocite{faber2017}, 
-และ Many-body Tensor Representation (MBTR)\autocite{huo2018,langer2022}
+นอกจากนี้ยังมีลักษณะเฉพาะเชิงอิเล็กทรอนิกส์อีกมากมายที่ถูกพัฒนาขึ้นมา\autocite{faber2018} ดังนี้ 
+
+\begin{itemize}[topsep=0pt]
+    \item Bonds and Angles based Machine Learning (BAML)\autocite{huang2016}
+    \item Histogram of Distances, Angles, and Dihedrals (HDAD)\autocite{faber2017}
+    \item Many-body Tensor Representation (MBTR)\autocite{huo2018,langer2022}
+\end{itemize}
+
+เมื่ออ่านบทความวิจารณ์ (Review) ต่าง ๆ แล้วผู้อ่านจะพบว่าไม่มี Descriptor ไหนที่ให้ผลการทำนายคุณสมบัติเชิงโมเลกุลทุกคุณสมบัติได้แม่น%
+ยำที่สุด กล่าวคือ Descriptor แต่ละอันนั้นมีความสามารถในการทำนายคุณสมบัติที่แตกต่างกันไป ถ้าเปรียบเทียบง่าย ๆ ก็เหมือนกับ Functional 
+ของวิธี DFT ซึ่งแต่ละ Functional ก็มีข้อดีและข้อเสียแตกต่างกันไป ดังนั้นผู้เขียนควรศึกษาความแตกต่างของ Descriptor แต่ละอันว่ามีทฤษฎี%
+ที่อยู่เบื้องหลังที่ใช้ในการพัฒนา Descriptor นั้น ๆ เป็นอย่างไร จะช่วยทำให้เราเข้าใจและสามารถเลือกใช้ Descriptor ที่เหมาะกับคุณสมบัติ%
+เชิงโมเลกุลได้อย่างเหมาะสมและให้ผลการทำนายที่ถูกต้องและแม่นยำ ซึ่งจะช่วยประหยัดเวลาโดยไม่ต้องทำการสุ่มหรือทดลองเปลี่ยน Descriptor 
+ไปเรื่อย ๆ นั่นเอง
