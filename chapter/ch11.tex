@@ -38,7 +38,8 @@ DFT\autocite{smith2017}
 \idxen{Model for Quantum Chemistry!SchNet}
 %--------------------------
 
-\autocite{schutt2017,schutt2018}
+SchNet เป็นโมเดลที่ใช้ Continuous Convolutions ซึ่งได้แรงบันดาลใจมาจาก Convolutional Neural Network (CNN) สำหรับการ%
+อธิบายอัตรกิริยาระหว่างอะตอม\autocite{schutt2017,schutt2018}
 
 %--------------------------
 \subsection{SchNOrb}
@@ -464,4 +465,29 @@ Forcing นั่นเอง
 %--------------------------
 
 ตัวแปลงความใส่ใจของโมเลกุล (Molecule Attention Transformer หรือ MAT)\autocite{maziarka2020} เป็นโมเดลที่ใช้ Transformer
-ในการพััฒนา
+ในการพัฒนา
+
+%--------------------------
+\section{โมเดลอื่น ๆ}
+\label{sec:other_ml_qm_models}
+%--------------------------
+
+นอกจากโมเดล ML ที่ได้อธิบายไปก่อนนี้ ยังมีอีกหลายโมเดลที่ถูกพัฒนาขึ้นมาเพื่อวัตถุประสงค์ที่แตกต่างกันไป โดยเฉพาะการทำนายคุณสมบัติของ%
+โมเลกุลแบบเฉพาะเจาะจง โมเดล ML ที่ผู้อ่านสามารถศึกษาเพิ่มเติมเองได้มีดังนี้
+
+\begin{table}[H]
+    \centering
+    \caption{โมเดล ML สำหรับเคมีควอนตัม}
+    \label{tab:ml_qm_model}
+    \begin{tabular}{cll}
+    \toprule
+    ปี ค.ศ. ที่ตีพิมพ์ &โมเดล ML &รายละเอียด \\
+    \midrule
+    2018 &DeePMD-kit\autocite{wang2018} &สำหรับคำนวณ Representation \\
+    2019 &Cormorant\autocite{anderson2019} &สำหรับ Many-body System \\
+    2020 &GMsNN\autocite{zaverkin2020} &ใช้ Gaussian Moment \\
+    2021 &FieldSchNet\autocite{gastegger2021} &ปรับปรุง SchNet สำหรับการจำลองตัวทำละลาย \\
+    2022 &DimeNet\autocite{gasteiger2022} &ใช้ Message-passing \\
+    \bottomrule
+    \end{tabular}
+\end{table}
