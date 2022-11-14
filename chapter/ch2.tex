@@ -120,8 +120,10 @@ $x_{2}$ เป็นจำนวนวงอะโรมาติก (Aromatic) 
     \centering
     \caption{แสดงเงินที่ใช้ในการลงทุนการโฆษณาของบริษัทต่าง ๆ กับยอดขายรายปี}
     \label{tab:simple_reg_data}
-    \begin{tabular}{lcc}\toprule
-    \textbf{บริษัท} &\textbf{วิทยุ} &\textbf{ยอดขาย (ต่อหน่วย)} \\\midrule
+    \begin{tabular}{lcc}
+    \toprule
+    \textbf{บริษัท} &\textbf{วิทยุ} &\textbf{ยอดขาย (ต่อหน่วย)} \\
+    \midrule
     Amazon &37.8 &22.1 \\
     Google &39.3 &10.4 \\
     Facebook &45.9 &18.3 \\
@@ -333,13 +335,13 @@ model.fit(x, y)
 
 # Get results
 model.classes_
-# OUTPUT
+# Output
 array([0, 1])
 model.intercept_
-# OUTPUT
+# Output
 array([-1.04608067])
 model.coef_
-# OUTPUT
+# Output
 array([[0.51491375]])
 \end{lstlisting}
 
@@ -347,7 +349,7 @@ array([[0.51491375]])
 
 \begin{lstlisting}[style=MyPython]
 model.predict_proba(x)
-# OUTPUT
+# Output
 array([[0.74002157, 0.25997843],
        [0.62975524, 0.37024476],
        [0.5040632 , 0.4959368 ],
@@ -408,7 +410,7 @@ clf.fit(x, y)
 
 # Predict the response for test dataset
 clf.predict(x_test)
-# OUTPUT
+# Output
 array([0, 0, 0, 1, 1, 1, 1, 1, 1, 1])
 \end{lstlisting}
 

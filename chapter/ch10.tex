@@ -237,7 +237,7 @@ plt.show()
 best_sigma = sigmas[np.argmin(test_maes)]
 print(best_sigma)
 
-# OUTPUT
+# Output
 3100
 \end{lstlisting}
 
@@ -254,7 +254,7 @@ K_cm[np.diag_indices_from(K_cm)] += 1e-8
 alpha_cm = cho_solve(K_cm, Y_cm_train)
 print(alpha_cm)
 
-# OUTPUT
+# Output
 [-1.72214025e+09 -1.37779221e+09 -6.40402006e+08 ...  2.42741968e+09  5.94869282e+08
  -1.19747799e+09]
 \end{lstlisting}
@@ -271,7 +271,7 @@ Y_cm_predicted = np.dot(K_cm_test, alpha_cm)
 # Calculate mean-absolute-error (MAE), the units are Hartree
 print('MAE: ', np.mean(np.abs(Y_cm_predicted - Y_cm_test)), 'kcal/mol')
 
-# OUTPUT
+# Output
 MAE:  25.908959327933474 kcal/mol
 \end{lstlisting}
 
