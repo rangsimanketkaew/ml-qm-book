@@ -306,7 +306,8 @@ Space) ไปยังปริภูมิมิติสูง (High-dimension
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/plot_linear_regression.png}
-    \caption{เส้นตรงที่ถูก Fit (สมดุล) ให้ผ่านจุดในชุดข้อมูล (เครดิตภาพ: https://scikit-learn.org)}
+    \caption{เส้นตรงที่ถูก Fit (สมดุล) ให้ผ่านจุดในชุดข้อมูล แกน $x$ คืออินพุตและแกน $y$ คือเอาต์พุต (เครดิตภาพ: 
+    https://scikit-learn.org)}
     \label{fig:lin_res}
 \end{figure}
 
@@ -386,13 +387,18 @@ SVR จะใช้ $\epsilon$-incentive Loss
 การกำหนดฟังก์ชันที่ควรจะเป็น (Likelihood Function) นอกจากนี้แล้ว GPR ยังใช้หลักการของ Bayes Theorem ซึ่งจะมีการกำหนดการ%
 แจกแจงภายหลัง (Posterior Distribution) โดยใช้ Gaussian Function เพื่อนำค่าเฉลี่ยมาใช้ในการทำนายคำตอบอีกด้วย
 
-รายละเอียดของ Gaussian Process นั้นมีเยอะมาก ถ้าหากผู้อ่านสนใจศึกษาเพิ่มเติมเกี่ยวกับทฤษฎีเชิงลึกและคณิตศาสตร์ที่ใช้ในการอธิบายวิธีนี้%
-ผู้เขียนแนะนำหนังสือ \textit{Gaussian Processes for Machine Learning} ของ Carl Edward Rasmussen และ 
-Christopher K. I. Williams ซึ่งสามารถอ่านและดาวน์โหลดได้ฟรีที่ \url{http://gaussianprocess.org/gpml}
-
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/plot_gpr_kernel.png}
+    \includegraphics[width=0.9\linewidth]{fig/plot_gpr_kernel.png}
     \caption{เปรียบเทียบการเรียนรู้ Target ระหว่างเทคนิค KRR และ GPR (เครดิตภาพ: https://scikit-learn.org)}
     \label{fig:krr_gpr}
 \end{figure}
+
+ภาพที่ \ref{fig:krr_gpr} แสดงการเปรียบเทียบความแม่นยำในการทำนายค่า Target ระหว่าง KRR (เส้นสีส้ม) และ GPR (เส้นประสีเขียว) 
+และมีค่าอ้างอิง (เส้นประสีฟ้า) เป็นตัวชี้วัดความแม่นยำ โดยสรุปได้ว่า GPR มีความแม่นยำและความถูกต้องในการทำนายเทียบเท่าพอ ๆ กับ KRR 
+ตลอดช่วงของจำนวนข้อมูล เมื่อเราทำการเพิ่มขนาดของชุดข้อมูลจะพบว่าโมเดลทั้งสองอันจะให้ค่าที่ยังสอดคล้องกันแต่จะ Deviate ออกห่างจาก%
+ค่าอ้างอิงมากขึ้นเรื่อย ๆ 
+
+รายละเอียดของ Gaussian Process นั้นมีเยอะมาก ถ้าหากผู้อ่านสนใจศึกษาเพิ่มเติมเกี่ยวกับทฤษฎีเชิงลึกและคณิตศาสตร์ที่ใช้ในการอธิบายวิธีนี้%
+ผู้เขียนแนะนำหนังสือ \textit{Gaussian Processes for Machine Learning} ของ Carl Edward Rasmussen และ 
+Christopher K. I. Williams ซึ่งสามารถอ่านและดาวน์โหลดได้ฟรีที่ \url{http://gaussianprocess.org/gpml}
