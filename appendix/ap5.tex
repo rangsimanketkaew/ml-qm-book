@@ -55,6 +55,8 @@ Y_{lm}(\theta,\phi) = \Theta_{lm}(\theta) \Phi_m (\phi) = \sqrt{\frac{2l+1}{4\pi
 
 ผู้เขียนแนะนำให้ผู้อ่านใช้ IPython-based Platform สำหรับเขียนโค้ด เช่น Jupyter Notebook
 
+\bigskip
+
 $\bullet$ \textbf{เตรียมไลบรารี่}
 
 \begin{lstlisting}[style=MyPython]
@@ -109,15 +111,23 @@ plt.ylabel('$R_{nl}(r)$', fontsize=20)
 plt.grid('True')
 \end{lstlisting}
 
-\noindent ทำการเพิ่ม Interactive Widget สำหรับพลอตที่สามารถปรับค่าเลขควอนตัมได้
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/wfn_hydro_radial.png}
+    \caption{Radial Part สำหรับ $n = 5$ และ $l = 0$}
+    \label{fig:wfn_hydro_radial}
+\end{figure}
+
+\noindent โดยจะได้พลอตตามภาพที่ \ref{fig:wfn_hydro_radial} ขั้นตอนต่อไปคือทำการเพิ่ม Interactive Widget สำหรับพลอตที่%
+สามารถปรับค่าเลขควอนตัมได้
 
 \begin{lstlisting}[style=MyPython]
 nmax=10
 
 @widgets.interact(n = np.arange(1, nmax, 1), l = np.arange(0, nmax-1, 1))
 
-def plot_radial(n=1,l=0):
-    r =    np.linspace(0,250,10000)
+def plot_radial(n=1, l=0):
+    r = np.linspace(0,250,10000)
     psi2 = psi_R(r,n,l)**2 * (r**2)
     plt.plot(r, psi2, lw=2, color='red')
 
@@ -128,6 +138,52 @@ def plot_radial(n=1,l=0):
     plt.xlim([0, 2*rmax])
 \end{lstlisting}
 
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_radial_n1_l0.png}
+        \caption{$n = 1$ และ $l = 0$}
+        \label{fig:wfn_hydro_radial_n1_l0}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_radial_n2_l0.png}
+        \caption{$n = 2$ และ $l = 0$}
+        \label{fig:wfn_hydro_radial_n2_l0}
+    \end{subfigure}
+    \\
+    \vspace{1em}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_radial_n2_l1.png}
+        \caption{$n = 2$ และ $l = 1$}
+        \label{fig:wfn_hydro_radial_n2_l1}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_radial_n3_l0.png}
+        \caption{$n = 3$ และ $l = 0$}
+        \label{fig:wfn_hydro_radial_n3_l0}
+    \end{subfigure}
+    \\
+    \vspace{1em}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_radial_n3_l1.png}
+        \caption{$n = 3$ และ $l = 1$}
+        \label{fig:wfn_hydro_radial_n3_l1}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_radial_n3_l2.png}
+        \caption{$n = 3$ และ $l = 2$}
+        \label{fig:wfn_hydro_radial_n3_l2}
+    \end{subfigure}
+    \caption{Radial Part ของ Wavefunction ของอะตอมไฮโดรเจน}
+    \label{fig:wfn_hydro_radial_all}
+\end{figure}
+
 \bigskip
 
 $\bullet$ \textbf{พลอต Angular Part ของ Wavefunction}
@@ -135,7 +191,7 @@ $\bullet$ \textbf{พลอต Angular Part ของ Wavefunction}
 สร้างฟังก์ชันสำหรับสร้าง Angular Part (สนใจเฉพาะส่วนจริงเท่านั้น) เช่นเดียวกันกับ Radial Part
 
 \begin{lstlisting}[style=MyPython]
-def psi_ang(phi,theta,l=0,m=0):
+def psi_ang(phi,theta, l=0, m=0):
     sphHarm = spe.sph_harm(m,l,phi,theta)
     
     return sphHarm.real
@@ -182,6 +238,15 @@ ax.set_ylim(-1, 1)
 ax.set_zlim(-1, 1)
 \end{lstlisting}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/wfn_hydro_angular.png}
+    \caption{Angular Part สำหรับ $l = 2$ และ $m = 0$}
+    \label{fig:wfn_hydro_angular}
+\end{figure}
+
+\bigskip
+
 $\bullet$ \textbf{รวม Radial Part และ Angular Part สำหรับพลอตออร์บิทัล}
 
 \begin{lstlisting}[style=MyPython]
@@ -223,20 +288,67 @@ def psi_xz_plot(n=1, l=0, m=0):
     x,z = np.meshgrid(x_1d, z_1d)
     y   = 0
     
-    r     = np.sqrt(x**2 + y**2 + z**2)
+    r = np.sqrt(x**2 + y**2 + z**2)
     theta = np.arctan2(np.sqrt(x**2+y**2), z)
-    phi   = np.arctan2(y, x)
+    phi = np.arctan2(y, x)
 
     psi_nlm = HFunc(r,theta,phi,n,l,m)
     
-    # plt.pcolormesh(x, z, psi_nlm, cmap='inferno') # Try cmap = inferno, rainbow, autumn, summer, 
+    # Try cmap = inferno, rainbow, autumn, summer
+    # plt.pcolormesh(x, z, psi_nlm, cmap='inferno')
     
-    plt.contourf(x, z, psi_nlm, 20, cmap='seismic', alpha=0.6)  # Classic orbitals
+    plt.contourf(x, z, psi_nlm, 20, cmap='seismic', alpha=0.6) # Classic orbitals
     plt.colorbar()
     plt.title(f"$n, l, m={n,l,m}$", fontsize=20)
     plt.xlabel('X', fontsize=20)
     plt.ylabel('Z', fontsize=20)
 \end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_n1_l0_m0.png}
+        \caption{$n = 1$, $l = 0$, และ $m = 0$}
+        \label{fig:wfn_hydro_n1_l0_m0}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_n2_l0_m0.png}
+        \caption{$n = 2$, $l = 0$, และ $m = 0$}
+        \label{fig:wfn_hydro_n2_l0_m0}
+    \end{subfigure}
+    \\
+    \vspace{1em}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_n2_l1_m-1.png}
+        \caption{$n = 2$, $l = 1$, และ $m = -1$}
+        \label{fig:wfn_hydro_n2_l1_m-1}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_n2_l1_m0.png}
+        \caption{$n = 2$, $l = 1$, และ $m = 0$}
+        \label{fig:wfn_hydro_n2_l1_m0}
+    \end{subfigure}
+    \\
+    \vspace{1em}
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_n2_l1_m1.png}
+        \caption{$n = 2$, $l = 1$, และ $m = 1$}
+        \label{fig:wfn_hydro_n2_l1_m1}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{fig/wfn_hydro_n3_l2_m0.png}
+        \caption{$n = 3$, $l = 2$, และ $m = 0$}
+        \label{fig:wfn_hydro_n3_l2_m0}
+    \end{subfigure}
+    \caption{Wavefunction ของอะตอมไฮโดรเจน ซึ่งรวม Radial และ Angular Part เข้าด้วยกัน}
+    \label{fig:wfn_hydro_all}
+\end{figure}
 
 \noindent คำนวณค่าสำหรับการพลอตออร์บิทัลแบบสมบูรณ์แบบ Interactive
 
@@ -268,6 +380,13 @@ psi = HFunc(r2,theta2,phi2,2,1,1)
 ipv.volshow(r2**2 * np.sin(phi2)*psi**2)
 ipv.show()
 \end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/wfn_hydro_3d_n2_l1_m1.png}
+    \caption{ออร์บิทัลของอะตอมไฮโดรเจนในปริภูมิ 3 มิติ สำหรับ $n = 2$, $l = 1$ และ $m = 1$}
+    \label{fig:wfn_hydro_3d_n2_l1_m1}
+\end{figure}
 
 \noindent เรายังสามารถตรวจสอบขนาดของ Array ของข้อมูลที่ใช้ในการพลอต Wavefunction ได้ ดังนี้
 
