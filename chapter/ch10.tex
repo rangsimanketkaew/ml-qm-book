@@ -209,7 +209,7 @@ for sigma in sigmas:
     \item คำนวณค่าความคลาดเคลื่อน Mean Absolute Error (MAE)
 \end{enumerate}
 
-เมื่อทำ Regression เสร็จแล้ว เราสามารถพลอตกราฟเพื่อดูความสัมพันธ์ค่า $\sigma$ ของ Kernel กับค่าความคลาดเคลื่อน MAE ได้ดังนี้
+เมื่อทำ Regression เสร็จแล้ว เราสามารถพล็อตกราฟเพื่อดูความสัมพันธ์ค่า $\sigma$ ของ Kernel กับค่าความคลาดเคลื่อน MAE ได้ดังนี้
 
 \begin{lstlisting}[style=MyPython]
 import matplotlib.pyplot as plt
@@ -275,7 +275,7 @@ print('MAE: ', np.mean(np.abs(Y_cm_predicted - Y_cm_test)), 'kcal/mol')
 MAE:  25.908959327933474 kcal/mol
 \end{lstlisting}
 
-ขั้นตอนสุดท้ายคือการพลอต Correlation ระหว่างค่าอ้างอิง (Reference) กับค่าที่ได้จากการทำนาย (Prediction) และแสดง Histogram 
+ขั้นตอนสุดท้ายคือการพล็อต Correlation ระหว่างค่าอ้างอิง (Reference) กับค่าที่ได้จากการทำนาย (Prediction) และแสดง Histogram 
 ของความคลาดเคลื่อนเพื่อตรวจสอบประสิทธิภาพของโมเดล
 
 \begin{lstlisting}[style=MyPython]
