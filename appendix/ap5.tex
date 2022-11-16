@@ -249,21 +249,27 @@ ax.set_zlim(-1, 1)
 
 $\bullet$ \textbf{รวม Radial Part และ Angular Part สำหรับพล็อตออร์บิทัล}
 
+สร้างฟังก์ชันสำหรับคำนวณ Wavefunction ของไฮโดรเจนโดยรับค่าอินพุตดังต่อไปนี้ 
+
+\begin{itemize}[topsep=0pt,noitemsep]
+    \item r: Radial Coordinate ($r$)
+    
+    \item theta: Polar Coordinate ($\theta$)
+    
+    \item phi: Azimuthal Coordinate ($\phi$)
+    
+    \item n: Principle Quantum Number ($n$)
+    
+    \item l: Angular Momentum Quantum Number ($l$)
+    
+    \item m: Magnetic Quantum Number ($m$)
+\end{itemize}
+
+\noindent แล้วทำการคืนค่าออกมาเป็น Wavefunction ซึ่งได้จากผลคูณระหว่าง $\psi_{R}$ และ $\psi_{\text{ang}}$
+
 \begin{lstlisting}[style=MyPython]
 def HFunc(r, theta, phi, n, l, m):
-    """Hydrogen wavefunction // a_0 = 1
-
-    Inputs:
-        r: Radial coordinate
-        theta: Polar coordinate
-        phi: Azimuthal coordinate
-        n: Principle quantum number
-        l: Angular momentum quantum number
-        m: Magnetic quantum number
-
-    Return:
-        Value of wavefunction
-    """
+    # Hydrogen wavefunction // a_0 = 1
 
     return psi_R(r, n, l) * psi_ang(phi, theta, l,m)
 \end{lstlisting}
@@ -279,30 +285,27 @@ lmax = nmax-1
 
 def psi_xz_plot(n=1, l=0, m=0):
     plt.figure(figsize=(10, 8))
-    
-    limit = 4*(n+l) 
-    
+    limit = 4*(n+l)
     x_1d = np.linspace(-limit, limit, 500)
     z_1d = np.linspace(-limit, limit, 500)
-    
     x,z = np.meshgrid(x_1d, z_1d)
     y   = 0
     
     r = np.sqrt(x**2 + y**2 + z**2)
     theta = np.arctan2(np.sqrt(x**2+y**2), z)
     phi = np.arctan2(y, x)
-
     psi_nlm = HFunc(r,theta,phi,n,l,m)
     
     # Try cmap = inferno, rainbow, autumn, summer
     # plt.pcolormesh(x, z, psi_nlm, cmap='inferno')
-    
     plt.contourf(x, z, psi_nlm, 20, cmap='seismic', alpha=0.6) # Classic orbitals
     plt.colorbar()
     plt.title(f"$n, l, m={n,l,m}$", fontsize=20)
     plt.xlabel('X', fontsize=20)
     plt.ylabel('Z', fontsize=20)
 \end{lstlisting}
+
+\medskip
 
 \begin{figure}[H]
     \centering
@@ -367,6 +370,7 @@ total = np.concatenate((x2[np.newaxis,:], y2[np.newaxis,:], z2[np.newaxis,:]), a
 r2 = np.linalg.norm(total, axis=0)
 # Alternative theta calculation
 # theta3 = np.abs(np.arctan2(np.linalg.norm(total[:2], axis=0), -total[2]))
+
 np.seterr(all='ignore')
 phi2 = np.arctan(np.divide(total[2], np.linalg.norm(total[:2], axis=0))) + np.pi/2
 theta2 = np.arctan2(total[1], total[0])
