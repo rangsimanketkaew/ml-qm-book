@@ -386,3 +386,42 @@ ANN โดยมีรูปแบบของโครงข่าย (Network)
 
 ตัวโมเดล AE มีความพิเศษคือจะมีลักษณะของความสมมาตรและมีความแตกต่างจาก PCA นั่นก็คือสามารถบีบอัดหรือลดจำนวนมิติของข้อมูลแบบไม่เป็น%
 เส้นตรงได้ (Nonlinear) ได้ด้วยการใช้ฟังก์ชันกระตุ้นแบบ Nonlinear
+
+ตัวอย่างการเขียนโค้ดของ Autoencoder ด้วย TensorFlow มีดังต่อไปนี้
+
+\begin{lstlisting}[style=MyPython]
+import tensorflow as tf
+
+from tensorflow.keras import layers, losses
+from tensorflow.keras.models import Model
+
+latent_dim = 64 
+
+class Autoencoder(Model):
+    def __init__(self, latent_dim):
+        super(Autoencoder, self).__init__()
+        self.latent_dim = latent_dim   
+        self.encoder = tf.keras.Sequential([
+            layers.Flatten(),
+            layers.Dense(latent_dim, activation='relu'),
+        ])
+        self.decoder = tf.keras.Sequential([
+            layers.Dense(784, activation='sigmoid'),
+            layers.Reshape((28, 28))
+        ])
+
+    def call(self, x):
+        encoded = self.encoder(x)
+        decoded = self.decoder(encoded)
+        return decoded
+
+autoencoder = Autoencoder(latent_dim)
+autoencoder.compile(optimizer='adam', 
+                    loss=losses.MeanSquaredError())
+autoencoder.fit(x_train, x_train,
+                epochs=10,
+                shuffle=True,
+                validation_data=(x_test, x_test))
+\end{lstlisting}
+
+\noindent จริง ๆ แล้ว Autoencoder แบบทั่วไปนั้นก็คือ Neural Network แบบง่ายที่มีจำนวนและขนาดของ Hidden Layer ที่สมมาตรกัน
