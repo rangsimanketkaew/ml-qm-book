@@ -133,11 +133,14 @@ Underfitting
 ภาพที่ \ref{fig:overfitting} แสดงการเปรียบเทียบระหว่างกรณีของ Underfitting และ Overfitting ซึ่งเป็นหนึ่งในปัญหาหลักที่มักจะพบ%
 เจอได้ทั่วไปใน ML โดยเราสามารถสรุปความสัมพันธ์จากกรณีได้กล่าวได้ดังนี้
 
-\begin{align*}
-    \text{Bias สูง} &\;\longleftrightarrow\; \text{Underfitting}\\
-    \text{Variance สูง} &\;\longleftrightarrow\; \text{Overfitting}\\
-    \text{$\sigma^2$ มาก} &\;\longleftrightarrow\; \text{Noisy Data}
-\end{align*}
+\fbox{%
+\begin{minipage}{0.9\linewidth}
+    \begin{align*}
+        \text{Bias สูง} &\;\longleftrightarrow\; \text{Underfitting}\\
+        \text{Variance สูง} &\;\longleftrightarrow\; \text{Overfitting}\\
+        \text{$\sigma^2$ มาก} &\;\longleftrightarrow\; \text{Noisy Data}
+    \end{align*}
+\end{minipage}}
 
 วิธีการจัดการกับ Overfitting แบบที่ง่ายที่สุดคือการเพิ่มจำนวนข้อมูลในการฝึกสอนโมเดล นอกจากนี้ยังมีวิธีอื่น ๆ ที่เราสามารถใช้ในการจัดการกับ%
 ปัญหาข้างต้นได้เช่นเดียวกัน มีดังต่อไปนี้
@@ -148,9 +151,19 @@ Underfitting
 \idxen{Data Augmentation}
 %--------------------------
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/data_aug_butterfly.jpg}
+    \caption{ตัวอย่างการทำ Data Augmentation สำหรับข้อมูลที่เป็นรูปภาพ เช่น การเปลี่ยนสี การเพิ่มความคมชัด การเพิ่ม Noise 
+    (เครดิตภาพ: PLoS ONE 12(8): e0183838)}
+    \label{fig:data_aug_butterfly}
+\end{figure}
+
 วิธีการทำ Data Augmentation นั้นจะตรงข้ามกับการทำความสะอาดข้อมูล (Data Cleaning) นั่นก็คือจะเป็นวิธีที่เราจะใส่ Noise หรือสิ่งที่%
-ไม่ได้เกี่ยวข้องกับข้อมูลโดยตรงเข้าไปในชุดการฝึกสอน ก็เหมือนจะเป็นการช่วยไม่ใช่ให้เกิดการเรียนรู้ที่มันยึดติดกับชุดข้อมูลฝึกสอนมากเกินไป
-วิธีการนี้ได้รับความนิยมเพราะสามารถทำได้ง่าย สะดวก และไม่มีความซับซ้อนในการทำ
+ไม่ได้เกี่ยวข้องกับข้อมูลโดยตรงเข้าไปในชุดการฝึกสอน รวมไปถึงการแก้ไขข้อมูลให้แตกต่างไปจากเดิม แต่ยังคงไว้ซึ่งลักษณะของข้อมูลนั้น 
+ซึ่งการทำ Data Augmentation จะเป็นการช่วยไม่ใช่ให้เกิดการเรียนรู้ที่มันยึดติดกับชุดข้อมูลฝึกสอนมากเกินไป ในปัจจุบันวิธีการนี้ได้รับความนิยม%
+เพราะสามารถทำได้ง่าย สะดวก และไม่มีความซับซ้อนในการทำ โดยมีความจำเป็นอย่างยิ่งกรณีที่ชุดข้อมูลมีขนาดเล็ก (จำนวนข้อมูลไม่เยอะ) 
+แต่ต้องการนำมาใช้ในการฝึกสอนด้วยเทคนิค ML ที่ต้องการข้อมูลในปริมาณที่เยอะในการฝึกสอน เช่น Deep Learning\autocite{bengio2021}
 
 %--------------------------
 \subsection{Early Stopping}
@@ -158,7 +171,7 @@ Underfitting
 \idxen{Early Stopping}
 %--------------------------
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/early_stopping.png}
     \caption{การทำ Regularization ด้วยวิธี Early Stopping สำหรับการฝึกสอนโมเดล High-degree Polynomial Regression 
