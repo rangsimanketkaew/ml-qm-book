@@ -231,7 +231,7 @@ plt.show()
     \label{fig:qm9_cm_kernel_mae}
 \end{figure}
 
-นอกจากนี้เรายังสามารถทำการวิเคราะห์เพิ่มเติมได้ เช่น แสดงว่า $\sigma$ ที่ดีที่สุด (ให้ MAE น้อยที่สุด)
+นอกจากนี้เรายังสามารถทำการวิเคราะห์เพิ่มเติมได้ เช่น แสดงค่า $\sigma$ ที่เหมาะสมที่สุด (ให้ MAE น้อยที่สุด)
 
 \begin{lstlisting}[style=MyPython]
 best_sigma = sigmas[np.argmin(test_maes)]
@@ -241,7 +241,7 @@ print(best_sigma)
 3100
 \end{lstlisting}
 
-\noindent แล้วนำค่า $\sigma$ ที่ดีที่สุดนี้ไปใช้สำหรับคำนวณ Gaussian Kernel ต่อได้
+\noindent แล้วนำค่า $\sigma$ ที่เหมาะสมที่สุดนี้ไปใช้ในการคำนวณ Gaussian Kernel ต่อไป ดังนี้
 
 \begin{lstlisting}[style=MyPython]
 # Create Gaussian Kernel
