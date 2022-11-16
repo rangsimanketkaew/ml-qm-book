@@ -3,7 +3,9 @@
 
 หนังสือ **การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม (Machine Learning for Quantum Chemistry)**
 
-ดาวน์โหลดได้ที่ https://rangsimanketkaew.github.io/ml-qm-book.pdf
+ดาวน์โหลดไฟล์หนังสือได้ที่ https://rangsimanketkaew.github.io/ml-qm-book.pdf
+
+ดาวน์โหลดโค้ดในหนังสือได้ที่ https://github.com/rangsimanketkaew/ml-qm-book-code
 
 เรียบเรียงโดย [รังสิมันต์ เกษแก้ว](https://rangsimanketkaew.github.io/) <br>
 นักศึกษาปริญญาเอก สาขาเคมี มหาวิทยาลัยแห่งซูริค สวิตเซอร์แลนด์
