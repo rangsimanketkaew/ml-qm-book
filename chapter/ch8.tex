@@ -207,10 +207,11 @@ Coulomb Matrix (เมทริกซ์คูลอมบ์) เป็น Mole
 
 ถึงแม้ว่า Coulomb Matrix จะเป็น Representation ที่ไม่ขึ้นกับการเลื่อนตำแหน่งและการหมุนของโมเลกุล แต่ว่าก็ยังขึ้นอยู่กับการเปลี่ยนตำแหน่ง%
 หรือการสลับที่กันของอะตอม เพื่อแก้ปัญหาดังกล่าว ได้มีนักวิจัยได้นำเสนอ Representation ตัวใหม่อีกหลายตัวที่เปรียบเสมือนเป็น Coulomb Matrix 
-ที่ถูกปรับปรุงให้ดีขึ้น เช่น Permutation-Invariant Polynomials (PIP)\autocite{braams2009}, Randomly Sorted Coulomb Matrices 
-(RSCM)\autocite{hansen2013}, Bag of Bonds (BoB)\autocite{hansen2013}, และ Permutation Invariant Vectors 
-(PIV)\autocite{gallet2013} โดย Representation เหล่านี้ได้แก้ปัญหาเกี่ยวลำดับของอะตอม ทำให้ Representation ประเภทนี้มี%
-ประสิทธิภาพมากขึ้นและลด Bias ที่อาจจะเกิดขึ้นด้วย
+ที่ถูกปรับปรุงให้ดีขึ้น เช่น Sine Matrix\autocite{faber2015}, Ewald Sum Matrix\autocite{faber2015}, Permutation-Invariant 
+Polynomials (PIP)\autocite{braams2009}, Randomly Sorted Coulomb Matrices (RSCM)\autocite{hansen2013}, Bag of 
+Bonds (BoB)\autocite{hansen2013}, Permutation Invariant Vectors (PIV)\autocite{gallet2013} โดย Representation 
+เหล่านี้ได้แก้ปัญหาเกี่ยวลำดับของอะตอม ทำให้ Representation ประเภทนี้มีประสิทธิภาพมากขึ้นและลด Bias ที่อาจจะเกิดขึ้นด้วย ซึ่งจะผู้อ่านจะ%
+ได้ศึกษาต่อไป
 
 ตัวอย่างโค้ดของการคำนวณ Coulomb Matrix โดยใช้ไลบรารี่ molml\autocite{collins2018}
 
@@ -242,6 +243,18 @@ array([[0.5, 1. , 0. , 1. , 0.5,
        [0.5, 6. , 3.5, 6. , 36.8581052,
         42., 3.5, 42., 53.3587074]])
 \end{lstlisting}
+
+%--------------------------
+\subsection{Sine Matrix}
+\label{ssec:sine_matrix}
+\idxen{Representation!Sine Matrix}
+%--------------------------
+
+%--------------------------
+\subsection{Ewald Sum Matrix}
+\label{ssec:ewald_sum_matrix}
+\idxen{Representation!Ewald Sum Matrix}
+%--------------------------
 
 %--------------------------
 \subsection{Bag of Bonds}
