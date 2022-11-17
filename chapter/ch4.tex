@@ -514,7 +514,7 @@ def init_bias():
 ทั้งสองแบบพร้อม ๆ กันครบหนึ่งรอบนั้นจะเรียกว่า 1 Epoch แต่ต้องระวังนะครับว่า Epoch, Batch Size และ Iteration นั้นมีความหมายต่างกัน 
 โดยความแตกต่างมีดังนี้
 
-\begin{description}[font=$\bullet$~\normalfont\scshape\bfseries\color{red!50!black}]
+\begin{description}[font=$\bullet$~\normalfont\scshape\bfseries\color{blue!50!black}]
     \item[1 Epoch] การทำ Forward และ Backward Propagation 1 ครั้ง
     
     \item[Batch Size] จำนวนของข้อมูลที่ใช้ในการฝึกสอนในการทำ Forward และ Backward Propagation 1 รอบ
@@ -1013,39 +1013,39 @@ Loss ซึ่งจะมีความไวต่อค่าที่ห่
 ที่เราสนใจ (กลุ่มหรือ Class ในชุดข้อมูล) โดยกรณีที่มีแค่ 2 Class $(M = 2)$ เรามีชื่อเรียกฟังก์ชันประเภทนี้ว่า Binary Cross-entropy 
 และกรณีที่มีมากกว่า 2 Class ($M > 2$) เราจะเรียกว่า Multiclass Cross-entropy ซึ่งทั้งสองแบบมีสมการดังต่อไปนี้
 
-\begin{equation}
+\begin{equation}\label{eq:binary_entro}
     H(p) = -{(y\log(p) + (1 - y)\log(1 - p))}
 \end{equation}
 
-\begin{equation}
+\begin{equation}\label{eq:multiclass_entro}
     H(p) = -\sum_{c=1}^My_{o,c}\log(p_{o,c})
 \end{equation}
-
 
 \noindent โดยที่ $p$ คือความน่าจะเป็นของการสังเกต $o$ ใน Class $c$ และ $y$ คือตัวระบุ Class (เช่น 0 กับ 1)
 
 \noindent $\bullet$ Negative Log-likelihood (NLL)
 
-\begin{equation}
+\begin{equation}\label{eq:neg_log_like}
     l(y) = -{\log(p(y))}
 \end{equation}
 
 \noindent $\bullet$ Hinge loss
 
-\begin{equation}
+\begin{equation}\label{eq:hinge_loss}
     l(y) = \max(0, 1 - y \cdot \hat{y})
 \end{equation}
 
 \noindent $\bullet$ Kullback-Leibler (KL) Divergence
 
-\begin{equation}
+\begin{equation}\label{eq:kl_diver}
     KL(\hat{y} || y) = \sum_{c=1}^{M}\hat{y}_c \log \bigg( {\frac{\hat{y}_c}{y_c}} \bigg)
 \end{equation}
 
 \noindent $\bullet$ Jensen-Shannon (JS) Divergence
 
-\begin{equation}
-    JS(\hat{y} || y) = \frac{1}{2}(KL(y||\frac{y+\hat{y}}{2}) + KL(\hat{y}||\frac{y+\hat{y}}{2}))
+\begin{equation}\label{jensen_shannon_diver}
+    JS(\hat{y} || y) = \frac{1}{2} \left ( KL \left ( y||\frac{y+\hat{y}}{2} \right ) + 
+    KL \left ( \hat{y}||\frac{y+\hat{y}}{2} \right ) \right )
 \end{equation}
 
 %--------------------------
@@ -1102,8 +1102,8 @@ def calculate_error(x, y):
     \frac{\partial \mathcal{L}}{\partial \hat{y}} = \hat{y} - y
 \end{equation}
 
-\noindent ขั้นตอนต่อมาคือเราหาอนุพันธ์ย่อยของ Prediction เทียบกับ Linear Equation ซึ่งเนื่องจากว่า Linear Equation จริง ๆ 
-ก็คือ Prediction นั่่นเอง เราจะได้ว่าอนุพันธ์ย่อยมีค่าเท่ากับ 1
+\noindent ขั้นตอนต่อมาคือเราหาอนุพันธ์ย่อยของ Prediction เทียบกับ Linear Equation แต่เนื่องจากว่า Linear Equation จริง ๆ แล้ว%
+ก็คือ Prediction นั่่นเอง จึงทำให้อนุพันธ์ย่อยนั้นมีค่าเท่ากับ 1
 
 \begin{equation}\label{eq:der_pred_lin_eq}
     \frac{\partial \hat{y}}{\partial z} = 1
