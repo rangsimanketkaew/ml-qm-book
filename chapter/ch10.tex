@@ -161,8 +161,8 @@ X_cm_train, X_cm_test, Y_cm_train, Y_cm_test = train_test_split(cm, target, test
     K(x_{i}, x_{j}) = \mathrm{exp}\left( -\frac{||x_i-x_j||^2}{2\sigma^2} \right)
 \end{equation}
 
-\noindent พร้อมกับสร้างลิสต์ของ $\sigma$ หลาย ๆ ค่า ซึ่งเราจะทำการหาค่าที่ดีที่สุดโดยการคำนวณระยะห่างแบบคู่ (Pairwise) ระหว่าง CM 
-เพื่อเพิ่มความเร็วในการคำนวณเพราะว่าเราจะทำการแก้ Kernel หลาย ๆ อันพร้อมกับเปลี่ยนค่า $\sigma$ หลาย ๆ ค่าไปพร้อม ๆ กัน
+\noindent พร้อมกับสร้างลิสต์ของ $\sigma$ หลาย ๆ ค่า ซึ่งเราจะทำการหาค่าที่เหมาะสมที่สุดโดยการคำนวณระยะห่างแบบคู่ (Pairwise) 
+ระหว่าง CM เพื่อเพิ่มความเร็วในการคำนวณเพราะว่าเราจะทำการแก้ Kernel หลาย ๆ อันพร้อมกับเปลี่ยนค่า $\sigma$ หลาย ๆ ค่าไปพร้อม ๆ กัน
 
 \begin{lstlisting}[style=MyPython]
 # Generates a list of different sigma values
@@ -170,8 +170,16 @@ sigmas = np.arange(100,5000,500)
 test_maes = []
 
 # Compute the pairwise distances between cm representations
-dm_train_train = sklearn.metrics.pairwise_distances(X_cm_train, X_cm_train, n_jobs=-1)
-dm_train_test = sklearn.metrics.pairwise_distances(X_cm_train, X_cm_test, n_jobs=-1)
+dm_train_train = sklearn.metrics.pairwise_distances(
+    X_cm_train, 
+    X_cm_train, 
+    n_jobs=-1
+    )
+dm_train_test = sklearn.metrics.pairwise_distances(
+    X_cm_train, 
+    X_cm_test, 
+    n_jobs=-1
+    )
 \end{lstlisting}
 
 \noindent หลังจากนั้นจึงเริ่มทำการหาค่า $\sigma$ โดยใช้ Loop
@@ -193,7 +201,7 @@ for sigma in sigmas:
     test_maes.append(test_MAE)
 \end{lstlisting}
 
-โดยสิ่งที่เกิดขึ้นภายใน Loop ของโค้ดด้านบนมีดังนี้
+โดยสิ่งที่เกิดขึ้นภายใน Loop ของโค้ดด้านบนมีขั้นตอนดังนี้
 
 \begin{enumerate}[noitemsep]
     \item เราเริ่มด้วยการคำนวณ Kernel ซึ่งถูกกำหนดด้วยสมการ \ref{eq:mol_kernel}
@@ -262,7 +270,7 @@ print(alpha_cm)
 \noindent แล้วคำนวณต่อ Kernel ระหว่างชุดข้อมูลฝึกสอนกับชุดข้อมูลทดสอบได้โดยใช้ค่า $\sigma$ เดียวกัน
 
 \begin{lstlisting}[style=MyPython]
-# calculate a kernel matrix between test and training data, using the same sigma
+# Calculate a kernel matrix between test and training data, using the same sigma
 K_cm_test = gaussian_kernel(X_cm_test, X_cm_train, sigma)
 
 # Make the predictions
@@ -596,8 +604,8 @@ Quantum Yield\footnote{ผู้เขียนขอใช้ทับศัพ
 อย่างมากในงานทางด้านเคมีสังเคราะห์ ทั้งเคมีอินทรีย์และเคมีอนินทรีย์ รวมไปถึงด้านอื่น ๆ เช่น วัสดุศาสตร์หรือพอลิเมอร์ด้วย 
 
 สเปกโทรสโกปีเป็นเทคนิคที่เกี่ยวข้องกับแสงซึ่งเป็นคลื่นแม่เหล็กไฟฟ้าที่มีลักษณะเป็นแถบพลังงาน (Spectrum) โดยมีความยาวคลื่นตั้งแต่ในช่วง 
-คลื่นวิทยุ คลื่นไมโครเวฟ คลื่นอินฟราเรด คลื่นในช่วงที่สายตามองเห็น รวมถึงคลื่นอัลตราไวโอเลต สำหรับคลื่นแม่เหล็กไฟฟ้าที่นักเคมีสนใจนั้นจะ%
-เกี่ยวข้องโดยตรงกับการระบุถึงความจำเพาะเจาะจงของโมเลกุล นั่นคือคลื่นแม่เหล็กไฟฟ้าในช่วงอินฟราเรด ซึ่งจะมีความยาวคลื่น (Wavelength) 
+คลื่นวิทยุ คลื่นไมโครเวฟ คลื่นอินฟราเรด คลื่นในช่วงที่สายตามนุษย์มองเห็น รวมถึงคลื่นอัลตราไวโอเลต สำหรับคลื่นแม่เหล็กไฟฟ้าที่นักเคมีสนใจนั้น%
+จะเกี่ยวข้องโดยตรงกับการระบุถึงความจำเพาะเจาะจงของโมเลกุล นั่นคือคลื่นแม่เหล็กไฟฟ้าในช่วงอินฟราเรด ซึ่งจะมีความยาวคลื่น (Wavelength) 
 ในช่วง 650 - 4,000 nm หรือมีเลขคลื่น (Wavenumber) ในช่วง 14,286-12,800 $cm^{-1}$ โดยหลักการคร่าว ๆ ของเทคนิคอินฟราเรด%
 สเปกโทรโกปีก็คือแสงอินฟราเรดตกกระทบโมเลกุลจะเกิดอันตรกิริยาระหว่างแสงกับโมเลกุล โดยที่แสงอินฟราเรดในบางช่วงที่มีความถี่ตรงกันกับความถี่%
 ของการสั่นของพันธะในโมเลกุลจะถูกดูดกลืนไป ซึ่งทำให้เกิดทรานซิชันการสั่นพร้อมกับทรานซิชันการหมุน ซึ่งทรานซิชันการสั่นนี้จะเราทราบชนิดของ%
