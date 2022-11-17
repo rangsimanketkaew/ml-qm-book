@@ -165,7 +165,11 @@ Optimization แบบ Batch นั้นช้ามาก ด้านล่�
 
 \begin{lstlisting}[style=MyPython]
 for i in range(nb_epochs):
-    params_grad = evaluate_gradient(loss_function, data, params)
+    params_grad = evaluate_gradient(
+        loss_function, 
+        data, 
+        params
+        )
     params = params - learning_rate * params_grad
 \end{lstlisting}
 
@@ -211,7 +215,11 @@ for i in range(nb_epochs):
 for i in range(nb_epochs):
     np.random.shuffle(data)
     for example in data:
-        params_grad = evaluate_gradient(loss_function, example, params)
+        params_grad = evaluate_gradient(
+            loss_function, 
+            example, 
+            params
+            )
         params = params - learning_rate * params_grad
 \end{lstlisting}
 
@@ -228,8 +236,8 @@ opt = tf.keras.optimizers.SGD(
     **kwargs
 )
 
-# `loss` is a callable that takes no argument and returns the value
-# to minimize.
+# `loss` is a callable that takes no argument and 
+# returns the value to minimize.
 loss = lambda: 3 * var1 * var1 + 2 * var2 * var2
 
 # In graph mode, returns op that minimizes the loss by updating the listed
@@ -237,7 +245,8 @@ loss = lambda: 3 * var1 * var1 + 2 * var2 * var2
 opt_op = opt.minimize(loss, var_list=[var1, var2])
 opt_op.run()
 
-# In eager mode, simply call minimize to update the list of variables.
+# In eager mode, simply call minimize to update 
+# the list of variables.
 opt.minimize(loss, var_list=[var1, var2])
 \end{lstlisting}
 
@@ -284,7 +293,11 @@ $\theta$ ซึ่งจะเร็วกว่าการคำนวณ Grad
 for i in range(nb_epochs):
     np.random.shuffle(data)
     for batch in get_batches(data, batch_size=50):
-        params_grad = evaluate_gradient(loss_function, batch, params)
+        params_grad = evaluate_gradient(
+            loss_function, 
+            batch, 
+            params
+            )
         params = params - learning_rate * params_grad
 \end{lstlisting}
 
