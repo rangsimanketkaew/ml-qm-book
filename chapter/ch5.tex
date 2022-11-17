@@ -238,9 +238,37 @@ len(history.history['loss'])  # Only 4 epochs are run.
 \idxen{Ensemble Method}
 %--------------------------
 
-เทคนิคนี้เป็นการนำโมเดลหลาย ๆ โมเดลมารวมกันเพื่อที่จะทำให้ผลลัพธ์ของการทำนายคำตอบมีค่าที่ดีที่สุด โดยโมเดล ML ที่เราจะมานำผสมกันนั้น%
-จะเป็นอะไรก็ได้ เช่น Linear Regression, Logistic Regression, Gaussian Process Regression
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/ensemble_method.png}
+    \caption{การทำงานร่วมกันของโมเดลหลาย ๆ โมเดลโดยใช้วิธี Ensemble (เครดิตภาพ: https://www.manning.com)}
+    \label{fig:ensemble_method}
+\end{figure}
 
+เทคนิคนี้เป็นการนำโมเดลหลาย ๆ โมเดลมารวมกันเพื่อที่จะทำให้ผลลัพธ์ของการทำนายคำตอบมีค่าที่ดีที่สุด โดยโมเดล ML ที่เราจะมานำผสมกันนั้น%
+จะเป็นอะไรก็ได้ เช่น Linear Regression, Logistic Regression, Gaussian Process Regression ผู้อ่านสามารถดูภาพที่ 
+\ref{fig:ensemble_method} ประกอบได้ โดยจะเห็นว่าเรามีโมเดลที่มีประสิทธิภาพไม่ค่อยดีนักหลาย ๆ โมเดล เราสามารถนำโมเดลเหล่านี้มา%
+รวมกันเพื่อให้ได้โมเดลที่มีประสิทธิมากขึ้นได้
+
+โดยเทคนิคย่อยของEnsemble Method ที่นิยมใช้กันนั้นมีอยู่ด้วยกัน 3 วิธี ดังนี้
+
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Bagging} เราจะทำการสร้างข้อมูลประเภทเดียวกันแบบหลาย ๆ ชุด แล้วทำการทดสอบกับข้อมูลเพียงแค่บางส่วน (Subset) 
+    ของชุดข้อมูล จากนั้นนำผลการทำนายของโมเดลต่าง ๆ มารวมกัน ตัวอย่างของอัลกอริทึมที่ใช้ในการเรียนรู้สำหรับเทคนิค Bagging นี้ เช่น 
+    Decision Tree, Random Forest และ Extra Tree
+    \idxen{Ensemble Method!Bagging}
+
+    \item \textbf{Boosting} จะทำคล้ายกับ Bagging เลยก็คือเริ่มต้นด้วยการสร้างข้อมูลประเภทเดียวกันแบบหลาย ๆ ชุด แล้วทำการทดสอบ%
+    กับข้อมูลชุดเดียวกันโดยทำการทดสอบแบบวนซ้ำ (Iteration) แล้วปรับค่าน้ำหนักเพื่อทำให้ผลการทำนายของโมเดลนั้นดีขึ้นเรื่อย ๆ ซึ่งวิธีนี้ค่อน%
+    ข้างเป็นที่นิยมเพราะมีความยืดหยุ่นและใช้ได้กับทุกอัลกอริทึม นอกจากนี้ยังสามารถปรับลดค่าความคลาดเคลื่อนของ Bias ของโมเดลได้ดีอีกด้งบ 
+    ตัวอย่างของอัลกอริทึมที่ใช้ในการเรียนรู้สำหรับเทคนิค Boosting นี้ เช่น AdaBoost และ Stochastic Gradient Boosting
+    \idxen{Ensemble Method!Boosting}
+
+    \item \textbf{Voting} เราจะเริ่มด้วยการสร้างโมเดลที่แตกต่างกันหลาย ๆ โมเดล เช่น Decision Tree, Support Vector Machine, 
+    K-Nearest Neighbors จากนั้นทำการฝึกสอนโมเดลด้วยชุดข้อมูลชุดเดียวกันเพื่อดูผลการทำนายที่ดีที่สุดของแต่ละโมเดล แล้วใช้การโหวตผลที่%
+    เหมือนกันหรือคล้ายกันเพื่อเป็นคำตอบสุดท้าย
+    \idxen{Ensemble Method!Voting} 
+\end{itemize}
 
 %--------------------------
 \subsection{Dropout}
@@ -252,6 +280,7 @@ len(history.history['loss'])  # Only 4 epochs are run.
 เราจะทำการตัด (Drop out หรือเอาออกไป) หน่วยการเรียนรู้ (Learning Unit หรือ Neuron) ใน Neural Network ออกไป ซึ่งจะเป็นการช่วย%
 ให้โมเดลของเราลด Bias ที่เกิดจากการเรียนรู้ของข้อมูลที่มากเกินไป โดยจำนวนของ Neuron ที่จะตัดออกไปนั้นส่วนใหญ้แล้วจะคิดเป็นเปอร์เซนต์ของ
 Neuron ทั้งหมด เช่น ตัดออกไป 5 เปอร์เซนต์
+\idxen{Overfitting}
 
 โค้ดของการทำ Dropout โดยใช้ไลบรารี่ TensorFlow
 
