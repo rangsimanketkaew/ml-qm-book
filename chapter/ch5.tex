@@ -334,14 +334,14 @@ Linear Regression นั้นเราจะเรียก Regularization แ�
 สำหรับการเลือก Regularization นั้น ผู้เขียนขอยกประโยคของศาสตราจารย์ Frank Harrell ที่ได้แนะนำการเลือก L1 และ L2 ไว้ดังนี้%
 \footnote{อ้างอิง \url{https://stats.stackexchange.com/a/184022/283188}}
 
-\begin{mdframed}
+\begin{framed}
     \enquote{Generally speaking if you want optimum prediction use L2. 
     If you want parsimony at some sacrifice of predictive discrimination use L1. 
     But note that the parsimony can be illusory, e.g., repeating the \textit{lasso} 
     process using the bootstrap will often reveal significant instability 
     in the list of features \enquote{selected} especially when predictors are 
     correlated with each other.}
-\end{mdframed}
+\end{framed}
 
 ซึ่งตีความได้คร่าว ๆ ว่าถ้าหากต้องการการทำนายที่เหมาะสมที่สุดให้ใช้ L2 หรือ Ridge Regression แต่ถ้าหากต้องการทำให้การจำแนกเชิงพยากรณ์
 (Predictive Discrimination) มีความสม่ำเสมอกันสำหรับทุก ๆ Feature ให้ใช้ L1 หรือ Lasso Regression แต่ควรเข้าใจไว้ด้วยว่าการ%
