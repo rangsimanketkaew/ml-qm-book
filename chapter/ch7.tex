@@ -901,14 +901,14 @@ San Diego) ก็ได้นำเสนอบทความงานวิจ
 ทั่วทั้งปริมาตรเราจะได้ผลลัพธ์เป็นจำนวนของอิเล็กตรอนในระบบของเรา (โมเลกุล) ดังนี้\autocite{szabo1996}
 
 \begin{equation}
-    N = \int \rho (r) dV
+    N = \int \rho(\bm{r}) dV
 \end{equation}
 
 โดยนิยามของ Charge Density จะเป็นผลรวมของโอกาสที่เราจะพบอิเล็กตรอนที่อยู่ภายใน Molecular Orbitals ของทั้งระบบ ดังนี้
 \idxen{Charge Density}
 
 \begin{equation}\label{eq:charge_density}
-    \rho (r) = 2 \sum^{N/2}_{i=1} \int |\varphi_{i}(r)|^{2}
+    \rho(\bm{r}) = 2 \sum^{N/2}_{i=1} \int |\varphi_{i}(\bm{r})|^{2}
 \end{equation}
 
 \noindent โดยเลข 2 ด้านหน้าเครื่องหมาย Summation ก็คือ Occupation Number สำหรับกรณีที่ Molecular Orbital ($i$) 
@@ -921,7 +921,7 @@ San Diego) ก็ได้นำเสนอบทความงานวิจ
 \idxen{Basis Function}
 
 \begin{equation}
-    \rho (r) = 2 \sum_{i} \left ( \sum_{\mu} c_{\mu i} \phi_{\mu}^{*} \right ) 
+    \rho(\bm{r}) = 2 \sum_{i} \left ( \sum_{\mu} c_{\mu i} \phi_{\mu}^{*} \right ) 
     \left ( \sum_{\nu} c^{*}_{\nu i}  \phi_{\nu} \right )
 \end{equation}
 
@@ -930,7 +930,7 @@ San Diego) ก็ได้นำเสนอบทความงานวิจ
 \idxboth{เมทริกซ์ซ้อนทับ}{Overlap Matrix}
 
 \begin{equation}
-    \rho (r) = 2 \sum_{i}\sum_{\mu\nu} c_{\mu i} c^{*}_{\nu i} S_{\mu\nu}
+    \rho(\bm{r}) = 2 \sum_{i}\sum_{\mu\nu} c_{\mu i} c^{*}_{\nu i} S_{\mu\nu}
 \end{equation}
 
 หลังจากนั้นเราจะพบว่าจะมีเทอมที่เป็นผลคูณระหว่าง $c$ ซึ่งเราเรียกผลคูณแบบนี้ว่าเมทริกซ์ความหนาแน่น (Density Matrix) 
@@ -943,7 +943,7 @@ San Diego) ก็ได้นำเสนอบทความงานวิจ
 \noindent ซึ่งเราจะได้สมการของความหนาแน่นเชิงประจุในรูปของเมทริกซ์ความหนาแน่นดังต่อไปนี้
 
 \begin{equation}\label{eq:charge_density_matrix}
-    \rho (r) = 2 \sum_{i} \sum_{\mu\nu} P_{\mu\nu}S_{\mu\nu}
+    \rho(\bm{r}) = 2 \sum_{i} \sum_{\mu\nu} P_{\mu\nu}S_{\mu\nu}
 \end{equation}
 
 %--------------------------
@@ -1066,27 +1066,20 @@ A มีการสร้างพันธะกับอะตอม B สิ
 \end{figure}
 
 %--------------------------
-\section{อนุพันธ์ของพลังงาน}
-\label{ssec:energy_der}
-\idxboth{อนุพันธ์ของพลังงาน}{Derivative of Energy}
-%--------------------------
-
-%--------------------------
 \section{ไดโพลโมเมนต์}
 \label{sec:dipole_moment}
+\idxboth{ไดโพลโมเมนต์}{Dipole Moment}
 %--------------------------
 
 ไดโพลโมเมนต์ (Dipole Moment)
 
-\idxen{Dipole Moment}
-
 %--------------------------
 \section{สภาพการเกิดขั้ว}
 \label{sec:polariz}
+\idxboth{สภาพการเกิดขั้ว}{Polarizability}
 %--------------------------
 
 สภาพการเกิดขั้ว (Polarizability)
-\idxen{Polarizability}
 
 %--------------------------
 \section{เทคนิคสเปกโทรสโกปีแบบสั่น}

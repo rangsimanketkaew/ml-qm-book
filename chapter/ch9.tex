@@ -239,8 +239,8 @@ QM9 เป็นหนึ่งในชุดข้อมูลเคมีค�
 
 QM9 ประกอบไปด้วยข้อมูลคุณสมบัติอิเล็กทรอนิกส์ของโมเลกุลมากถึง 134,000 โมเลกุล โดยทุกโมเลกุลมีธาตุพื้นฐานเป็นองค์ประกอบ ประกอบไปด้วย 
 คาร์บอน (C), ไนโตรเจน, (N), ออกซิเจน (O), ไฮโดรเจน (H), และฟลูออรีน (F) โดย Feature หลักของ QM9 ก็จะมีพิกัดคาร์ทีเซียนของ%
-อะตอมทุกอะตอมในโมเลกุลซึ่งได้มาจากการคำนวณการปรับโครงสร้าง (Geometry Optimization) ด้วยระเบียบวิธี B3LYP/6-31G(2df,p) 
-และนอกจากนี้ยังมีค่า Label หรือค่าที่ไว้ใช้ในการเปรียบเทียบการพยากรณ์ดังแสดงในตารางที่ \ref{tab:qm9_feature}%
+อะตอมทุกอะตอมในโมเลกุลซึ่งได้มาจากการคำนวณการปรับโครงสร้าง (Geometry Optimization) ด้วยระเบียบวิธี B3LYP/6-31G(2df,p) กับ 
+G4MP2 และนอกจากนี้ยังมีค่า Label หรือค่าที่ไว้ใช้ในการเปรียบเทียบการพยากรณ์ดังแสดงในตารางที่ \ref{tab:qm9_feature}%
 \footnote{โมเดล ML ที่เหมาะสมสำหรับการฝึกสอนด้วย QM9 นั้นจะต้องไม่ขึ้นกับ Translation, Rotation และ Permutation}
 
 \begin{table}[htbp]
@@ -364,8 +364,36 @@ max(size)
     \end{tabular}
 \end{table}
 
-ชุดข้อมูลที่กล่าวมาทั้งหมดนั้นสามารถดาวน์โหลดได้ฟรีจากเว็บไซต์ \url{http://quantum-machine.org/datasets} เช่นกัน
+ชุดข้อมูลที่รายงานในตารางที่ \ref{tab:compare_qm_dataset} สามารถดาวน์โหลดมาใช้งานได้ฟรีจากเว็บไซต์ 
+\url{http://quantum-machine.org/datasets} 
 
+นอกจากนี้ยังมีชุดข้อมูลเคมีควอนตัมใหม่ ๆ อีกหลายชุดข้อมูลที่ได้ถูกสร้างขึ้นที่ถูกพัฒนาขึ้นมา โดยมีรายละเอียดของคุณสมบัติเชิงอิเล็กทรอนิกส์%
+ของชุดข้อมูลแต่ละชุด ดังนี้
+
+\begin{itemize}
+    \item \textbf{ANI-1}\autocite{smith2017a} DFT: Total Energy
+    
+    \item \textbf{QMugs}\autocite{mendez2019} 
+    \begin{itemize}
+        \item GFN2 + DFT: Total, Internal Atomic และ Formation Energies, Dipole, Rotational Constants, 
+        HOMO/LUMO/Gap Energies, Mulliken Partial Charges
+        
+        \item GFN2: Total Enthalpy, Total Free Energy, Quadrupole, Enthalpy, Heat Capacity, Entropy, Fermi 
+        Level, Covalent Coordination Number, Molecular Dispersion Coefficient, Atomic Dispersion Coefficients, 
+        Molecular Polarizability, Atomic Polarizabilities, Wiberg Bond Orders, Total Wiberg Bond Orders
+        
+        \item DFT: Electrostatic Potential, L\"{o}wdin Partial Charges, Exchange Correlation Energy, Nuclear 
+        Eepulsion Energy, One-electron Energy, Two-electron Energy, Mayer Bond Orders, Wiberg-L\"{o}wdin Bond 
+        Orders, Total Mayer Bond Orders, Total Wiberg-L\"{o}wdin Bond Orders, Density/Orbital Matrices, 
+        Atomic-orbital-to-symmetry-orbital Transformer Matrix
+    \end{itemize}
+    
+    \item $\nabla$\textbf{DFT}\autocite{khrabrov2022} DFT: Electrostatic Potential, L\"{o}wdin Partial Charges, 
+    Exchange Correlation Energy, Nuclear Repulsion Energy, One-electron Energy, Two-electron Energy, Mayer 
+    Bond Orders, Wiberg-L\"{o}wdin Bond Orders, Total Mayer Bond Orders, Total Wiberg-L\"{o}wdin Bond Orders, 
+    Density/Orbital Matrices, Atomic-orbital-to-symmetry-orbital Transformer Matrix, Hamiltonian Matrix
+\end{itemize}
+    
 %--------------------------
 \section{การวิเคราะห์ชุดข้อมูล}
 \label{sec:dataset_analysis}
