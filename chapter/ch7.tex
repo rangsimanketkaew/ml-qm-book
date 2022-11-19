@@ -521,11 +521,13 @@ Basis Function นั่นเอง\footnote{Basis Function ก็คือ Bas
 ที่ได้จากเทอมนี้ว่า Linear Response Properties ส่วนเทอมอื่น ๆ เช่น เทอมที่สามนั้นเป็นอนุพันธ์อันดับสองซึ่งจะเกี่ยวข้องกับฟังก์ชัน Quadratic  
 นอกจากนี้เรายังสามารถสรุปได้แบบนี้ว่า
 
-\begin{align*}
-    &\text{Dipole Moment}\,(\mu) &&= &&-\evaluated{\dv{E}{\epsilon}}_{\epsilon = 0} \\
-    &\text{Polarizability}\,(\alpha) &&= &&-\evaluated{\dv[2]{E}{\epsilon}}_{\epsilon = 0} \\
-    &\text{First Hyperpolarizability}\,(\beta) &&= &&-\evaluated{\dv[3]{E}{\epsilon}}_{\epsilon = 0}
-\end{align*}
+\begin{framed}
+    \begin{align*}
+        &\text{Dipole Moment}\,(\mu) &&= &&-\evaluated{\dv{E}{\epsilon}}_{\epsilon = 0} \\
+        &\text{Polarizability}\,(\alpha) &&= &&-\evaluated{\dv[2]{E}{\epsilon}}_{\epsilon = 0} \\
+        &\text{First Hyperpolarizability}\,(\beta) &&= &&-\evaluated{\dv[3]{E}{\epsilon}}_{\epsilon = 0}
+    \end{align*}
+\end{framed}
 
 โดยเราสามารถนำคำนวณคุณสมบัติเชิงโมเลกุลต่าง ๆ เหล่านี้ด้วยวิธีการคำนวณทั่วไป (เช่น ใช้วิธี HF หรือ DFT) เพื่อนำไปใช้เป็น Feature 
 สำหรับการฝึกสอนโมเดล ML หรือนำมาใช้เป็นเอาต์พุตสำหรับการทำนายก็ได้
