@@ -543,6 +543,42 @@ Basis Function นั่นเอง\footnote{Basis Function ก็คือ Bas
 หน้าตาที่แท้จริงของระบบที่มีมากกว่าหนึ่งอิเล็กตรอนนั้นเป็นอย่างไร)
 
 %--------------------------
+\subsection{ฟังก์ชันและฟังก์ชันนอล}
+\label{ssec:function_functional}
+\idxboth{ฟังก์ชัน}{Function}
+\idxboth{ฟังก์ชันนอล}{Functional}
+%--------------------------
+
+ก่อนที่ผู้อ่านจะได้ศึกษาในหัวข้อต่อไปซึ่งจะลงรายละเอียดมากกว่านี้ ผู้อ่านขอเริ่มด้วยการอธิบายความหมายและการใช้งานของสิ่งที่เรียกว่าฟังก์ชันและ%
+ฟังก์ชันนอลก่อนครับ เพราะว่าการที่เราเข้าใจความหมายและความแตกต่างของคำศัพท์สองคำนี้จะเป็นพื้นฐานสำคัญในการเข้าใจทฤษฎี DFT ที่ว่าด้วย%
+เรื่องของความหนาแน่นของอิเล็กตรอนที่ผู้อ่านจะได้ศึกษาในหัวข้อที่ \ref{ssec:elec_density} โดยฟังก์ชันกับฟังก์ชันนอลนั้นต่างกันตรงที่อินพุต 
+ดังนี้
+
+\begin{description}
+    \item[$\bullet$ ฟังก์ชัน (Function)] รับอินพุตที่เป็นตัวเลขและให้เอาต์พุตที่เป็นตัวเลขเช่นเดียวกัน โดยสามารถเขียนการ Mapping 
+    ได้เป็น $x_0 \mapsto f(x_0)$ โดยที่ $x_{0}$ คืออาร์กิวเมนต์หรืออินพุตของฟังก์ชัน $f$ 
+    
+    ตัวอย่างของฟังก์ชัน เช่น
+    \begin{align*}
+        f(x) &= x^{2} \\
+        g(x,y) &= \cos(x) + e^{-3\sqrt{x^{2} + y^{2}}}
+    \end{align*}
+
+    \item[$\bullet$ ฟังก์ชันนอล (Functional)] เป็นฟังชันก์ชนิดหนึ่งซึ่งรับอินพุตที่เป็นฟังก์ชันและให้เอาต์พุตที่เป็นตัวเลข ซึ่งสรุปได้ง่าย ๆ 
+    ว่า \enquote{ฟังก์ชันนอลนั้นก็คือฟังก์ชันของฟังก์ชัน} โดยสามารถเขียนการ Mapping ได้เป็น $f \mapsto f(x_0)$ โดยที่ $x_{0}$ 
+    คือพารามิเตอร์ 
+    
+    ตัวอย่างของฟังก์ชันนอล เช่น 
+    \begin{align*}
+        F[f] &= \int^{\infty}_{-\infty} f^{3}(x) \, dx \\
+        H[g] &= \int^{3}_{2} \int^{4}_{-10} \left ( \pdv[2]{g(x,y)}{x} - 2.3 g(x,y) \right ) \, dx dy
+    \end{align*}
+\end{description}
+
+เมื่อทราบความแตกต่างแล้วผู้อ่านก็น่าจะพอเดาออกแล้วว่าคำว่า \enquote{Functional} ในชื่อของทฤษฎี Density Functional Theory 
+นั้นหมายถึงว่าเป็นทฤษฎีที่ขึ้นอยู่กับฟังก์ชันที่สามารถอธิบายความหนาแน่นของอิเล็กตรอนได้
+
+%--------------------------
 \subsection{จากฟังก์ชันคลื่นสู่ความหนาแน่นเชิงอิเล็กทรอนิกส์}
 \label{ssec:elec_density}
 \idxboth{ความหนาแน่นเชิงอิเล็กทรอนิกส์}{Electronic Density}
@@ -572,7 +608,7 @@ N_{\text{electrons}}$
 ของอิเล็กตรอนแต่ละตัวเข้าด้วยกัน (ทำการรวมทั้งหมด $N$ ครั้ง) ดังนี้
 \idxboth{ความหนาแน่นของอิเล็กตรอน}{Electron Density}
 
-\begin{equation}
+\begin{equation}\label{eq:elec_density}
     n(\bm{r}) = N \int{d}^{3} \bm{r}_{2} \cdots \int{d}^{3} \bm{r}_{N} \, 
                 \psi^*(\bm{r}, \bm{r}_2, \dots, \bm{r}_N) \psi(\bm{r}, \bm{r}_2, 
                 \dots, \bm{r}_N)
@@ -583,6 +619,7 @@ N_{\text{electrons}}$
 %--------------------------
 \subsection{จากความหนาแน่นเชิงอิเล็กทรอนิกส์สู่พลังงานของระบบ}
 \label{ssec:ener_density}
+\idxen{Density Functional Theory!Electronic Density}
 %--------------------------
 
 เมื่อเราเข้าใจนิยามและไอเดียของความหนาแน่นเชิงอิเล็กทรอนิกส์หรือความหนาแน่นของอิเล็กตรอนแล้ว ลำดับต่อไปก็คือเราจะคำนวณพลังงานของระบบ
@@ -597,12 +634,198 @@ N_{\text{electrons}}$
 
 จากไดอะแกรมที่แสดงในภาพที่ \ref{fig:density_wavefunc_ener} นั้นสามารถตีความได้ว่าเราสามารถคำนวณพลังงานของระบบโดยผ่าน 
 Hamiltonian และ Wavefunction ได้ซึ่งก็จะมีความซับซ้อนในเชิงคำนวณ ดังนั้นคำถามสำคัญที่ตามมาก็คือจะเป็นไปได้ไหมที่เราจะคำนวณพลังงาน%
-จากความหนาแน่นของอิเล็กตรอนตรง ๆ ซึ่งคำตอบก็คือจริง ๆ แล้วไม่สามารถหาได้ตรง ๆ แต่เรามีทริคที่สามารถได้โดยการกระจายเทอมของ
-Hamiltonian Operator แล้วกำหนดหรือแทนเทอมที่เป็นศักย์ภายนอก (External Potential) ด้วยฟังก์ชันของความหนาแน่นได้
+จากความหนาแน่นของอิเล็กตรอนตรง ๆ ซึ่งคำตอบก็คือจริง ๆ แล้วไม่สามารถหาได้ตรง ๆ แต่เรามีทริคที่สามารถทำได้ ดังนี้
 
-ก่อนที่จะลงรายละเอียดไปมากกว่า ผู้อ่านขอเริ่มด้วยการอธิบายความหมายและการใช้งานของสิ่งที่เรียกว่าฟังก์ชันและฟังก์ชันนอลก่อนครับ เพราะว่าการที่%
-เราเข้าใจความหมายและความแตกต่างของคำศัพท์สองคำนี้จะเป็นพื้นฐานสำคัญในการเข้าใจทฤษฎี DFT ที่ว่าด้วยเรื่องของความหนาแน่นของอิเล็กตรอน%
-ที่ผู้อ่านได้ศึกษาไปในหัวข้อที่ \ref{ssec:elec_density}
+เริ่มจากการกำหนดให้พลังงานเชิงอิเล็กทรอนิกส์ได้จากการคำนวณค่า Expectation Value (ค่าเฉลี่ย) ของ Hamiltonian Operator 
+
+\begin{equation}\label{eq:ener_expect_value}
+    E_{\text{el}} = \int \cdots \int \Psi^{\ast} \hat{H}_{\text{el}} \Psi \, d\bm{x}_{1} \dots \, 
+    d\bm{x}_{N_{\text{el}}}
+\end{equation}
+
+\noindent โดยที่ Hamiltonian Operator สำหรับอิเล็กตรอนมีสมการดังต่อไปนี้
+
+\begin{equation}\label{eq:hamil_one_elec}
+    \hat{H}_{\text{el}} = \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} 
+    + \sum^{N_{\text{el}}}_{i=1} \sum^{N_{\text{el}}}_{j=i+1} \frac{1}{|\bm{r}_{i}-\bm{r}_{j}|}
+    + \underbrace{\sum^{N_{\text{el}}}_{i=1} \sum^{N_{\text{nu}}}_{A=1} \frac{-Z_{A}}{|\bm{r}_{i}-\bm{R}_{A}|}}%
+    _{\text{Nuclear Attraction Energy}}
+\end{equation}
+
+\noindent ซึ่งเทอมที่ 3 ของสมการที่ \ref{eq:hamil_one_elec} นั้นคือพลังงานดึงดูดระหว่างอิเล็กตรอนกับนิวเคลียสซึ่งมีชื่อเรียกอีกชื่อว่า 
+\enquote{ศักย์ภายนอก} (External Potential) โดยเป็นคำศัพท์ที่ใช้ในทฤษฎี DFT ซึ่งคำว่า External นี้มาจากการที่เราใช้การประมาณ%
+ของ Born-Oppenheimer แล้วทำให้นิวเคลียสนั้นเป็นวัตถุที่ถูกตรึงอยู่กับที่ (Fixed) ซึ่งทำให้เกิดพลังงานศักย์คูลอมป์ (Coulomb Potential) 
+ต่ออิเล็กตรอน ดังนั้นจากสมการที่ \ref{eq:hamil_one_elec} จะได้เป็น 
+\idxboth{ศักย์ภายนอก}{External Potential}
+
+\begin{align}\label{eq:hamil_ext_pot}
+    \hat{H}_{\text{el}} &= \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} 
+    + \sum^{N_{\text{el}}}_{i=1} \sum^{N_{\text{el}}}_{j=i+1} \frac{1}{|\bm{r}_{i}-\bm{r}_{j}|}
+    + \sum^{N_{\text{el}}}_{i=1} 
+    \underbrace{\left ( \sum^{N_{\text{nu}}}_{A=1} \frac{-Z_{A}}{|\bm{r}_{i}-\bm{R}_{A}|} \right )}%
+    _{\text{Nuclear Attraction Energy}} \nonumber \\
+    &= \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} 
+    + \sum^{N_{\text{el}}}_{i=1} \sum^{N_{\text{el}}}_{j=i+1} \frac{1}{|\bm{r}_{i}-\bm{r}_{j}|}
+    + \sum^{N_{\text{el}}}_{i=1} V_{\text{ext}}(\bm{r}_{i})
+\end{align}
+
+\noindent โดยที่มี External Potential ($V_{\text{ext}}(\bm{r}_{i}))$) กระทำต่ออิเล็กตรอนทุกตัวในโมเลกุล 
+
+ลำดับต่อไปก็คือเราลองมาทำการกระจาย Expectation Value ของพลังงานเชิงอิเล็กทรอนิกส์โดยการแทนสมการที่ \ref{eq:hamil_ext_pot} 
+เข้าไปในสมการที่ \ref{eq:ener_expect_value} ซึ่งเราจะได้พลังงานที่ประกอบไปด้วย 3 เทอม ดังนี้
+
+\begin{align}\label{eq:ener_express_ext_pot}
+    E_{\text{el}} =& \int \cdots \int \Psi^{\ast} 
+    \left ( \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} \right ) 
+    \Psi \, d\bm{x}_{1} \dots \, d\bm{x}_{N_{\text{el}}} \nonumber \\
+    &+ \int \cdots \int \Psi^{\ast} 
+    \left ( \sum^{N_{\text{el}}}_{i=1} \sum^{N_{\text{el}}}_{j=i+1} \frac{1}{|\bm{r}_{i}-\bm{r}_{j}|} \right ) 
+    \Psi \, d\bm{x}_{1} \dots \, d\bm{x}_{N_{\text{el}}} \nonumber \\
+    &+ \underbrace{\int \cdots \int \Psi^{\ast} 
+    \left ( \sum^{N_{\text{el}}}_{i=1} V_{\text{ext}}(\bm{r}_{i}) \right ) 
+    \Psi \, d\bm{x}_{1} \dots \, d\bm{x}_{N_{\text{el}}}%
+    }_{\textstyle \int V_{\text{ext}}(\bm{r}) n(\bm{r}) \, d\bm{r}}
+\end{align}
+
+\noindent โดยสมการที่ \ref{eq:ener_express_ext_pot} มีเพียงแค่เทอมที่ 3 เท่านั้นที่สามารถเขียนให้อยู่ในรูปของฟังก์ชันนอลของ%
+ความหนาแน่นได้ (Explicit Functional of Density)
+
+%--------------------------
+\subsection{ความสัมพันธ์ระหว่างความหนาแน่นของอิเล็กตรอนและศักย์ภายนอก}
+\label{ssec:ener_density_ext_pot}
+%--------------------------
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/hohenberg_kohn_abstract.png}
+    \caption{บทคัดย่อของบทความงานวิจัยที่นำเสนอทฤษฎีบท Hohenberg-Kohn ในปี ค.ศ. 1964}
+    \label{fig:hohenberg_john_abs}
+\end{figure}
+
+สำหรับระบบที่มีจำนวนอิเล็กตรอน $N$ ตัวนั้น Pierre Hohenberg และ Walter Kohn ได้เสนอทฤษฎีบทที่เป็นรากฐานสำคัญของทฤษฎี DFT 
+ในปี ค.ศ. 1964 นั่นก็คือ Hohenberg-Kohn Theorem\autocite{hohenberg1964} ซึ่งเป็นการพิสูจน์โดยใช้หลักการแปรค่า (Variational 
+Principle) ว่าความสัมพันธ์ระหว่างความหนาแน่นและศักย์ภายนอกนั้นเป็นแบบหนึ่งต่อหนึ่ง (One-to-one) โดยบทความงานวิจัยฉบับนี้ถือว่ามี%
+ความสำคัญอย่างมากต่อวงการวิทยาศาสตร์โดยเฉพาะสาขาฟิสิกส์และเคมีเชิงโมเลกุล
+
+\begin{framed}
+    \centering
+    \begin{align*}
+        &n^{(1)}(\bm{r}) &\underset{\text{H-K}}{\rightleftarrows} &&V_{\text{ext}^{(1)}}(\bm{r}) \\[0.5ex]
+        &n^{(2)}(\bm{r}) &\underset{\text{H-K}}{\rightleftarrows} &&V_{\text{ext}^{(2)}}(\bm{r}) \\[0.5ex]
+        &n^{(3)}(\bm{r}) &\underset{\text{H-K}}{\rightleftarrows} &&V_{\text{ext}^{(3)}}(\bm{r}) \\[0.5ex]
+        &\cdots & &&\cdots 
+    \end{align*}
+\end{framed}
+
+นอกจากนี้แล้วเรา Hohenberh และ Kohn ยังได้นำเสนอพลังงานเชิงอิเล็กทรอนิกส์ที่เขียนให้อยู่ในรูปของฟังก์ชันทั่วไป ดังนี้
+
+\begin{align}\label{eq:ener_univer_ext_pot}
+    E_{\text{el}} =& \underbrace{\int \Psi^{\ast} 
+    \left ( \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} \right ) 
+    \Psi \, d\bm{X} 
+    + \int \Psi^{\ast} 
+    \left ( \sum^{N_{\text{el}}}_{i=1} \sum^{N_{\text{el}}}_{j=i+1} \frac{1}{|\bm{r}_{i}-\bm{r}_{j}|} \right ) 
+    \Psi \, d\bm{X}}_{\textstyle F_{\text{H-K}}[n]} \nonumber \\
+    &+ \underbrace{\int \Psi^{\ast}  
+    \left ( \sum^{N_{\text{el}}}_{i=1} V_{\text{ext}}(\bm{r}_{i}) \right ) 
+    \Psi \, d\bm{X}%
+    }_{\textstyle \int V_{\text{ext}}(\bm{r}) n(\bm{r}) \, d\bm{r}} \\
+    =& E_{\text{el}}[n]
+\end{align}
+
+\noindent โดยผลรวมของสองเทอมแรกนั้นคือสิ่งที่เรียกว่าฟังก์ชันนอลสากล (Universal Functional) ซึ่งไม่ขึ้นกับศักย์ภายนอก แต่อย่างไร%
+ก็ตาม ปัญหาก็คือเราไม่ทราบหน้าตาหรือผลเฉลยที่แน่นอนของฟังก์ชันนอลสากลแต่ว่าเรายังต้องการฟังก์ชันนอลนี้สำหรับการคำนวณพลังงาน ซึ่งสิ่งที่%
+เราทำได้ก็คือการหาฟังก์ชันสากลโดยใช้วิธีการประมาณ
+\idxboth{ฟังก์ชันนอลสากล}{Universal Functional}
+
+%--------------------------
+\subsection{ฟังก์ชันนอลสากลและทฤษฎีฟังก์ชันนอลความหนาแน่นแบบไร้ออร์บิทัล}
+\label{ssec:univer_functional}
+%--------------------------
+
+สำหรับพลังงานเชิงอิเล็กทรอนิกส์ที่สามารถเขียนได้จากองค์ประกอบ 3 ส่วนคือ
+
+\begin{equation}\label{eq:ener_elec_simplified}
+    E_{\text{el}}[n] = E_{\text{kin}}[n] + E_{\text{pot}}[n] + E_{\text{ext}}[n]
+\end{equation}
+
+\noindent เราสามารถเขียนเทอมที่ 2 ของฟังก์ชัน \ref{eq:ener_elec_simplified} ซึ่งเป็นผลรวมของพลังงานศักย์คูลอมป์และพลังงาน%
+ของอินตรกิริยะระหว่างอิเล็กตรอนซึ่งก็คือพลังงานแลกเปลี่ยน (Exchange Energy) และพลังงานสหสัมพันธ์ (Coorelation Energy) ได้ดังนี้
+
+\begin{equation}\label{eq:ener_elec_full}
+    E_{\text{el}}[n] = E_{\text{kin}}[n] + E_{\text{Col}}[n] + E_{\text{X}}[n] + E_{\text{C}}[n] + 
+    E_{\text{ext}}[n]
+\end{equation}
+
+\noindent ซึ่งเทอมที่ 2 กับเทอมที่ 5 ซึ่งเป็นพลังงานคูลอมป์และศักย์ภายนอกนั้นเรารู้สมการที่แน่อน ดังนี้
+
+\begin{multline}\label{eq:ener_elec_full_exact}
+    E_{\text{el}}[n] = E_{\text{kin}}[n] + \frac{1}{2} \int \int \frac{n(\bm{r})n(\bm{r'})}{|\bm{r}-\bm{r'}|} 
+    \, d\bm{r} d\bm{r'} + E_{\text{X}}[n] + E_{\text{C}}[n] \\ 
+    + \int V_{\text{ext}}(\bm{r}) n(\bm{r}) \, d\bm{r}
+\end{multline}
+
+\noindent ส่วนเทอมที่ 1, 3, และ 4 ซึ่งเป็นพลังงานจลน์ พลังงานแลกเปลี่ยนและพลังงานสหสัมพันธ์นั้นเราไม่รู้สมการที่แน่อน ซึ่งเป็นสิ่งที่ต้อง%
+ประมาณค่าเองและการประมาณค่าเพื่อหาฟังก์ชันของพลังงานทั้ง 3 เทอมนี้ที่แม่นยำที่สุดเท่าที่จะเป็นไปได้ก็เป็นหนึ่งในงานวิจัยที่ได้รับความสนใจ%
+จนถึงปัจจุบัน
+
+วิธีข้างต้นที่คำนวณพลังงานเชิงอิเล็กทรอนิกส์โดยผ่านฟังก์ชันสากล (Universal Functional) นั้นจะเรียกว่าฟังก์ชันนอลความหนาแน่นแบบบริสุทธิ์ 
+(Pure DFT) ก็ได้เพราะว่าไม่มีการพิจารณาออร์บิทัล (Orbital-free) ซึ่งเป็นการคำนวณพลังงานของระบบที่อิเล็กตรอนมีอันตรกิริยาต่อกัน 
+(Interacting Electrons) ด้วยฟังก์ชันนอลของความหนาแน่น อย่างไรก็ตามวิธี Orbital-free DFT นี้มีความแม่นยำในการคำนวณที่ต่ำมาก%
+นั่นก็เพราะว่าการประมาณค่าของเทอมพลังงานจลน์ (เทอมแรกของสมการที่ \ref{eq:ener_elec_full_exact}) นั้นทำได้ยากมากและขาด%
+ความแม่นยำในการประมาณ (เพราะว่าเทอม $\frac{1}{\bm{r}_{i}-\bm{r}_{j}}$ นั้นไม่สามารถถูกแยกแบ่งออกเป็นผลรวมของ 
+$\bm{r}_{i}$ และ $\bm{r}_{j}$ ได้)  เมื่อเราไม่สามารถประมาณค่าพลังงานจลน์ได้อย่างแม่นยำจึงทำให้พลังงานเชิงอิเล็กทรอนิกส์ที่คำนวณ%
+ออกมานั้นมีความแม่นยำต่ำตามไปด้วย
+
+สำหรับการแก้ปัญหาดังกล่าวนั้น Hohenberg และ Kohn ก็ได้นำเสนอบทความงานวิจัยในปี ค.ศ. 1965 (หนึ่งปีหลังจากนำเสนอทฤษฎี Pure หรือ 
+Orbital-free DFT) โดยได้เสนอว่าควรคำนวณฟังก์ชันของพลังงานของระบบที่อิเล็กตรอนไม่มีอันตรกิริยาต่อกัน (Non-interacting Electrons) 
+แทนที่จะไปแก้ผ่านระบบที่อิเล็กตรอนมีอันตรกิริยาต่อกัน ซึ่งมีข้อดีคือทำให้การ DFT มีความแม่นยำมากขึ้นเพราะว่าพลังงานจลน์ของระบบที่อิเล็กตรอน%
+แต่ละตัวไม่ขึ้นหรือมีความสัมพันธ์กับอิเล็กตรอนตัวอื่น ๆ นั้นมีสมการที่เรารู้หน้าตาแน่นอน จึงไม่มีความจำเป็นที่จะต้องประมาณค่าฟังก์ชันนอลของ%
+พลังงานจลน์ในรูปของความหนาแน่นอีกต่อไป
+
+%--------------------------
+\subsection{แฮมิลโทเนียนสำหรับอิเล็กตรอนที่ไม่มีอันตรกิริยาต่อกัน}
+\label{ssec:hamil_noninter_elec}
+%--------------------------
+
+การที่เราเปลี่ยนมาพิจารณาระบบ Non-interacting Electrons แทนนั้น เราสามารถเปลี่ยนเทอมที่เป็นพลังงานที่เกิดจากการผลักกันของ%
+อิเล็กตรอน (Direct Interaction) ให้เป็นโอเปอเรเตอร์สำหรับอิเล็กตรอน 1 ตัวได้ (เพราะว่าอิเล็กตรอนทุกตัวเป็นอิสระและไม่ขึ้นต่อกัน%
+อีกต่อไปแล้ว) ซึ่งโอเปอเรเตอร์ที่ว่านั้นคือพลังงานศักย์ที่อธิบายค่าเฉลี่ยของผลที่เกิดจากอันตรกิริยาระหว่างอิเล็กตรอน (Average Effect) 
+อธิบายง่าย ๆ คือเราใช้เทอมนี้เป็นตัวแทนของอันตรกิริยาระหว่างอิเล็กตรอนในระบบที่อิเล็กตรอนไม่มีอันตรกิริยาต่อกัน (เป็นเทอมที่เป็นส่วนเติมเต็ม) 
+โดยเราสามารถพิสูจน์แฮมิลโทเนียนของ Effective Interaction สำหรับอิเล็กตรอนที่ไม่มีอันตรกิริยาได้จากแฮมิลโทเนียนแบบดั้งเดิม ดังต่อไปนี้
+\idxen{Density Functional Theory!Effective Interaction}
+
+\begin{align}\label{eq:hamil_inter_elec}
+    \hat{H}_{\text{el}} &= \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} 
+    + \sum^{N_{\text{el}}}_{i=1} \sum^{N_{\text{el}}}_{j=i+1} \frac{1}{|\bm{r}_{i}-\bm{r}_{j}|}
+    + \sum^{N_{\text{el}}}_{i=1} V_{\text{ext}}(\bm{r}_{i})
+\end{align}
+
+\noindent สมการนี้จะเปลี่ยนเป็นสมการสำหรับ Effective Interaction
+
+\begin{align}\label{eq:hamil_noninter_eff}
+    \hat{H}_{\text{eff}} &= \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} 
+    + \sum^{N_{\text{el}}}_{i=1} V_{\text{aver}}(\bm{r}_{i})
+    + \sum^{N_{\text{el}}}_{i=1} V_{\text{ext}}(\bm{r}_{i}) \nonumber \\
+    &= \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} 
+    + \sum^{N_{\text{el}}}_{i=1} \{ V_{\text{aver}}(\bm{r}_{i}) + V_{\text{ext}}(\bm{r}_{i}) \} \nonumber \\
+    &= \sum^{N_{\text{el}}}_{i=1} -\frac{1}{2} \nabla^{2}_{i} 
+    + \sum^{N_{\text{el}}}_{i=1} V_{\text{eff}}(\bm{r}_{i}) \nonumber \\
+    &= \sum^{N_{\text{el}}}_{i=1} \{ -\frac{1}{2} \nabla^{2}_{i} + V_{\text{eff}}(\bm{r}_{i}) \} \nonumber \\
+    &= \sum^{N_{\text{el}}}_{i=1} \hat{h}(\bm{r}_{i})
+\end{align}
+
+จากการพิสูจน์ข้างต้นจะได้ว่าสุดท้ายแล้วแฮมิลโทเนียนทั้งหมดของระบบที่อิเล็กตรอนไม่มีอันตรกิริยาต่อกันนั้นคือผลรวมของแฮมิลโทเนียนของ%
+อิเล็กตรอนหนึ่งตัว (1 แฮมิลโทเนียนต่ออิเล็กตรอน 1 ตัว) 
+$\hat{H}_{\text{eff}} = \sum^{N_{\text{el}}}_{i=1} \hat{h}(\bm{r}_{i})$
+
+รายละเอียดของทฤษฎี DFT นั้นมีอีกเยอะมาก ผู้อ่านที่สนใจศึกษาเพิ่มเติมสามารถศึกษาได้จากหนังสือดังต่อไปนี้
+
+\begin{enumerate}[topsep=0pt]
+    \item Introduction to Computational Chemistry \\ แต่งโดย Frank Jensen
+    
+    \item Electronic Structure - Basic Theory and Practical Methods \\ แต่งโดย Richard M. Martin
+\end{enumerate}
 
 %--------------------------
 \section{ความหนาแน่นเชิงประจุและเมทริกซ์ความหนาแน่น}
