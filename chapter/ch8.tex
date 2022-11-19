@@ -251,11 +251,74 @@ array([[0.5, 1. , 0. , 1. , 0.5,
 \idxen{Representation!Sine Matrix}
 %--------------------------
 
+Sine Matrix เป็น Representation ที่คำนวณอันตรกิริยาระหว่างอะตอมของระบบที่เป็นแบบ Perodic System และรวมผลของ Coulomb 
+เข้าไปด้วย\autocite{faber2015} มีสมการดังนี้
+
+\begin{equation}\label{eq:sine_matrix}
+    M_{ij}^\mathrm{sine} = \left \{
+        \begin{matrix}
+        \frac{1}{2} Z_i^{2.4} & \text{for } i = j \\
+            \frac{Z_i Z_j}{\lvert \mathbf{B} \cdot \sum_{k=\{x,y,z\}} \hat{\mathbf{e}}_k \sin^2 
+            \left ( \pi \mathbf{B}^{-1} \cdot \left ( \mathbf{R}_{i} - \mathbf{R}_{j} \right ) \right ) \rvert} 
+            & \text{for } i \neq j
+        \end{matrix}
+        \right .
+\end{equation}
+
+\noindent โดยที่ $\mathbf{B}$ คือพารามิเตอร์ที่ถูกคำนวณมาจาก Lattice Vectors และ $\hat{\mathbf{e}}_k$ คือ Cartesian 
+Unit Vectors 
+
+ตัวอย่างของโค้ดสำหรับการคำนวณ Sine Matrix Feature
+
+\begin{lstlisting}[style=MyPython]
+from dscribe.descriptors import SineMatrix
+
+sm = SineMatrix(
+    n_atoms_max=6,
+    permutation="sorted_l2",
+    sparse=False,
+    flatten=True
+)
+\end{lstlisting}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/sine_matrix.png}
+    \caption{อันตรกิริยาแบบ Periodic ที่คำนวณด้วย Sine Matrix}
+    \label{fig:sine_matrix}
+\end{figure}
+
 %--------------------------
 \subsection{Ewald Sum Matrix}
 \label{ssec:ewald_sum_matrix}
 \idxen{Representation!Ewald Sum Matrix}
 %--------------------------
+
+Ewald Sum Matrix เป็น Representation ที่พัฒนาต่อมาจาก Coulomb Matrix ซึ่งได้รวมผลของอันตรกิริยาระหว่างอะตอมแบบ Periodic 
+โดยใช้อันตรกิริยาไฟฟ้าสถิตย์เข้าไปด้วย\autocite{faber2015}
+
+\begin{equation}\label{eq:ewald_sum}
+    \phi^{\text{self}}_{ij} + \phi^{\text{bg}}_{ij} = -\frac{\alpha}{\sqrt{\pi}}(Z_i^2 + Z_j^2) 
+    -\frac{\pi}{2V\alpha^2}(Z_i + Z_j)^2~\forall~i \neq j
+\end{equation}
+
+\noindent โดยที่ $\phi^{\text{bg}}_{ij}$ คือ Background Charge
+
+ตัวอย่างของโค้ดสำหรับการคำนวณ Ewald Sum Matrix
+
+\begin{lstlisting}[style=MyPython]
+from dscribe.descriptors import EwaldSumMatrix
+
+atomic_numbers = [1, 8]
+rcut = 6.0
+nmax = 8
+lmax = 6
+
+# Setting up the Ewald sum matrix descriptor
+esm = EwaldSumMatrix(
+    n_atoms_max=6,
+)
+\end{lstlisting}
 
 %--------------------------
 \subsection{Bag of Bonds}
