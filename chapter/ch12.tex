@@ -45,6 +45,34 @@ Molecular Orbitals (FMOs) มักจะถูกนำมาใช้ในก
 คุณสมบัติที่เกี่ยวข้องกับควอนตัม ดังนั้นจึงมีลักษณะเฉพาะอื่น ๆ ที่ถูกพัฒนาขึ้นมาโดยรวมข้อมูลเชิงควอนตัมของเข้าไปด้วยเพื่อให้มีความถูกต้องมากขึ้น 
 ซึ่งการที่จะคำนวณลักษณะเฉพาะเหล่านี้ก็มีความซับซ้อนอยู่มิใช่น้อย ดังนั้นจึงได้มีผู้พัฒนาไลบรารี่ที่สามารถคำนวณพารามิเตอร์เหล่านี้ให้เราได้
 
+\begin{table}[H]
+    \centering
+    \caption{รายชื่อและเว็บไซต์ของไลบรารี่ Dataset และ Feature สำหรับเคมีควอนตัม}
+    \label{tab:review_lib_data_qm}
+    \begin{tabular}{cll}
+    \toprule
+    \textbf{ไลบรารี่} &\textbf{เว็บไซต์} &\textbf{อ้างอิง} \\
+    \midrule
+    AFLOWLIB &\url{https://aflow.org/aflow-ml} &Curtarolo และคณะ\autocite{curtarolo2012} \\
+    Materials Project &\url{https://materialsproject.org} &Jain และคณะ\autocite{jain2013} \\
+    OQMD &\url{https://oqmd.org} &Kirklin และคณะ\autocite{kirklin2015} \\
+    libAtoms &\url{https://github.com/libAtoms} &Bart\'{o}k และคณะ\autocite{bartok2018} \\
+    Matminer &\url{https://github.com/markovmodel/deeptime} &Ward และคณะ\autocite{ward2018} \\
+    Chemical VAE &\url{https://ccs-psi.org/node/22} 
+    &G\'{o}mez-Bombarelli และคณะ\autocite{gomez-bombarelli2018} \\
+    JARVIS-DFT &\url{https://github.com/usnistgov/jarvis} &Choudhary และคณะ\autocite{choudhary2018} \\
+    DScribe &\url{https://github.com/SINGROUP/dscribe} &Himanen และคณะ\autocite{himanen2020} \\
+    NOMAD &\url{https://analytics-toolkit.nomad-coe.eu} &Draxl และ Scheffler\autocite{draxl2019} \\
+    OMDB &\url{https://omdb.mathub.io/dataset} &Olsthoorn และคณะ\autocite{olsthoorn2019} \\
+    Khazana &\url{https://khazana.gatech.edu} &Chapman และคณะ\autocite{chapman2020} \\
+    MolDis &\url{https://moldis.tifrh.res.in/index.html} &Kayastha และ Ramakrishnan\autocite{kayastha2021} \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+ตารางที่ \ref{tab:review_lib_data_qm} แสดงไลบรารี่หรือโปรแกรมแพคเกจที่มีชุดข้อมูลให้เรานำมาใช้ได้ รวมถึงไลบรารี่ที่สามารถคำนวณ 
+Feature ของอะตอมและโมเลกุลได้ด้วย
+
 %--------------------------
 \subsection{DScribe}
 \label{ssec:dscribe}
@@ -127,46 +155,21 @@ coulomb_matrices = soap.create(samples, positions, n_jobs=2)
     \midrule
     \multirow{2}{*}{AMP} &\url{https://amp.readthedocs.io/en/latest} &\multirow{2}{*}{Khorshidi and 
     Peterson\autocite{khorshidi2016}} \\ &\url{https://singroup.github.io/dscribe} & \\
-    GAP &\url{https://github.com/libAtoms/QUIP} &Bartók and Csányi\autocite{bartok2010} \\
+    GAP &\url{https://github.com/libAtoms/QUIP} &Bart\'{o}k และ Cs\'{a}nyi\autocite{bartok2010} \\
     \multirow{2}{*}{SNAP} &\url{https://lammps.sandia.gov/doc/pair_snap.html} 
-    &\multirow{2}{*}{Thompson et al.\autocite{thompson2015}} \\
+    &\multirow{2}{*}{Thompson และคณะ\autocite{thompson2015}} \\
     &\url{https://github.com/materialsvirtuallab/snap} & \\
-    AENET &\url{http://ann.atomistic.net} &Artrith and Urban\autocite{artrith2016} \\
-    AGNI &\url{https://lammps.sandia.gov/doc/pair_agni.html} &Huan et al.\autocite{huan2017} \\
-    PROPhet &\url{https://github.com/biklooost/PROPhet} &Kolb et al.\autocite{kolb2017} \\
-    TensorMol &\url{https://github.com/jparkhill/TensorMol} &Yao et al.\autocite{yao2018} \\
-    ANI &\url{https://github.com/isayev/ASE_ANI} &Smith et al.\autocite{smith2017} \\
-    COMP6 &\url{https://github.com/isayev/COMP6} &Smith et al.\autocite{smith2018} \\
-    DeePMD-kit95 &\url{https://github.com/deepmodeling/deepmd-kit} &Wang et al.\autocite{wang2018} \\
-    VAMPnet &\url{https://github.com/markovmodel/deeptime} &Mardt et al.\autocite{mardt2018} \\
-    CGCNN &\url{https://github.com/txie-93/cgcnn} &Xie and Grossman\autocite{xie2018} \\
-    ElemNet &\url{https://github.com/dipendra009/ElemNet} &Jha et al.\autocite{jha2018} \\
-    OQMD-SC &\url{https://github.com/dipendra009/ElemNet} &Jha et al\autocite{jha2019} \\
-    \bottomrule
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \caption{รายชื่อและเว็บไซต์ของไลบรารี่ Dataset และ Feature สำหรับเคมีควอนตัม}
-    \label{tab:review_lib_data_qm}
-    \begin{tabular}{cll}
-    \toprule
-    \textbf{ไลบรารี่} &\textbf{เว็บไซต์} &\textbf{อ้างอิง} \\
-    \midrule
-    AFLOWLIB &\url{https://aflow.org/aflow-ml} &Curtarolo et al.\autocite{curtarolo2012} \\
-    Materials project &\url{https://materialsproject.org} &Jain et al.\autocite{jain2013} \\
-    OQMD &\url{https://oqmd.org} &Kirklin et al.\autocite{kirklin2015} \\
-    libAtoms &\url{https://github.com/libAtoms} &Bartók et al.\autocite{bartok2018} \\
-    Matminer &\url{https://github.com/markovmodel/deeptime} &Ward et al.\autocite{ward2018} \\
-    Chemical VAE &\url{https://ccs-psi.org/node/22} 
-    &Gómez-Bombarelli et al.\autocite{gomez-bombarelli2018} \\
-    JARVIS-DFT &\url{https://github.com/usnistgov/jarvis} &Choudhary et al.\autocite{choudhary2018} \\
-    DScribe &\url{https://github.com/SINGROUP/dscribe} &Himanen et al.\autocite{himanen2020} \\
-    NOMAD &\url{https://analytics-toolkit.nomad-coe.eu} &Draxl and Scheffler\autocite{draxl2019} \\
-    OMDB &\url{https://omdb.mathub.io/dataset} &Olsthoorn et al.\autocite{olsthoorn2019} \\
-    Khazana &\url{https://khazana.gatech.edu} &Chapman et al.\autocite{chapman2020} \\
-    MolDis &\url{https://moldis.tifrh.res.in/index.html} &Kayastha and Ramakrishnan\autocite{kayastha2021} \\
+    AENET &\url{http://ann.atomistic.net} &Artrith และ Urban\autocite{artrith2016} \\
+    AGNI &\url{https://lammps.sandia.gov/doc/pair_agni.html} &Huan และคณะ\autocite{huan2017} \\
+    PROPhet &\url{https://github.com/biklooost/PROPhet} &Kolb และคณะ\autocite{kolb2017} \\
+    TensorMol &\url{https://github.com/jparkhill/TensorMol} &Yao และคณะ\autocite{yao2018} \\
+    ANI &\url{https://github.com/isayev/ASE_ANI} &Smith และคณะ\autocite{smith2017} \\
+    COMP6 &\url{https://github.com/isayev/COMP6} &Smith และคณะ\autocite{smith2018} \\
+    DeePMD-kit95 &\url{https://github.com/deepmodeling/deepmd-kit} &Wang และคณะ\autocite{wang2018} \\
+    VAMPnet &\url{https://github.com/markovmodel/deeptime} &Mardt และคณะ\autocite{mardt2018} \\
+    CGCNN &\url{https://github.com/txie-93/cgcnn} &Xie และ Grossman\autocite{xie2018} \\
+    ElemNet &\url{https://github.com/dipendra009/ElemNet} &Jha และคณะ\autocite{jha2018} \\
+    OQMD-SC &\url{https://github.com/dipendra009/ElemNet} &Jha และคณะ\autocite{jha2019} \\
     \bottomrule
     \end{tabular}
 \end{table}
