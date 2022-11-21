@@ -510,54 +510,9 @@ f(\mathbf{D})$)\footnote{เครื่องหมาย $\hat{}$\, (อ่า
 \idxen{Molecular Property Prediction!Atomic Charge}
 %--------------------------
 
-งานวิจัยทางเคมีควอนตัมที่หัวข้อหนึ่งที่ได้รับความนิยมในช่วง 3-4 ปี (ตั้งแต่ปี ค.ศ. 2018) ที่ผ่านมานี้ที่ได้มีการนำ ML เข้ามาประยุกต์ใช้นั้นก็คือ 
-Partial Atomic Charge Assignment หรือการระบุประจุย่อยของอะตอมในโมเลกุล ต้องอธิบายก่อนว่าประจุรวมของโมเลกุลเกิดจากผลรวมของ%
-ประจุย่อยของแต่ละอะตอม (Partial Atomic Charge) ซึ่งในทางทฤษฎีและการทดลองเราไม่มีนิยามที่แน่นอนในการระบุหรือกำหนดประจุย่อย%
-ของอะตอมแค่ละตัวในโมเลกุล อย่างไรก็ตามได้มีนิยามต่าง ๆ มากมายที่ถูกเสนอขึ้นมาเพื่อใช้ในการ \enquote{คำนวณ} ประจุของแต่ละอะตอม 
-โดยแนวคิดแรก ๆ ก็ได้ถูกพัฒนามานานหลายสิบปีแล้ว หนึ่งในนั้นก็คือทฤษฎีที่ตั้งอยู่บนแนวคิดพื้นฐานของ Wavefunction ซึ่งใช้ Population 
-ของ Atomic Orbital (Basis Set) เช่น Mulliken Population ที่เราสามารถนำมาใช้ในการคำนวณประจุอะตอม เรียกว่าประจุของมัลลิเคน 
-(Mulliken Charge) ซึ่งออร์บิทัลของอะตอมที่อยู่ในโมเลกุลถูกกำหนดและแบ่งด้วยเมทริกซ์ซ้อนทับ (Overlap Matrix) เนื่องจากว่าประจุย่อย%
-ของอะตอมเป็นปริมาณที่วัดไม่ได้ (Non-observable Property) ซึ่งไม่สามารถวัดได้ในทางทดลอง นั่นก็เพราะว่าจริง ๆ แล้วไม่มีอะตอมในโมเลกุล 
-มีแต่กลุ่มก้อนของอิเล็กตรอน ดังนั้นเราจึงไม่สามารถที่จะระบุได้ว่าอะตอมแต่ละตัวนั้นมีขนาดเล็กหรือใหญ่แค่ไหน กล่าวคือเราไม่รู้ว่าอะตอมและตัวเริ่มต้น%
-ตรงไหนและสิ้นสุดตรงไหน นั่นจึงทำให้เราไม่รู้ขอบเขตของแต่ละอะตอมนั่นเอง
-
-นอกจากนี้ยังมีอีกหลายทฤษฎี/วิธีที่ได้ถูกพัฒนาขึ้นมาเพื่อกำหนดนิยามของประจุย่อยของอะตอม ดังนี้
-
-\begin{enumerate}
-    \item วิธีที่ใช้ออร์บิทัล (Orbital-based) ซึ่งเป็นการทำ Population โดยใช้ Basis Functions
-        \begin{enumerate}
-            \item Mulliken Charge\autocite{szabo1996}
-            
-            \item L\"{o}wdin Charge\autocite{lowdin1950}
-        \end{enumerate}
-    
-    \item วิธีที่ใช้ศักย์เชิงไฟฟ้าสถิตย์ (Electrostatic Potential-based)
-        \begin{enumerate}
-            \item Merz-Kollman Charge\autocite{singh1984}
-            
-            \item Charges from the Electrostatic Potential (CHELP) Charge\autocite{chirlian1987}
-            
-            \item Charges from the Electrostatic Potential on a Grid (CHELPG) Charge\autocite{breneman1990}
-            
-            \item Restrained Electrostatic Potential (RESP)\autocite{cornell1993}
-        \end{enumerate}
-    
-    \item วิธีที่ใช้ความหนาแน่นของอิเล็กตรอน (Electron Density-based)
-    \begin{enumerate}
-        \item Hirshfeld Charge\autocite{hirshfeld1977}
-        
-        \item Atoms in Molecules (AIM) หรือ Bader Charge\autocite{bader1985,bader1991}
-    \end{enumerate}
-    
-    \item เทนเซอร์เชิงขั้ว (Polar Tensor)\autocite{person1974,milani2010}
-        \begin{enumerate}
-        \item Atomic Polar Tensor (APT) Charge \\
-        $q_{i} = \frac{1}{3}\Big(\pdv{\mu_{x}}{x_{i}} + \pdv{\mu_{y}}{y_{i}} + \pdv{\mu_{z}}{z_{i}}\Big)$
-        \end{enumerate}
-\end{enumerate}
-
-งานวิจัยโดดเด่นและได้รับการตีพิมพ์ในวารสารชั้นแนวหน้าที่ใช้ ML เข้ามาในการทำนายหรือระบุประจุของอะตอม ที่ผู้เขียนได้เลือกมาซึ่งเรียงลำดับตาม 
-Timeline มีดังนี้
+อีกหนึ่งหัวข้องานวิจัยทางเคมีควอนตัมที่ได้รับความนิยมในช่วง 3-4 ปี (ตั้งแต่ปี ค.ศ. 2018) คือการใช้ ML สำหรับการระบุประจุย่อยของอะตอมใน%
+โมเลกุล (Partial Atomic Charge Assignment) งานวิจัยโดดเด่นและได้รับการตีพิมพ์ในวารสารชั้นแนวหน้าที่ใช้ ML เข้ามาในการทำนายหรือ%
+ระบุประจุของอะตอมที่ผู้เขียนได้เลือกมาซึ่งเรียงลำดับตาม Timeline มีดังนี้
 
 \begin{itemize}
     \item \enquote{Fast and Accurate Generation of \textit{ab initio} Quality Atomic Charges Using Nonparametric 
