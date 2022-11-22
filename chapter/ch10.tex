@@ -444,6 +444,7 @@ Environment)
 %--------------------------
 
 \begin{table}[H]
+    \begin{threeparttable}[b]
     \centering
     \caption{พลังงานการทำให้เกิดอะตอม ($U_{0}$) ในหน่วย kcal/mol และพลังงานของออร์บิทัลชั้นที่สูงสุดที่มีอิเล็กตรอน (HOMO) 
     และชั้นที่ต่ำที่สุดที่ไม่มีอิเล็กตรอน (LUMO) ในหน่วย eV ด้วยอัลกอริทึม Machine Learning (ML)}
@@ -452,30 +453,37 @@ Environment)
     \toprule
     \textbf{โมเดล ML} &\textbf{$U_{0}$} &HOMO &LUMO &\textbf{อ้างอิง} \\
     \midrule
-    KRR/CM &9.9 &- &- &Rupp และคณะ\autocite{rupp2012} \\
-    Multilayer NN/Random CM &3.5 &- &- &Montavon และคณะ\autocite{montavon2012} \\
-    Multitask NN/Random CM &3.7 &0.15 &0.12 &Montavon และคณะ\autocite{montavon2013} \\
-    KRR/Random CM &3 &- &- &Hansen และคณะ\autocite{hansen2013} \\
-    KRR/BoB &1.5 &- &- &Hansen และคณะ\autocite{hansen2015} \\
-    KRR/BoB &1.8 &0.15 &0.16 &Huang และ von Lilienfeld\autocite{huang2016} \\
-    KRR/BAML &1.2 &0.1 &0.11 &Huang และ von Lilienfeld\autocite{huang2016} \\
-    KRR/REMatch-SOAP &0.92 &0.11 &0.08 &De และคณะ\autocite{de2016} \\
-    EN/CM &21 &0.34 &0.63 &Faber และคณะ\autocite{faber2017} \\
-    EN/BoB &13.9 &0.28 &0.52 &Faber และคณะ\autocite{faber2017} \\
-    KRR/CM &3 &0.13 &0.18 &Faber และคณะ\autocite{faber2017} \\
-    KRR/BoB &1.5 &0.09 &0.12 &Faber และคณะ\autocite{faber2017} \\
-    KRR/BAML &1.2 &0.09 &0.12 &Faber และคณะ\autocite{faber2017} \\
-    KRR/HDAD &0.6 &0.07 &0.08 &Faber และคณะ\autocite{faber2017} \\
-    KRR/MBTR &0.6 &- &- &Huo และ Rupp\autocite{huo2022} \\
-    GPR/SOAP-GAP &0.4 &- &- &Bart\'{o}k และคณะ\autocite{bartok2017} \\
-    KRR/SOAP multi-kernel &0.14 &- &- &Willatt และคณะ\autocite{willatt2018} \\
-    KRR/FCHL19 &0.25 & & &Christensen และคณะ\autocite{christensen2020} \\
-    AML/amon &<1.0 & & &Huang และ von Lilienfeld\autocite{huang2020} \\
+    KRR/CM\tnote{1} &9.9 &- &- &Rupp และคณะ\autocite{rupp2012} \\
+    Multilayer NN/Random CM\tnote{1} &3.5 &- &- &Montavon และคณะ\autocite{montavon2012} \\
+    Multitask NN/Random CM\tnote{2} &3.7 &0.15 &0.12 &Montavon และคณะ\autocite{montavon2013} \\
+    KRR/Random CM\tnote{1} &3 &- &- &Hansen และคณะ\autocite{hansen2013} \\
+    KRR/BoB\tnote{1} &1.5 &- &- &Hansen และคณะ\autocite{hansen2015} \\
+    KRR/BoB\tnote{2} &1.8 &0.15 &0.16 &Huang และ von Lilienfeld\autocite{huang2016} \\
+    KRR/BAML\tnote{2} &1.2 &0.1 &0.11 &Huang และ von Lilienfeld\autocite{huang2016} \\
+    KRR/REMatch-SOAP\tnote{2} &0.92 &0.11 &0.08 &De และคณะ\autocite{de2016} \\
+    EN/CM\tnote{3} &21 &0.34 &0.63 &Faber และคณะ\autocite{faber2017} \\
+    EN/BoB\tnote{3} &13.9 &0.28 &0.52 &Faber และคณะ\autocite{faber2017} \\
+    KRR/CM\tnote{3} &3 &0.13 &0.18 &Faber และคณะ\autocite{faber2017} \\
+    KRR/BoB\tnote{3} &1.5 &0.09 &0.12 &Faber และคณะ\autocite{faber2017} \\
+    KRR/BAML\tnote{3} &1.2 &0.09 &0.12 &Faber และคณะ\autocite{faber2017} \\
+    KRR/HDAD\tnote{3} &0.6 &0.07 &0.08 &Faber และคณะ\autocite{faber2017} \\
+    KRR/MBTR\tnote{2} &0.6 &- &- &Huo และ Rupp\autocite{huo2022} \\
+    GPR/SOAP-GAP\tnote{2} &0.4 &- &- &Bart\'{o}k และคณะ\autocite{bartok2017} \\
+    KRR/SOAP multi-kernel\tnote{3} &0.14 &- &- &Willatt และคณะ\autocite{willatt2018} \\
+    KRR/FCHL19\tnote{3} &0.25 & & &Christensen และคณะ\autocite{christensen2020} \\
+    AML/amon\tnote{3} &<1.0 & & &Huang และ von Lilienfeld\autocite{huang2020} \\
     \bottomrule
     \end{tabular}
+    \begin{tablenotes}
+        \item [1]ชุดข้อมูล QM7
+        \item [2]ชุดข้อมูล QM7b
+        \item [3]ชุดข้อมูล QM9
+      \end{tablenotes}
+    \end{threeparttable}
 \end{table}
 
 \begin{table}[H]
+    \begin{threeparttable}[b]
     \centering
     \caption{พลังงานการทำให้เกิดอะตอม ($U_{0}$) ในหน่วย kcal/mol และพลังงานของออร์บิทัลชั้นที่สูงสุดที่มีอิเล็กตรอน (HOMO) 
     และชั้นที่ต่ำที่สุดที่ไม่มีอิเล็กตรอน (LUMO) ในหน่วย eV ด้วยอัลกอริทึม Neural Network (NN)}
@@ -484,18 +492,24 @@ Environment)
     \toprule
     \textbf{โมเดล NN} &\textbf{$U_{0}$} &HOMO &LUMO &\textbf{อ้างอิง} \\
     \midrule
-    MPNN &0.45 &0.99 &0.87 &Gilmer และคณะ\autocite{gilmer2017} \\
-    ANI-1a NN/ACSF &<1.5 &- &- &Smith และคณะ\autocite{smith2017,smith2018,smith2019} \\
-    HDNN/w-ACSF &<1.8 &- &- &Gastegger และคณะ\autocite{gastegger2018} \\
-    Multitask NN/CM &44 &0.38 &0.63 &Hou และคณะ\autocite{hou2018} \\
-    SchNet NN &0.32 &0.04 &0.03 &Schütt และคณะ\autocite{schutt2018} \\
-    HIP-NN &0.26 &- &- &Lubbers และคณะ\autocite{lubbers2018} \\
-    HDNN &0.41 &- &- &Unke และ Meuwly\autocite{unke2018} \\
-    RNN/VAE &- &0.16 &0.16 &G\'{o}mez-Bombarelli และคณะ\autocite{gomez-bombarelli2018} \\
-    PhysNet NN &0.14 &- &- &Unke และ Meuwly\autocite{unke2019} \\
-    SchNOrb NN &<0.046 &<0.02 &<0.1 &Sch\"{u}tt และคณะ\autocite{schutt2019a} \\
+    MPNN\tnote{1} &0.45 &0.99 &0.87 &Gilmer และคณะ\autocite{gilmer2017} \\
+    ANI-1a NN/ACSF\tnote{2} &<1.5 &- &- &Smith และคณะ\autocite{smith2017,smith2018,smith2019} \\
+    HDNN/w-ACSF\tnote{1} &<1.8 &- &- &Gastegger และคณะ\autocite{gastegger2018} \\
+    Multitask NN/CM\tnote{1} &44 &0.38 &0.63 &Hou และคณะ\autocite{hou2018} \\
+    SchNet NN\tnote{1} &0.32 &0.04 &0.03 &Schütt และคณะ\autocite{schutt2018} \\
+    HIP-NN\tnote{1} &0.26 &- &- &Lubbers และคณะ\autocite{lubbers2018} \\
+    HDNN\tnote{1} &0.41 &- &- &Unke และ Meuwly\autocite{unke2018} \\
+    RNN/VAE\tnote{1} &- &0.16 &0.16 &G\'{o}mez-Bombarelli และคณะ\autocite{gomez-bombarelli2018} \\
+    PhysNet NN\tnote{1} &0.14 &- &- &Unke และ Meuwly\autocite{unke2019} \\
+    SchNOrb NN\tnote{3} &<0.046 &<0.02 &<0.1 &Sch\"{u}tt และคณะ\autocite{schutt2019a} \\
     \bottomrule
     \end{tabular}
+    \begin{tablenotes}
+        \item [1]ชุดข้อมูล QM9
+        \item [2]ชุดข้อมูล COMP6
+        \item [3]ชุดข้อมูล MD17
+      \end{tablenotes}
+    \end{threeparttable}
 \end{table}
 
 %--------------------------
@@ -809,6 +823,8 @@ $\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-d
    \bottomrule
 \end{tabular}
 \end{table}
+
+โดยตัวย่อที่ใช้ในตารางที่ \ref{tab:struc2spec} และ \ref{tab:spec2struc} มีชื่อเต็มดังต่อไปนี้
 
 \begin{itemize}[topsep=0pt,noitemsep]
     \item CPG: Counterpropagation
