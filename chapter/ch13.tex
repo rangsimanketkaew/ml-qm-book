@@ -1,0 +1,238 @@
+% LaTeX source for ``การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม (Machine Learning for Quantum Chemistry)''
+% Copyright (c) 2022 รังสิมันต์ เกษแก้ว (Rangsiman Ketkaew).
+
+% License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+% https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+\chapter{ไลบรารี่การเรียนรู้ของเครื่องสำหรับเคมีควอนตัม}
+\label{ch:ml_lib}
+
+%--------------------------
+\section{ไลบรารี่สำหรับคำนวณลักษณะเฉพาะเชิงโครงสร้าง}
+\label{sec:lib_feat}
+\idxboth{ไลบรารี่!ลักษณะเฉพาะเชิงโครงสร้าง}{Library!Molecular Structural Feature}
+%--------------------------
+
+ลักษณะเฉพาะเชิงโครงสร้างของโมเลกุลไม่มีความซับซ้อนและสามารถคำนวณออกมาได้ง่าย จริง ๆ แล้วเราอาจจะเขียนสคริปต์สำหรับคำนวณลักษณเฉพาะ%
+ได้โดยที่ไม่ต้องใช้ไลบรารี่เลยก็ได้ อย่างไรก็ตาม ในกรณีที่เราต้องการที่จะคำนวณลักษณะเฉพาะเชิงโครงสร้างหลาย ๆ ตัวสำหรับหลาย ๆ โมเลกุลพร้อมกัน 
+การใช้ไลบรารี่ก็จะสะดวกกว่าในกรณีแบบนี้
+
+%--------------------------
+\subsection{RDkit}
+\label{ssec:rdkit}
+%--------------------------
+
+ไลบรารี่ RDKit\autocite{rdkit} เป็นไลบรารี่สำหรับงานทางด้านเคมีสารสนเทศน์ (Cheminformatics)\footnote{Cheminformatics
+หรือเรียกอีกอย่างว่า Chemoinformatics เป็นทฤษฎีทางเคมีเชิงฟิสิกส์ที่ใช้คอมพิวเตอร์และข้อมูลสารสนเทศน์ (Informatics) หรือที่เรียกใน%
+ภาษาละตินว่า \textit{in silico} มาใช้ในการแก้ปัญหาทางเคมี โดยมีการประยุกต์ใช้ Cheminformatics ทั้งในชีวิวทยาและเคมี นอกจากนี้%
+ยังถูกใช้ในงานวิจัยที่ศึกษาการค้นหาตัวยา (Drug Discovery) อีกด้วย} ได้รับความนิยมเป็นอย่างมากเนื่องจากสามารถคำนวณลักษณะเฉพาะเชิง%
+โครงสร้างได้หลากหลาย\footnote{\url{https://www.rdkit.org}} ตัวอย่างโค้ดสำหรับการใช้งาน RDKit สามารถดูได้ที่ 
+\url{https://www.rdkit.org/docs/Cookbook.html} โดยจะมีโค้ดสำหรับการเปลี่ยนข้อมูลเชิงโมเลกุลจากโครงสร้างไปเป็น SMILES 
+และโค้ดสำหรับการแสดงข้อมูลเชิงโครงสร้างของโมเลกุล เช่น จำนวณของอะตอมแต่ละชนิด, จำนวนพันธะคู่, และจำนวนวงเบนซีน 
+\idxboth{เคมีสารสนเทศน์}{Cheminformatics}
+
+%--------------------------
+\section{ไลบรารี่สำหรับคำนวณลักษณะเฉพาะเชิงอิเล็กทรอนิกส์}
+\label{sec:lib_elec_feat}
+\idxboth{ไลบรารี่!ลักษณะเฉพาะเชิงอิเล็กทรอนิกส์}{Library!Molecular Electronic Feature}
+%--------------------------
+
+ลักษณะเฉพาะเชิงอิเล็กทรอนิกส์ (Molecular Electronic Feature) เช่น Electron Density, Electrostatic Map, และ Frontier 
+Molecular Orbitals (FMOs) มักจะถูกนำมาใช้ในการสร้างชุดข้อมูลเพื่อฝึกสอนโมเดลเพราะว่าคุณสมบัติเหล่านี้เป็นคุณสมบัติเชิงอิเล็กทรอนิกส์%
+ที่มักจะถูกคำนวณออกมาโดยปกติอยู่แล้วด้วยโปรแกรมทางเคมีควอนตัมเชิงคำนวณ (Computational Quantum Chemistry Software)%
+\footnote{\url{https://en.wikipedia.org/wiki/List_of_quantum_chemistry_and_solid-state_physics_software}}
+อย่างไรก็ตามลักษณะเฉพาะเหล่านี้อาจจะยังไม่สามารถที่จะอธิบายคุณลักษณะเชิงอิเล็กทรอนิกส์บางอย่างที่ซับซ้อนของโมเลกุลได้ดีเท่าที่ควร เช่น 
+คุณสมบัติที่เกี่ยวข้องกับควอนตัม ดังนั้นจึงมีลักษณะเฉพาะอื่น ๆ ที่ถูกพัฒนาขึ้นมาโดยรวมข้อมูลเชิงควอนตัมของเข้าไปด้วยเพื่อให้มีความถูกต้องมากขึ้น 
+ซึ่งการที่จะคำนวณลักษณะเฉพาะเหล่านี้ก็มีความซับซ้อนอยู่มิใช่น้อย ดังนั้นจึงได้มีผู้พัฒนาไลบรารี่ที่สามารถคำนวณพารามิเตอร์เหล่านี้ให้เราได้
+
+\begin{table}[H]
+    \centering
+    \caption{รายชื่อและเว็บไซต์ของไลบรารี่ Dataset และ Feature สำหรับเคมีควอนตัม}
+    \label{tab:review_lib_data_qm}
+    \begin{tabular}{cll}
+    \toprule
+    \textbf{ไลบรารี่} &\textbf{เว็บไซต์} &\textbf{อ้างอิง} \\
+    \midrule
+    AFLOWLIB &\url{https://aflow.org/aflow-ml} &Curtarolo และคณะ\autocite{curtarolo2012} \\
+    Materials Project &\url{https://materialsproject.org} &Jain และคณะ\autocite{jain2013} \\
+    OQMD &\url{https://oqmd.org} &Kirklin และคณะ\autocite{kirklin2015} \\
+    libAtoms &\url{https://github.com/libAtoms} &Bart\'{o}k และคณะ\autocite{bartok2018} \\
+    Matminer &\url{https://github.com/markovmodel/deeptime} &Ward และคณะ\autocite{ward2018} \\
+    Chemical VAE &\url{https://ccs-psi.org/node/22} 
+    &G\'{o}mez-Bombarelli และคณะ\autocite{gomez-bombarelli2018} \\
+    JARVIS-DFT &\url{https://github.com/usnistgov/jarvis} &Choudhary และคณะ\autocite{choudhary2018} \\
+    DScribe &\url{https://github.com/SINGROUP/dscribe} &Himanen และคณะ\autocite{himanen2020} \\
+    NOMAD &\url{https://analytics-toolkit.nomad-coe.eu} &Draxl และ Scheffler\autocite{draxl2019} \\
+    OMDB &\url{https://omdb.mathub.io/dataset} &Olsthoorn และคณะ\autocite{olsthoorn2019} \\
+    Khazana &\url{https://khazana.gatech.edu} &Chapman และคณะ\autocite{chapman2020} \\
+    MolDis &\url{https://moldis.tifrh.res.in/index.html} &Kayastha และ Ramakrishnan\autocite{kayastha2021} \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+ตารางที่ \ref{tab:review_lib_data_qm} แสดงไลบรารี่หรือโปรแกรมแพคเกจที่มีชุดข้อมูลให้เรานำมาใช้ได้ รวมถึงไลบรารี่ที่สามารถคำนวณ 
+Feature ของอะตอมและโมเลกุลได้ด้วย
+
+%--------------------------
+\subsection{DScribe}
+\label{ssec:dscribe}
+%--------------------------
+
+DScribe เป็นไลบรารี่ที่สามารถคำนวณลักษณะเฉพาะเชิงอิเล็กทรอนิกส์ของโมเลกุลที่ซับซ้อนได้เยอะมาก\autocite{himanen2020}
+สำหรับเวอร์ชันปัจจุบันสามารถคำนวณลักษณะเฉพาะดังต่อไปนี้\footnote{$^{\ast}$ สามารถคำนวณ Derivative ได้}
+
+\begin{itemize}[topsep=0pt]
+    \item Coulomb Matrix$^{\ast}$
+    
+    \item Sine Matrix
+    
+    \item Ewald Sum Matrix
+    
+    \item Atom-centered Symmetry Functions
+    
+    \item Smooth Overlap of Atomic Positions$^{\ast}$
+    
+    \item Many-body Tensor Representation
+    
+    \item Local Many-body Tensor Representation
+    
+    \item Valle-Oganov Descriptor
+\end{itemize}
+
+คู่มือการใช้งานอ่านได้ที่ \url{https://singroup.github.io/dscribe/latest/index.html}
+
+\noindent ตัวอย่างโค้ดของการใช้ DScribe ในการสร้าง Coulomb Matrix (CM)
+
+\begin{lstlisting}[style=MyPython]
+from dscribe.descriptors import CoulombMatrix
+
+atomic_numbers = [1, 8]
+rcut = 6.0
+nmax = 8
+lmax = 6
+
+# Setting up the CM descriptor
+cm = CoulombMatrix(
+    n_atoms_max=6,
+)
+\end{lstlisting}
+
+\noindent ตัวอย่างโค้ดของการใช้ DScribe ในการสร้าง SOAP kernel
+
+\begin{lstlisting}[style=MyPython]
+from ase.build import molecule
+
+# Molecule created as an ASE.Atoms
+water = molecule("H2O")
+
+# Create SOAP output for the system
+soap_water = soap.create(water, positions=[0])
+
+print(soap_water)
+print(soap_water.shape)
+
+# Create output for multiple system
+samples = [molecule("H2O"), molecule("NO2"), molecule("CO2")]
+positions = [[0], [1, 2], [1, 2]]
+# Serial
+coulomb_matrices = soap.create(samples, positions)
+# Parallel     
+coulomb_matrices = soap.create(samples, positions, n_jobs=2)
+\end{lstlisting}
+
+%--------------------------
+\section{ไลบรารี่สำหรับสร้างโมเดล}
+\label{sec:lib_ml_model}
+%--------------------------
+
+\begin{table}[H]
+    \centering
+    \caption{รายชื่อและเว็บไซต์ของไลบรารี่โมเดล ML สำหรับเคมีควอนตัม}
+    \label{tab:review_lib_ml_qm}
+    \begin{tabular}{cll}
+    \toprule
+    \textbf{ไลบรารี่/โมเดล} &\textbf{เว็บไซต์} &\textbf{อ้างอิง} \\
+    \midrule
+    \multirow{2}{*}{AMP} &\url{https://amp.readthedocs.io/en/latest} &\multirow{2}{*}{Khorshidi and 
+    Peterson\autocite{khorshidi2016}} \\ &\url{https://singroup.github.io/dscribe} & \\
+    GAP &\url{https://github.com/libAtoms/QUIP} &Bart\'{o}k และ Cs\'{a}nyi\autocite{bartok2010} \\
+    \multirow{2}{*}{SNAP} &\url{https://lammps.sandia.gov/doc/pair_snap.html} 
+    &\multirow{2}{*}{Thompson และคณะ\autocite{thompson2015}} \\
+    &\url{https://github.com/materialsvirtuallab/snap} & \\
+    AENET &\url{http://ann.atomistic.net} &Artrith และ Urban\autocite{artrith2016} \\
+    AGNI &\url{https://lammps.sandia.gov/doc/pair_agni.html} &Huan และคณะ\autocite{huan2017} \\
+    PROPhet &\url{https://github.com/biklooost/PROPhet} &Kolb และคณะ\autocite{kolb2017} \\
+    TensorMol &\url{https://github.com/jparkhill/TensorMol} &Yao และคณะ\autocite{yao2018} \\
+    ANI &\url{https://github.com/isayev/ASE_ANI} &Smith และคณะ\autocite{smith2017} \\
+    COMP6 &\url{https://github.com/isayev/COMP6} &Smith และคณะ\autocite{smith2018} \\
+    DeePMD-kit95 &\url{https://github.com/deepmodeling/deepmd-kit} &Wang และคณะ\autocite{wang2018} \\
+    VAMPnet &\url{https://github.com/markovmodel/deeptime} &Mardt และคณะ\autocite{mardt2018} \\
+    CGCNN &\url{https://github.com/txie-93/cgcnn} &Xie และ Grossman\autocite{xie2018} \\
+    ElemNet &\url{https://github.com/dipendra009/ElemNet} &Jha และคณะ\autocite{jha2018} \\
+    OQMD-SC &\url{https://github.com/dipendra009/ElemNet} &Jha และคณะ\autocite{jha2019} \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+%--------------------------
+\subsection{SchNetPack}
+\label{ssec:lib_schnetpack}
+%--------------------------
+
+SchNetPack เป็นชุดโปรแกรมสำหรับการฝึกสอนโมเดล Neural Network สำหรับการทำนายคุณสมบัติเชิงอะตอม\autocite{schutt2019}
+ถูกเขียนโดยภาษา Python 100\% และใช้ไลบรารี PyTorch เป็น Backend สำหรับการสร้างโมเดล SchNet ซึ่งเป็นตัวโมเดลหลักของ SchNetPack
+ผู้อ่านสามารถดาวน์โหลดซอร์สโค้ดของ SchNetPack และศึกษาวิธีการติดตั้งและใช้งานได้ที่เว็บไซต์ \url{https://schnetpack.readthedocs.io}
+
+\noindent Feature หลัก ๆ ของ SchNetPack มีดังนี้
+
+\begin{itemize}
+    \item รองรับการสร้างโมเดล SchNet ซึ่งถูกพัฒนาโดยใช้อัลกอริทึม Convolutional Neural Network (CNN) สำหรับโมเลกุลโดยเฉพาะ%
+    \autocite{schutt2017,schutt2017a}
+    
+    \item รองรับการสร้างโมเดล PaiNN ซึ่งเป็น Equivariant Message-Passing สำหรับโมเลกุลเช่นเดียวกัน\autocite{schutt2021}
+    
+    \item สามารถทำนายค่าเอาต์พุตได้หลากหลาย เช่น Dipole Moments, Polarizability, Stress และคุณสมบัติอื่น ๆ ของโมเลกุล
+    
+    \item มีโมดูลสำหรับ Electrostatics และ Ewald Summation
+    
+    \item รองรับการเพิ่มความเร็วการคำนวณและฝึกสอนโมเดลด้วย GPU
+\end{itemize}
+
+%--------------------------
+\subsection{sGDML}
+\label{ssec:lib_sgdml}
+%--------------------------
+
+sGDML เป็นไลบรารี่ที่รับความนิยมในการสร้างโมเดลของโมเลกุลโดยการใช้ค่าพลังงานและแรงในการฝึกสอนโมเดล\autocite{chmiela2019}
+คู่มือการใช้งานอ่านได้ที่ \url{http://quantum-machine.org/gdml/doc}
+
+\noindent เราสามารถติดตั้ง sGDML โดยใช้ Python Package Manager เช่น PIP ได้ด้วยคำสั่งต่อไปนี้
+
+\begin{lstlisting}[style=MyBash]
+pip install sgdml
+\end{lstlisting}
+
+\noindent ตรวจสอบว่า sGDML ถูกติดตั้งและพร้อมใช้งานหรือไม่
+
+\begin{lstlisting}[style=MyBash]
+(sgdml) rangsiman@linux:~$ which sgdml
+/home/rangsiman/sgdml/bin/sgdml
+
+(sgdml) rangsiman@linux:~$ sgdml
+usage: sgdml [-h] [--version] {all,create,train,validate,select,test,show,reset} ...
+sgdml: error: the following arguments are required: command
+\end{lstlisting}
+
+%--------------------------
+\subsection{PiNN}
+\label{ssec:lib_pinn}
+%--------------------------
+
+PiNN\autocite{shao2020}
+
+%--------------------------
+\subsection{TorchANI}
+\label{ssec:lib_torchani}
+%--------------------------
+
+TorchANI\autocite{gao2020}

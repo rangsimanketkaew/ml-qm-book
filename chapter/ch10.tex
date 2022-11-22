@@ -4,1014 +4,495 @@
 % License: Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
 % https://creativecommons.org/licenses/by-nc-nd/4.0/
 
-\chapter{การทำนายคุณสมบัติของโมเลกุล}
-\label{ch:predict_molprop}
+\chapter{ชุดข้อมูลทางเคมี}
+\label{ch:chem_dataset}
+
+%--------------------------
+\section{ชุดข้อมูล}
+\label{sec:dataset}
+%--------------------------
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\linewidth]{fig/ml_pred_chem.png}
-    \caption{การสำรวจคุณสมบัติเชิงโมเลกุลในปริภูมิเชิงเคมีแบบ Local และ Global 
-    (เครดิตภาพ: \textit{J. Chem. Phys.} 2021, 154, 230903 \autocite{westermayr2021b})}
-    \label{fig:ml_pred_chem}
+    \includegraphics[width=0.8\linewidth]{fig/gigo.png}
+    \caption{แนวคิดของ Garbage In, Garbage Out (GIGO) (เครดิตภาพ: \url{http://oliverhoeller.com})}
+    \label{fig:gigo}
 \end{figure}
 
-ในบทนี้เราจะมาศึกษาการทำนายสมบัติของโมเลกุลด้วย ML ซึ่งถือได้ว่าเป็นหัวใจสำคัญของส่วนที่สองของหนังสือเล่มนี้เลยก็ว่าได้ โดยผู้อ่านจะได้%
-เรียนรู้และทำความเข้าใจลำดับขั้นตอนในการใช้โมเดล ML ในการทำนายคุณสมบัติเชิงอิเล็กทรอนิกส์ทางควอนตัมต่าง ๆ ที่ได้ศึกษาไปแล้วในบทที่ 
-\ref{ch:el_prop} ซึ่งเป้าหมายหลักของการทำวิจัยในสาขานี้ก็คือการศึกษาและพัฒนา Representation และโมเดล ML ที่สามารถทำนาย%
-คุณสมบัติเชิงควอนตัมของโมเลกุลที่ต้องการได้อย่างแม่นยำและเทียบเคียงได้กับผลจากการคำนวณด้วยวิธีเคมีควอนตัมแบบมาตรฐาน เช่น วิธี DFT 
-และวิธีเชิงฟังก์ชันคลื่น\autocite{ceriotti2018} นอกจากนี้ผู้อ่านจะได้ศึกษาตัวอย่างโค้ดที่สามารถนำไปใช้งานในการทำนายได้จริงซึ่งผู้เขียน%
-เชื่อว่าการศึกษาทฤษฎีควบคู่ไปพร้อมกับการเขียนโปรแกรมนั้นจะช่วยทำให้เข้าใจทฤษฎีได้อย่างถูกต้องและรวดเร็วเพราะการเขียนโปรแกรมช่วยให้เรา%
-คิดอย่างเป็นระบบและเข้าใจสิ่งที่ศึกษาอย่างเป็นขั้นเป็นตอน
-\idxboth{การทำนายคุณสมบัติของโมเลกุล}{Molecular Property Prediction}
+ชุดข้อมูล (Data Set) คือการเก็บข้อมูลให้อยู่ในรูปแบบที่สามารถแบ่งประเภทของข้อมูลในชุดข้อมูลได้ โดยส่วนใหญ่แล้วเรามักจะเก็บข้อมูลใน%
+รูปแบบของตาราง โดยตารางของชุดข้อมูลนั้นอาจจะมีหลายคอลัมน์ก็ได้ โดยแต่ละคอลัมน์จะแสดงถึงตัวแปรเฉพาะของข้อมูล ข้อมูลนั้นเป็นสิ่งที่สำคัญ%
+และเป็นองค์ประกอบที่ขาดไม่ได้เลยในการสร้างโมเดลปัญญาประดิษฐ์ ซึ่งการที่เรามีข้อมูลมหาศาลในทุกวันนี้ก็อาจจะเรียกได้ว่าเป็นสาเหตุหลักที่ทำให้%
+เกิด ML ขึ้นมาได้ ชุดข้อมูลถือได้ว่าเป็นหัวใจสำคัญของ ML เลยก็ว่าได้ ถ้าหากเรามีชุดข้อมูลที่มีคุณภาพดี เราก็จะสามารถสร้าง Feature Input 
+Vector ที่มีคุณภาพให้กับโมเดลต้องการฝึกสอนได้ แต่ถ้าหากชุดข้อมูลของเราไม่ดี สิ่งที่ตามมาก็คือโมเดลที่ถูกฝึกสอนออกมานั้นก็จะมีประสิทธิภาพ%
+ในการทำนายที่ต่ำมาก (Garbage In, Garbage Out) 
+
+\idxboth{ชุดข้อมูล}{Dataset}
+\idxboth{ขยะเข้า ขยะเข้า}{Garbage In, Garbage Out}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\linewidth]{fig/dataset.png}
+    \caption{ตัวอย่างชุดข้อมูลแบบ 2 มิติ โดยมี Feature คือ Score, Attempts, และ Qualify (เครดิตภาพ: w3resource.com)}
+    \label{fig:dataset}
+\end{figure}
+
+เรามาดูรายละเอียดของชุดข้อมูลกันมากกว่านี้ดีกว่าครับ เริ่มจากเราต้องทำความเข้าใจมิติของชุดข้อมูล (Dimensionality of Dataset) กันก่อน
+ซึ่งมิติของชุดข้อมูลก็จะมีตั้งแต่ 1 มิติ, 2 มิติ, 3 มิติ, 4 มิติ หรือสูงมากกว่านั้นก็ได้ ให้ลองนึกถึง Tensor ซึ่งเราสามารถเพิ่มจำนวนมิติของข้อมูลได้
+สำหรับกรณีที่ชุดข้อมูลมี 1 มิตินั้นจะง่ายที่สุดเพราะเราจะมองว่าชุดข้อมูลแบบนี้เป็นเวกเตอร์ก็ได้ ชุดข้อมูล 1 มิติก็คือข้อมูลที่มีหลายแถวแต่มีแค่ 1 หลัก 
+หรือจะเป็นชุดข้อมูลที่มีเพียงแค่ 1 แถวแต่มีหลายหลักก็ได้ สำหรับชุดข้อมูลแบบ 2 มิตินั้นให้เปรียบเทียบกับตาราง ซึ่งตารางประกอบไปด้วยแถวและหลัก
+โดยเราจะมองว่าตารางนั้นจริง ๆ แล้วก็คือเมทริกซ์ก็ได้ ซึ่งชุดข้อมูล 2D ประกอบด้วยมิติของแถว (Row) และมิติของหลักหรือคอลัมน์ (Column) 
+เมื่อนำจำนวนของแถวคูณกับจำนวนของหลัก (Row x Column) จะได้ขนาดของชุดข้อมูล (Size) ซึ่งสอดคล้องกับขนาดของเมทริกซ์ เช่น 
+ชุดข้อมูลขนาด 125 x 50 หมายความว่าชุดข้อมูลนี้คือชุดข้อมูลขนาด 2 มิติ ที่มีจำนวนข้อมูลทั้งหมด 125 แถว แต่ละแถวมี 50 หลัก 
+สำหรับชุดข้อมูล 3 มิติ ก็จะมีอีก 1 มิติเพิ่มเข้ามานอกเหนือจากแถวกับหลักซึ่งจะถูกเรียกว่าอะไรนั้นก็ขึ้นอยู่กับว่าข้อมูลนั้นเป็นข้อมูลประเภทไหน 
+เพราะว่าบางครั้งเราก็ไม่ได้ใช้คำว่าแถวกับหลัก เช่น ถ้าเป็นชุดข้อมูลรูปภาพ ก็จะใช้ ความสูง x ความกว้าง x ความลึก (Height x Width x Depth) 
+ซึ่งก็สามารถเรียงสลับได้
+\idxth{ชุดข้อมูล!มิติของชุดข้อมูล}
+\idxen{Dataset!Dimensionality of Dataset}
+
+โดยชุดข้อมูลพื้นฐานที่ใช้กันอย่างแพร่หลายทางด้าน ML ได้แก่ชุดข้อมูลดอกไม้ (Iris Dataset) กับชุดข้อมูลลายมือตัวเลขอารบิก (MNSIT 
+Dataset)
 
 %--------------------------
-\section{แนวทางการปฏิบัติ}
-\label{sec:pred_best_prac}
+\section{ประเภทและการแบ่งชุดข้อมูล}
+\label{sec:split_dataset}
+\idxth{ชุดข้อมูล!ประเภทของชุดข้อมูล}
+\idxen{Dataset!Type of Dataset}
+\idxth{ชุดข้อมูล!การแบ่งชุดข้อมูล}
+\idxen{Dataset!Dataset Splitting}
 %--------------------------
 
-แนวทางปฏิบัติ (Best Practice) หรือลำดับขั้นตอนสำหรับการนำ ML มาประยุกต์กับเคมีควอนตัมสามารถแบ่งออกเป็น 6 ขั้นตอนง่าย ๆ ได้ดังนี้
-\idxen{Best Practice}
+ชุดข้อมูลที่ใช้ใน ML นั้นโดยทั่วไปแล้วมักจะมีอยู่ 2 ประเภทคือชุดข้อมูลสำหรับการฝึกสอน (Training Set) และชุดข้อมูลสำหรับการทดสอบ 
+(Test Set) ซึ่งวัตถุประสงค์ของชุดข้อมูลทั้งสองประเภทนี้ก็ตรงตัวเลยก็คือ Training Set จะถูกนำมาใช้ในการฝึกสอนโมเดล ส่วน Test Set 
+จะถูกเก็บไว้ใช้ในการทดสอบโมเดลหรือการทำนายคำตอบที่โมเดลถูกสอนมา (Prediction) อย่างไรก็ตาม การฝึกสอนโมเดลโดยการใช้ Train Set 
+ทั้งหมดนั้นมักจะทำให้เกิดความโน้มเอียง (Bias) ที่เกิดขึ้นจากชุดข้อมูลและส่งผลให้เกิด Biased ในขั้นตอน Prediction ด้วย เพราะป้องกันเหตุการณ์%
+ดังกล่าวและทำให้เกิด Bias น้อยที่สุด เรามักจะทำการแบ่ง (Split) ชุดข้อมูลฝึกสอนให้เป็นชุดข้อมูลสำหรับการฝึกสอนจริง ๆ (Actual Training 
+Set) และชุดข้อมูลสำหรับการตรวจสอบและยืนยันความถูกต้องซึ่งเรียกอีกอย่างว่า Validation Set
 
-\begin{enumerate}
-    \item วิเคราะห์ชุดข้อมูลดิบและทำความสะอาดข้อมูล (Data Analysis และ Data Cleaning)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/dataset_splitting.png}
+    \caption{การแบ่งชุดข้อมูลทั้งหมดออกเป็น (A) Training Set และ Test Set และ (B) Training Set, Validation Set และ 
+    Test Set (เครดิตภาพ: Wikimedia Commons)}
+    \label{fig:dataset_splitting}
+\end{figure}
+
+ภาพที่ \ref{fig:dataset_splitting} แสดงสัดส่วนแบบคร่าว ๆ ในการแบ่งชุดข้อมูลหลักออกเป็น Training Set และ Test Set 
+และแสดงการแบ่งชุดข้อมูล Training Set อีกครั้งให้เป็น Actual Training Set ที่จะถูกนำไปใช้ในการฝึกสอนโมเดลจริง ๆ และ Validation 
+Set ที่จะถูกนำมาทดสอบโมเดลเพื่อเป็นการหยั่งเชิงความสามารถของโมเดลก่อนที่จะนำไปใช้ทำนายค่าของเอาต์พุตของข้อมูลใน Test Set 
+โดยทั่วไปแล้วหลาย ๆ คนมักจะทำการแบ่งชุดข้อมูลโดยใช้อัตราส่วนคือ 80\% (สำหรับ Training Set) และ 20\% (สำหรับ Test Set) 
+ตามหลักการของ Pareto\footnote{\url{https://en.wikipedia.org/wiki/Pareto_principle}}
+
+แล้วขั้นตอนการลด Bias นั่นมันเกิดขึ้นได้อย่างไร คำตอบก็คือในการแบ่งข้อมูลออกมาเป็น Validation Set (เช่นแบ่งออกมา 20\% จากทั้งหมด)
+โดยทำการสุ่มเลือกบางส่วนของข้อมูลออกมา ซึ่งถ้าหากเราทำวนไปแบบนี้ไปเรื่อย ๆ เราจะเรียกว่าเป็นการทำ Validation แบบข้ามไปมาทั่วทั้ง 
+Training Set ซึ่งเมื่อเรานำ Training Set แต่ละชุดไปฝึกสอนโมเดล เราจะได้ประสิทธิภาพของโมเดลแบบเฉลี่ย เปรียบเสมือนเป็นการเกลี่ย% 
+หาความเท่ากันของข้อมูลนั่นเอง (กระจายออกไปให้เสมอกัน) ท้ายที่สุดแล้วถ้าเราแบ่งชุดข้อมูลตามที่ได้อธิบายมา เราจะมีอัตราส่วนของชุดข้อมูล%
+ย่อย ๆ แต่ละประเภท ดังนี้
+
+\begin{itemize}
+    \item Training: 80\%
+    \begin{itemize}
+        \item Actual Training Set: 60\%
+        
+        \item Cross Validation: 20\%
+    \end{itemize}
     
-    \item เลือก Representation/Descriptor ที่จะนำมาคำนวณ Feature 
+    \item Testing: 20\%
+\end{itemize}
+
+นอกจากนี้แล้วเรายังสามารถแบ่งชุดข้อมูลตามประเภทของอัลกอริทึมของ ML ได้ด้วย โดยแบ่งออกตามประเภทของการเรียนรู้ ดังนี้
+
+\begin{itemize}
+    \item การเรียนรู้แบบมีผู้สอน : นำข้อมูลที่ใช้ในการฝึกสอนมาแยกประเภทผลลัพธ์ด้วยการติดป้ายกำกับ (Labels/Class) เป็นผลเฉลย 
+    จากนั้นนำข้อมูลที่ติดป้ายแล้วไปใช้ในการฝึกโมเดลที่ทำงานผ่านอัลกอริทึมสำหรับสร้างโมเดลที่ใช้ในการทำนายผลลัพธ์
     
-    \item เลือกอัลกอริทึม ML ที่เหมาะสมกับโจทย์ของเรา 
-    
-    \item ฝึกสอนโมเดลและทำนายคำตอบ
-    
-    \item ศึกษาผลกระทบจากการเปลี่ยน Hyperparameter และทำ Validation
-    
-    \item ประเมินประสิทธิภาพของโมเดลและวิเคราะห์ผลการทำนาย
+    \item การเรียนรู้แบบไม่มีผู้สอน : ชุดข้อมูลสำหรับ ML ประเภทนี้จะเป็นแบบไม่ถูกจัดประเภทหรือติดป้ายกำกับข้อมูล วิธีนี้โมเดลของเราจะ%
+    คาดเดาข้อมูลที่ได้รับและทำความเข้าใจถึงโครงสร้างที่ซ่อนอยู่แต่ไม่สามารถหาผลลัพธ์ที่ถูกต้องได้ 100\% แต่จะใช้วิธีสำรวจข้อมูลและใช้การ%
+    ประมาณการว่าข้อมูลนั้นคืออะไร
+\end{itemize}
+
+%--------------------------
+\section{การสร้างชุดข้อมูล}
+\label{sec:create_dataset}
+\idxth{ชุดข้อมูล!การสร้างชุดข้อมูล}
+%--------------------------
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/many_ml_little_dataset.png}
+    \caption{แสดงปัญหาของการที่เรามีชุดข้อมูลที่มีขนาดเล็กเกินไป ซึ่งอัลกอริทึม ML ส่วนใหญ่นั้นต้องการชุดข้อมูลที่มีขนาดใหญ่ 
+    (เครดิตภาพ: \url{https://www.exxactcorp.com})}
+    \label{fig:many_ml_little_dataset}
+\end{figure}
+
+โดยทั่วไปแล้วการเลือกใช้อัลกอริทึม ML นั้นควรจะต้องสอดคล้องกับขนาดของชุดข้อมูล (ปริมาณข้อมูล) ปัญหาก็คือว่าเรามีอัลกอริทึม ML ให้เลือก%
+ใช้เยอะมากแต่ว่าบางครั้งเรามีชุดข้อมูลที่มีขนาดเล็กมากหรือไม่มีชุดข้อมูลเลย ดังนั้นสิ่งที่เราต้องทำก็คือสร้างชุดข้อมูลขึ้นมาเองจากข้อมูลดิบหรือทำ%
+การเพิ่มปริมาณข้อมูลเพื่อให้ได้ชุดข้อมูลที่มีขนาดที่เหมาะสมเพราะว่าอัลกอริทึม ML หลาย ๆ อัลกอริทึมนั้นต้องการชุดข้อมูลที่มีขนาดใหญ่ ซึ่งถ้าถาม%
+ว่าเราต้องการชุดข้อมูลที่ใหญ่ขนาดไหนนั้นไม่มีใครสามารถตอบได้ เพราะว่าชุดข้อมูลแต่ละประเภทนั้นไม่เหมือนกัน แต่ถ้าหากเรามีชุดข้อมูลที่ใหญ่ไว้%
+ก่อนก็จะได้เปรียบ เพราะว่าการที่เรามีข้อมูลที่เยอะนั้นย่อมทำให้การฝึกสอนโมเดลนั้นเป็นไปอย่างมีประสิทธิภาพ ขั้นตอนการสร้างชุดข้อมูลประกอบ%
+ไปด้วย 3 ขั้นหลักดังนี้
+
+\paragraph{1. รวบรวมข้อมูล (Data Collection)} สิ่งแรกที่เราจะทำในการมองหา Dataset ก็คือแหล่งข้อมูลที่เราสามารถนำข้อมูลมาใช้ได้ 
+ถ้าหากแหล่งข้อมูลไม่น่าเชื่อถือเราก็มักจะได้ชุดข้อมูลที่มีคุณภาพต่ำซึ่งอาจจะมีข้อผิดพลาดในชุดข้อมูลด้วยเช่นกัน เช่น ข้อมูลที่ถูกสร้างขึ้นมา 
+(ข้อมูลปลอมหรือ Fake Data) 
+
+\paragraph{2. ประมวลผลข้อมูลก่อน (Data Preprocessing)} หลักการสำคัญข้อหนึ่งของวิทยาศาสตร์เชิงข้อมูลก็คือทำความสะอาดชุดข้อมูล 
+(Data Cleaning) รวมไปถึงการทราบที่มาที่ไปและการทำความเข้าใจชุดข้อมูล เราต้องถามตัวเองก่อนว่าชุดข้อมูลที่เราสนใจนั้นเคยถูกใช้มาก่อน%
+หน้านี้แล้วหรือยัง ถ้าหากว่ายังและเป็นชุดข้อมูลใหม่ เราควรจะต้องตั้งข้อสังเกตหรือสมมติฐานไว้ก่อนว่าชุดข้อมูลชุดนี้อาจจะมีข้อมูลที่ผิดปกติซ่อนอยู่ได้ 
+หรืออาจจะมีข้อมูลที่ไม่ครบถ้วนขาดหายไป เราสามารถทำการประมวลผลชุดข้อมูลก่อนนำไปใช้งานจริงได้โดยการดูที่คุณภาพของ Features รวมไปถึง 
+Bias ภายในชุดข้อมูล บางชุดข้อมูลมี Features เยอะมากแต่ว่ามี Bias เยอะมาก ๆ กับ Features เพียงแค่ 2-3 Features นอกจากนี้แล้ว%
+ปริมาณของชุดข้อมูลก็มีผลด้วยเพราะว่าถ้าหากเรามีปริมาณข้อมูลที่น้อยเกินไปก็อาจจะเกิดปัญหา Overfitting ได้ในภายหลัง
+
+\paragraph{3. การทำคำอธิบายประกอบ (Annotatation)} หลังจากทำความสะอาดข้อมูลเสร็จเรียบร้อยแล้วสิ่งที่เราควรจะต้องในลำดับต่อไปคือ 
+Annotate นั่นคือเป็นการทำให้มั่นใจว่าข้อมูลของเรานั้นมันสามารถนำไปใช้ในการสอนเครื่องจักรเข้าใจได้ อธิบายง่าย ๆ คือทำให้คอมพิวเตอร์สามารถ%
+เรียนรู้จากข้อมูลได้ นั่นก็เพราะว่าเครื่องจักรไม่สามารถเข้าใจข้อมูลเหมือนอย่างที่มนุษย์เข้าใจ ดังนั้นเราควรจะต้องทำการเพิ่มคำอธิบายเชิงดิจิทัลให้%
+กับข้อมูลนั่นก็คือการระบุค่าเฉพาะสำหรับข้อมูลนั้น ๆ หรือที่เรียกว่าการติดป้าย (Labeling)
+
+%--------------------------
+\section{ปริภูมิเคมี}
+\label{sec:chem_space}
+\idxboth{ปริภูมิเคมี}{Chemical Space}
+%--------------------------
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/tmap_pdb.png}
+    \caption{ปริภูมิเคมีของชุดข้อมูลโปรตีน Protein Data Bank (PDB) โดยใช้ไลบรารี่ TMAP ในการคำนวณหาความเชื่อมโยง}
+    \label{fig:tmap_pdb}
+\end{figure}
+
+ปริภูมิเคมี (Chemical Space)\autocite{kirkpatrick2004} เป็นแนวคิดที่อธิบายว่าจำนวนและชนิดของโมเลกุลนั้นไม่ที่สิ้นสุด (Infinity) 
+ซึ่งเปรียบเสมือนจำนวนดวงดาวในจักรวาลที่ก็ไม่มีที่สิ้นสุดเหมือนกัน ในขณะที่นักดาราศาสตร์พยายามสำรวจค้นหาดาวดวงใหม่นั้น นักเคมีก็สำรวจหา%
+โมเลกุลชนิดใหม่ที่ซ่อนอยู่ในปริภูมิเคมี การค้นพบโมเลกุลใหม่นั้นอาจนำมาซึ่งคุณสมบัติเชิงเคมีที่น่าสนใจที่เราสามารถนำเอาองค์ความรู้ไปพัฒนาและ%
+ต่อยอดในการศึกษาเคมีแขนงต่าง ๆ ได้ เช่น นำโมเลกุลที่ค้นพบใหม่นี้ไปศึกษาปฏิกิริยาใหม่ ๆ หรือรวมไปถึงการนำไปใช้ประโยชน์ในระยะยาวและ%
+ใช้จริงในระดับอุตสาหกรรม เช่น การพัฒนาวัสดุหรือผลิตภัณฑ์ชนิดใหม่ 
+\idxth{ชุดข้อมูลเคมีควอนตัม}
+\idxen{Quantum Chemistry Dataset}
+
+ภาพที่ \ref{fig:tmap_pdb} แสดงปริภูมิเคมีของชุดข้อมูล Protein Data Bank (PDB) ซึ่งเป็นชุดข้อมูลที่มีตำแหน่งของอะตอมของโปรตีน
+ข้อมูลที่เกี่ยวข้องกับโครงสร้างและข้อมูลที่เกี่ยวกับ NMR\footnote{ดูรายละเอียดของ PDB ได้ที่ \url{https://www.rcsb.org/}}
+โดยปริภูมินี้ถูกคำนวณด้วยวิธี Tree MAP (TMAP)\autocite{probst2020} ซึ่งเป็นการจัดเรียงและอธิบายความสัมพันธ์ระหว่างข้อมูลแต่ละจุดใน%
+รูปแบบของแผนภาพต้นไม้
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/tmap_qm9.png}
+    \caption{ปริภูมิเคมีของชุดข้อมูลโมเลกุลขนาดเล็ก QM9 โดยใช้ไลบรารี่ TMAP ในการคำนวณหาความเชื่อมโยง}
+    \label{fig:tmap_qm9}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/tmap_qm9_zoom.png}
+    \caption{ภาพขยายของโมเลกุลที่สุ่มเลือกจากปริภูมิเคมีของชุดข้อมูลโมเลกุลขนาดเล็ก QM9}
+    \label{fig:tmap_qm9_zoom}
+\end{figure}
+
+นอกจากนี้ยังมีอีกหนึ่งตัวอย่างนั่นคือปริภูมิเคมีของชุดข้อมูล QM9 ซึ่งแสดงในภาพที่ \ref{fig:tmap_qm9} ถ้าเราขยายเข้าไปใกล้ ๆ จะพบว่าจุด%
+แต่ละจุดนั้นคือโมเลกุล เช่น โมเลกุลที่แสดงในภาพที่ \ref{fig:tmap_qm9_zoom} โดยเราสามารถตีความแผนภาพนี้ได้ว่ายิ่งจุดอยู่ใกล้กันมาก%
+เท่าไหร่ก็หมายความว่าโมเลกุลเหล่านั้นมีความเชื่อมโยงกันมากเท่านั้น และถ้าอยู่ห่างกัน เช่น อยู่กันคนละกลุ่ม ก็หมายความว่าโมเลกุลมีความสัมพันธ์%
+กันน้อย สำหรับสีที่ใช้ในการไฮไลท์จุดแต่ละจุดนั้นแสดงถึงค่าของ cLogP ซึ่งเป็นสเกลที่บอกถึงความสามารถในการละลายนำซึ่งก็คือชอบน้ำ 
+(Hydrophilic) หรือไม่ชอบน้ำ (Hydrophobic) นั่นเองซึ่งมีค่าตั้งแต่ -3.16 ถึง 3.76 และเป็นปริมาณที่ไม่มีหน่วย (Unitless)
+
+%--------------------------
+\section{การสร้างชุดข้อมูลเคมีควอนตัม}
+\label{ssec:step_create_qm_dataset}
+\idxth{ชุดข้อมูลเคมีควอนตัม!การสร้างชุดข้อมูล}
+\idxen{Quantum Chemistry Dataset!Create Dataset}
+%--------------------------
+
+การสร้างชุดข้อมูลเคมีควอนตัมสามารถแบ่งออกได้เป็น 2 ประเภท ดังนี้
+
+\begin{enumerate}[topsep=0pt]
+    \item ชุดข้อมูลแบบที่มีเพียงหนึ่งโมเลกุลแต่มีหลาย Configuration: เป็นชุดข้อมูลที่โมเลกุลเพียงแค่หนึ่งโมเลกุลนั้นมีการจัดรูปแบบเชิง%
+    โครงสร้างที่หลากหลายแตกต่างกัน โดยเราสามารถใช้การจำลองด้วยวิธี Molecular Dynamics แล้วนำ Trajectory มาใช้เป็นชุดข้อมูล%
+    ก็ได้ นอกจากนี้เรายังสามารถนำ Configuration (หรือจะเรียกว่า Conformer ก็ได้) ซึ่งเป็นโครงสร้างใน Trajectory มาคำนวณหา%
+    คุณสมบัติเชิงอิเล็กทรอนิกส์เพิ่มเติมด้วยวิธีการคำนวณที่มีความแม่นยำมากกว่า เช่น DFT หรือ MP2
+
+    \item ชุดข้อมูลแบบที่มีหลายโมเลกุล โดยแต่ละโมเลกุลมีเพียงหนึ่ง Configuration: ชุดข้อมูลแบบนี้จะมีความซับซ้อนในการสร้างที่มาก%
+    กว่าชุดข้อมูลแบบแรกนั่นก็เพราะว่าเราจะต้องมีการสร้างอัลกอริทึมที่สามารถสร้างโมเลกุลที่มีความหลากหลายแตกต่างกันได้และโมเลกุลที่สร้าง%
+    ขึ้นมานั้นจะต้องเป็นโมเลกุลที่เหมาะสม มีโครงสร้างที่เหมาะสม แต่ถูกต้องตามหลักเคมี เช่น มีจำนวนพันธะที่เหมาะสม สามารถนำมาสังเคราะห์%
+    หรือศึกษาได้ในเชิงการทดลอง
 \end{enumerate}
 
-ขั้นตอนแรกของการนำ ML มาประยุกต์กับเคมีควอนตัมก็คือการเตรียมข้อมูลดิบ (Raw Data) นั่นก็คือข้อมูลทางเคมีเบื้องต้นของโมเลกุลที่เรามี 
-โดยส่วนใหญ่แล้วนักเคมีเชิงคำนวณมักจะเริ่มต้นด้วยการเตรียม Cartesian Coordinates ของชุดโมเลกุลที่ต้องการศึกษา เช่น โมเลกุลอินทรีย์
-สารประกอบโลหะ ฯลฯ เมื่อเรามีชุดข้อมูลแล้วสิ่งที่เราควรทำต่อไปก็คือการวิเคราะห์ข้อมูลแบบเชิงลึก (Exploratory Data Analysis หรือ EDA) 
-ซึ่งในขั้นตอนนี้เราควรจะต้องทำความสะอาดข้อมูลดิบด้วย เช่น การนำค่าผิดปกติออกไป การแปลงพารามิเตอร์บางค่าให้อยู่ในรูปแบบที่เหมาะสม 
-โดยเราสามารถใช้เทคนิค Unsupervised ML เช่น Elliptic Envelope, Isolation Forest, และ Local Outlier Factor (LOF)
-ในการตรวจหาค่าผิดปกติได้
-\idxen{Best Practice!Data Analysis}
-\idxen{Best Practice!Data Cleaning}
+%--------------------------
+\section{ชุดข้อมูลเคมีควอนตัมมาตรฐาน}
+\label{sec:std_dataset}
+\idxth{ชุดข้อมูลเคมีควอนตัม!ชุดข้อมูลเคมีมาตรฐาน}
+\idxen{Quantum Chemistry Dataset!Standard Dataset}
+%--------------------------
 
-ลำดับถัดมาคือเราจะต้องเลือก Representation หรือ Descriptor ที่เราต้องการนำมาคำนวณมาคุณสมบัติต่าง ๆ ของโมเลกุล 
-ซึ่งเรามักจะได้มาจากการคำนวณด้วยวิธีแบบดั้งเดิม โดยการคำนวณ Representation นั้นก็จะมีให้เลือกมากมาย ขึ้นอยู่กับความสอดคล้องของอินพุต 
-(Feature ที่เราคำนวณ) กับเอาต์พุตที่เราต้องการจะทำนาย ซึ่งขั้นตอนนี้จะเป็นการสร้าง Feature Vector สำหรับการฝึกโมเดล ML นั่นเอง 
-เมื่อเราได้ชุดข้อมูลที่มี Input Feature แล้ว อาจจะมีขั้นตอนที่เพิ่มเข้ามาเพื่อช่วยให้เราเข้าใจชุดข้อมูลได้มากขึ้น เช่น เราอาจจะใช้วิธีทางสถิติเข้า%
-มาช่วยคำนวณค่าทางสถิติของชุดข้อมูลก่อนนำไปฝึกสอนโมเดล เช่น ค่าเฉลี่ย (Mean), ค่าเบี่ยงเบน (Deviation), การแจกแจงความถี่, 
-(Frequency), ความแปรปรวน (Variance), และสหสัมพันธ์ของเพียร์สัน (Pearson Correlation) ซึ่งค่าทางสถิติเหล่านี้จะช่วยให้เข้าใจการ%
-กระจายตัวในชุดข้อมูลรวมไปถึงความสำคัญ (Importance) ของ Feature แต่ละตัวในชุดข้อมูล ซึ่งนำไปสู่การตัดสินใจและวิเคราะห์ว่า Feature 
-ตัวไหนที่น่าจะมีผลต่อประสิทธิภาพของโมเดลเรามากที่สุด 
-
-เมื่อเราได้ชุดข้อมูลที่มีความเหมาะสมแล้ว ขั้นตอนต่อมาคือการเลือกเทคนิค ML ที่เราต้องการจะใช้สำหรับฝึกสอน ข้อแนะนำก็คือในช่วงเริ่มต้นเราอาจ%
-จะยังไม่ต้องไปใช้เทคนิคที่ซับซ้อนหรืออลังการมากก็ได้ เพราะการที่เราใช้เทคนิคที่ซับซ้อนหรือมีความสิ้นเปลืองสูงตั้งแต่แรกนั้นอาจจะไม่ได้การันตีว่า%
-เราจะได้โมเดลที่ดีเสมอไปและยังเสียเวลาอีกด้วย ดังนั้นการเลือกใช้เทคนิคง่าย ๆ เช่น Ridge Regression ในช่วงเริ่มต้นก็อาจจะทำให้เรามีโมเดล 
-MLP ที่มีประสิทธิภาพมาก ๆ แล้วก็ได้ นอกจากนี้ผู้เขียนมักจะพบเห็นผู้ที่เพิ่งเริ่มศึกษา ML หลาย ๆ คนที่เริ่มฝึกสอนโมเดลด้วย Deep Neural 
-Network โดยการใช้เทคนิคขั้นสูงกับข้อมูลที่มีความเรียบง่ายซึ่งตรงจุดนี้บางครั้งมันก็มีความไม่เหมาะสมระหว่างเทคนิคและข้อมูลที่เรามี ซึ่งการทำ%
-แบบนี้เราอาจจะเรียกว่าขี่ช้างจับตั๊กแตน อย่างไรก็ตามประเด็นการเลือกใช้เทคนิค ML นี้เป็นเพียงความเห็นของผู้เขียนซึ่งท้ายที่สุดแล้วก็ขึ้นอยู่กับ%
-วิจารณญานของแต่ละคนครับ
-
-เมื่อเราเลือกเทคนิค ML ได้แล้ว ขั้นตอนต่อมาก็คือการสร้างโมเดลและฝึกสอนกับ Training Set โดยในขั้นตอนนี้เราอาจจะลองสร้างหลาย ๆ 
-โมเดลและทำการปรับ Hyperparameter ไปด้วยก็ได้ (ควรเปลี่ยนค่าอย่างเป็นระบบและให้สอดคล้องกัน) นอกจากนี้เราอาจจะทำ Validation 
-เพิ่มด้วยก็ได้เพื่อเป็นการทดสอบความสามารถของเทคนิค ML ที่เราได้เลือกมาใช้ว่ามีประสิทธิภาพอย่างไร เมื่อเราได้โมเดลที่ถูกฝึกสอนมาแล้ว 
-ลำดับต่อมาก็คือการทำนายหรือพยากรณ์คำตอบนั่นเอง โดยเราควรจะต้องมาวิเคราะห์ถึงปัจจัยที่ส่งผลต่อการทำนาย พยายามหาความเชื่อมโยงระหว่าง 
-Feature ที่เลือกใช้, เทคนิค ML และ Hyperparameters ต่าง ๆ ที่เราได้กำหนดและลองปรับเปลี่ยนค่าในระหว่างการฝึกสอนโมเดล 
-เมื่อเราได้โมเดลที่ถูกฝึกสอนมาอย่างดีและมีประสิทธิภาพที่อยู่ในเกณฑ์ที่ยอมรับได้แล้วนั้น เราก็จะมีโมเดลที่พร้อมจะไปใช้งานจริงครับ
+QM9 เป็นหนึ่งในชุดข้อมูลเคมีควอนตัมที่ได้รับความนิยมและถูกนำมาใช้ในงานวิจัย ML สำหรับเคมีควอนตัมเป็นอย่างมาก ซึ่งถูกใช้อย่างแพร่หลายตั้งแต่ปี 
+ค.ศ. 2014 เป็นต้นมา\autocite{ruddigkeit2012,ramakrishnan2014} โดยบทความงานวิจัยแรกที่นำ QM9 มาใช้ในการทดสอบประสิทธิภาพ%
+ของโมเดล ML นั้นได้รายงานค่าความผิดพลาดของโมเดล ML ที่ใช้ในการทดสอบว่ามีค่าคลาดเคลื่อนไม่เกิน 10 kcal/mol ซึ่งในเชิงการวัดนั้นถือว่า%
+มีคลาดเคลื่อนที่เยอะมาก ๆ และในเวลาต่อมาก็ได้มีการพัฒนาระเบียบวิธีวิจัยรวมไปถึงโมเดล ML และ Descriptor ใหม่ ๆ จนทำให้ในปัจจุบันนั้น%
+นักวิจัยสามารถที่จะทำนายหรือพยากรณ์ค่าพลังงานของโมเลกุลทางเคมีอินทรีย์ขนาดเล็กได้แม่นยำมากโดยมีค่าความคลาดเคลื่อนประมาณ 1 kcal/mol 
+หรือต่ำกว่านั้น ซึ่งค่า 1 kcal/mol นี้ถือได้ว่าเป็น \textit{ค่าความถูกต้องทางเคมี (Chemical Accuracy)} ซึ่งเป็นค่ามาตรฐานที่ต่ำที่สุดที่%
+เทคนิคทางการทดลองสามารถวัดได้ โดยถ้าหากค่าความคลาดเคลื่อนทางการคำนวณที่ต่ำไปกว่า 1 kcal/mol แล้วเทคนิคต่าง ๆ ในเชิงการทดลอง%
+จะไม่สามารถระบุความแตกต่างของความคลาดเคลื่อนที่แม่นยำได้อีกต่อไป
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\linewidth]{fig/ml_workflow.png}
-    \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์แบบที่ 1 (เครดิตภาพ: \url{https://learnbyinsight.com})}
-    \label{fig:ml_workflow}
+    \includegraphics[width=\linewidth]{fig/qm9_molecules.jpg}
+    \caption{โมเลกุลเพียงบางส่วนของชุดข้อมูล QM9}
+    \label{fig:m9_mol}
 \end{figure}
 
-\begin{figure}[htbp]
+QM9 ประกอบไปด้วยข้อมูลคุณสมบัติอิเล็กทรอนิกส์ของโมเลกุลมากถึง 134,000 โมเลกุล โดยทุกโมเลกุลมีธาตุพื้นฐานเป็นองค์ประกอบ ประกอบไปด้วย 
+คาร์บอน (C), ไนโตรเจน, (N), ออกซิเจน (O), ไฮโดรเจน (H), และฟลูออรีน (F) โดย Feature หลักของ QM9 ก็จะมีพิกัดคาร์ทีเซียนของ%
+อะตอมทุกอะตอมในโมเลกุลซึ่งได้มาจากการคำนวณการปรับโครงสร้าง (Geometry Optimization) ด้วยระเบียบวิธี B3LYP/6-31G(2df,p) กับ 
+G4MP2 และนอกจากนี้ยังมีค่า Label หรือค่าที่ไว้ใช้ในการเปรียบเทียบการพยากรณ์ดังแสดงในตารางที่ \ref{tab:qm9_feature}%
+\footnote{โมเดล ML ที่เหมาะสมสำหรับการฝึกสอนด้วย QM9 นั้นจะต้องไม่ขึ้นกับ Translation, Rotation และ Permutation}
+
+\begin{table}[htbp]
     \centering
-    \includegraphics[width=\linewidth]{fig/ml_pipeline.png}
-    \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์แบบที่ 2 (เครดิตภาพ: \url{https://cds.cern.ch})}
-    \label{fig:ml_pipeline}
-\end{figure}
+    \caption{ข้อมูล Feature ของชุดข้อมูล QM9}
+    \label{tab:qm9_feature}
+    \small
+    \begin{tabular}{llll}\toprule
+    \textbf{ดัชนี} &\textbf{ชื่อ} &\textbf{หน่วย} &\textbf{คำอธิบาย} \\\midrule
+    0 &index &- &Consecutive, 1-based Integer Identifier of Molecule \\
+    1 &A &GHz &ค่าคงที่การหมุน (Rotational Constant) A \\
+    2 &B &GHz &ค่าคงที่การหมุน (Rotational Constant) B \\
+    3 &C &GHz &ค่าคงที่การหมุน (Rotational Constant) C \\
+    4 &mu &Debye &ไดโพลโมเมนต์ (Dipole Moment) \\
+    5 &alpha &Bohr$^3$ &Isotropic Polarizability \\
+    6 &homo &Hartree &พลังงานของ Highest Occupied Molecular Orbital (HOMO) \\
+    7 &lumo &Hartree &พลังงานของ Lowest Unoccupied Molecular Orbital (LUMO) \\
+    8 &gap &Hartree &พลังงานระหว่าง LUMO and HOMO (Energy Gap) \\
+    9 &r2 &Bohr$^2$ &Electronic Spatial Extent \\
+    10 &zpve &Hartree &Zero Point Vibrational Energy \\
+    11 &U0 &Hartree &พลังงานภายใน (Internal Energy) ที่ 0 K \\
+    12 &U &Hartree &พลังงานภายใน (Internal Energy) ที่ 298.15 K \\
+    13 &H &Hartree &Enthalpy at 298.15 K \\
+    14 &G &Hartree &พลังงานอิสระ (Free Energy) ที่ 298.15 K \\
+    15 &Cv &cal/(mol K) &ความจุความร้อน (Heat Capacity) ที่ 298.15 K \\
+    \bottomrule
+    \end{tabular}
+\end{table}
 
-%--------------------------
-\section{การเลือกโมเดลที่เหมาะสม}
-\label{sec:choose_ml_model}
-\idxen{Model Selection}
-%--------------------------
+ชุดข้อมูล QM9 มีข้อมูลพิกัดคาร์ทีเซียน (Cartesian Coordinates), ลักษณะเฉพาะ (Features), และค่าพลังงานซึ่งเป็น Target ของข้อมูล 
+โดยผู้อ่านสามารถดาวน์โหลดมาใช้งานได้ฟรีจากเว็บไซต์ \url{http://quantum-machine.org/datasets/} คราวนี้เราลองมาดูโค้ดสำหรับ%
+การใช้งาน QM9 โดยใช้ภาษา Python ตามด้านล่างนี้ได้เลย
 
-ปัจจัยที่เราควรพิจารณาในการเลือกอัลกอริทึม ML สำหรับทำการฝึกสอนโมเดลมีดังนี้
+\noindent ทำการเรียกใช้ไลบรารี่และอ่านไฟล์ของชุดข้อมูล
+
+\begin{lstlisting}[style=MyPython]
+# Import libraries
+import ase.io as aio
+import pandas as pd
+
+# Read qm9.csv
+qm9_data = pd.read_csv('./qm9.csv', index_col=0)
+\end{lstlisting}
+
+\noindent เราสามารถใช้คำสั่งด้านล่างในการแสดง Target ได้
+
+\begin{lstlisting}[style=MyPython]
+# Convert energy from Hartree to kcal/mol
+target = qm9_data['u0'] * 627.5096080305927 
+print(target)
+
+# Output
+0         -25400.917498
+40       -121896.331092
+80       -146555.740566
+120      -122481.233425
+160      -168344.348805
+              ...      
+119800   -242900.012196
+119840   -230424.279698
+119880   -266202.856340
+119920   -252980.566249
+119960   -288738.466448
+Name: u0, Length: 3000, dtype: float64
+\end{lstlisting}
+
+\noindent อ่านพิกัดคาร์ทีเซียนของโมเลกุล
+
+\begin{lstlisting}[style=MyPython]
+# We read xyz coorinates of all the molecules with ase aio.read tool
+ase_mols = [aio.read('data/qm9/qm9_xyz/' + mol + '.xyz') for mol in qm9_data.mol_id]
+\end{lstlisting}
+
+\noindent ตรวจสอบขนาดของโมเลกุลที่ใหญ่ที่สุดในชุดข้อมูล
+
+\begin{lstlisting}[style=MyPython]
+# Check the size of molecules in the dataset
+size=[]
+for mol in ase_mols:
+    num = len(mol.get_atomic_numbers())
+    size.append(num)
+# Show maximum size of the molecule in the dataset
+max(size)
+
+# Output
+27
+\end{lstlisting}
+
+โดยโค้ดด้านบนที่เราใช้สำหรับการโหลดชุดข้อมูล QM9 นั้นเราจะนำไปใช้ต่อในบทที่ \ref{sec:pred_tot_ener} สำหรับการทำนายพลังงานรวม%
+ของโมเลกุลของชุดข้อมูล QM9
+
+นอกจาก QM9 แล้วยังมีชุดข้อมูลอื่น ๆ ที่นักวิจัยมักจะนำมาใช้ในการฝึกสอนโมเดลและทำวิจัย เช่น 
 
 \begin{itemize}[topsep=0pt]
-    \item การตีความของอัลกอริทึม (Interpretability): เมื่อเราพูดถึง Interpretability ของอัลกอริทึม ML หมายความว่าเรากำลัง%
-    พูดถึงความสามารถของอัลกอริทึมในการอธิบายการทำนายผล ซึ่งเราเรียกอัลกอริทึมที่ขาดความสามารถในการอธิบายดังกล่าวว่ากล่องดำ 
-    (Black-box)
-
-    อัลกอริทึมอย่างเช่น KNN มี Interpretability ที่สูงมากผ่านการทำ Feature Importance และอัลกอริทึมอย่างเช่นโมเดลเชิงเส้นมี 
-    Interpretability สูงผ่านการคำนวณน้ำหนัก (Weights) ของแต่ละ Feature 
+    \item QM7\autocite{blum2009,rupp2012}
     
-    \item จำนวนของข้อมูลในชุดข้อมูลและจำนวน Features: ขนาดของชุดข้อมูลมีผลอย่างมากต่อการเลือกอัลกอริทึม ML เช่น อัลกอริทึม 
-    Neural Network นั้นทำงานได้ดีกับชุดข้อมูลที่มีขนาดใหญ่และมีปริมาณ Feature ที่เยอะ
+    \item QM7b\autocite{blum2009,montavon2013}
     
-    \item ชนิดของข้อมูล (Data Format): ปกติแล้วชนิดของข้อมูลนั้นมีหลากหลายรูปแบบ โดยชนิดของข้อมูลส่วนใหญ่จะเป็นแบบหมวดหมู่
-    (Categorical) และแบบตัวเลข (Numerical) ซึ่งบางชุดข้อมูลอาจจะมีแค่หมวดหมู่หรืออาจจะมีแค่ตัวเลข และอาจจะมีทั้งสองแบบก็ได้
+    \item QM8\autocite{ruddigkeit2012,ramakrishnan2015}
     
-    \item ความเป็นเส้นตรงของข้อมูล (Linearity of Data): การเข้าใจความเป็นเชิงเส้นของข้อมูลนั้นสำคัญมากเพราะว่าจะเป็นการช่วยให้%
-    เราสามารถวิเคราะห์ขอบเขตการตัดสินใจและเส้น Regression Line ตัวอย่างเช่นถ้าข้อมูลสามารถถูกแยกได้แบบเชิงเส้นหรือเส้นตรงเราก็%
-    สามารถใช้อัลกอริทึมแบบเชิงเส้นอย่างเช่น SVM, Linear Regression หรือ Logistic Regression ได้ แต่ถ้าโมเดลมีความไม่เป็นเชิง%
-    เราก็ควรใช้อัลกอริทึมอย่างเช่น Neural Network
-    
-    \item ระยะเวลาในการฝึกสอนโมเดล (Training Time): ระยะเวลาในการฝึกสอนโมเดลของแต่ละอัลกอริทึมนั้นต่าง อัลกอริทึมพื้นฐานเช่น 
-    KNN และ Logistic Regression นั้นใช้ระยะเวลาไม่นานมากเมื่อเทียบกับอัลกอริทึมอื่น ส่วนอัลกอริทึมที่มีความซับซ้อนเช่น Neural
-    Network นั้นมักจะใช้เวลานานในการฝึกสอน นอกจากนี้ยังมีอัลกอริทึมบางประเภทที่ระยะเวลาในการฝึกสอนนั้นขึ้นอยู่กับจำนวนของ CPU Cores 
-    ที่ใช้ในการรัน เช่น Random Forest 
-    
-    \item ระยะเวลาในการทำนาย (Prediction Time): นอกเหนือจากระยะเวลาในการฝึกสอนเราก็ควรคำนึงถึงระยะเวลาที่ใช้ในการทำนายด้วย 
-    โดยอัลกอริทึมอย่างเช่น Linear Regression, Logistic Regression และ Neural Network บางประเภทนั้นสามารถทำนายได้อย่าง%
-    รวดเร็ว อย่างไรก็ตามอัลกอริทึมอย่างเช่น KNN หรือการทำ Ensemble Model นั้นใช้เวลาเยอะกว่ามากในการทำนาย
-    
-    \item หน่วยความจำที่ต้องใช้ (Memory Requirements): ถ้าหากชุดข้อมูลของเรามีขนาดใหญ่ก็จะทำให้พารามิเตอร์หรือตัวแปรที่ถูกสร้าง%
-    ขึ้นและถูกคำนวณในระหว่างการฝึกสอนโมเดลนั้นเยอะตามไปด้วย ส่งผลให้ปริมาณของหน่วยความจำ (Memory) นั้นต้องเพียงพอสำหรับการ%
-    ฝึกสอนโมเดล ดังนั้นถ้าหากเรามีข้อมูลที่มีขนาดใหญ่ การเลือกอัลกอริทึม ML ที่เหมาะสมและไม่ซับซ้อนมากก็จะทำให้ไม่มีปัญหาเกี่ยวกับ 
-    Memory
+    \item ISO17\autocite{schutt2017,schutt2017a,ramakrishnan2014}
 \end{itemize}
 
-นอกจากนี้แล้วผู้อ่านขออธิบายเพิ่มเติมในส่วนของการเลือกเคอร์เนล (Kernel) สำหรับการทำ Regression โดยเคอร์เนลที่มักถูกใช้นั้นมีดังต่อไปนี้
-\idxboth{เคอร์เนล}{Kernel}
+\noindent ซึ่งก็จะมี Label สำหรับวัตถุประสงค์ในการฝึกสอนโมเดลในการเพิ่มความสามารถการพยากรณ์คุณสมบัติเคมีของโมเลกุลที่ต่างกันออกไป 
+โดยตารางที่ \ref{tab:compare_qm_dataset} แสดงการเปรียบเทียบชุดข้อมูลเคมีควอนตัม
 
-\fbox{%
-\begin{minipage}{0.9\linewidth}
-    \begin{align*}  
-        &\text{Linear Kernel}: &&K(x_i, x_j) = x_i \cdot x_j \\[0.5ex]
-        &\text{Polynomial Kernel}: &&K(x_i, x_j; a, b) = (x_i \cdot x_j + a)^b \\[0.5ex]
-        &\text{Gaussian Kernel}: &&K(x_i, x_j; w, \sigma) = \mathrm{exp} \left(-\frac{|x_i-x_j|^2}{2\sigma^2} 
-        \right) \\[1.5ex]
-        &\text{Laplacian Kernel}: &&K(x_i, x_j; w, \gamma) = \mathrm{exp} \left(-{|x_i-x_j|}\right) \\[0.5ex]
-    \end{align*}
-\end{minipage}}
-\idxboth{เคอร์เนล!เชิงเส้น}{Kernel!Linear}
-\idxboth{เคอร์เนล!พหุนาม}{Kernel!Polynomial}
-\idxboth{เคอร์เนล!เกาส์เซียน}{Kernel!Gaussian}
-\idxboth{เคอร์เนล!ลาปลาเซียน}{Kernel!Laplacian}
+\begin{table}[H]
+    \centering
+    \caption{เปรียบเทียบชุดข้อมูลเคมีควอนตัม}
+    \label{tab:compare_qm_dataset}
+    \begin{tabular}{cccccc}
+    \toprule
+    \textbf{Dataset} &\textbf{Data Type} &\textbf{จำนวน Tasks} &\textbf{จำนวนโมเลกุล} 
+    &\textbf{Rec-Split} &\textbf{Heavy Atoms} \\
+    \midrule
+    QM7 &SMILES, 3D Coordinates &1 &7,165 &Stratified &$\leq$7 \\
+    QM7b &3D Coordinates &14 &7,211 &Random &$\leq$7 \\
+    QM8 &SMILES, 3D Coordinates &12 &21,786 &Random &$\leq$8 \\
+    QM9 &SMILES, 3D Coordinates &12 &133,885 &Random &$\leq$9 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
 
-การเลือก Kernel ที่เหมาะสมนั้นจริง ๆ แล้วขึ้นกับอัลกอริทึมของ ML ที่เราจะเลือกใช้ด้วย โดย Kernel ที่สามารถนำไปใช้แล้วทำให้เกิดการเรียนรู้
-Regression ได้อย่างดีเยี่ยมก็คือ Gaussian Kernel นั่นก็เพราะว่ามีคุณสมบัติ อย่างเช่น ความสมมาตรและความต่อเนื่องตลอดช่วงของฟังก์ชัน
+ชุดข้อมูลที่รายงานในตารางที่ \ref{tab:compare_qm_dataset} สามารถดาวน์โหลดมาใช้งานได้ฟรีจากเว็บไซต์ 
+\url{http://quantum-machine.org/datasets} 
 
+นอกจากนี้ยังมีชุดข้อมูลเคมีควอนตัมใหม่ ๆ อีกหลายชุดข้อมูลที่ได้ถูกสร้างขึ้นที่ถูกพัฒนาขึ้นมา โดยมีรายละเอียดของคุณสมบัติเชิงอิเล็กทรอนิกส์%
+ของชุดข้อมูลแต่ละชุด ดังนี้
+
+\begin{itemize}
+    \item \textbf{ANI-1}\autocite{smith2017a} DFT: Total Energy
+    
+    \item \textbf{QMugs}\autocite{mendez2019} 
+    \begin{itemize}
+        \item GFN2 + DFT: Total, Internal Atomic และ Formation Energies, Dipole, Rotational Constants, 
+        HOMO/LUMO/Gap Energies, Mulliken Partial Charges
+        
+        \item GFN2: Total Enthalpy, Total Free Energy, Quadrupole, Enthalpy, Heat Capacity, Entropy, Fermi 
+        Level, Covalent Coordination Number, Molecular Dispersion Coefficient, Atomic Dispersion Coefficients, 
+        Molecular Polarizability, Atomic Polarizabilities, Wiberg Bond Orders, Total Wiberg Bond Orders
+        
+        \item DFT: Electrostatic Potential, L\"{o}wdin Partial Charges, Exchange Correlation Energy, Nuclear 
+        Eepulsion Energy, One-electron Energy, Two-electron Energy, Mayer Bond Orders, Wiberg-L\"{o}wdin Bond 
+        Orders, Total Mayer Bond Orders, Total Wiberg-L\"{o}wdin Bond Orders, Density/Orbital Matrices, 
+        Atomic-orbital-to-symmetry-orbital Transformer Matrix
+    \end{itemize}
+    
+    \item $\nabla$\textbf{DFT}\autocite{khrabrov2022} DFT: Electrostatic Potential, L\"{o}wdin Partial Charges, 
+    Exchange Correlation Energy, Nuclear Repulsion Energy, One-electron Energy, Two-electron Energy, Mayer 
+    Bond Orders, Wiberg-L\"{o}wdin Bond Orders, Total Mayer Bond Orders, Total Wiberg-L\"{o}wdin Bond Orders, 
+    Density/Orbital Matrices, Atomic-orbital-to-symmetry-orbital Transformer Matrix, Hamiltonian Matrix
+\end{itemize}
+    
 %--------------------------
-\section{การทำนายพลังงานรวมของโมเลกุล}
-\label{sec:pred_tot_ener}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พลังงานรวมของโมเลกุล}
-\idxen{Molecular Property Prediction!Total Energy}
+\section{การวิเคราะห์ชุดข้อมูล}
+\label{sec:dataset_analysis}
+\idxth{ชุดข้อมูลเคมีควอนตัม!การวิเคราะห์ชุดข้อมูล}
+\idxen{Quantum Chemistry Dataset!Dataset Analysis}
 %--------------------------
 
-การคำนวณพลังงานรวมเชิงอิเล็กทรอนิกส์ของโมเลกุลถือได้ว่าเป็นหนึ่งในการคำนวณพื้นฐานที่สุดในการศึกษาความเสถียรของโมเลกุลเลยก็ว่าได้
-โดยเราจะมาดูการเขียนโค้ดสำหรับการทำนายพลังงานของโมเลกุลจากชุดข้อมูล QM9 โดยใช้ Feature ที่เป็น Coulomb Matrix (CM) 
-ซึ่งเราได้ดูรายละเอียดการคำนวณ CM รวมถึงการวิเคราะห์ไปแล้วในหัวข้อที่ \ref{sec:dataset_analysis} โดยโมเดล ML ที่ผู้เขียนเลือกคือ
-Molecular Kernel สำหรับการทำ Regression ซึ่งสามารถเรียกใช้ได้จากไลบรารี่ QML
-
-ไอเดียของ Molecular Kernel ก็คือเริ่มต้นด้วยการกำหนด Kernel ขึ้นมาก่อน ดังนี้
-
-\begin{equation}\label{eq:mol_kernel}
-    \alpha = (\mathbf{K} + \lambda\mathbf{I} ) ^{-1} \mathbf{y}
-\end{equation}
-
-\noindent เป้าหมายของเราก็คือการหาค่าของพารามิเตอร์ $\alpha$ ซึ่งเป็นสัมประสิทธิ์ที่เหมาะสมที่สุด (Best Fit for Regression) 
-นั่นหมายความว่าเราจะต้องทำการแก้สมการที่ \ref{eq:mol_kernel} ซึ่งสามารถทำได้โดยใช้ Cholesky Decomposition%
-\footnote{การแยกส่วนประกอบโชเลสกี (Cholesky Decomposition เป็นวิธีการแยกเมทริกซ์ของเมทริกซ์สมมาตรที่เป็นบวกแน่นอน (Symmetric 
-Positive-definite Matrix) ไปเป็นเมทริกซ์สามเหลี่ยมล่าง (Lower Triangular Matrix, $L$) และเมทริกซ์สลับเปลี่ยนของเมทริกซ์สาม%
-เหลี่ยมล่าง ($L^{T}$)}
-
-เราเริ่มต้นเขียนโค้ดสำหรับแบ่งชุดข้อมูลออกเป็นชุดข้อมูลสำหรับการฝึกสอนและการทดสอบตามลำดับ
-\begin{lstlisting}[style=MyPython]
-from sklearn.model_selection import train_test_split
-
-X_cm_train, X_cm_test, Y_cm_train, Y_cm_test = train_test_split(cm, target, test_size=0.2, random_state=42)
-\end{lstlisting}
-
-\noindent ตามด้วยการกำหนด Kernel ซึ่งเราจะใช้ Gaussian Kernel 
-
-\begin{equation}\label{eq:gaussian_kernel}
-    K(x_{i}, x_{j}) = \mathrm{exp}\left( -\frac{||x_i-x_j||^2}{2\sigma^2} \right)
-\end{equation}
-
-\noindent พร้อมกับสร้างลิสต์ของ $\sigma$ หลาย ๆ ค่า ซึ่งเราจะทำการหาค่าที่เหมาะสมที่สุดโดยการคำนวณระยะห่างแบบคู่ (Pairwise) 
-ระหว่าง CM เพื่อเพิ่มความเร็วในการคำนวณเพราะว่าเราจะทำการแก้ Kernel หลาย ๆ อันพร้อมกับเปลี่ยนค่า $\sigma$ หลาย ๆ ค่าไปพร้อม ๆ กัน
+หลังจากที่เราเลือกชุดข้อมูลที่ต้องการนำมาศึกษาได้แล้ว ลำดับต่อไปคือการคำนวณ Input Feature หรือจะเรียกว่า Feature Vector ก็ได้
+ซึ่งจะถูกนำไปใช้ในการฝึกสอนโมเดล ML ต่อไป โดย Feature Vector ที่ผู้เขียนจะยกตัวอย่างให้ได้ศึกษานั้นก็จะเป็น Feature ที่ใช้ Descriptor 
+แบบง่ายนั่นก็คือ Coulomb Matrix (CM) ผู้เขียนจะยังคงใช้ชุดข้อมูล QM9 และใช้โค้ดต่อไปนี้ในการคำนวณ CM ของโมเลกุลตัวอย่างเพียงแค่ 3,000 
+โมเลกุลเท่านั้น
 
 \begin{lstlisting}[style=MyPython]
-# Generates a list of different sigma values
-sigmas = np.arange(100,5000,500) 
-test_maes = []
+import numpy as np
+from qml.representations import * 
 
-# Compute the pairwise distances between cm representations
-dm_train_train = sklearn.metrics.pairwise_distances(
-    X_cm_train, 
-    X_cm_train, 
-    n_jobs=-1
-    )
-dm_train_test = sklearn.metrics.pairwise_distances(
-    X_cm_train, 
-    X_cm_test, 
-    n_jobs=-1
-    )
+cm = []
+size = 27 # Maximum size of molecule in the set
+
+# Run for loop over every molecule in the database
+for structure in ase_mols: 
+    # ASE prints atomic numbers 
+    atomic_numbers = structure.get_atomic_numbers() 
+    # ASE prints coordinates
+    coordinates=structure.get_positions() 
+    cm1 = generate_coulomb_matrix(atomic_numbers,
+    # CM representation is saved into cm1
+    coordinates, size = size, sorting="row-norm") 
+    # All CM representations are added into one variable
+    cm.append(cm1) 
+
+# Transform cm into numpy array
+cm = np.array(cm) 
+# Check size of cm
+print(cm.shape)
+
+# Output
+(3000, 378)
 \end{lstlisting}
 
-\noindent หลังจากนั้นจึงเริ่มทำการหาค่า $\sigma$ โดยใช้ Loop
+หลังจากที่เราคำนวณ CM ของโมเลกุลในชุดข้อมูลเสร็จเรียบร้อยแล้ว สิ่งที่หลายคนทำในละดับต่อไปก็คือสร้างโมเดลแล้วนำ Feature Vector 
+หรืออินพุตที่ได้ไปใช้ในการฝึกสอนโมเดลทันทีเลย ซึ่งการทำแบบนี้นั้นจริง ๆ แล้วไม่เหมาะสมเท่าไหร่นัก นั่นก็เพราะว่าเราควรจะต้องทำความเข้าใจ 
+Feature ที่เราคำนวณออกมาก่อนโดยทำการวิเคราะห์เพื่อดูลักษณะการกระจายตัวหรือการจัดกลุ่มซึ่งสามารถบอกแนวโน้มรวมไปถึง Bias ได้
 
+เราสามารถใช้เทคนิค Unsupervised ML แบบง่าย ๆ ที่ไม่ซับซ้อน เช่น Principal Component Analysis (PCA) ซึ่งเป็นวิธีที่ลดจำนวนมิติ 
+(Dimensionality Reduction) ของข้อมูลให้อยู่ในรูปขององค์ประกอบเชิงตั้งฉาก (Orthogonal Component) ที่อธิบายปริมาณของความแปรปรวน
+(Variance) ที่มากที่สุด หรือจะใช้วิธี t-distributed Stochastic Neighbor Embedding (t-SNE) ซึ่งเป็นวิธีที่สามารถแสดงข้อมูลที่มีมิติสูง ๆ 
+(Highd-dimensional Data) ได้เช่นเดียวกัน\autocite{JMLR:v9:vandermaaten08a,belkina2019} โดยจะทำเปลี่ยนความเหมือนกันระหว่าง%
+ข้อมูลสองชุดให้เป็นความน่าจะเป็นร่วม (Joint Probability) แล้วทำการปรับค่า Kullback-Leibler Divergence ระหว่างความน่าจะเป็นร่วม%
+ของข้อมูลที่อยู่ในมิติต่ำและมิติสูงให้น้อยที่สุด (Minimization)\footnote{เทคนิค t-SNE ถูกพัฒนาต่อมาจากเทคนิค SNE ซึ่งแรกเริ่มนั้นพัฒนาโดย
+Geoffrey Hinton และ Sam Roweis แห่งมหาวิทยาลัยโทรอนโต ประเทศแคนาดา\autocite{NIPS2002_6150ccc6} หลังจากนั้น Laurens 
+van der Maaten ได้ทำการเพิ่ม t-distributed เข้าไป} ซึ่งเราสามารถใช้ทั้ง PCA และ t-SNE ในการวิเคราะห์เพื่อดูลักษณะหรืออธิบายง่าย ๆ 
+คือดู \enquote{\textit{รูปร่างหน้าตา}} ของ CM ของทั้ง 3,000 โมเลกุลที่คำนวณออกมาได้โดยใช้โค้ดต่อไปนี้
+\idxen{t-distributed Stochastic Neighbor Embedding}
+
+\noindent สร้างโมเดล t-SNE
 \begin{lstlisting}[style=MyPython]
-for sigma in sigmas:
-    # Step 1
-    K_cm = np.exp( - dm_train_train ** 2 / (2 * sigma ** 2)) 
-    # Step 2
-    K_cm[np.diag_indices_from(K_cm)] += 1e-8
-    # Step 3
-    alpha_cm = cho_solve(K_cm, Y_cm_train)
-    # Step 4
-    K_cm_test = np.exp( - dm_train_test ** 2 / (2 * sigma ** 2))
-    # Step 5
-    Y_cm_predicted = np.dot(K_cm_test.T, alpha_cm)
-    # Step 6
-    test_MAE = np.mean(np.abs(Y_cm_predicted - Y_cm_test))
-    test_maes.append(test_MAE)
+import sklearn
+
+tsne_cm = sklearn.manifold.TSNE(n_components=2)
+tsne_cm_data = tsne_cm.fit_transform(cm)
 \end{lstlisting}
 
-โดยสิ่งที่เกิดขึ้นภายใน Loop ของโค้ดด้านบนมีขั้นตอนดังนี้
+\noindent สร้างโมเดล PCA
+\begin{lstlisting}[style=MyPython]
+pca_cm = sklearn.decomposition.PCA(n_components=2)
+pca_cm_data = pca_cm.fit_transform(cm)
+\end{lstlisting}
 
-\begin{enumerate}[noitemsep]
-    \item เราเริ่มด้วยการคำนวณ Kernel ซึ่งถูกกำหนดด้วยสมการ \ref{eq:mol_kernel}
-    
-    \item เพิ่มค่า $\lambda$ ที่มีค่าน้อย ๆ เข้าไปในสมาชิกแนวทแยงของ Kernel Matrix
-    
-    \item แก้สมการโดยใช้ Cholesky Decomposition
-    
-    \item คำนวณ Kernel Matrix ระหว่างชุดข้อมูลที่ใช้ฝึกสอนกับชุดที่ใช้ทดสอบโดยใช้ค่า $\sigma$ เดียวกัน
-    
-    \item ทำการพยากรณ์หรือทำนายค่าพลังงานภายในของโมเลกุล
-    
-    \item คำนวณค่าความคลาดเคลื่อน Mean Absolute Error (MAE)
-\end{enumerate}
-
-เมื่อทำ Regression เสร็จแล้ว เราสามารถพล็อตกราฟเพื่อดูความสัมพันธ์ค่า $\sigma$ ของ Kernel กับค่าความคลาดเคลื่อน MAE ได้ดังนี้
-
+\noindent พล็อตกราฟค่าที่ได้จากการ Fit ข้อมูล
 \begin{lstlisting}[style=MyPython]
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots()
+fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(10,10), constrained_layout=True)
 
-ax.plot(sigmas, test_maes)
-ax.set_ylabel('MAE kcal/mol', fontsize=15)
-ax.set_xlabel('Kernel width $\sigma$', fontsize=15)
-ax.tick_params(axis='both', which='major', labelsize=12)
+axs[0].set_title('Principal Components', fontsize=15)
+axs[1].set_title('t-SNE', fontsize=15)
+axs[0].set_xlabel('Component 1', fontsize=15)
+axs[0].set_ylabel('Component 2', fontsize=15)
+axs[1].set_xlabel('Component 1', fontsize=15)
+axs[1].set_ylabel('Component 2', fontsize=15)
+axs[0].tick_params(axis='both', which='major', labelsize=12)
+axs[1].tick_params(axis='both', which='major', labelsize=12)
+
+plot1 = axs[0].scatter(pca_cm_data[:, 0], pca_cm_data[:, 1], c=target, cmap='jet', s=2)
+plot2 = axs[1].scatter(tsne_cm_data[:, 0], tsne_cm_data[:, 1], c=target, cmap='jet', s=2)
+
+cbar = fig.colorbar(plot2, ax=axs, orientation="horizontal", pad=0.05);
+cbar.set_label('Internal energy at 0 K [kcal/mol]', fontsize=15)
+cbar.ax.tick_params(labelsize=12)
 
 plt.show()
 \end{lstlisting}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\linewidth]{fig/qm9_cm_mae_sigma.png}
-    \caption{ค่าความคลาดเคลื่อน MAE กับค่าความกว้างของ Kernel ($\sigma$)}
-    \label{fig:qm9_cm_kernel_mae}
-\end{figure}
-
-นอกจากนี้เรายังสามารถทำการวิเคราะห์เพิ่มเติมได้ เช่น แสดงค่า $\sigma$ ที่เหมาะสมที่สุด (ให้ MAE น้อยที่สุด)
-
-\begin{lstlisting}[style=MyPython]
-best_sigma = sigmas[np.argmin(test_maes)]
-print(best_sigma)
-
-# Output
-3100
-\end{lstlisting}
-
-\noindent แล้วนำค่า $\sigma$ ที่เหมาะสมที่สุดนี้ไปใช้ในการคำนวณ Gaussian Kernel ต่อไป ดังนี้
-
-\begin{lstlisting}[style=MyPython]
-# Create Gaussian Kernel
-K_cm = gaussian_kernel(X_cm_train, X_cm_train, sigma)
-
-# Add a small lambda to the diagonal of the kernel matrix
-K_cm[np.diag_indices_from(K_cm)] += 1e-8
-
-# Use the built-in Cholesky-decomposition to solve
-alpha_cm = cho_solve(K_cm, Y_cm_train)
-print(alpha_cm)
-
-# Output
-[-1.72214025e+09 -1.37779221e+09 -6.40402006e+08 ...  2.42741968e+09  5.94869282e+08
- -1.19747799e+09]
-\end{lstlisting}
-
-\noindent แล้วคำนวณต่อ Kernel ระหว่างชุดข้อมูลฝึกสอนกับชุดข้อมูลทดสอบได้โดยใช้ค่า $\sigma$ เดียวกัน
-
-\begin{lstlisting}[style=MyPython]
-# Calculate a kernel matrix between test and training data, using the same sigma
-K_cm_test = gaussian_kernel(X_cm_test, X_cm_train, sigma)
-
-# Make the predictions
-Y_cm_predicted = np.dot(K_cm_test, alpha_cm)
-
-# Calculate mean-absolute-error (MAE), the units are Hartree
-print('MAE: ', np.mean(np.abs(Y_cm_predicted - Y_cm_test)), 'kcal/mol')
-
-# Output
-MAE:  25.908959327933474 kcal/mol
-\end{lstlisting}
-
-ขั้นตอนสุดท้ายคือการพล็อต Correlation ระหว่างค่าอ้างอิง (Reference) กับค่าที่ได้จากการทำนาย (Prediction) และแสดง Histogram 
-ของความคลาดเคลื่อนเพื่อตรวจสอบประสิทธิภาพของโมเดล
-
-\begin{lstlisting}[style=MyPython]
-import matplotlib.pyplot as plt
-
-fig, axes = plt.subplots(ncols=1, nrows=2, figsize=[6,8])
-
-ax = axes[0]
-ax.scatter(Y_cm_test, Y_cm_predicted, s=16)
-ax.set_ylabel('CM-KRR internal energies at 0 K \n prediction [kcal/mol]', fontsize=15)
-ax.set_xlabel('Internal energies at 0 K [kcal/mol]', fontsize=15)
-
-ax = axes[1]
-ax.hist(Y_cm_test - Y_cm_predicted, bins=50, range=[-100,100], density=True)
-ax.set_ylabel('Histogram density', fontsize=15)
-ax.set_xlabel('CM-KRR internal energies at 0 K errors [kcal/mol]', fontsize=15)
-
-plt.tight_layout()
-plt.show()
-\end{lstlisting}
+\noindent พล็อตที่ได้จะเป็นแบบนี้ โดยข้อมูลแต่ละจุดนั้นจะถูกไฮไลต์ด้วยสีที่มีสเกลแตกต่างกันไปซึ่งแสดงค่าของพลังงานภายในของโมเลกุล
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/qm9_cm_kernel_corr.png}
-    \caption{ซ้าย: Correlation ของค่าพลังงานภายในของโมเลกุลระหว่างค่าอ้างอิงกับค่าจากการทำนาย, ขวา: Histrogram Density 
-    ของค่าคลาดเคลื่อน}
-    \label{fig:qm9_cm_kernel_corr}
+    \includegraphics[width=\linewidth]{fig/cm_pca_tsne.png}
+    \caption{การกระจายตัวของ Coulomb Matrix Feature ที่ถูกลดจำนวนมิติให้เหลือเพียงแค่ 2 มิติ (Principal Components = 2)}
+    \label{fig:cm_pca_tsne}
 \end{figure}
-
-%--------------------------
-\section{การทำนายพื้นผิวพลังงานศักย์}
-\label{sec:pred_pot_ener}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พื้นผิวพลังงานศักย์}
-\idxen{Molecular Property Prediction!Potential Energy Surface}
-%--------------------------
-
-การทำนายพื้นผิวพลังงานศักย์ (Potential Energy Surface หรือ PES)
-
-Machine Learning Potentials (MLP) เป็นอีกหนึ่งเครื่องมือสำคัญสำหรับการจำลองในระดับอะตอม (Atomistic Simulation) 
-โดยเฉพาะการศึกษาพลังงานศักย์ของโมเลกุล\autocite{behler2016,botu2017,brockherde2017,deringer2019,noe2020} 
-MLP แบ่งออกได้เป็นสองประเภทตามรูปแบบของอัลกอริทึมของ ML คือ Kernel-based Potentials และ Neural Network-based Potentials
-
-%--------------------------
-\subsection{การทำนายพลังงานศักย์ด้วยวิธีเชิงเคอร์เนล}
-\label{ssec:pred_pot_ener_kernel}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พื้นผิวพลังงานศักย์!วิธีเชิงเคอร์เนล}
-\idxen{Molecular Property Prediction!Potential Energy Surface!Kernel-based}
-%--------------------------
-
-เรามาดูรายละเอียดของ Kernel-based Potentials กันก่อน ซึ่งผู้เขียนขอยกมาให้ดู 3 วิธี
-
-\paragraph{Gaussian Approximation Potentials (GAP)} เป็นวิธีที่นำเสนอโดย Albert P. Bart\'{o}k และคณะ ซึ่งตีพิมพ์บทความ%
-วิจัยเรื่อง \enquote{Gaussian Approximation Potentials: The Accuracy of Quantum Mechanics, without the Electrons} 
-ในวารสาร Physical Review Letters\autocite{bartok2010} GAP เป็นวิธีคำนวณที่ใช้สำหรับการทำนายพลังงานและแรงของแต่ละอะตอม%
-ภายในโมเลกุลโดยที่ GAP จะทำการเรียนรู้ค่าทั้งสองจาก PES ซึ่งมักจะได้มาจากการคำนวณด้วยวิธีง่าย ๆ ทั่วไป เช่น DFT 
-\idxen{Gaussian Approximation Potentials (GAP)}
-
-GAP นั้นเป็นการทำ Kernel Regression ของ PES แบบ Non-parametric ซึ่งเป็นการประมาณค่าของพลังงานแบบเฉพาะที่ (Local Energy)
-ดังนี้
-
-\begin{equation}\label{eq:gap}
-    \bar{\epsilon}_{\ast} = \delta^{2} \sum\limits_{s = 1}^{N_s} \alpha_{s} k(\ast,s)
-\end{equation}
-
-\noindent โดยที่ $\ast$ หมายถึง Environment ของอะตอมที่เราต้องการทำนาย, $\delta$ คือพารามิเตอร์ที่กำหนดสเกลของพลังงาน, 
-$s$ คือจำนวนของ Configuration (ขนาดของ Training Set), $\alpha_{s}$ คือสัมประสิทธิ์ของการ Fitting และ $k(\ast,s)$ 
-คือเคอร์เนล
-
-โดยทริคของ GAP คือทำการแปลง PES ที่ปกติจะเป็นฟังก์ชันแบบไม่เป็นเชิงเส้นที่ขึ้นกับตำแหน่งของอะตอม ($E = E(\{ \textbf{r}_i \})$) 
-ให้กลายเป็นฟังก์ชันแบบเชิงเส้นที่ขึ้นกับเคอร์เนลแทน พอเรามีฟังก์ชันแบบเชิงเส้นแล้วเราก็สามารถทำ Linear Regression เพื่อหาค่า Parameter 
-ต่าง ๆ ที่ใช้ในการ Fit ได้นั่นเอง โดยเคอร์เนลในที่นี้คือการวัดความคล้ายคลึงกันระหว่าง Feature ของอะตอมแต่ละตัวในโมเลกุล (Atomic 
-Environment)
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{fig/gap_procedure.jpeg}
-    \caption{ขั้นตอนการคำนวณ Representation และการใช้ Gaussian Approximation Potentials ในการทำนายพลังงานและแรง
-    (เครดิตภาพ: Deringer และคณะ \textit{Chem. Rev.}, \textbf{2021}, 121, 10073\autocite{deringer2019})}
-    \label{fig:gap_procedure}
-\end{figure}
-
-ขั้นตอนของการทำ GAP นั้นสามารถดูได้ตามภาพที่ \ref{fig:gap_procedure} โดยมีขั้นตอนดังต่อไปนี้
-\begin{enumerate}
-    \item เริ่มต้นเราทำการคำนวณหา Representation ก่อนโดยใช้ Atomic Descriptor ซึ่งเป็นข้อมูลหรือ Feature ในระดับอะตอม
-    \item หลังจากนั้นทำ Gaussian Process Regression ซึ่งเป็นหัวใจของ GAP
-    \item เราจะได้ฟังก์ชันที่สามารถนำไปใช้ในการทำนายพลังงานและแรงเชิงอะตอมได้ ซึ่งสุดท้ายก็สามารถนำมาหาพลังงานรวมของโมเลกุลได้
-\end{enumerate}
-
-เนื่องจากว่า GAP ไม่ได้ขึ้นกับฟังก์ชันที่มีรูปแบบตายตัวเหมือนกับ Harmonic Potentials ดังนั้น GAP จึงมีความยืดหยุ่นต่อชุดข้อมูลที่ใช้ในการ%
-ฝึกสอน สามารถอธิบายการเปลี่ยนแปลงทางเคมี เช่น การสร้างพันธะหรือการสลายพันธะ ซึ่งเป็นสิ่งที่สนามแรง (Force Field) แบบดั้งเดิมหรือ%
-ทั่วไปนั่นทำได้ยาก\autocite{ceriotti2018}
-
-\paragraph{Moment Tensor Potentials (MTP)}
-\autocite{shapeev2016}
-    
-\paragraph{Spectral Neighbor Analysis Potentials (SNAP)} 
-\autocite{thompson2015,deng2019,cusentino2020,domina2022}
-
-%--------------------------
-\subsection{การทำนายพลังงานศักย์ด้วยวิธีเชิงโครงข่ายประสาท}
-\label{ssec:pred_pot_ener_nn}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พื้นผิวพลังงานศักย์!วิธีเชิงโครงข่ายประสาท}
-\idxen{Molecular Property Prediction!Potential Energy Surface!Neural Network-based}
-%--------------------------
-
-\paragraph{High-dimensional Neural Network Potentials (HDNNP)}
-\autocite{behler2007}
-
-\paragraph{ANAKIN-ME} เรียกสั้น ๆ ว่า ANI (ชื่อเต็มคือ Accurate NeurAl networK engINe for Molecular Energies)
-
-\begin{itemize}
-    \item ANI-1x\autocite{smith2017}
-    \item ANI-1ccx\autocite{smith2018}
-    \item ANI-2x\autocite{smith2019,devereux2020}
-\end{itemize}
-
-%--------------------------
-\section{การทำนายพลังงานการทำให้เกิดอะตอมและพลังงานของออร์บิทัล}
-\label{sec:pred_ener_atom_orb}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พลังงานการทำให้เกิดเป็นอะตอม}
-\idxen{Molecular Property Prediction!Atomization Energy}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พลังงาน HOMO}
-\idxen{Molecular Property Prediction!HOMO Energy}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พลังงาน LUMO}
-\idxen{Molecular Property Prediction!LUMO Energy}
-%--------------------------
-
-พลังานการทำให้เกิดอะตอม (Atomization Energy) และพลังงานของออร์บิทัล HOMO และ LUMO เป็นคุณสมบัติของโมเลกุลที่นักเคมีให้ความสนใจ%
-เพราะว่าทั้งสองพลังงานนี้เป็นสิ่งสำคัญที่ช่วยให้เราเข้าใจความเสถียรของโมเลกุลและออร์บิทัลที่เกี่ยวข้องกับการสร้างพันธะในปฏิกิริยาเคมี
-
-\begin{table}[H]
-    \begin{threeparttable}[b]
-    \centering
-    \caption{ค่าความคลาดเคลื่อน (Mean Absolute Error หรือ MAE) ของพลังงานการทำให้เกิดอะตอม ($U_{0}$) ในหน่วย kcal/mol 
-    และพลังงานของออร์บิทัลชั้นที่สูงสุดที่มีอิเล็กตรอน (HOMO) และชั้นที่ต่ำที่สุดที่ไม่มีอิเล็กตรอน (LUMO) ในหน่วย eV ที่ทำนายด้วยอัลกอริทึม 
-    Machine Learning (ML) เช่น Kernel Ridge Regression (KRR), Elastic Net (EN), Gaussian Process Regression 
-    (GPR)}
-    \label{tab:pred_ener_atom_orb_ml}
-    \begin{tabular}{lcccl}
-    \toprule
-    \textbf{โมเดล ML} &\textbf{$U_{0}$} &HOMO &LUMO &\textbf{อ้างอิง} \\
-    \midrule
-    KRR/CM\tnote{1} &9.9 &- &- &Rupp และคณะ\autocite{rupp2012} \\
-    Multilayer NN/Random CM\tnote{1} &3.5 &- &- &Montavon และคณะ\autocite{montavon2012} \\
-    Multitask NN/Random CM\tnote{2} &3.7 &0.15 &0.12 &Montavon และคณะ\autocite{montavon2013} \\
-    KRR/Random CM\tnote{1} &3 &- &- &Hansen และคณะ\autocite{hansen2013} \\
-    KRR/BoB\tnote{1} &1.5 &- &- &Hansen และคณะ\autocite{hansen2015} \\
-    KRR/BoB\tnote{2} &1.8 &0.15 &0.16 &Huang และ von Lilienfeld\autocite{huang2016} \\
-    KRR/BAML\tnote{2} &1.2 &0.1 &0.11 &Huang และ von Lilienfeld\autocite{huang2016} \\
-    KRR/REMatch-SOAP\tnote{2} &0.92 &0.11 &0.08 &De และคณะ\autocite{de2016} \\
-    EN/CM\tnote{3} &21 &0.34 &0.63 &Faber และคณะ\autocite{faber2017} \\
-    EN/BoB\tnote{3} &13.9 &0.28 &0.52 &Faber และคณะ\autocite{faber2017} \\
-    KRR/CM\tnote{3} &3 &0.13 &0.18 &Faber และคณะ\autocite{faber2017} \\
-    KRR/BoB\tnote{3} &1.5 &0.09 &0.12 &Faber และคณะ\autocite{faber2017} \\
-    KRR/BAML\tnote{3} &1.2 &0.09 &0.12 &Faber และคณะ\autocite{faber2017} \\
-    KRR/HDAD\tnote{3} &0.6 &0.07 &0.08 &Faber และคณะ\autocite{faber2017} \\
-    KRR/MBTR\tnote{2} &0.6 &- &- &Huo และ Rupp\autocite{huo2022} \\
-    GPR/SOAP-GAP\tnote{2} &0.4 &- &- &Bart\'{o}k และคณะ\autocite{bartok2017} \\
-    KRR/SOAP multi-kernel\tnote{3} &0.14 &- &- &Willatt และคณะ\autocite{willatt2018} \\
-    KRR/FCHL19\tnote{3} &0.25 & & &Christensen และคณะ\autocite{christensen2020} \\
-    AML/amon\tnote{3} &<1.0 & & &Huang และ von Lilienfeld\autocite{huang2020} \\
-    \bottomrule
-    \end{tabular}
-    \begin{tablenotes}
-        \item [1]ชุดข้อมูล QM7
-        \item [2]ชุดข้อมูล QM7b
-        \item [3]ชุดข้อมูล QM9
-      \end{tablenotes}
-    \end{threeparttable}
-\end{table}
-
-ตารางที่ \ref{tab:pred_ener_atom_orb_ml} และ \ref{tab:pred_ener_atom_orb_nn} แสดงการเปรียบเทียบค่าความถูกต้องของโมเดล
-ML และ NN ในการทำนายพลังงาน โดยค่า Mean Absolute Error (MAE) ซึ่งเป็นค่าที่บอกความคลาดเคลื่อนนั้นแสดงให้เห็นว่าอัลกอริทึม KRR 
-สามารถทำนายค่าพลังงานทำให้เกิดอะตอมและพลังงาน HOMO และ LUMO ได้แม่นยำมากโดยมีค่าที่ใกล้เคียงกับความถูกต้องทางเคมี (1 kcal/mol) 
-โดยใช้ BoB\autocite{huang2016} และ BAML\autocite{faber2017} เป็น Representation ในการฝึกสอน
-
-\begin{table}[H]
-    \begin{threeparttable}[b]
-    \centering
-    \caption{ค่าความคลาดเคลื่อน (Mean Absolute Error หรือ MAE) ของพลังงานการทำให้เกิดอะตอม ($U_{0}$) ในหน่วย kcal/mol 
-    และพลังงานของออร์บิทัลชั้นที่สูงสุดที่มีอิเล็กตรอน (HOMO) และชั้นที่ต่ำที่สุดที่ไม่มีอิเล็กตรอน (LUMO) ในหน่วย eV ที่ทำนายด้วยอัลกอริทึม 
-    Neural Network (NN) เช่น Message-passing Neural Network (MPNN)}
-    \label{tab:pred_ener_atom_orb_nn}
-    \begin{tabular}{lcccl}
-    \toprule
-    \textbf{โมเดล NN} &\textbf{$U_{0}$} &HOMO &LUMO &\textbf{อ้างอิง} \\
-    \midrule
-    MPNN\tnote{1} &0.45 &0.99 &0.87 &Gilmer และคณะ\autocite{gilmer2017} \\
-    ANI-1a NN/ACSF\tnote{2} &<1.5 &- &- &Smith และคณะ\autocite{smith2017,smith2018,smith2019} \\
-    HDNN/w-ACSF\tnote{1} &<1.8 &- &- &Gastegger และคณะ\autocite{gastegger2018} \\
-    Multitask NN/CM\tnote{1} &44 &0.38 &0.63 &Hou และคณะ\autocite{hou2018} \\
-    SchNet NN\tnote{1} &0.32 &0.04 &0.03 &Schütt และคณะ\autocite{schutt2018} \\
-    HIP-NN\tnote{1} &0.26 &- &- &Lubbers และคณะ\autocite{lubbers2018} \\
-    HDNN\tnote{1} &0.41 &- &- &Unke และ Meuwly\autocite{unke2018} \\
-    RNN/VAE\tnote{1} &- &0.16 &0.16 &G\'{o}mez-Bombarelli และคณะ\autocite{gomez-bombarelli2018} \\
-    PhysNet NN\tnote{1} &0.14 &- &- &Unke และ Meuwly\autocite{unke2019} \\
-    SchNOrb NN\tnote{3} &<0.046 &<0.02 &<0.1 &Sch\"{u}tt และคณะ\autocite{schutt2019a} \\
-    \bottomrule
-    \end{tabular}
-    \begin{tablenotes}
-        \item [1]ชุดข้อมูล QM9
-        \item [2]ชุดข้อมูล COMP6
-        \item [3]ชุดข้อมูล MD17
-      \end{tablenotes}
-    \end{threeparttable}
-\end{table}
-
-%--------------------------
-\section{การจำลองสนามแรง}
-\label{sec:model_ff}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!สนามแรง}
-\idxen{Molecular Property Prediction!Force Field}
-%--------------------------
-
-การทำนายหรือพยากรณ์แรง (Forces) และพลังงาน (Energies) ของโมเลกุลนั้นเรียกอีกอย่างหนึ่งว่าการสร้างโมเดล Machine Learning 
-Force Field (MLFF) เริ่มต้นสมมติว่าเรามีชุดข้อมูลที่มี Feature Vector ซึ่งเขียนแทนด้วย $\mathbf{D}$ และมีอนุพันธ์แบบเวกเตอร์ 
-(Divergence) เป็น $\nabla_{\mathbf{r_i}} \mathbf{D}$ และมีข้อมูลเพิ่มเติมคือพลังงาน $E$ และแรง $\mathbf{F}$ ของระบบ 
-(โมเลกุล) สำหรับการฝึกสอนเราจะสร้าง Neural Network (เขียนแทนด้วย $f$) เพื่อสร้างโมเดลสำหรับการทำนายพลังงาน ($\hat{E} = 
-f(\mathbf{D})$)\footnote{เครื่องหมาย $\hat{}$\, (อ่านว่า \enquote{hat}) ที่อยู่ด้านบนของตัวแปรเป็นส่งที่บ่งบอกว่าค่าตัวแปรนั้น%
-สิ่งที่เราทำนายออกมา} ซึ่งเราสามารถคำนวณแรงได้โดยตรงจากค่าติดลบของ Gradient ของพลังงานเทียบกับพิกัดตำแหน่งของอะตอมนั้น ๆ 
-ดังนั้นแรงที่ได้จะเป็นปริมาณต่ออะตอม ยกตัวอย่างเช่นแรงของอะตอม $i$ สามารถคำนวณได้จากสมการต่อไปนี้ (โดยใช้เวกเตอร์แบบแถว)
-\idxen{Force Field}
-
-\begin{align}\label{eq:force_pred}
-\hat{\mathbf{F}}_i &= - \nabla_{\mathbf{r_i}} f(\mathbf{D}) \\
-&= - \nabla_{\mathbf{D}} f \cdot \nabla_{\mathbf{r_i}} \mathbf{D}\\
-&= - \begin{bmatrix}
-    \frac{\partial f}{\partial D_1} & \frac{\partial f}{\partial D_2} & \dots
-\end{bmatrix}
-\begin{bmatrix}
-    \frac{\partial D_1}{\partial x_i} & \frac{\partial D_1}{\partial y_i} & \frac{\partial D_1}{\partial z_i}\\
-    \frac{\partial D_2}{\partial x_i} & \frac{\partial D_2}{\partial y_i} & \frac{\partial D_2}{\partial z_i}\\
-    \vdots & \vdots & \vdots \\
-\end{bmatrix}
-\end{align}
-
-\noindent จากสมการ \ref{eq:force_pred} นั้นเราอธิบายได้ว่า $\nabla_{\mathbf{D}} f$ เป็นค่าอนุพันธ์ของคำตอบของโมเดล ML 
-ซึ่งจะเทียบกับ Descriptor $\mathbf{D}$ และ $\nabla_{\mathbf{r_i}} \mathbf{D}$ เป็นอนุพันธ์ของ Descriptor ที่เทียบกับ%
-ตำแหน่งของอะตอมซึ่งตามที่เราได้ศึกษามาก่อนหน้านี้ว่า Neural Network นั้นจะให้คำตอบที่เป็นแบบ Analytical Solution
-
-ตัวอย่างของโมเดล ML ที่ถูกพัฒนาขึ้นมาเพื่อเรียนรู้ Force Field ที่น่าสนใจมีดังนี้
-
-\paragraph{FFLUX}\autocite{hughes2019}
-
-\paragraph{TensorMol}\autocite{yao2018}
-
-%--------------------------
-\section{การทำนายพลังงานสหสัมพันธ์ของอิเล็กตรอน}
-\label{sec:pred_corre_ener}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พลังงานสหสัมพันธ์ของอิเล็กตรอน}
-\idxen{Molecular Property Prediction!Correlation Energy}
-%--------------------------
-
-ผู้อ่านอยากมี Exchange-Correlation Functional (XC) เป็นของตัวเองไหมครับ? เหตุผลที่ผู้อ่านเริ่มต้นหัวข้อนี้ด้วยคำถามนี้ก็เพราะว่าเราสามารถ%
-ใช้ ML สร้าง XC ได้นั่นเอง อย่างที่ทราบกันดีว่าในการคำนวณ DFT นั้นเราจะต้องทำการกำหนด XC ที่ต้องการใช้ซึ่งปกติแล้วเราก็ลองผิดลองถูกกันไป% 
-\footnote{จริง ๆ จะบอกว่าลองแบบมั่ว ๆ ก็ไม่ได้เพราะว่าในปัจจุบันมีบทความรีวิวที่อธิบายจุดเด่นและจุดด้อยของ XC แต่ละอันรวมไปถึง Protocol 
-สำหรับการเลือก XC ที่เหมาะสมกับระบบที่เราต้องการจะศึกษา} ถ้า XC อันไหนให้ผลการคำนวณที่แม่นยำมากที่สุดโดยเปรียบเทียบกับผลการทดลองก็ใช้%
-อันนั้นไป เพื่อแก้ปัญหาของการที่ XC นั้นไม่มีความสามารถในการส่งต่อความสามารถในการเรียนรู้หรือการนำไปใช้ได้กับระบบที่หลากหลาย ในปัจจุบัน%
-ได้มีงานวิจัยที่พัฒนาอัลกอริทึม ML สำหรับการเรียนรู้ XC ที่สามารถนำไปใช้งานกับระบบต่าง ๆ ทางเคมีได้อย่างครอบคลุม%
-\autocite{mcdonagh2018,nudejima2019,dick2020,han2021} 
-
-โดยหนึ่งในงานวิจัยที่ผู้เขียนคิดว่าผู้อ่านที่สนใจงานทางด้านการพัฒนา XC สำหรับ DFT ควรอ่านนั้นคืองานวิจัยที่เสนออัลกอริทึม Supervised ML 
-ที่ชื่อว่า NeuralXC\autocite{dick2020} โดยเป็น ML ที่เรียนรู้ทั้งเทอม Exchange และ Correlation สำหรับ DFT (ปกติแล้วเทอม 
-Correlation นั้นจะมีความซับซ้อนมากกว่าเทอม Exchange) ซึ่งในงานวิจัยนี้ก็ได้มีการึกสอนโมเดลโดยใช้ความหนาแน่นของระบบ (Density 
-Representation) มาเป็นอินพุต โดยสมการที่เราได้ก็จะอยู่ในรูปของฟังก์ชันกระตุ้น (Activation Function) ที่ใช้ความหนาแน่นของอิเล็กตรอน%
-เป็นอินพุตเริ่มต้น (ตามสมการที่ 5 ในบทความเต็ม) โดยโมเดลดังกล่าวสามารถทำนายความหนาแน่นของอิเล็กตรอนของโมเลกุลได้อย่างแม่นยำโดยมี%
-ค่าควมคลาดเคลื่อนเทียบกับวิธีการคำนวณขั้นสูงแบบคลาสสิค เช่น CCSD(T) ที่น้อยมาก (เมื่อเทียบกับผลการคำนวณด้วยวิธี DFT ที่ใช้ฟังก์ชันนอล PBE 
-เป็นค่าอ้างอิงหลัก) แต่จุดอ่อนอย่างหนึ่งของการใช้ Representation หรือ Loss Function ที่มีความจำเพาะเจาะจงกับค่าเอาต์พุตหรือเป้าหมาย%
-มากเกินไปนั้นก็อาจจะส่งผลให้ Transferability ลดลงได้เมื่อนำโมเดลไปใช้ในการทำนายกับโมเลกุลชนิดอื่นที่มีความแตกต่างไปจากโมเลกุลที่นำมา%
-ใช้ในการสร้างชุดข้อมูลที่ใช้ฝึกสอนโมเดล สำหรับผู้อ่านที่สนใจฝึกสอนโมเดลเพื่อคำนวณหา XC เพื่อนำมาใช้ในงานวิจัยสามารถศึกษารายละเอียดใน%
-บทความฉบับเต็ม
-
-%--------------------------
-\section{การทำนายพลังงานกระตุ้นของปฏิกิริยาเคมี}
-\label{sec:pred_act_ener}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พลังงานกระตุ้นของปฏิกิริยาเคมี}
-\idxen{Molecular Property Prediction!Activation Energy}
-%--------------------------
-
-พลังงานกระตุ้น (Activation Energy) เป็นค่าพลังงานที่ต่ำที่สุดที่ใช้เพื่อกระตุ้นปฏิกิริยาเคมี บ่งบอกถึงความยากง่ายของการเกิดปฏิริยาเคมีที่%
-สามารถดำเนินไปได้ ณ สภาวะหนึ่ง ๆ ปัจจัยที่มีผลต่อพลังงานกระตุ้น เช่น ความร้อนและตัวเร่งปฏิกิริยา
-
-%--------------------------
-\section{การทำนายประจุของอะตอม}
-\label{sec:pred_atomic_charge}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!ประจุของอะตอม}
-\idxen{Molecular Property Prediction!Atomic Charge}
-%--------------------------
-
-อีกหนึ่งหัวข้องานวิจัยทางเคมีควอนตัมที่ได้รับความนิยมในช่วง 3-4 ปี (ตั้งแต่ปี ค.ศ. 2018) คือการใช้ ML สำหรับการระบุประจุย่อยของอะตอมใน%
-โมเลกุล (Partial Atomic Charge Assignment) งานวิจัยโดดเด่นและได้รับการตีพิมพ์ในวารสารชั้นแนวหน้าที่ใช้ ML เข้ามาในการทำนายหรือ%
-ระบุประจุของอะตอมที่ผู้เขียนได้เลือกมาซึ่งเรียงลำดับตาม Timeline มีดังนี้
-
-\begin{itemize}
-    \item \enquote{Fast and Accurate Generation of \textit{ab initio} Quality Atomic Charges Using Nonparametric 
-    Statistical Regression}\autocite{rai2013} \\ 
-    หนึ่งในงานวิจัยแรก ๆ ที่เริ่มมีการประยุกต์เทคนิคทางสถิติ (Regression) เข้ามาใช้ในการสร้างโมเดลเรียนรู้การทำนายประจุย่อย
-    
-    \item \enquote{Machine Learning of Partial Charges Derived from High-Quality Quantum-Mechanical Calculations} 
-    \autocite{bleiziffer2018} \\
-    งานวิจัยที่ต่อยอดมาจากงานของ โดยใช้ Feature ที่ชื่อว่า \enquote{Atom-centered Atom-pairs Fingerprint}\autocite{carhart1985} 
-    ในการฝึกสอนโมเดลและนำมาใช้ในทำนายประจุย่อยได้อย่างแม่นยำมาก ๆ
-    
-    \item \enquote{Transferable Dynamic Molecular Charge Assignment Using Deep Neural Networks}\autocite{nebgen2018} \\
-    งานวิจัยนี้ใช้ Neural Network ในการทำนายประจุย่อยแบบไดนามิกส์
-    
-    \item \enquote{PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments, and Partial Charges}
-    \autocite{unke2019} \\
-    งานวิจัยนี้นำเสนอโมเดล ML ที่ชื่อว่า PhysNet ซึ่งสามารถทำนายคุณสมบัติเชิงโมเลกุล ประกอบไปด้วย พลังงาน, แรง, ไดโพลโมเมนต์, 
-    และประจุย่อย
-    
-    \item \enquote{Fast and Accurate Machine Learning Strategy for Calculating Partial Atomic Charges in 
-    Metal-Organic Frameworks}\autocite{kancharlapalli2021} \\ 
-    งานวิจัยนี้เป็นการทำนายประจุของอะตอมในสารประกอบ Metal-Organic Frameworks (MOFs)
-    
-    \item \enquote{High-Precision Atomic Charge Prediction for Protein Systems Using Fragment Molecular Orbital 
-    Calculation and Machine Learning}\autocite{kato2020} \\ 
-    งานวิจัยนี้สนใจการทำนายประจุเชิงอะตอมของโปรตีโดยใช้ Fragment Molecular Orbital
-    
-    \item \enquote{DeepChargePredictor: A Web Server for Predicting QM-based Atomic Charges via State-of-the-art 
-    Machine-learning Algorithms}\autocite{wang2021} \\ 
-    งานวิจัยนี้พัฒนาเว็บไซต์ที่ช่วยให้เราสามารถทำนายประจุย่อยได้
-\end{itemize}
-
-%--------------------------
-\section{การทำนายไดโพลโมเมนต์}
-\label{sec:pred_dipole_moment}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!การทำนายไดโพลโมเมนต์}
-\idxen{Molecular Property Prediction!Dipole Moment}
-%--------------------------
-
-\autocite{knijff2021,liu2020,pereira2018,staacke2022,sun2022,veit2020,vo2019}
-
-%--------------------------
-\section{การทำนายคุณสมบัติของโมเลกุลที่สภาวะกระตุ้น}
-\label{sec:pred_ex_prop}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!คุณสมบัติของโมเลกุลที่สภาวะกระตุ้น}
-\idxen{Molecular Property Prediction!Excited State}
-%--------------------------
-
-หนึ่งในงานวิจัยที่น่าสนใจที่ตีพิมพ์ในบทความ \enquote{Excited State Non-adiabatic Dynamics of Large Photoswitchable Molecules 
-Using a Chemically Transferable Machine Learning Potential}\autocite{axelrod2022} มีงานวิจัยที่ได้ใช้ ML ในการทำนาย 
-Quantum Yield\footnote{ผู้เขียนขอใช้ทับศัพท์เพราะถ้าหากช้คำแปลเป็นภาษาไทยจะใช้คำว่า \enquote{ผลผลิตควอนตัม} ซึ่งยากต่อการเข้าใจ 
-ดังนั้นจึงขอใช้คำว่า Quantum Yield ตรง ๆ} ของโมเลกุลขนาดใหญ่ ณ สภาวะกระตุ้น ซึ่งในงานวิจัยนี้ได้ศึกษาอนุพันธ์ของโมเลกุลเอโซเบนซีน 
-(Azobenzene) รวมถึงไปการทรานซิชันระหว่างคอนฟอร์เมอร์ \textit{cis} กับ \textit{trans} อีกด้วย
-
-%--------------------------
-\section{การทำนายค่าคู่ควบเชิงเล็กอิเล็กทรอนิกส์}
-\label{sec:pred_elec_coupling}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!ค่าคู่ควบเชิงเล็กอิเล็กทรอนิกส์}
-\idxen{Molecular Property Prediction!Electronic Coupling}
-%--------------------------
-
-ค่าคู่ควบเชิงเล็กอิเล็กทรอนิกส์ (Electronic Coupling) คือค่าความเกี่ยวเนื่องเชิงอิเล็กทรอนิกส์ระหว่าง 2 สถานะใด ๆ ของอิเล็กตรอน เช่น 
-สถานะเริ่มต้นและสถานะสิ้นสุดในกระบวนการทางควอนตัม 
-
-%--------------------------
-\subsection{ค่าคู่ควบของการถ่ายโอนอิเล็กตรอน}
-\label{ssec:pred_etran_coupling}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!ค่าคู่ควบของการถ่ายโอนอิเล็กตรอน}
-\idxen{Molecular Property Prediction!Electron Transfer Coupling}
-%--------------------------
-
-
-
-%--------------------------
-\subsection{ค่าคู่ควบแบบนอนอะเดียแบติก}
-\label{ssec:nonadia_coupling}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!ค่าคู่ควบแบบนอนอะเดียแบติก}
-\idxen{Molecular Property Prediction!Nonadiabatic Coupling}
-%--------------------------
-
-
-
-%--------------------------
-\section{การทำนายสเปกตรัม}
-\label{sec:pred_spectra}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!การทำนายสเปกตรัม}
-\idxen{Molecular Property Prediction!Spectra}
-%--------------------------
-
-การทำนายสเปกตรัมเป็นอีกหนึ่งหัวข้องานวิจัยทางด้านเคมีควอนตัมที่ได้รับความสนใจเป็นอย่างมากนั่นก็เพราะว่าเทคนิคทางสเปกโทรสโกปีนั้นมีประโยชน์%
-อย่างมากในงานทางด้านเคมีสังเคราะห์ ทั้งเคมีอินทรีย์และเคมีอนินทรีย์ รวมไปถึงด้านอื่น ๆ เช่น วัสดุศาสตร์หรือพอลิเมอร์ด้วย 
-
-สเปกโทรสโกปีเป็นเทคนิคที่เกี่ยวข้องกับแสงซึ่งเป็นคลื่นแม่เหล็กไฟฟ้าที่มีลักษณะเป็นแถบพลังงาน (Spectrum) โดยมีความยาวคลื่นตั้งแต่ในช่วง 
-คลื่นวิทยุ คลื่นไมโครเวฟ คลื่นอินฟราเรด คลื่นในช่วงที่สายตามนุษย์มองเห็น รวมถึงคลื่นอัลตราไวโอเลต สำหรับคลื่นแม่เหล็กไฟฟ้าที่นักเคมีสนใจนั้น%
-จะเกี่ยวข้องโดยตรงกับการระบุถึงความจำเพาะเจาะจงของโมเลกุล นั่นคือคลื่นแม่เหล็กไฟฟ้าในช่วงอินฟราเรด ซึ่งจะมีความยาวคลื่น (Wavelength) 
-ในช่วง 650 - 4,000 nm หรือมีเลขคลื่น (Wavenumber) ในช่วง 14,286-12,800 $cm^{-1}$ โดยหลักการคร่าว ๆ ของเทคนิคอินฟราเรด%
-สเปกโทรโกปีก็คือแสงอินฟราเรดตกกระทบโมเลกุลจะเกิดอันตรกิริยาระหว่างแสงกับโมเลกุล โดยที่แสงอินฟราเรดในบางช่วงที่มีความถี่ตรงกันกับความถี่%
-ของการสั่นของพันธะในโมเลกุลจะถูกดูดกลืนไป ซึ่งทำให้เกิดทรานซิชันการสั่นพร้อมกับทรานซิชันการหมุน ซึ่งทรานซิชันการสั่นนี้จะเราทราบชนิดของ%
-หมู่ฟังก์ชัน เช่น พันธะคู่ พันธะสาม หมู่คาร์บอนิล หมู่ไฮดรอกซิล หรือหมู่อะมิโน ภายในโครงสร้างของโมเลกุลอินทรีย์ได้ ดังนั้นความเข้มของแสง%
-อินฟราเรดที่ทะลุผ่านสารตัวอย่าง (Transmitted Infrared) จึงมีความเข้มแสงลดลงในบางช่วงของความถี่ทั้งหมดของอินฟราเรดเนื่องมาจากการ%
-ถูกดูดกลืนโดยหมู่ฟังก์ชันดังกล่าวนั่นเอง
-
-%--------------------------
-\subsection{การทำนายอินฟราเรดสเปกโทรโกปี}
-\label{ssec:pred_spec_ir}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!การทำนายสเปกตรัม!อินฟราเรดสเปกโทรโกปี}
-\idxen{Molecular Property Prediction!Spectra!Infrared}
-%--------------------------
-
-การทำนายสเปกตรัมอินฟราเรดด้วย ML นั้นได้รับการค้นคว้ามาอย่างต่อเนื่องเป็นระยะเวลาหลายสิบปี\autocite{gastegger2017} สำหรับงานวิจัย%
-ที่ผู้เขียนจะยกมาเป็นกรณีศึกษานั้นเป็นงานวิจัยที่มีชื่อบทความว่า \enquote{Infrared Spectra at Coupled Cluster Accuracy from Neural 
-Network Representations} หรือแปลเป็นภาษาไทยคือ \enquote{การทำนาย IR Spectrum ที่ระดับความแม่นยำเดียวกับระเบียบวิธี CCSD(T) 
-ด้วย Neural Network}\autocite{beckmann2022} โดยงานวิจัยนี้ได้รับการตีพิมพ์ในวารสาร Journal of Chemical Theory and Computation 
-(JCTC) ซึ่งเป็นวารสารวิชาการแนวหน้าทางด้านเคมีทฤษฎีและการคำนวณทางคอมพิวเตอร์ 
-
-รายละเอียดงานวิจัยในบทความฉบับนี้มีดังนี้ ผู้วิจัยได้สร้าง Neural Network โดยใช้สถาปัตยกรรมโครงสร้างประสาทของ Behler-Parrinello 
-Neural Network (BPNN)\autocite{behler2007,behler2011b,behler2015} ซึ่งเป็น Neural Network เชิงโมเลกุลแบบที่มีจำนวนมิติสูง 
-(High-dimensional Molecular Neural Network) ที่มีแนวคิดคือผลรวมของพลังงานทั้งหมดของโมเลกุลเกิดขึ้นจากการรวมกันของพลังงาน%
-ของแต่ละอะตอม โดยที่ Neural Network ที่ผู้วิจัยได้พัฒนาขึ้นมาได้ถูกนำไปใช้ในการเรียนรู้ (Learn) โครงสร้างของโมเลกุลและ Fit เข้ากับค่า 
-Dipole Moment ($\mu$) ของโมเลกุลนั้น ๆ ซึ่ง $\mu$ คือพารามิเตอร์สำคัญที่เราสามารถนำไปใช้ในการคำนวณหาความเข้มหรือ Intensity 
-ของ IR Spectrum (สำหรับแต่ละ Peak) ต่อไปได้
-
-แต่ว่าผู้วิจัยไม่ได้ Fit ข้อมูลเชิงโครงสร้างของโมเลกุลเข้ากับ $\mu$ โดยตรงเพราะว่าพารามิเตอร์ทั้งสองนี้ไม่ได้สอดคล้องหรือเกี่ยวข้องกันโดยตรง 
-ดังนั้นเราควรจะต้องทำการ Fit เข้ากับบางสิ่งบางอย่างที่อธิบายเคมีเชิงอิเล็กทรอนิกของโมเลกุลได้ดีกว่าข้อมูลเชิงโครงสร้างทั่วไป ซึ่งสิ่งนั้นเรียกว่า 
-Electronic-based Descriptor โดย Descriptor ที่ผู้วิจัยเลือกใช้ก็คือ Atomic-centered Symmetry Function (ACSF) โดยได้ทำการ 
-Fit ACSF เข้ากับประจุย่อยของแต่ละอะตอม (Atomic Partial Charge) ซึ่งผู้อ่านอาจจะสงสัยว่าทำไมถึงไม่ Fit ACSF กับ $\mu$ โดยตรงเลย? 
-เหตุผลก็เพราะว่า $\mu$ นั้นถูกคำนวณมาจากผลรวมของผลคูณระหว่างประจุ ($q_{i}$) และตำแหน่งของแต่ละอะตอม ($\vec{r}_{i}$) 
-ภายในโมเลกุลตามสมการที่ \ref{eq:dipole_moment}
-
-\begin{equation}\label{eq:dipole_moment}
-    \mu = \sum^{N}_{i} q_{i}\vec{r}_{i}
-\end{equation}
-
-\noindent ดังนั้นจึงจะเหมาะกว่าถ้าเรา Fit เข้ากับประจุก่อน หลังจากนั้นเอาต์พุตสุดท้ายที่ถูกทำนายออกมาจาก Neural Network นั้นก็จะเป็น 
-$\mu$ นั่นเอง สรุปลำดับการ Fit ข้อมูลมีดังนี้ 
-
-\fbox{%
-\begin{minipage}[c][1cm]{0.9\linewidth}
-\centering
-Structure $\rightarrow$ ACSF $\rightarrow$ Atomic Partial Chage $\rightarrow$ Dipole Moment 
-\end{minipage}}
-
-นอกจากนี้ผู้วิจัยเลือกใช้ RMSE เป็น Lost Function สำหรับการปรับลด Error ระหว่าง $\mu$ ที่ได้จากการทำนายกับค่าอ้างอิงที่ได้จากการ%
-คำนวณด้วยวิธี CCSD(T) โดยใช้โปรแกรม Molpro และได้มีการปรับแต่ง Loss Function โดยทำการคำนวณ Error ของทุกคอนฟอร์เมอร์ 
-ซึ่งจะทำการปรับค่าลดค่าคลาดเคลื่อนจาก $\mu$ ของทั้งสามทิศทาง (3 Components) นั่นคือ $x$, $y$ และ $z$ ตามสมการดังต่อไปนี้
-
-\begin{equation}
-    \mathcal{L} = \frac{1}{3M} \sum^{M}_{i} \sum^{3}_{\alpha} (\mu^{\text{NN}}_{i,\alpha} 
-    - \mu^{\text{ref}}_{i,\alpha})^{2}
-\end{equation}
-
-\noindent โดยที่ $M$ คือจำนวนคอนฟอร์เมอร์ และ $\alpha$ คือทิศทาง หลังจากนั้นผู้วิจัยใช้ Autocorrelation Function ในการแปลง 
-$\mu$ (เปลี่ยนจาก Time-domain ไปเป็น Frequency-domain) เพื่อคำนวณหาสเปกตรัมของอินฟราเรดต่อไป 
-
-สำหรับชุดโมเลกุลที่ผู้วิจัยศึกษาในงานนี้เป็นแค่กลุ่มโมเลกุลง่าย ๆ คือกลุ่มโมเลกุลน้ำ (Water Cluster) โดยมีการศึกษาความสามารถในการ%
-เรียนรู้ของโมเดลที่เปลี่ยนแปลงไปตามขนาดของชุดข้อมูลฝึกสอนและชุดข้อมูลทดสอบ โดยผู้วิจัยได้มีการใช้ชุดข้อมูลฝึกสอนขนาดเล็กสุดคือ 5,975 
-โครงสร้างและใหญ่สุดคือ 18,576 โครงสร้าง ซึ่งประสิทธิภาพในการทำนายถือว่าอยู่ในระดับที่แม่นยำมาก โดยมีค่าคลาดเคลื่อนการทำนาย $\mu$ 
-ต่อโมเลกุลอยู่ที่ 0.007 D และต่ออะตอมอยู่ที่ประมาณ 0.002 D
-
-%--------------------------
-\subsection{การทำนายรามานสเปกโทรโกปี}
-\label{ssec:pred_spec_raman}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!การทำนายสเปกตรัม!รามานสเปกโทรโกปี}
-\idxen{Molecular Property Prediction!Spectra!Raman}
-%--------------------------
-
-
-%--------------------------
-\subsection{วิธีการทำนายสเปกตรัมและโครงสร้าง}
-\label{ssec:pred_spec_struct}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!การทำนายสเปกตรัม!วิธีการทำนายสเปกตรัมและโครงสร้าง}
-\idxen{Molecular Property Prediction!Spectra!Predicting Spectra and Structures}
-%--------------------------
-
-\begin{table}[H]
-    \centering
-    \caption{บทความงานวิจัยที่เกี่ยวข้องกับวิธี Struc-to-Spec}
-    \label{tab:struc2spec}
-    \small
-    \begin{tabular}{clll}
-    \toprule
-    \textbf{อ้างอิง} &\textbf{Learning Target} &\textbf{โมเดล ML} &\textbf{Representation} \\
-    \midrule
-    \autocite{schuur1996,Schuur1997} & ความเข้มการดูดกลืน IR & PCA+CPG\autocite{hecht-nielsen1987}, 
-    CPG\autocite{hecht-nielsen1987} & คุณสมบัติเชิงอะตอม, ระยะห่างระหว่างอะตอม \\
-    
-    \autocite{selzer2000,kostka2001} & ความเข้มการดูดกลืน IR & \makecell[tl]{Query Driven Selection \\ + RDF + 
-    CPG\autocite{hecht-nielsen1987}} & คุณสมบัติเชิงอะตอม, ระยะห่างระหว่างอะตอม \\
-    
-    \autocite{yildiz2011,yildiz2012} & ความเข้ม IR/Raman & LFFN-EPFs\autocite{yildiz2011} & ความเข้ม IR/Raman \\
-    
-    \autocite{gastegger2017} & ประจุย่อยเชิงอะตอม & HDNNP\autocite{behler2007} + ED-GEKF\autocite{gastegger2015} 
-    & ACSFs\autocite{behler2011a}, Geometric Descriptors \\
-    
-    \autocite{sifain2018,nebgen2018} & ประจุย่อยเชิงอะตอม & HIP-NN\autocite{lubbers2018} & เลขอะตอม, 
-    ระยะห่างระหว่างอะตอม \\
-   \bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \caption{บทความงานวิจัยที่เกี่ยวข้องกับวิธี Spec-to-Struc}
-    \label{tab:spec2struc}
-    \small
-    \begin{tabular}{clll}
-    \toprule
-    \textbf{อ้างอิง} &\textbf{Learning Target} &\textbf{โมเดล ML} &\textbf{Representation} \\
-    \midrule
-    \autocite{visser1994,luinge1995} & โครงสร้างและหมู่ฟังก์ชัน & 
-    PLS\autocite{wold1984}, PCA-MLP, MLP & \makecell[tl]{Band Pattern \\ Full Spectrum} \\
-
-    \autocite{carrieri1995} & โมเลกุลทั่วไป & Binary และ Decimal-based NN & 
-    Band Pattern \\
-    
-    \autocite{fu2018} & คอนฟิกูเรชั่นเชิงนิวเคลียร์ & Basin-hopping Algorithm\autocite{wales1997} & 
-    Cosine Distances \\
-    
-    \autocite{fine2020} & หมู่ฟังก์ชัน & Autoencoder + MLP, RF\autocite{breiman2001} & 
-    Peak ของ FTIR \\
-    
-    \autocite{ren2021} & โครงสร้างที่มีหมู่ \ce{OH} และ \ce{C=O} & LSTM \autocite{hochreiter1997} & 
-    \makecell[tl]{Peak ของ IR และ Raman \\ ที่คำนวณด้วย DFT} \\
-   \bottomrule
-\end{tabular}
-\end{table}
-
-โดยตัวย่อที่ใช้ในตารางที่ \ref{tab:struc2spec} และ \ref{tab:spec2struc} มีชื่อเต็มดังต่อไปนี้
-
-\begin{itemize}[topsep=0pt,noitemsep]
-    \item CPG: Counterpropagation
-    
-    \item ED-GEKF: Element-decoupled Global Extended Kalman Filter
-    
-    \item FTIR: Fourier Transform Infrared
-    
-    \item HDNNP: High Dimensional Neural Network Potential
-    
-    \item HIP-NN: Hierarchically Interacting Particle Neural Network
-    
-    \item LFFN-EPFs: Layered Feed Forward Neural Network - Empirical Physical Formulas
-    
-    \item MLP: Multilayer Perceptron
-    
-    \item NMA: N-methylacetamide
-    
-    \item PCA: Principal Component Analysis
-    
-    \item PG-EA: Probability Graph-evolutionary Algorithm
-    
-    \item RDF: Radial Distribution Function
-\end{itemize}
-
-\idxen{Molecular Property Prediction!Spectra!Struc-to-Spec}
-\idxen{Molecular Property Prediction!Spectra!Spec-to-Struc}
-
-%--------------------------
-\section{บทความวิชาการเพิ่มเติม}
-\label{sec:pred_misc_papers}
-%--------------------------
-
-นอกเหนือจากการนำ ML ไปใช้สำหรับการทำนายพารามิเตอร์ต่าง ๆ แล้ว ถ้าหากผู้อ่านสนใจการประยุกต์ใช้ ML กับงานทางด้านอื่น ๆ ของเคมีควอนตัม 
-สามารถอ่านบทความวิชาการเพิ่มเติมได้จากวารสารวิชาการชั้นแนวหน้า เช่น 
-
-\begin{enumerate}[topsep=0pt,noitemsep]
-    \item Journal of Chemical Information and Modeling (\textit{J. Chem. Inf. Model}) 
-    
-    \item Journal of Chemical Physics (\textit{J. Chem. Phys.}) 
-    
-    \item Journal of Chemical Theory and Computation (\textit{J. Chem. Theory Comput.}) 
-    
-    \item Journal of Physical Chemistry A (\textit{J. Phys. Chem. A}) 
-    
-    \item Journal of Physical Chemistry Letters (\textit{J. Phys. Chem. Lett.}) 
-    
-    \item Machine Learning: Science and Technology (\textit{MLST}) 
-    
-    \item Nature Machine Intelligence (\textit{Nat. Mach. Intell}) 
-    
-    \item Nature Communications (\textit{Nat. Commun.})
-    
-    \item Proceedings of the National Academy of Sciences of the United States of America (\textit{PNAS}) 
-    
-    \item Science Advances (\textit{Sci. Adv.}) 
-\end{enumerate}
-
-\noindent โดยวารสารอันดับที่ 1-5 เป็นวารสารเฉพาะทางด้านเคมีทฤษฎีและเคมีคอมพิวเตอร์, วารสารอันดับที่ 6-7 เป็นวารสารเฉพาะทางด้าน%
-การเรียนรู้ของเครื่อง, และวารสารอันดับที่ 8-10 เป็นวารสารด้านวิทยาศาสตร์ทั่วไป นอกจากนี้แล้วยังมีวารสารอื่น ๆ อีกที่ไม่ได้กล่าวถึงรวมไปถึง
-Repository ที่ให้บริการเผยแพร่บทความงานวิจัยแบบเข้าถึงได้ฟรี (Open-access) เช่น arXiv (\url{https://arxiv.org/}) และ 
-ChemRxiv (\url{https://chemrxiv.org})
-
-%--------------------------
-\subsection{บทความเฉพาะทาง}
-\label{ssec:pred_misc_papers_specific}
-%--------------------------
-
-โดยผู้เขียนได้เลือกงานวิจัยที่มีความโดดเด่นและเหมาะสำหรับผู้เริ่มต้นศึกษา ML และเคมีควอนตัม ซึ่งน่าจะช่วยให้ผู้อ่านเห็นภาพรวมของโจทย์งานวิจัย%
-ในปัจจุบันที่กำลังมาแรง บทความที่คัดเลือกมาประกอบไปด้วยบทความการทบทวนงานวิจัย (Review) ที่ใช้ ML ในการเรียนรู้ Force Field 
-สำหรับงานทางด้านเคมีควอนตัมและการจําลองพลวัตเชิงโมเลกุล (QM/MD) หรือนำมาใช้ในการทำนายพื้นที่พลังงานอิสระ (Free Energy Landscape)
-ไปจนถึงการพัฒนาโมเดล ML เพื่อทำนายคุณสมบัติเชิงโมเลกุล เช่น ไดโพลโมเมนต์ (Dipole Moment) และสภาพการเกิดขึ้น (Polarizability)
-
-\begin{enumerate}
-    \item \enquote{PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments, and 
-    Partial Charges}\autocite{unke2019}\\
-    ตีพิมพ์เมื่อวันที่ 01 พฤษภาคม ค.ศ. 2019
-    
-    \item \enquote{Comparison of the Performance of Machine Learning Models in Representing High-Dimensional 
-    Free Energy Surfaces and Generating Observables}\autocite{cendagorta2020}\\
-    ตีพิมพ์เมื่อวันที่ 10 เมษายน ค.ศ. 2020
-    
-    \item \enquote{Kernel-Based Machine Learning for Efficient Simulations of Molecular Liquids}\autocite{scherer2020}\\
-    ตีพิมพ์เมื่อวันที่ 13 เมษายน ค.ศ. 2020
-
-    \item \enquote{Machine Learning Force Fields}\autocite{unke2021}\\
-    ตีพิมพ์เมื่อวันที่ 11 มีนาคม ค.ศ. 2021
-
-    \item \enquote{The Rise of Neural Networks for Materials and Chemical Dynamics}\autocite{kulichenko2021}\\
-    ตีพิมพ์เมื่อวันที่ 1 กรกฎาคม ค.ศ. 2021
-
-\end{enumerate}
-
-%--------------------------
-\subsection{บทความรีวิว}
-\label{ssec:pred_misc_papers_review}
-%--------------------------
-
-ในช่วง 5 ปีที่ผ่านมานี้ (ค.ศ. 2017-2022) นอกจากจะมีการตีพิมพ์บทความงานวิจัยเฉพาะทางออกมาอย่างต่อเนื่องแล้ว ยังได้มีการตีพิมพ์บทความ%
-วิจารณ์หรือรีวิวซึ่งเป็นการสรุปภาพรวมของการใช้ ML ในหัวข้อต่าง ๆ ของเคมีทฤษฎีซึ่งผู้เขียนได้สรุปไว้ในตารางที่ \ref{tab:review_ml_chem}
-
-\begin{table}[H]
-    \centering
-    \caption{บทความรีวิวงานวิจัยทางด้าน ML และเคมีทฤษฏี}
-    \label{tab:review_ml_chem}
-    \begin{tabular}{cll}
-    \toprule
-    \textbf{ปี ค.ศ. ที่ตีพิมพ์} &\textbf{ผู้แต่งและบทความอ้างอิง}\footnotetext{ผู้แต่งในที่นี้คือนามสกุลของผู้แต่ง} 
-    &\textbf{หัวข้อที่รีวิว} \\
-    \midrule
-    2017 &Behler\autocite{behler2017} &พลังงานศักย์ระหว่างอะตอม \\
-    2018 &Goldsmith และคณะ\autocite{goldsmith2018} &ML สำหรับ Catalysis \\
-    2019 &Carleo และคณะ\autocite{carleo2019} &ML สำหรับวิทยาศาสตร์เชิงกายภาพ \\
-    2019 &Yang และคณะ\autocite{yang2019} &Drug Discovery \\
-    2019 &Elton และคณะ\autocite{elton2019} &Molecular Design \\
-    2019 &Schleder และคณะ\autocite{schleder2019} &ML สำหรับวัสดุศาสตร์ \\
-    2019 &Ceriotti\autocite{ceriotti2019} &การเรียนรู้แบบไม่มีผู้สอน \\
-    2020 &Dral\autocite{dral2020a} &ML สำหรับเคมีควอนตัม \\
-    2020 &No\'{e} และคณะ\autocite{noe2020} &การจำลองเชิงโมเลกุล \\
-    2020 &von Lilienfeld และคณะ\autocite{vonlilienfeld2020} &ปริภูมิเคมี \\
-    2020 &Mueller และคณะ\autocite{mueller2020} &พลังงานศักย์ระหว่างอะตอม \\
-    2020 &Manzhos และคณะ\autocite{manzhos2021} &ML สำหรับโมเลกุลและปฏิกิริยาขนาดเล็ก \\
-    2020 &Gkeka และคณะ\autocite{gkeka2020} &Force Fields และ Coarse Graining \\
-    2020 &Unke และคณะ\autocite{unke2021} &Force Fields \\
-    2020 &Toyao และคณะ\autocite{toyao2020} &การเร่งปฏิกิริยาเชิงข้อมูล \\
-    2020 &Manzhos\autocite{manzhos2020} &ML สำหรับโครงสร้างเชิงอิเล็กทรอนิกส์ \\
-    2020 &\makecell[tl]{Westermayr และ \\Marquetand\autocite{westermayr2021a}} &ML สำหรับสถานะกระตุ้น \\
-    2021 &Behler\autocite{behler2021} &Neural Network Potentials \\
-    2021 &Westermayr และคณะ\autocite{westermayr2021b} &ML สำหรับเคมีเชิงคำนวณและวัสดุศาสตร์ \\
-    2021 &Zheng และคณะ\autocite{zheng2021} &วิธีทางควอนตัมและการทำนายพลังงาน \\
-    2022 &Sajjan และคณะ\autocite{sajjan2022} &การพัฒนา ML สำหรับ Quantum Computing \\
-    2022 &Lim และคณะ\autocite{lim2022} &คุณสมบัติของโมเลกุลและ Drug Discovery \\
-    2022 &Raghunathan และคณะ\autocite{raghunathan2022} &Representation สำหรับ ML \\
-    2022 &Stuyver และคณะ\autocite{stuyver2022} &ML สำหรับความว่องไวของปฏิกิริยาเคมี \\
-    2022 &Tavakoli และคณะ\autocite{tavakoli2022} &ML (Graph) สำหรับความว่องไวของปฏิกิริยาเคมี \\
-    2022 &Han และคณะ\autocite{han2022} &ML สำหรับสเปกโทรสโกปี \\
-    2022 &van Gerwen และคณะ\autocite{gerwen2022} &Representation สำหรับ Chemical Reactivity \\
-    2022 &Qiao และคณะ\autocite{qiao2022} &Geometric Deep Learning \\
-    \bottomrule
-    \end{tabular}
-\end{table}
-
-นอกจากนี้ยังมีบทความรีวิวที่ผู้เขียนแนะนำให้ผู้สนใจศึกษา ML สำหรับเคมีควอนตัมแบบเชิงลึกโดยเฉพาะการต่อยอดในงานวิจัย ดังนี้
-
-\begin{enumerate}
-    \item \enquote{Roadmap on Machine Learning in Electronic Structure}\autocite{kulik2022}\\
-    อธิบายภาพรวมของ ML กับการศึกษาโครงสร้างเชิงอิเล็กทรอนิกส์ของโมเลกุล
-    
-    \item \enquote{Unsupervised Learning Methods for Molecular Simulation Data}\autocite{glielmo2021}\\
-    อธิบายการใช้เทคนิคการเรียนรู้แบบไม่มีผู้สอนสำหรับการจำลองและการวิเคราะห์ข้อมูลเชิงโมเลกุล
-
-    \item \enquote{Physics-Inspired Structural Representations for Molecules and Materials}\autocite{musil2021}\\
-    อธิบาย Representations สำหรับโมเลกุลและวัสดุ
-
-    \item \enquote{Combining Machine Learning and Computational Chemistry for Predictive Insights Into Chemical 
-    Systems}\autocite{keith2021}\\
-    อธิบายการใช้ ML ในการทำนายคุณสมบัติเชิงเคมี
-
-    \item \enquote{Machine Learning for Electronically Excited States of Molecules}\autocite{westermayr2021a}\\
-    อธิบาย ML สำหรับการศึกษาโมเลกุลในสภาวะกระตุ้น
-
-    \item \enquote{Ab Initio Machine Learning in Chemical Compound Space}\autocite{huang2021}\\
-    อธิบายการใช้ ML สำหรับการศึกษาปริภูมิเคมีขนาดใหญ่
-
-    \item \enquote{Four Generations of High-Dimensional Neural Network Potentials}\autocite{behler2021}\\
-    อธิบายโครงข่ายประสาทสำหรับการทำนายพลังงานของโมเลกุลทั้ง 4 รุ่น
-
-    \item \enquote{Gaussian Process Regression for Materials and Molecules}\autocite{deringer2021}\\
-    อธิบายการใช้เทคนิค GPR ในการทำนายคุณสมบัติของโมเลกุลและวัสดุ
-
-    \item \enquote{Machine Learning Force Fields}\autocite{unke2021}\\
-    อธิบายการเรียนรู้และสร้าง Force Field โดยใช้ ML
-
-    \item \enquote{Neural Network Potential Energy Surfaces for Small Molecules and Reactions}\autocite{manzhos2021}\\
-    อธิบายการศึกษาโมเลกุลและปฏิกิริยาเคมีระบบเล็กโดยใช้โครงข่ายประสาทของพื้นผิวพลังงานศักย์
-
-    \item \enquote{Machine Learning for Chemical Reactions}\autocite{meuwly2021}\\
-    อธิบายการใช้ ML สำหรับทำนายปฏิกิริยาเคมี
-\end{enumerate}
