@@ -1300,3 +1300,320 @@ Kohn-Sham DFT เพราะว่าพลังงานรวมของ Ko
     
     \item Density Functional Theory - An Advanced Course \\ ผู้เขียน Eberhard Engel และ Reiner M. Dreizler
 \end{enumerate}
+
+%--------------------------
+\section{การคำนวณพลังงานของระบบอิเล็กตรอนด้วย Kohn-Sham DFT}
+\label{sec:calc_ener_kohn_sham}
+\idxth{ทฤษฎีฟังก์ชันนอลความหนาแน่น!การคำนวณพลังงานของระบบอิเล็กตรอน Kohn-Sham}
+\idxen{Density Functional Theory!Kohn-Sham Energy Calculation}
+%--------------------------
+
+ในหัวข้อก่อนหน้านี้เป็นการอธิบายทฤษฎีของ Kohn-Sham DFT ซึ่งมีเคล็ดลับคือกำหนดให้อิเล็กตรอนในระบบนั้นไม่มีอันตรกิริยาต่อกัน เพื่อให้เห็นภาพ%
+มากขึ้นในหัวข้อนี้ผู้อ่านจะได้ศึกษาการเขียนโปรแกรมสำหรับการคำนวณพลังงานของระบบหลายอิเล็กตรอนโดยใช้ Kohn-Sham DFT ซึ่งเราจะสนใจ%
+กรณีที่เป็น 1 มิติเท่านั้น
+
+ในการเขียนโค้ดของ Kohn-Sham (KS) DFT นั้นเราจะใช้ใช้ Hamiltonian ตามที่เราได้ศึกษาไปแล้วตามสมการที่ \ref{kohn_sham_ener_1} 
+โดยเราสามารถเขียนให้สั้นและกระชับมากขึ้นได้ ดังนี้
+
+\begin{equation}
+    \hat{H} = -\frac{1}{2} \frac{d^2}{dx^2} + v_{Coul}(x) + v_{LDA}(x) + v_{ext}
+\end{equation}
+
+\noindent โดยแต่ละเทอมก็คือ
+
+\begin{enumerate}[topsep=0pt,noitemsep]
+    \item พลังงานจลน์ (Kinetic Energy)
+    \item พลังงานศักย์คูลอมป์ (Coulomb Energy) หรือแรงผลักไฟฟ้าสถิตย์ระหว่างอิเล็กตรอน
+    \item พลังงานแลกเปลี่ยน (Exchange Energy) ซึ่งเราจะใช้การประมาณค่าความหนาแน่นแบบพื้นที่ (Local Density Approximation) 
+    \item พลังงานภายนอก (External Potential) ซึ่งเราจะใช้ฟังก์ชัน Harmonic Oscillator
+\end{enumerate}
+
+\noindent หมายเหตุ: เราจะไม่พิจารณา Correlation Energy เนื่องจากว่ามีความซับซ้อนมากเกิน
+
+โดยเราจะใช้ภาษา Python ในการเขียน โดยสิ่งที่เราต้องทำหลัก ๆ มีดังนี้
+
+\begin{enumerate}[topsep=0pt,noitemsep]
+    \item สร้าง Hamiltonian
+    \item คำนวณฟังก์ชันคลื่นของ Kohn-Sham (KS Wavefunction)
+    \item คำนวณความหนาแน่น (Density)
+    \item คำนวณพลังงานอิเล็กทรอนิกส์
+\end{enumerate}
+
+\noindent เมื่อพร้อมแล้วเราก็มาเริ่มกันได้เลย
+
+\noindent \textbf{1. นำเข้าไลบรารี่}
+
+\begin{lstlisting}[style=MyPython]
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+\end{lstlisting}
+
+\vspace{1em}
+\noindent \textbf{2. กำหนดโอเปอเรเตอร์เชิงอนุพันธ์สำหรับการสร้าง Hamiltonian ของพลังงานจลน์}
+
+\begin{lstlisting}[style=MyPython]
+# Define a real-space grid
+n_grid = 200
+x = np.linspace(-5, 5, n_grid)
+y = np.sin(x)
+
+# First derivative
+h = x[1]-x[0]
+D = -np.eye(n_grid) + np.diagflat(np.ones(n_grid-1),1)
+D = D / h
+
+# Second derivative
+D2 = D.dot(-D.T)
+D2[-1,-1] = D2[0,0]
+\end{lstlisting}
+
+\vspace{1em}
+\noindent \textbf{3. คำนวณพลังงานจลน์}
+
+แก้สมการ Kohn-Sham เฉพาะของพลังงานจลน์โดยการทำ Diagonalization (เป็นขั้นตอนที่กำหนด Computational Complexity ของ DFT 
+นั่นคือ $\mathcal{O}(n^{3})$
+
+\begin{lstlisting}[style=MyPython]
+# Solve Kohn-Sham equation
+eig_non, psi_non = np.linalg.eigh(-D2/2)
+\end{lstlisting}
+
+\vspace{1em}
+\noindent \textbf{4. คำนวณพลังงานศักย์ภายนอก}
+
+ลำดับต่อไปคือการพิจารณาศักย์ภายนอก (External Potential) ซึ่งเราสามารถใช้ฟังก์ชัน Harmonic Oscillator ง่าย ๆ ได้ ในตัวอย่างนี้%
+ผู้เขียนเลือกใช้ External Potential เป็นฟังก์ชันพหุนาม คือ $v_{ext}=x^2$:
+
+\begin{lstlisting}[style=MyPython]
+# Define external potential with a matrix
+X = np.diagflat(x*x)
+
+# Solve Kohn-Sham equation
+eig_harm, psi_harm = np.linalg.eigh(-D2/2+X)
+\end{lstlisting}
+
+\vspace{1em}
+\noindent \textbf{5. คำนวณพลังงานแลกเปลี่ยน}
+
+ลำดับต่อมาคือการคำนวณพลังงานแลกเปลี่ยน (Exchange Energy) โดยเราจะพิจารณาฟังก์ชันนอลแลกเปลี่ยน (Exchange Functional) โดยใช้ 
+Local Density Approximation (LDA) ซึ่งมีสมการดังต่อไปนี้ (จริง ๆ แล้ว LDA มี Correlation Functional ด้วยแต่ว่าเราจะไม่สนใจ)
+
+\begin{equation}
+    E_X^{LDA}[n] = -\frac{3}{4} \left(\frac{3}{\pi}\right)^{1/3} \int n^{4/3} dx
+\end{equation}
+
+\noindent โดยที่ Potential นั้นสามารถคำนวณได้จากอนุพันธ์ของ Exchange Energy เทียบกับความหนาแน่น
+
+\begin{align}
+    v_X^{LDA}[n] &= \frac{\partial E_X^{LDA}}{\partial n} \nonumber \\ 
+    &= - \left(\frac{3}{\pi}\right)^{1/3} n^{1/3}
+\end{align}
+
+\begin{lstlisting}[style=MyPython]
+def get_exchange(nx, x):
+    energy = -3./4.*(3./np.pi)**(1./3.)*integral(x, nx**(4./3.))
+    potential = -(3./np.pi)**(1./3.)*nx**(1./3.)
+    return energy, potential
+\end{lstlisting}
+
+\vspace{1em}
+\noindent \textbf{6. คำนวณพลังงานคูลอมป์}
+
+ลำดับต่อมาคือพลังงานคูลอมป์ซึ่งเป็นพลังงานทางไฟฟ้าสถิตย์ (Electrostatic Energy) หรืออาจจะเรียกเรียกว่าพลังงานฮาร์ทรี Hartree Energy 
+ก็ได้ อย่างไรก็ตาม ตามทฤษฎีนั้นพลังงานคูลอมป์สำหรับนั้นลู่เข้า (Converged) เฉพาะกรณี 3 มิติเท่านั้นซึ่งมีสมการดังต่อไปนี้
+
+\begin{equation}
+    E^{3D}_{Coul} = \frac{1}{2}\iint \frac{n(r)n(r')}{\sqrt{(r-r')^2}}drdr'
+\end{equation}
+
+\noindent ดังนั้นในกรณี 1 มิติเราจะต้องทำการโกงนิดหน่อยเพื่อทำให้พลังงานนั้นลู่เข้าโดยการปรับสมการ ดังนี้
+
+\begin{equation}
+    E^{1D}_{Coul} = \frac{1}{2}\iint \frac{n(x)n(x')}{\sqrt{(x-x')^2+\varepsilon}}dxdx'
+\end{equation}
+
+\noindent โดยที่ $\varepsilon$ คือคงที่ที่เป็นบวกโดยมีค่าน้อย ๆ ซึ่งทำให้ฟังก์ชันนี้ลู่เข้าได้ง่ายขึ้น
+
+\noindent ดังนั้นพลังงานศักย์จึงมีสมการดังต่อไปนี้:
+
+\begin{equation}
+    v_{Coul} = \int \frac{n(x')}{\sqrt{(x-x')^2+\varepsilon}}dx'
+\end{equation}
+
+\begin{lstlisting}[style=MyPython]
+def get_coulomb(nx, x, eps=1e-1):
+    h = x[1]-x[0]
+    energy = np.sum(nx[None,:]*nx[:,None]*h**2 / np.sqrt((x[None,:]-x[:,None])**2 + eps)/2)
+    potential = np.sum(nx[None,:]*h/np.sqrt((x[None,:]-x[:,None])**2+eps), axis=-1)
+    return energy, potential
+\end{lstlisting}
+
+\vspace{1em}
+\noindent \textbf{7. คำนวณความหนาแน่น}
+
+เนื่องจากว่าเราจะต้องทำการรวม Coulomb Energy และ LDA Exchange โดยที่ทั้งคู่นั้นเป็นฟังก์ชันนอลของความหนาแน่น ดังนั้นเราจึงจำเป็นต้อง%
+คำนวณความหนาแน่นของอิเล็กตรอน (Electron Density) โดยเรามีเงื่อนไขของการทำ Normalization ดังนี้
+
+\begin{equation}
+    \int \lvert \psi \rvert ^2 dx = 1
+\end{equation}
+
+\noindent ซึ่งเราสามารถเขียนความหนาแน่นให้อยู่ในรูปของผลรวมเชิงเส้นของออร์บิทัลยกกำลังสองได้ ดังนี้ 
+
+\begin{equation}
+    n(x)=\sum_n f_n \lvert \psi(x) \rvert ^2
+\end{equation}
+
+\noindent โดยที่ $f_n$ คือ Occupation Number (จำนวนอิเล็กตรอนในออร์บิทัลที่ $n$) ซึ่งแต่ละ State นั้นจะมีอิเล็กตรอนที่มีสปินขึ้นและ%
+สปินลง โดยใน DFT นั้นเราคำนวณสถานะพื้นของระบบ
+
+\begin{lstlisting}[style=MyPython]
+def integral(x, y, axis=0):
+    dx = x[1]-x[0]
+    return np.sum(y*dx, axis=axis)
+\end{lstlisting}
+
+\noindent กำหนดจำนวนอิเล็กตรอน
+
+\begin{lstlisting}[style=MyPython]
+num_electron = 17
+\end{lstlisting}
+
+\noindent ทำการคำนวณความหนาแน่น
+
+\begin{lstlisting}[style=MyPython]
+def get_nx(num_electron, psi, x):
+    # Normalization
+    I = integral(x, psi**2, axis=0)
+    normed_psi = psi/np.sqrt(I)[None, :]
+    
+    # Occupation Number
+    fn=[2 for _ in range(num_electron//2)]
+    if num_electron % 2:
+        fn.append(1)
+
+    # Density
+    res = np.zeros_like(normed_psi[:,0])
+    for ne, psi in zip(fn, normed_psi.T):
+        res += ne*(psi**2)
+
+    return res
+\end{lstlisting}
+
+\vspace{1em}
+\noindent \textbf{8. คำนวณพลังงานอิเล็กทรอนิกส์ของระบบ}
+
+เมื่อเราเตรียมองค์ประกอบทุกอย่างพร้อมแล้ว ขั้นตอนต่อไปนี้สำคัญมากเพราะว่าเป็นขั้นตอนสุดท้ายที่เราจะนำฟังก์ชันทั้งหมดที่เราได้เขียนไว้มาแก้สมการ 
+Kohn-Sham โดยการวนซ้ำเทียบกับตัวเอง (Self-Consistency) มีขั้นตอนดังนี้
+
+\begin{enumerate}[topsep=0pt]
+    \item เริ่มต้นด้วยการ Initialize ความหนาแน่น (เราสามารถใช้ค่าคงที่อะไรก็ได้)
+    \item คำนวณพลังงานศักย์แลกเปลี่ยน (Exchange) และศักย์คูลอมป์ (Coulomb Potential)
+    \item คำนวณ Hamiltonian
+    \item แก้สมการ KS เพื่อคำนวณหา Wavefunctions และ Eigenvalues (พลังงาน)
+    \item ตรวจสอบการลู่เข้า ถ้าไม่ลู่เข้า ให้อัพเดทความหนาแน่นและกลับไปที่ขั้นตอนที่ 2
+\end{enumerate}
+
+\noindent ก่อนอื่นให้สร้างฟังก์ชันสำหรับเก็บข้อมูลเพื่อแสดงผลในระหว่างการทำ Iteration
+
+\begin{lstlisting}[style=MyPython]
+def print_log(i,log):
+    print(f"step: {i:<5} energy: {log['energy'][-1]:<10.4f} energy_diff: {log['energy_diff'][-1]:.10f}")
+\end{lstlisting}
+
+กำหนดพารามิเตอร์เพิ่มเติม เช่น จำนวนรอบสูงสุดในการวนซ้ำและค่า Cutoff ของความแตกต่างระหว่างพลังงานจากรอบที่ $n$ และรอบที่ $n+1$
+
+\begin{lstlisting}[style=MyPython]
+max_iter = 1000
+energy_tolerance = 1e-5
+log={"energy":[float("inf")], "energy_diff":[float("inf")]}
+\end{lstlisting}
+
+\noindent ทำการสร้างฟังก์ชันสำหรับการวนลูป โดยเริ่มจากกำหนดค่าความหนาแน่นเริ่มต้น ซึ่งเราจะใช้เป็นค่าคงที่อะไรก็ได้ ในตัวอย่างนี้ผู้เขียนใช้%
+ความหนาแน่นเท่ากับ 0
+
+\begin{lstlisting}[style=MyPython]
+# Initialize density
+nx = np.zeros(n_grid)
+
+for i in range(max_iter):
+    ex_energy, ex_potential = get_exchange(nx,x)
+    ha_energy, ha_potential = get_coulomb(nx,x)
+    
+    # Hamiltonian
+    H = -D2/2+np.diagflat(ex_potential+ha_potential+x*x)
+    
+    energy, psi= np.linalg.eigh(H)
+    
+    # Collect energy and eenrgy difference
+    log["energy"].append(energy[0])
+    energy_diff=energy[0]-log["energy"][-2]
+    log["energy_diff"].append(energy_diff)
+    print_log(i,log)
+    
+    # Check if the calculation is converged
+    if abs(energy_diff) < energy_tolerance:
+        print("Converged!   :)")
+        break
+    
+    # Update the density
+    nx=get_nx(num_electron, psi, x)
+else:
+    print("Not Converged   :(")
+\end{lstlisting}
+
+\noindent เมื่อทำการรันโค้ดด้านบนแล้วจะได้เอาต์พุตดังต่อไปนี้
+
+\begin{lstlisting}[style=MyPython]
+step: 0     energy: 0.7069     energy_diff: -inf
+step: 1     energy: 16.3625    energy_diff: 15.6555321919
+step: 2     energy: 13.8021    energy_diff: -2.5603559494
+step: 3     energy: 15.3002    energy_diff: 1.4980525863
+step: 4     energy: 14.4119    energy_diff: -0.8882287680
+step: 5     energy: 14.9470    energy_diff: 0.5350438262
+step: 6     energy: 14.6242    energy_diff: -0.3228271880
+step: 7     energy: 14.8201    energy_diff: 0.1959328656
+step: 8     energy: 14.7011    energy_diff: -0.1190355457
+step: 9     energy: 14.7735    energy_diff: 0.0724651058
+step: 10    energy: 14.7294    energy_diff: -0.0441312736
+step: 11    energy: 14.7563    energy_diff: 0.0268946713
+step: 12    energy: 14.7399    energy_diff: -0.0163922405
+step: 13    energy: 14.7499    energy_diff: 0.0099933983
+step: 14    energy: 14.7438    energy_diff: -0.0060926001
+step: 15    energy: 14.7475    energy_diff: 0.0037147279
+step: 16    energy: 14.7452    energy_diff: -0.0022649307
+step: 17    energy: 14.7466    energy_diff: 0.0013810031
+step: 18    energy: 14.7458    energy_diff: -0.0008420446
+step: 19    energy: 14.7463    energy_diff: 0.0005134280
+step: 20    energy: 14.7460    energy_diff: -0.0003130574
+step: 21    energy: 14.7462    energy_diff: 0.0001908842
+step: 22    energy: 14.7461    energy_diff: -0.0001163900
+step: 23    energy: 14.7461    energy_diff: 0.0000709679
+step: 24    energy: 14.7461    energy_diff: -0.0000432721
+step: 25    energy: 14.7461    energy_diff: 0.0000263849
+step: 26    energy: 14.7461    energy_diff: -0.0000160880
+step: 27    energy: 14.7461    energy_diff: 0.0000098095
+Converged!   :)
+\end{lstlisting}
+
+เมื่อทำการแก้หาค่าพลังงานไปทั้งหมด 27 รอบจะพบว่าพลังงานนั้นลู่เข้า โดยค่าพลังงานสุดท้ายที่ได้คือ 14.7461 และมีค่าความแตกต่างระหว่างพลังงาน%
+ของรอบที่ 26 กับพลังงานของรอบที่ 27 เท่ากับ 0.0000098095 ซึ่งน้อยกว่า Cutoff ที่กำหนดไว้คือ 0.00001
+
+\noindent นอกจากนี้เราสามารถพลอต Wavefunction ซึ่งเป็นฟังก์ชันของ Real-space Grid และระบุพลังงานได้ด้วย ดังนี้
+
+\begin{lstlisting}[style=MyPython]
+for i in range(5):
+    plt.plot(x, psi[:,i], label=f"{energy[i]:.4f}")
+    plt.legend(loc=1)
+\end{lstlisting}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/ks_dft_1d_wfn_ener.png}
+    \caption{Wavefunction และพลังงานที่ได้จากการคำนวณ Kohn-Sham DFT สำหรับกรณี 1 มิติ}
+    \label{fig:ks_dft_1d_wfn_ener}
+\end{figure}
+
+ผู้อ่านที่ต้องการศึกษาโค้ดฉบับสมบูรณ์สามารถดูได้ที่ไฟล์ \inlinehighlight{6_1D_DFT.ipynb} ใน Code Repository ของหนังสือที่ 
+\url{https://github.com/rangsimanketkaew/ml-qm-book-code}
