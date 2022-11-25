@@ -1284,9 +1284,28 @@ Kohn-Sham DFT เพราะว่าพลังงานรวมของ Ko
 \noindent ซึ่งสมการที่ \ref{eq:func_der_ener_chain_full} นี้ก็คือ Schr\"{o}dinger Equation สำหรับหนึ่งอิเล็กตรอนนั่นเอง 
 โดยเราสามารถแก้สมการเพื่อหา Kohn-Sham MOs ได้ อย่างไรก็ตาม เนื่องจากว่าเราไม่รู้ว่า MOs เริ่มต้นนั้นมีหน้าตาเป็นอย่างไร (Unknown)
 เราจึงไม่สามารถหาเฉลยแม่นตรงได้ ดังนั้นเราจึงจำเป็นต้องใช้วิธี Self-Consistent Field (SCF) ซึ่งเป็นวิธีวนซ้ำ (Iterative Method) 
-โดยขั้นตอนแรกเราจะทำการเลือกออร์บิทัลเชิงโมเลกุลเริ่มต้น (Initial Guess of MOs) ขึ้นมาก่อน แล้วก็ทำการสร้าง Kohn-Sham Operator 
-แล้วตามด้วยการคำนวณพลังงานแล้วทำการเปรียบเทียบพลังงานของรอบใหม่ที่ได้กับพลังงานของรอบเดิมโดยทำวนซ้ำไปเรื่อย ๆ จนกระทั่งค่าความ%
-แตกต่างของพลังงานและความหนาแน่นนั้นน้อยกว่าค่าที่กำหนด (Cutoff)
+โดนมีขั้นตอนคร่าว ๆ ดังต่อไปนี้
+
+\begin{framed}
+    \centering
+    1. ทำการสร้างออร์บิทัลเชิงโมเลกุลเริ่มต้น (Initial Guess of MOs)
+    \\ $\downarrow$ \\
+    2. สร้าง Kohn-Sham Operator 
+    \\ $\downarrow$ \\
+    3. คำนวณพลังงาน 
+    \\ $\downarrow$ \\
+    4. เปรียบเทียบพลังงานของรอบปัจจุบันกับพลังงานของรอบที่แล้ว 
+    \\ $\downarrow$ \\
+    5. ถ้าความแตกต่างของพลังงานและความหนาแน่น
+    \\
+    \vspace{0.5em}
+    \begin{minipage}{0.6\linewidth}
+        \begin{itemize}
+            \item $>$ ค่า Cutoff $\rightarrow$ ขั้นตอนที่ 2
+            \item $<$ ค่า Cutoff $\rightarrow$ สิ้นสุดการคำนวณ
+        \end{itemize} 
+    \end{minipage}
+\end{framed}
 
 รายละเอียดของทฤษฎี DFT และการคำนวณด้วยคอมพิวเตอร์นั้นมีอีกเยอะมาก เช่น Basis Set, Exchange-Correlation Functional 
 แบบต่าง ๆ, Spin-polarised DFT, Geometry Optimization รวมไปถึงเทคนิคต่าง ๆ ที่ได้มีการพัฒนาเพื่อปรับปรุง DFT ให้มีความแม่นยำ%
