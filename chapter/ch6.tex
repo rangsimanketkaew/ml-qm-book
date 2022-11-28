@@ -364,7 +364,7 @@ Dynamics ได้
 ในการคำนวณ Diffusion Map นั้นเราจะเริ่มต้นด้วยการคำนวณ Gaussian Kernel
 
 \begin{equation}
-    K(x_{i}, x_{j}) = \mathrm{exp}\left( -\frac{||x_i-x_j||^2}{2\sigma^2} \right)
+    K(x_{i}, x_{j}) = \exp \left( -\frac{||x_i-x_j||^2}{2\sigma^2} \right)
 \end{equation}
 
 \noindent ซึ่งเป็นฟังก์ชันเคอร์เนลอันเดียวกันกับสมการที่ \ref{eq:gaussian_kernel} แต่ว่าสิ่งที่ทำให้ Diffusion Map นั้นแตกต่างไปจาก%

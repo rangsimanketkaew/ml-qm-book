@@ -276,10 +276,12 @@ Sine Matrix เป็น Representation ที่คำนวณอันตร�
 เข้าไปด้วย\autocite{faber2015} มีสมการดังนี้
 
 \begin{equation}\label{eq:sine_matrix}
-    M_{ij}^\mathrm{sine} = \left \{
+    M_{ij}^\text{sine} = \left \{
         \begin{matrix}
         \frac{1}{2} Z_i^{2.4} & \text{for } i = j \\
-            \frac{Z_i Z_j}{\lvert \mathbf{B} \cdot \sum_{k=\{x,y,z\}} \hat{\mathbf{e}}_k \sin^2 
+            \\
+            \frac{\textstyle Z_i Z_j}{\textstyle \lvert \mathbf{B} \cdot \sum_{k=\{x,y,z\}} 
+            \hat{\mathbf{e}}_k \sin^2 
             \left ( \pi \mathbf{B}^{-1} \cdot \left ( \mathbf{R}_{i} - \mathbf{R}_{j} \right ) \right ) \rvert} 
             & \text{for } i \neq j
         \end{matrix}
@@ -409,13 +411,13 @@ Representation ที่เป็นประเภทเชิงอิเล�
 หรือ Chemical Shift
 
 การคำนวณ SOAP นั้นจริง ๆ แล้วสามารถทำได้ผ่านการคำนวณ Kernel ของ Atomic Environment 2 อันเข้าด้วยกัน ($\mathcal{X}$ และ 
-$\mathcal{X}'$) ซึ่งเขียนออกมาได้ในรูปของ Polynomial Kernel ($K^\mathrm{SOAP}$ ของพารามิเตอร์ที่ชื่อว่า Partial Power 
+$\mathcal{X}'$) ซึ่งเขียนออกมาได้ในรูปของ Polynomial Kernel ($K^\text{SOAP}$ ของพารามิเตอร์ที่ชื่อว่า Partial Power 
 Spectra ($\mathbf{p}$ และ $\mathbf{p}'$)\footnote{ผู้เขียนไม่แน่ใจว่าจะแปลเป็นภาษาไทยอย่างไรดี ต้องขออภัยผู้อ่านด้วยครับ} 
 
 โดยสมการที่เรานำมาใช้ในการคำนวณ SOAP นั้นคือ
 
 \begin{equation}\label{eq:soap}
-    K^\mathrm{SOAP}(\mathbf{p}, \mathbf{p'}) = \left( \frac{\mathbf{p} \cdot \mathbf{p'}}{\sqrt{\mathbf{p} 
+    K^\text{SOAP}(\mathbf{p}, \mathbf{p'}) = \left( \frac{\mathbf{p} \cdot \mathbf{p'}}{\sqrt{\mathbf{p} 
     \cdot \mathbf{p}~\mathbf{p'} \cdot \mathbf{p'}}}\right)^{\xi}
 \end{equation}
 
@@ -432,7 +434,7 @@ ${c^{Z}_{nlm}}^{\dagger}$ ถูกนิยามให้เป็นผลค
 ($\rho^Z$) และคอนจูเกตเชิงซ้อน (Complex Conjugate) ตามลำดับ\autocite{de2016} ดังนี้
 
 \begin{equation}
-    c^{Z}_{nlm}(\mathbf{r}) = \iiint_{\mathcal{R}^{3}} \mathrm{d}V g_{n}(r) Y_{lm}(\theta, \phi) 
+    c^{Z}_{nlm}(\mathbf{r}) = \iiint_{\mathcal{R}^{3}} dV g_{n}(r) Y_{lm}(\theta, \phi) 
     \rho^{Z}(\mathbf{r})
 \end{equation}
 
@@ -444,11 +446,11 @@ Smoothed Atomic Density) สำหรับอะตอม $Z$
 (ตามสมการที่ \ref{eq:rbf_poly}) ก็ได้
 
 \begin{equation}\label{eq:rbf_gto}
-    g_{nl}(r) = \sum_{n'=1}^{n_\mathrm{max}}\,\beta_{nn'l} r^l e^{-\alpha_{n'l}r^2}
+    g_{nl}(r) = \sum_{n'=1}^{n_{\max}}\,\beta_{nn'l} r^l e^{-\alpha_{n'l}r^2}
 \end{equation}
 
 \begin{equation}\label{eq:rbf_poly}
-    g_{n}(r) = \sum_{n'=1}^{n_\mathrm{max}}\,\beta_{nn'} (r-r_\mathrm{cut})^{n'+2}
+    g_{n}(r) = \sum_{n'=1}^{n_{\max}}\,\beta_{nn'} (r-r_\text{cut})^{n'+2}
 \end{equation}
 
 \noindent และในส่วนของ Spherical Harmonics นั้นเราสามารถใช้เฉพาะส่วนจริง (Real Part) ได้ (เพราะว่าง่ายต่อการ Implement) 

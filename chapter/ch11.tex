@@ -141,11 +141,11 @@ Feature ที่เลือกใช้, เทคนิค ML และ Hyper
 \fbox{%
 \begin{minipage}{0.9\linewidth}
     \begin{align*}  
-        &\text{Linear Kernel}: &&K(x_i, x_j) = x_i \cdot x_j \\[0.5ex]
-        &\text{Polynomial Kernel}: &&K(x_i, x_j; a, b) = (x_i \cdot x_j + a)^b \\[0.5ex]
-        &\text{Gaussian Kernel}: &&K(x_i, x_j; w, \sigma) = \mathrm{exp} \left(-\frac{|x_i-x_j|^2}{2\sigma^2} 
+        &\text{Linear Kernel}: &&K(x_{i}, x_{j}) = x_{i} \cdot x_{j} \\[0.5ex]
+        &\text{Polynomial Kernel}: &&K(x_{i}, x_{j}; a, b) = (x_{i} \cdot x_{j} + a)^b \\[0.5ex]
+        &\text{Gaussian Kernel}: &&K(x_{i}, x_{j}; w, \sigma) = \exp \left(-\frac{|x_{i}-x_{j}|^2}{2\sigma^2} 
         \right) \\[1.5ex]
-        &\text{Laplacian Kernel}: &&K(x_i, x_j; w, \gamma) = \mathrm{exp} \left(-{|x_i-x_j|}\right) \\[0.5ex]
+        &\text{Laplacian Kernel}: &&K(x_{i}, x_{j}; w, \gamma) = \exp \left(-{|x_{i}-x_{j}|}\right) \\[0.5ex]
     \end{align*}
 \end{minipage}}
 \idxboth{เคอร์เนล!เชิงเส้น}{Kernel!Linear}
@@ -190,7 +190,7 @@ X_cm_train, X_cm_test, Y_cm_train, Y_cm_test = train_test_split(cm, target, test
 \noindent ตามด้วยการกำหนด Kernel ซึ่งเราจะใช้ Gaussian Kernel 
 
 \begin{equation}\label{eq:gaussian_kernel}
-    K(x_{i}, x_{j}) = \mathrm{exp}\left( -\frac{||x_i-x_j||^2}{2\sigma^2} \right)
+    K(x_{i}, x_{j}) = \exp \left( -\frac{||x_{i}-x_{j}||^2}{2\sigma^2} \right)
 \end{equation}
 
 \noindent พร้อมกับสร้างลิสต์ของ $\sigma$ หลาย ๆ ค่า ซึ่งเราจะทำการหาค่าที่เหมาะสมที่สุดโดยการคำนวณระยะห่างแบบคู่ (Pairwise) 
@@ -534,7 +534,7 @@ ML และ NN ในการทำนายพลังงาน โดยค
 
 การทำนายหรือพยากรณ์แรง (Forces) และพลังงาน (Energies) ของโมเลกุลนั้นเรียกอีกอย่างหนึ่งว่าการสร้างโมเดล Machine Learning 
 Force Field (MLFF) เริ่มต้นสมมติว่าเรามีชุดข้อมูลที่มี Feature Vector ซึ่งเขียนแทนด้วย $\mathbf{D}$ และมีอนุพันธ์แบบเวกเตอร์ 
-(Divergence) เป็น $\nabla_{\mathbf{r_i}} \mathbf{D}$ และมีข้อมูลเพิ่มเติมคือพลังงาน $E$ และแรง $\mathbf{F}$ ของระบบ 
+(Divergence) เป็น $\nabla_{\mathbf{r_{i}}} \mathbf{D}$ และมีข้อมูลเพิ่มเติมคือพลังงาน $E$ และแรง $\mathbf{F}$ ของระบบ 
 (โมเลกุล) สำหรับการฝึกสอนเราจะสร้าง Neural Network (เขียนแทนด้วย $f$) เพื่อสร้างโมเดลสำหรับการทำนายพลังงาน ($\hat{E} = 
 f(\mathbf{D})$)\footnote{เครื่องหมาย $\hat{}$\, (อ่านว่า \enquote{hat}) ที่อยู่ด้านบนของตัวแปรเป็นส่งที่บ่งบอกว่าค่าตัวแปรนั้น%
 สิ่งที่เราทำนายออกมา} ซึ่งเราสามารถคำนวณแรงได้โดยตรงจากค่าติดลบของ Gradient ของพลังงานเทียบกับพิกัดตำแหน่งของอะตอมนั้น ๆ 
@@ -542,20 +542,20 @@ f(\mathbf{D})$)\footnote{เครื่องหมาย $\hat{}$\, (อ่า
 \idxen{Force Field}
 
 \begin{align}\label{eq:force_pred}
-\hat{\mathbf{F}}_i &= - \nabla_{\mathbf{r_i}} f(\mathbf{D}) \\
-&= - \nabla_{\mathbf{D}} f \cdot \nabla_{\mathbf{r_i}} \mathbf{D}\\
+\hat{\mathbf{F}}_i &= - \nabla_{\mathbf{r_{i}}} f(\mathbf{D}) \\
+&= - \nabla_{\mathbf{D}} f \cdot \nabla_{\mathbf{r_{i}}} \mathbf{D}\\
 &= - \begin{bmatrix}
     \frac{\partial f}{\partial D_1} & \frac{\partial f}{\partial D_2} & \dots
 \end{bmatrix}
 \begin{bmatrix}
-    \frac{\partial D_1}{\partial x_i} & \frac{\partial D_1}{\partial y_i} & \frac{\partial D_1}{\partial z_i}\\
-    \frac{\partial D_2}{\partial x_i} & \frac{\partial D_2}{\partial y_i} & \frac{\partial D_2}{\partial z_i}\\
+    \frac{\partial D_1}{\partial x_{i}} & \frac{\partial D_1}{\partial y_i} & \frac{\partial D_1}{\partial z_i}\\
+    \frac{\partial D_2}{\partial x_{i}} & \frac{\partial D_2}{\partial y_i} & \frac{\partial D_2}{\partial z_i}\\
     \vdots & \vdots & \vdots \\
 \end{bmatrix}
 \end{align}
 
 \noindent จากสมการ \ref{eq:force_pred} นั้นเราอธิบายได้ว่า $\nabla_{\mathbf{D}} f$ เป็นค่าอนุพันธ์ของคำตอบของโมเดล ML 
-ซึ่งจะเทียบกับ Descriptor $\mathbf{D}$ และ $\nabla_{\mathbf{r_i}} \mathbf{D}$ เป็นอนุพันธ์ของ Descriptor ที่เทียบกับ%
+ซึ่งจะเทียบกับ Descriptor $\mathbf{D}$ และ $\nabla_{\mathbf{r_{i}}} \mathbf{D}$ เป็นอนุพันธ์ของ Descriptor ที่เทียบกับ%
 ตำแหน่งของอะตอมซึ่งตามที่เราได้ศึกษามาก่อนหน้านี้ว่า Neural Network นั้นจะให้คำตอบที่เป็นแบบ Analytical Solution
 
 ตัวอย่างของโมเดล ML ที่ถูกพัฒนาขึ้นมาเพื่อเรียนรู้ Force Field ที่น่าสนใจมีดังนี้

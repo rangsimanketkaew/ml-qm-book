@@ -136,10 +136,38 @@ Properties) ของโมเลกุลแบบต่าง ๆ ซึ่ง
         ถ้าหากผู้อ่านสังเกตดี ๆ จะพบว่าทั้งวิธี Mulliken และ L\"{o}wdin นั้นต่างก็เป็นเพียงแค่รูปแบบเฉพาะของการทำ Population Analysis 
         ที่ใช้ $S^{n} \cdot P \cdot S^{1-n}$ เท่านั้น โดยที่กรณีที่ $n=0$ นั้นก็จะเป็น Mulliken และกรณีที่ $n=\frac{1}{2}$ นั้นก็%
         จะเป็น L\"{o}wdin
+
+        อย่างไรก็ตามไม่มีวิธีไหนนั้นดีที่สุด ถึงแม้ว่าการทำ Population Analysis โดยอ้างอิงกับ Basis Function นั้นจะง่ายแต่ก็มีปัญหา%
+        อยู่หลายข้อด้วยกัน ดังนี้ 
+
+        \begin{enumerate}[topsep=0pt]
+            \item สมาชิกแนวทแยงของ Population สำหรับบางออร์บิทัลนั้นอาจจะมีค่ามากกว่า 2 ได้ ซึ่งขัดแย้งกับหลักการของเพาลี
+            
+            \item สมาชิกนอกแนวทแยงอาจจะมีค่าเป็นลบได้ ซึ่งบอกเป็นนัย ๆ ว่าจำนวนอิเล็กตรอนระหว่าง Basis Function นั้นเป็นลบด้วย%
+            ซึ่งไม่มีทางเป็นไปได้
+
+            \item เราไม่สามารถหาเหตุผลมาอธิบายได้ว่าเมื่อไหร่ควรจะใช้ Population Method แบบนี้เพราะว่าเราไม่รู้ว่าการที่เราแบ่งครึ่ง%
+            ออร์บิทัลออกจากกันแบบเท่า ๆ กันนั้นจะสอดคล้องกับค่า Electronegativity ของอะตอมด้วยหรือไม่
+        \end{enumerate}
     
-    \item วิธีที่ใช้ศักย์เชิงไฟฟ้าสถิตย์ (Electrostatic Potential-based)
+    \item วิธีที่ใช้ศักย์เชิงไฟฟ้าสถิตย์ (Electrostatic Potential-based) \\
+    
+        เป็นวิธีที่ถูกพัฒนาโดยใช้หลักการระหว่างศักย์เชิงไฟฟ้าสถิตย์ (Electrostatic Potential หรือ ESP) กับอนุภาคที่มีประจุ โดย ESP
+        ที่ตำแหน่ง $\bm{r}$ สามารถคำนวณได้จากผลรวมของ Contribution จากนิวเคลียสและความหนาแน่นของอิเล็กตรอน ดังนี้
+
+        \begin{equation}\label{eq:esp_population}
+            \phi_{\text{ESP}}(\bm{r}) = \sum^{\text{nuclei}}_{A} \frac{Z_{A}}{|\bm{r} - \bm{R}_{A}|} 
+            - \int \frac{\rho(\bm{r}')}{|\bm{r} - \bm{r}'|} d\bm{r}'
+        \end{equation}
+
+        \noindent โดยที่ 
+        
+        \begin{equation}
+            \rho(\bm{r}') = |\Psi(\bm{r}')|^{2}
+        \end{equation}
+
         \begin{enumerate}
-            \item Merz-Kollman Charge\autocite{singh1984}
+            \item Merz-Singh-Kollman (MSK) Charge\autocite{singh1984}
             
             \item Charges from the Electrostatic Potential (CHELP) Charge\autocite{chirlian1987}
             
