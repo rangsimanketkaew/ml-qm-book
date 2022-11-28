@@ -100,10 +100,42 @@ Properties) ของโมเลกุลแบบต่าง ๆ ซึ่ง
 \begin{enumerate}
     \item วิธีที่ใช้ออร์บิทัล (Orbital-based) ซึ่งเป็นการทำ Population โดยใช้ Basis Functions
         \begin{enumerate}
-            \item Mulliken Charge\autocite{szabo1996}
+            \item Mulliken Charge\autocite{szabo1996} เป็นวิธีที่ได้รับความนิยมเป็นอย่างมากสำหรับคำนวณประจุย่อยของอะตอมซึ่ง%
+            โปรแกรมเคมีเชิงคำนวณหลาย ๆ โปรแกรมมักจะคำนวณ Mulliken Charge ให้โดยอัตโนมัตินั่นก็เพราะว่าสามารถคำนวณได้ง่าย%
+            โดยใช้ Density Matrix ($P$) และ Overlap Matrix ($S$) ซึ่งได้จากการคำนวณโครงสร้างเชิงอิเล็กทรอนิกส์ ซึ่งวิธี 
+            Mulliken นั้นจะเกี่ยวข้องกับการแบ่ง (Partition) ผลคูณระหว่าง $P$ และ $S$ ดังนี้
+
+            \begin{equation}\label{eq:mulliken_pop}
+                \rho_{A} = \sum^{M_{\text{basis}}}_{\alpha \in A} \sum^{M_{\text{basis}}}_{\beta}
+                P_{\alpha\beta} S_{\alpha\beta}
+            \end{equation}
+
+            \noindent โดยที่ $\rho_{A}$ คือ Population ของอะตอม $A$ และ $\alpha$ และ $\beta$ คือออร์บิทัลเชิงอะตอม 
+            (Atomic Orbitals, AOs) ซึ่งประจุของอะตอม $A$ นั้นสามารถหาจากได้ผลต่างจากเลขนิวเคลียร์ของอะตอม ดังนี้
+
+            \begin{equation}\label{eq:mulliken_charge}
+                Q_{A} = Z_{A} - \rho_{A}
+            \end{equation}
+
+            \noindent โดยการใช้ผลคูณ $\sum P \cdot S$ นั้นเป็นการกระจายอิเล็กตรอนให้อยู่ในรูปของการมีส่วมรวมเชิงอะตอม (Atomic 
+            Contributions) นั่นเอง หมายความว่าสมาชิกแนวทแยง $P_{\alpha\alpha} S_{\alpha\alpha}$ นั้นเป็นจำนวนของอิเล็ก%
+            ตรอนและสมาชิกนอกแนวทแยง $P_{\alpha\beta} S_{\alpha\beta}$ เป็นจำนวนครึ่งหนึ่งของจำนวนอิเล็กตรอนที่ถูกแชร์%
+            ระหว่าง AOs $\alpha$ และ $\beta$
             
-            \item L\"{o}wdin Charge\autocite{lowdin1950}
+            \item L\"{o}wdin Charge\autocite{lowdin1950} วิธีต่อมาที่เปรียบเสมือนเป็นพี่น้องกับ Mulliken Charge นั่นก็คือประจุ
+            L\"{o}wdin โดยจะเป็น Partition Overlap Matrix ดังนี้
+
+            \begin{align}
+                \sum P \cdot S &= N_{\text{elec}} \\
+                \sum S^{\frac{1}{2}} \cdot (P \cdot S) \cdot S^{-\frac{1}{2}} &= 
+                S^{\frac{1}{2}} N_{\text{elec}} S^{-\frac{1}{2}}\\
+                \sum S^{\frac{1}{2}} \cdot D \cdot S^{\frac{1}{2}} &= N_{\text{elec}} \label{eq:lowdin_charge}
+            \end{align}
         \end{enumerate}
+
+        ถ้าหากผู้อ่านสังเกตดี ๆ จะพบว่าทั้งวิธี Mulliken และ L\"{o}wdin นั้นต่างก็เป็นเพียงแค่รูปแบบเฉพาะของการทำ Population Analysis 
+        ที่ใช้ $S^{n} \cdot P \cdot S^{1-n}$ เท่านั้น โดยที่กรณีที่ $n=0$ นั้นก็จะเป็น Mulliken และกรณีที่ $n=\frac{1}{2}$ นั้นก็%
+        จะเป็น L\"{o}wdin
     
     \item วิธีที่ใช้ศักย์เชิงไฟฟ้าสถิตย์ (Electrostatic Potential-based)
         \begin{enumerate}
