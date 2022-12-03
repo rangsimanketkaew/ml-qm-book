@@ -22,8 +22,8 @@
     \psi_{nlm}(r,\theta,\phi) = R_{nl}(r) Y_{lm}(\theta,\phi)
 \end{equation}
 
-\noindent ซึ่งเป็นผลคูณระหว่างส่วนที่เป็นเชิงรัศมี (Radial Part, $R_{nl}(r)$) และส่วนที่เป็นเชิงมุม (Angular Part, $Y_{lm}(\theta, 
-\phi$) ตามลำดับ โดยมีสมการที่เป็นฟังก์ชันของเลขควอนตัมดังต่อไปนี้
+\noindent ซึ่งเป็นผลคูณระหว่างส่วนที่เป็นเชิงรัศมี (Radial Part) หรือ $R_{nl}(r)$ และส่วนที่เป็นเชิงมุม (Angular Part) หรือ 
+$Y_{lm}(\theta, \phi$ ตามลำดับ โดยมีสมการที่เป็นฟังก์ชันของเลขควอนตัมดังต่อไปนี้
 
 \begin{equation}\label{eq:hydro_wfn_rad}
 R_{nl}(r) = \sqrt{\Big(\frac{2}{n a_0}\Big)^3 \frac{(n-l-1)!}{2n (n+l)!}} e^{-r/n a_0} 
@@ -252,17 +252,17 @@ $\bullet$ \textbf{รวม Radial Part และ Angular Part สำหรั�
 สร้างฟังก์ชันสำหรับคำนวณ Wavefunction ของไฮโดรเจนโดยรับค่าอินพุตดังต่อไปนี้ 
 
 \begin{itemize}[topsep=0pt,noitemsep]
-    \item r: Radial Coordinate ($r$)
+    \item r: Radial Coordinate $(r)$
     
-    \item theta: Polar Coordinate ($\theta$)
+    \item theta: Polar Coordinate $(\theta)$
     
-    \item phi: Azimuthal Coordinate ($\phi$)
+    \item phi: Azimuthal Coordinate $(\phi)$
     
-    \item n: Principle Quantum Number ($n$)
+    \item n: Principle Quantum Number $(n)$
     
-    \item l: Angular Momentum Quantum Number ($l$)
+    \item l: Angular Momentum Quantum Number $(l)$
     
-    \item m: Magnetic Quantum Number ($m$)
+    \item m: Magnetic Quantum Number $(m)$
 \end{itemize}
 
 \noindent แล้วทำการคืนค่าออกมาเป็น Wavefunction ซึ่งได้จากผลคูณระหว่าง $\psi_{R}$ และ $\psi_{\text{ang}}$

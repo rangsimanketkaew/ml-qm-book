@@ -39,9 +39,9 @@ Properties) ของโมเลกุลแบบต่าง ๆ ซึ่ง
     \rho(\bm{r}) = 2 \sum^{N/2}_{i=1} \int |\varphi_{i}(\bm{r})|^{2}
 \end{equation}
 
-\noindent โดยเลข 2 ด้านหน้าเครื่องหมาย Summation ก็คือ Occupation Number สำหรับกรณีที่ Molecular Orbital ($i$) 
+\noindent โดยเลข 2 ด้านหน้าเครื่องหมาย Summation ก็คือ Occupation Number สำหรับกรณีที่ Molecular Orbital $(i)$ 
 นั้นมีอิเล็กตรอนทั้งแบบ Spin Up และ Spin Down และ $\varphi_{i}(\bm{r})$ คือ Wavefunction ซึ่งเราสามารถเขียน Wavefunction 
-ให้อยู่ในรูปผลรวมเชิงเส้น (LCAO) ของ Basis Function ($\phi_{i}$) ซึ่ง Basis Function นี้จะเป็นฟังก์ชันอะไรก็ได้ที่สามารถอธิบายการ%
+ให้อยู่ในรูปผลรวมเชิงเส้น (LCAO) ของ Basis Function $(\phi_{i})$ ซึ่ง Basis Function นี้จะเป็นฟังก์ชันอะไรก็ได้ที่สามารถอธิบายการ%
 มีอยู่ของ Molecular Orbital โดยในกรณีแบบที่ง่ายที่สุดคือเราจะมองว่า Molecular Orbital นั้นเกิดขึ้นจากการรวมกันของ Atomic Orbitals 
 ดังนั้นเราจะกำหนดให้ Atomic Orbitals เป็น Basis Function\footnote{Basis Function ในที่นี้คือ Atomic Orbitals ที่ถูกกำหนดให้%
 มีจุดศูนย์กลางอยู่ที่อะตอมนั้น ๆ} ดังนั้นเราสามารถเขียน LCAO ได้ดังต่อไปนี้ 
@@ -53,8 +53,9 @@ Properties) ของโมเลกุลแบบต่าง ๆ ซึ่ง
     \left ( \sum_{\nu} c^{*}_{\nu i}  \phi_{\nu} \right )
 \end{equation}
 
-\noindent โดยที่ $c$ คือสัมประสิทธิ์ของ LCAO ลำดับต่อมาคือเมื่อเราจัดรูปให้มีเทอมที่เป็นผลคูณของ Basis Function ($\phi_{\mu}^{*} 
-\phi_{\nu}$) เราจะกำหนดให้เทอมนี้เป็นสิ่งที่เรียกว่าเมทริกซ์ซ้อนทับ (Overlap Matrix) ($S_{\mu\nu}$) โดยจะได้สมการที่จัดรูปแล้ว ดังนี้
+\noindent โดยที่ $c$ คือสัมประสิทธิ์ของ LCAO ลำดับต่อมาคือเมื่อเราจัดรูปให้มีเทอมที่เป็นผลคูณของ Basis Function $(\phi_{\mu}^{*} 
+\phi_{\nu})$ เราจะกำหนดให้เทอมนี้เป็นสิ่งที่เรียกว่าเมทริกซ์ซ้อนทับ (Overlap Matrix) หรือ $S_{\mu\nu}$ โดยจะได้สมการที่จัดรูปแล้ว 
+ดังนี้
 \idxboth{เมทริกซ์ซ้อนทับ}{Overlap Matrix}
 
 \begin{equation}
@@ -102,7 +103,7 @@ Properties) ของโมเลกุลแบบต่าง ๆ ซึ่ง
         \begin{enumerate}
             \item Mulliken Charge\autocite{szabo1996} เป็นวิธีที่ได้รับความนิยมเป็นอย่างมากสำหรับคำนวณประจุย่อยของอะตอมซึ่ง%
             โปรแกรมเคมีเชิงคำนวณหลาย ๆ โปรแกรมมักจะคำนวณ Mulliken Charge ให้โดยอัตโนมัตินั่นก็เพราะว่าสามารถคำนวณได้ง่าย%
-            โดยใช้ Density Matrix ($P$) และ Overlap Matrix ($S$) ซึ่งได้จากการคำนวณโครงสร้างเชิงอิเล็กทรอนิกส์ ซึ่งวิธี 
+            โดยใช้ Density Matrix $(P)$ และ Overlap Matrix $(S)$ ซึ่งได้จากการคำนวณโครงสร้างเชิงอิเล็กทรอนิกส์ ซึ่งวิธี 
             Mulliken นั้นจะเกี่ยวข้องกับการแบ่ง (Partition) ผลคูณระหว่าง $P$ และ $S$ ดังนี้
 
             \begin{equation}\label{eq:mulliken_pop}
@@ -384,7 +385,7 @@ $\braket{\bm{\dot{\mu}}(\tau) \bm{\dot{\mu}}(\tau+t)}_{\tau}$ ซึ่งจะ
 รามานสเปกโทรสโกปี (Raman Spectroscopy) เป็นเทคนิคหนึ่งที่เปรียบเสมือนเป็นพี่น้องกับเทคนิคอินฟราเรดสเปกโทรสโกปี โดยที่ Raman Spectroscopy 
 จะเป็นผลมาจากการเกิดการกระเจิงของแสงแบบไม่ยืดหยุ่นในช่วงอินฟราเรด วิสิเบิล (Visible) และอัลตราไวโอเล็ต (Ultraviolet) ซึ่งเกี่ยวข้อง%
 กับการเปลี่ยนแปลงสภาพการเกิดขั้ว (Polarizability) แบบอิเล็กทริกไดโพล-อิเล็กทริกไดโพล (Electric-dipole--electric-dipole) 
-ของสสาร โดยความเข้มของการกระเจิงแบบรามาน ($I_{Raman}$) สามารถคำนวณได้ด้วยความสัมพันธ์ดังต่อไปนี้\autocite{thomas2013}
+ของสสาร โดยความเข้มของการกระเจิงแบบรามาน $(I_{Raman})$ สามารถคำนวณได้ด้วยความสัมพันธ์ดังต่อไปนี้\autocite{thomas2013}
 
 \begin{equation}\label{eq:Raman_corr}
     I_{Raman} (\omega) \propto \frac{(\omega_{in}-\omega)^4}{\omega} 
@@ -393,7 +394,7 @@ $\braket{\bm{\dot{\mu}}(\tau) \bm{\dot{\mu}}(\tau+t)}_{\tau}$ ซึ่งจะ
 
 \noindent โดยที่ $S(a^{2}, \gamma^{2})$ คือตัวแปรที่เป็นผลจากการรวมกันของความคงที่ (ไม่เปลี่ยนแปลง) แบบไอโซโทรปิค (Isotropic) 
 และแอนิโซโทรปิค (Anisotropic)\footnote{คำจำกัดความ: คุณสมบัติที่เท่ากันทุกทิศทาง (Isotropic) และคุณสมบัติที่ขึ้นอยู่กับทิศทาง 
-(Anisotropic)} ของเทนเซอร์แบบ Placzek-type Polarizability ($\bm{\alpha}$)\autocite{jensen2005}, $\omega$ 
+(Anisotropic)} ของเทนเซอร์แบบ Placzek-type Polarizability $(\bm{\alpha})$\autocite{jensen2005}, $\omega$ 
 คือความถี่เชิงการสั่น, $\omega_{in}$ คือความถี่ของแสดง, $k_{B}$ คือค่าคงที่ของโบลทซ์มานน์ (Boltzmann Constant) และ $T$ 
 คืออุณหภูมิของระบบในหน่วย Kelvin โดยสมการที่จะใช้ในการอธิบาย $S(a^{2}, \gamma^{2})$ จะขึ้นอยู่กับรูปแบบของการทดลองและสมการของ 
 Time Correlation\autocite{mattiat2021}
@@ -538,5 +539,5 @@ charge of  1F =     -0.37993
 Dipole moment(X, Y, Z, Debye):  0.00000,  0.00000, -2.08373
 \end{lstlisting}
 
-โดยสรุปผลการคำนวณได้ดังนี้ โมเลกุล \ce{HF} มีพลังงานเชิงอิเล็กทรอนิกส์ ($E_{\text{HF}} + E_{\text{Exchange}} + 
+โดยสรุปผลการคำนวณได้ดังนี้ โมเลกุล \ce{HF} มีพลังงานเชิงอิเล็กทรอนิกส์ $(E_{\text{HF}} + E_{\text{Exchange}} + 
 E_{\text{Correlation}})$ เท่ากับ -100.302481944224 Hartree และมีพลังงานของออร์บิทัลเชิงโมเลกุล (MO) ตามที่แสดงทั้ง 16 ออร์บิทัล
