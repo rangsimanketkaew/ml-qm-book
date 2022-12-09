@@ -131,6 +131,7 @@
 %%% Option 1. Font for Thai %%%
 
 \usepackage{xltxtra} % this will load the fontspec, metalogo, and realscripts packages
+\usepackage{xunicode}
 \XeTeXlinebreaklocale "th_TH"
 \XeTeXlinebreakskip = 0pt plus 1pt  
 \defaultfontfeatures{Scale=1.23}
@@ -141,6 +142,7 @@
   BoldFont={THSarabunNew_Bold.ttf},
   ItalicFont={THSarabunNew_Italic.ttf},
   BoldItalicFont={THSarabunNew_BoldItalic.ttf},
+  Mapping=tex-text,
 ]{THSarabunNew.ttf} 
 
 %%% Option 2. Fonts for different languages %%%
