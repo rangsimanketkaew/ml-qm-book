@@ -234,6 +234,177 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 และทำการทดสอบด้วยข้อมูลส่วนที่ 1 และในรอบที่สองเราจะเปลี่ยนมาเทรนโมเดลด้วยข้อมูลของส่วนที่ 1, 3, 4, และ 5 แล้วนำโมเดลมาทดสอบ%
 ด้วยข้อมูลส่วนที่ 2
 
+จริง ๆ แล้วมีวิธีการทำ Cross Validation หลากหลายวิธีมาก โดยมีภาพประกอบโค้ดที่เขียนด้วยภาษา Python และใช้ไลบรารี่ Scikit-learn 
+สำหรับ Cross Validation แต่ละแบบดังนี้
+
+%--------------------------
+\subsection{Train Test Split}
+\label{ssec:train_test_split}
+\idxen{Cross Validation!Train Test Split}
+%--------------------------
+
+ฟังก์ชัน \pyinline{train_test_split} จะทำการแบ่ง Array หรือ Matrices ออกเป็น Train กับ Test Set แบบสุ่ม
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth,page=1]{fig/cross_validation.pdf}
+    \caption{การทำ Cross Validation ด้วย \pyinline{train_test_split}}
+    \label{fig:train_test_split}
+\end{figure}
+
+\begin{lstlisting}[style=MyPython]
+import numpy as np
+from sklearn.model_selection import train_test_split
+
+X = np.array([[0, 1], [2, 3], [4, 5], [6, 7], [8, 9]])
+y = np.array([0, 1, 2, 3, 4])
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.33, random_state=42)
+\end{lstlisting}
+
+%--------------------------
+\subsection{Cross Val Score}
+\label{ssec:cross_val_score}
+\idxen{Cross Validation!Cross Val Score}
+%--------------------------
+
+ฟังก์ชัน \pyinline{cross_val_score} ทำการคำนวณคะแนน (Score) โดยการทำ Cross Validation และแสดงค่า Score ของแต่ละส่วน
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth,page=2]{fig/cross_validation.pdf}
+    \caption{การทำ Cross Validation ด้วย \pyinline{cross_val_score}}
+    \label{fig:cross_val_score}
+\end{figure}
+
+\begin{lstlisting}[style=MyPython]
+from sklearn.model_selection import cross_val_score
+from sklearn.datasets import load_iris
+
+iris = load.iris()
+clf = svm.SVC(kernel="linear", C=1)
+scores = cross_val_score(clf, iris.data, iris.target, cv=5)
+\end{lstlisting}
+
+%--------------------------
+\subsection{Cross Val Predict}
+\label{ssec:cross_val_predict}
+\idxen{Cross Validation!Cross Val Score}
+%--------------------------
+
+ฟังก์ชัน \pyinline{cross_val_predict} ทำการทำนายสมาชิกหรือข้อมูลแต่ละตัวที่อยู่ใน Test Set
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth,page=3]{fig/cross_validation.pdf}
+    \caption{การทำ Cross Validation ด้วย \pyinline{cross_val_predict}}
+    \label{fig:cross_val_predict}
+\end{figure}
+
+\begin{lstlisting}[style=MyPython]
+from sklearn.model_selection import cross_val_predict
+from sklearn.datasets import load_iris
+
+iris = load.iris()
+clf = svm.SVC(kernel="linear", C=1)
+predicted = cross_val_predict(clf, iris.data, iris.target, cv=10)
+\end{lstlisting}
+
+%--------------------------
+\subsection{K Fold}
+\label{ssec:f_fold}
+\idxen{Cross Validation!K Fold}
+%--------------------------
+
+ฟังก์ชัน \pyinline{KFold} จะทำการแบ่ง Dataset ออกเป็น K Fold (โดยที่ K คือจำนวนของการแบ่ง เช่น 3) โดยไม่มีการสลับข้อมูล 
+โดยที่แต่ละ Fold จะถูกนำมาใช้เป็น Validation
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth,page=4]{fig/cross_validation.pdf}
+    \caption{การทำ Cross Validation ด้วย \pyinline{KFold}}
+    \label{fig:f_fold}
+\end{figure}
+
+\begin{lstlisting}[style=MyPython]
+import numpy as np
+from sklearn.model_selection import KFold
+
+X = np.array([[1, 2], [3, 4], [1, 2], [3, 4]])
+y = np.array([1, 2, 3, 4])
+kf = KFold(n_splits=2)
+kf.split(X)
+kf.get_n_splits(X) # OUTPUT = 2
+
+for i, (train_index, test_index) in enumerate(kf.split(X)):
+    print(f"Fold {i}:")
+    print(f"  Train: index={train_index}")
+    print(f"  Test:  index={test_index}")
+\end{lstlisting}
+
+%--------------------------
+\subsection{Leave One Out}
+\label{ssec:leave_one_out}
+\idxen{Cross Validation!Leave One Out}
+%--------------------------
+
+ฟังก์ชัน \pyinline{LeaveOneOut} เป็นการนำข้อมูลแต่ละตัวมาใช้เป็น Test Set 1 ครั้งหรือเรียกว่า Singleton ซึ่งจริง ๆ แล้ว 
+\pyinline{LeaveOneOut()} นั้นจะเหมือนกับการใช้ \pyinline{KFold(n_splits=n)} และ \pyinline{LeavePOut(p=1)} โดยที่ 
+\pyinline{n} คือจำนวนของข้อมูลหรือ Sample
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth,page=5]{fig/cross_validation.pdf}
+    \caption{การทำ Cross Validation ด้วย \pyinline{LeaveOneOut}}
+    \label{fig:leave_one_out}
+\end{figure}
+
+\begin{lstlisting}[style=MyPython]
+import numpy as np
+from sklearn.model_selection import LeaveOneOut
+
+X = np.array([[1, 2], [3, 4]])
+y = np.array([1, 2])
+loo = LeaveOneOut()
+loo.get_n_splits(X) # OUTPUT = 2 
+
+for i, (train_index, test_index) in enumerate(loo.split(X)):
+    print(f"Fold {i}:")
+    print(f"  Train: index={train_index}")
+    print(f"  Test:  index={test_index}")
+\end{lstlisting}
+
+%--------------------------
+\subsection{Leave P Out}
+\label{ssec:leave_p_out}
+\idxen{Cross Validation!Leave P Out}
+%--------------------------
+
+ฟังก์ชัน \pyinline{LeavePOut} นั้นคล้ายกับ \pyinline{LeaveOneOut()} มาก แต่จะมีความแตกต่างกันตรงที่วิธีนี้นั้นสามารถกำหนดจำนวน%
+ของข้อมูลหรือ Sample ที่เรานำไปไปใช้เป็น Test Set ได้
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth,page=6]{fig/cross_validation.pdf}
+    \caption{การทำ Cross Validation ด้วย \pyinline{LeavePOut}}
+    \label{fig:leave_p_out}
+\end{figure}
+
+\begin{lstlisting}[style=MyPython]
+import numpy as np
+from sklearn.model_selection import LeavePOut
+
+X = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
+y = np.array([1, 2, 3, 4])
+lpo = LeavePOut(2)
+lpo.get_n_splits(X) # OUTPUT = 6
+
+for i, (train_index, test_index) in enumerate(lpo.split(X)):
+    print(f"Fold {i}:")
+    print(f"  Train: index={train_index}")
+    print(f"  Test:  index={test_index}")
+\end{lstlisting}
+
 %--------------------------
 \section{การคัดเลือกลักษณะเฉพาะ}
 \label{sec:select_feat}
