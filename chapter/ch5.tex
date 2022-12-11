@@ -38,7 +38,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 \section{การเลือกโมเดล}
 \label{sec:choose_model}
-\idxen{การเลือกโมเดลการเรียนรู้ของเครื่อง}
+\idxth{การเลือกโมเดลการเรียนรู้ของเครื่อง}
+\idxen{Model Selection}
 %--------------------------
 
 อัลกอริทึมหรือโมเดล ML แต่ละอันนั้นก็มีข้อดีข้อเสียแตกต่างกันไป ผู้เขียนขอสรุปง่าย ๆ ดังนี้ (เน้นเฉพาะโมเดลที่ได้รับความนิยมในการใช้งาน)
@@ -46,11 +47,12 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 \subsection{Linear Regression}
 \label{ssec:pros_cons_lin_reg}
+\idxth{Model Selection!Linear Regression}
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}
-    \item Implement ได้ง่าย และฝึกสอนโมเดลได้อย่างมีประสิทธิภาพ
+\begin{itemize}[topsep=0pt]
+    \item สามารถเขียนโค้ดได้ง่าย และฝึกสอนโมเดลได้อย่างมีประสิทธิภาพ
     
     \item ปัญหา Overfitting ของ Linear Regression สามารถแก้ได้ด้วยการทำ Regularization
     
@@ -58,7 +60,7 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}
+\begin{itemize}[topsep=0pt]
     \item ข้อมูลที่อยู่ในชุดข้อมูลที่ใช่สำหรับการฝึกสอนโมเดล Linear Regression นั้นควรจะต้องไม่ขึ้นต่อกัน แต่ทว่าในชีวิตจริงนั้นข้อมูลก็%
     มักจะขึ้นต่อกันเสมอ
 
@@ -68,12 +70,37 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 %--------------------------
-\subsection{Support Vector Machine (SVM)}
-\label{ssec:pros_cons_svm}
+\subsection{Logistic Regression}
+\label{ssec:pros_cons_log_reg}
+\idxth{Model Selection!Logistic Regression}
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}
+\begin{itemize}[topsep=0pt]
+    \item โอกาสเกิด Overfitting น้อย แต่ว่าสามารถเกิด Overfitting ได้ในชุดข้อมูลที่มีจำนวนมิติสูง ๆ
+    
+    \item มีประสิทธิภาพมาก ๆ เมื่อชุดข้อมูลมี Features ที่สามารถแยกกันได้แบบเชิงเส้น
+    
+    \item สามารถเขียนโค้ดได้ง่าย และฝึกสอนโมเดลได้อย่างมีประสิทธิภาพ
+\end{itemize}
+
+\noindent \textbf{ข้อด้อย}
+\begin{itemize}[topsep=0pt]
+    \item ไม่ควรใช้อัลกอริทึมนี้สำหรับกรณีที่จำนวน Observation นั้นมีน้อยกว่าจำนวนของ Feature
+
+    \item เหมาะสำหรับชุดข้อมูลที่มีความเป็นเชิงเส้น ซึ่งหาได้ยากในชีวิต (ปกติเรามักจะมีเจอชุดข้อมูลแบบที่ไม่เป็นเชิงเส้น)
+    
+    \item ใช้ทำนายได้แค่ฟังก์ชันที่ไม่ต่อเนื่อง (Discrete Function)
+\end{itemize}
+
+%--------------------------
+\subsection{Support Vector Machine}
+\label{ssec:pros_cons_svm}
+\idxth{Model Selection!Support Vector Machine}
+%--------------------------
+
+\noindent \textbf{ข้อดี}
+\begin{itemize}[topsep=0pt]
     \item เหมาะสำหรับข้อมูลที่มีจำนวนมิติเยอะ ๆ (High-dimensional Data)
     
     \item สามารถใช้กับชุดข้อมูลที่มีขนาดเล็กได้ (จำนวนข้อมูลไม่เยอะ)
@@ -82,16 +109,122 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}
+\begin{itemize}[topsep=0pt]
     \item ไม่ค่อยมีประสิทธิภาพเมื่อใช้กับชุดข้อมูลที่มีขนาดใหญ่
     
     \item ต้องเลือก Kernel ที่เหมาะสม ถ้าเลือก Kernel ไม่ดีก็จะได้โมเดลที่ไม่มีประสิทธิภาพ
 \end{itemize}
 
 %--------------------------
+\subsection{Neural Network}
+\label{ssec:pros_cons_nn}
+\idxth{Model Selection!Neural Network}
+%--------------------------
+
+\noindent \textbf{ข้อดี}
+\begin{itemize}[topsep=0pt]
+    \item มีคุณสมบัติที่ทำให้โมเดลสามารถทำงานต่อไปได้แม้จะเกิด Failure ขึ้น เรียกง่าย ๆ ว่า ทนทานต่อความเสียหายมี Fault Tolerance
+    
+    \item มีความสามารถในการเรียนรู้โมเดลที่เป็นแบบไม่เชิงเส้นและความสัมพันธ์ระหว่างตัวแปรที่มีความซับซ้อน
+    
+    \item สามารถ Generalize บนชุดข้อมูลที่ไม่เคยเห็นมาก่อนได้ (Unseen Data)
+\end{itemize}
+
+\noindent \textbf{ข้อด้อย}
+\begin{itemize}[topsep=0pt]
+    \item ใช้ระยะเวลาในการฝึกสอนโมเดลนาน
+    
+    \item ไม่การันตีว่าการฝึกสอนโมเดลจะลู่เข้า (Non-gauranteed Convergence)
+    
+    \item ตีความโมเดลได้ยาก เช่น เราไม่สามารถบอกความสัมพันธ์ระหว่างโหนดใน Hidden Layer ได้ ซึ่งเราเรียกว่าโมเดลแบบนี้ว่า Black 
+    Box 
+
+    \item ประสิทธิภาพในการฝึกสอนโมเดลขึ้นอยู่กับประสิทธิภาพของของเครื่องที่ใช้รันด้วย (Hardware)
+    
+    \item ไม่เหมาะสำหรับผู้เริ่มต้นศึกษา ML เพราะว่าต้องใช้ประสิทธิภาพและความสามารถในการนำไปจัดการปัญหาและปรับแก้โมเดลเพื่อทำให้%
+    เรียนรู้ได้ดียิ่งขึ้น
+\end{itemize}
+
+%--------------------------
+\subsection{Printipal Component Analysis}
+\label{ssec:pros_cons_pca}
+\idxth{Model Selection!Printipal Component Analysis}
+%--------------------------
+
+\noindent \textbf{ข้อดี}
+\begin{itemize}[topsep=0pt]
+    \item สามารถลดความซับซ้อนของความสัมพันธ์ระหว่าง Feature ได้
+    
+    \item สามารถลดปัญหา Overfitting
+\end{itemize}
+
+\noindent \textbf{ข้อด้อย}
+\begin{itemize}[topsep=0pt]
+    \item องค์ประกอบหลัก (Principal Component) นั้นวิเคราะห์และตีความได้ยาก
+    
+    \item การใช้วิธีนี้ทำให้เราสูญเสียข้อมูล (ความสัมพันธ์ระหว่าง Feature) หรือ Information Loss
+    
+    \item จำเป็นจะต้องทำการ Standardize ชุดข้อมูลก่อน
+\end{itemize}
+
+%--------------------------
+\subsection{K Means Clustering}
+\label{ssec:pros_cons_kmeans}
+\idxth{Model Selection!K Means Clustering}
+%--------------------------
+
+\noindent \textbf{ข้อดี}
+\begin{itemize}[topsep=0pt]
+    \item สามารถเขียนโค้ดได้ง่าย ไม่ซับซ้อน
+    
+    \item สามารถนำไปใช้กับชุดข้อมูลที่มีขนาดใหญ่มาก ๆ ได้
+    
+    \item การันตีว่าการฝึกสอนโมเดลนั้นลู่เข้าแน่นอน
+    
+    \item สามารถปรับให้เข้ากับชุดข้อมูลใหม่ได้ง่าย ๆ
+\end{itemize}
+
+\noindent \textbf{ข้อด้อย}
+\begin{itemize}[topsep=0pt]
+    \item ไม่เหมาะสำหรับชุดข้อมูลที่มี Outlier
+    
+    \item การเลือกค่า $K$ สำหรับ Clustering นั้นค่อนข้างยุ่งยาก
+    
+    \item ประสิทธิภาพของโมเดลขึ้นอยู่กับพารามิเตอร์เริ่มต้น
+    
+    \item ความสามารถในการ Scale นั้นจะลดลงเมื่อจำนวนมิติเพิ่มขึ้น
+\end{itemize}
+
+%--------------------------
+\subsection{K Nearest Neighbor}
+\label{ssec:pros_cons_knn}
+\idxth{Model Selection!K Nearest Neighbor}
+%--------------------------
+
+\noindent \textbf{ข้อดี}
+\begin{itemize}[topsep=0pt]
+    \item สามารถทำนายได้โดยไม่ต้องฝึกสอนโมเดล
+    
+    \item เป็นวิธีที่สิ้นเปลืองน้อยมาก โดยมี Time Complexity เท่ากับ $\mathcal{O}(n)$
+    
+    \item สามารถนำไปใช้ได้กับโจทย์ Regression และ Classification
+\end{itemize}
+
+\noindent \textbf{ข้อด้อย}
+\begin{itemize}[topsep=0pt]
+    \item ไม่เหมาะสำหรับชุดข้อมูลขนาดใหญ่
+    
+    \item ไม่เหมาะสำหรับชุดข้อมูลที่มี Noise เยอะมากเกินไป และข้อมูลไม่ครบ รวมไปถึง Outlier ด้วย 
+    
+    \item จำเป็นต้องมีการทำ Feature Scaling
+    
+    \item การเลือกค่า $K$ นั้นค่อนข้างยุ่งยาก
+\end{itemize}
+
+%--------------------------
 \section{Cross Validation}
 \label{sec:cross_val}
-\idxen{Cross Validation}
+\idxboth{การทดสอบแบบข้าม}{Cross Validation}
 %--------------------------
 
 วิธีการตรวจสอบโมเดลวิธีแรกนี้เป็นวิธีที่ได้รับความนิยมเป็นอย่างมากเพราะว่าสามารถทำได้ง่ายและให้ผลลัพธ์ที่น่าเชื่อถือ นั่นก็คือ 
