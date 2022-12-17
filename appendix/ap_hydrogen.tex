@@ -197,6 +197,7 @@ def psi_ang(phi,theta, l=0, m=0):
     return sphHarm.real
 \end{lstlisting}
 
+\vspace{1em}
 \noindent ทำการสร้าง Grid Space สำหรับการพล็อต Spherical Harmonics แบบ 3 มิติ
 
 \begin{lstlisting}[style=MyPython]
@@ -205,6 +206,7 @@ phi, theta = np.meshgrid(phi, theta)
 Ylm = psi_ang(theta,phi,l=2,m=0)
 \end{lstlisting}
 
+\vspace{1em}
 \noindent ทำการกำหนดค่าเริ่มต้น Domain สำหรับการพล็อตออร์บิทัล นั่นคือ $x$ กับ $y$ แล้วทำการคำนวณค่ามุม Angular Part $z$ 
 สำหรับแต่ละจุดบน Grid
 
@@ -214,6 +216,7 @@ y = np.sin(phi) * np.sin(theta) * abs(Ylm)
 z = np.cos(phi) * abs(Ylm)
 \end{lstlisting}
 
+\vspace{1em}
 \noindent ทำการกำหนดตั้งค่าสำหรับการพล็อตแบบ 3 มิติ โดยกำหนดให้ \pyinline{projection='3d'} สำหรับ Matplotlib
 
 \begin{lstlisting}[style=MyPython]
@@ -274,6 +277,7 @@ def HFunc(r, theta, phi, n, l, m):
     return psi_R(r, n, l) * psi_ang(phi, theta, l,m)
 \end{lstlisting}
 
+\vspace{1em}
 \noindent กำหนดค่าเริ่มต้นของเลขควอนตัมหลักและเลขควอนตัมเชิงมุม เช่น กำหนดค่าสูงสุดคือ 10 ซึ่งเมื่อทำการพล็อตแล้วเราสามารถเปลี่ยนค่า
 $n$, $l$, และ $m$ ได้ตามต้องการเพราะว่าเราใช้ Interactive Plot
 

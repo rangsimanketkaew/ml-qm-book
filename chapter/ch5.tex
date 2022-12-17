@@ -536,7 +536,7 @@ Underfitting
     การเทรนน้อยเกินไปหรือดึงข้อมูลออกมาจาก Training Set ได้ไม่เพียงพอที่จะเรียนรู้ โดยในกรณีนี้โมเดลจะมีค่าความเอนเอียงสูง (High Bias)
 
     \item[Noisy] โมเดลไม่มี Overfitting และ Underfitting แต่ยังมีค่า Error ของการฝึกสอนที่ยังสูงอยู่มาก ซึ่งสาเหตุก็อาจจะมาจาก%
-    การที่ชุดข้อมูลมี Noise มากเกินไปนั่นเอง
+    การที่ชุดข้อมูลมี Noise มากเกินไปนั่นเอง ซึ่งเราแปล Noise ได้ตรงตัวเลยก็คือเป็นสิ่งที่รบกวนโมเดลของเรานั่นเอง
 \end{description}
 
 ภาพที่ \ref{fig:overfitting} แสดงการเปรียบเทียบระหว่างกรณีของ Underfitting และ Overfitting ซึ่งเป็นหนึ่งในปัญหาหลักที่มักจะพบ%
@@ -621,6 +621,7 @@ for epoch in range(n_epochs):
         best_model = deepcopy(sgd_reg)
 \end{lstlisting}
 
+\vspace{1em}
 \noindent โค้ดของการสร้าง Callback ของ Early Stopping โดยใช้ไลบรารี่ TensorFlow 
 
 \begin{lstlisting}[style=MyPython]

@@ -214,6 +214,7 @@ dm_train_test = sklearn.metrics.pairwise_distances(
     )
 \end{lstlisting}
 
+\vspace{1em}
 \noindent หลังจากนั้นจึงเริ่มทำการหาค่า $\sigma$ โดยใช้ Loop
 
 \begin{lstlisting}[style=MyPython]
@@ -233,6 +234,7 @@ for sigma in sigmas:
     test_maes.append(test_MAE)
 \end{lstlisting}
 
+\vspace{1em}
 โดยสิ่งที่เกิดขึ้นภายใน Loop ของโค้ดด้านบนมีขั้นตอนดังนี้
 
 \begin{enumerate}[noitemsep]
@@ -281,6 +283,7 @@ print(best_sigma)
 3100
 \end{lstlisting}
 
+\vspace{1em}
 \noindent แล้วนำค่า $\sigma$ ที่เหมาะสมที่สุดนี้ไปใช้ในการคำนวณ Gaussian Kernel ต่อไป ดังนี้
 
 \begin{lstlisting}[style=MyPython]
@@ -299,6 +302,7 @@ print(alpha_cm)
  -1.19747799e+09]
 \end{lstlisting}
 
+\vspace{1em}
 \noindent แล้วคำนวณต่อ Kernel ระหว่างชุดข้อมูลฝึกสอนกับชุดข้อมูลทดสอบได้โดยใช้ค่า $\sigma$ เดียวกัน
 
 \begin{lstlisting}[style=MyPython]
@@ -315,6 +319,7 @@ print('MAE: ', np.mean(np.abs(Y_cm_predicted - Y_cm_test)), 'kcal/mol')
 MAE:  25.908959327933474 kcal/mol
 \end{lstlisting}
 
+\vspace{1em}
 ขั้นตอนสุดท้ายคือการพล็อต Correlation ระหว่างค่าอ้างอิง (Reference) กับค่าที่ได้จากการทำนาย (Prediction) และแสดง Histogram 
 ของความคลาดเคลื่อนเพื่อตรวจสอบประสิทธิภาพของโมเดล
 
@@ -703,7 +708,7 @@ Convolutional Neural Network Construct} โดย Zhou และคณะ\autoci
 โมเลกุล (Partial Atomic Charge Assignment) งานวิจัยโดดเด่นและได้รับการตีพิมพ์ในวารสารชั้นแนวหน้าที่ใช้ ML เข้ามาในการทำนายหรือ%
 ระบุประจุของอะตอมที่ผู้เขียนได้เลือกมาซึ่งเรียงลำดับตาม Timeline มีดังนี้
 
-\begin{itemize}
+\begin{enumerate}
     \item \enquote{Fast and Accurate Generation of \textit{ab initio} Quality Atomic Charges Using Nonparametric 
     Statistical Regression}\autocite{rai2013} \\ 
     หนึ่งในงานวิจัยแรก ๆ ที่เริ่มมีการประยุกต์เทคนิคทางสถิติ (Regression) เข้ามาใช้ในการสร้างโมเดลเรียนรู้การทำนายประจุย่อย
@@ -732,7 +737,7 @@ Convolutional Neural Network Construct} โดย Zhou และคณะ\autoci
     \item \enquote{DeepChargePredictor: A Web Server for Predicting QM-based Atomic Charges via State-of-the-art 
     Machine-learning Algorithms}\autocite{wang2021} \\ 
     งานวิจัยนี้พัฒนาเว็บไซต์ที่ช่วยให้เราสามารถทำนายประจุย่อยได้
-\end{itemize}
+\end{enumerate}
 
 %--------------------------
 \section{การทำนายไดโพลโมเมนต์}

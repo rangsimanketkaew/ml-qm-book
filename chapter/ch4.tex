@@ -223,6 +223,7 @@ for i in range(nb_epochs):
         params = params - learning_rate * params_grad
 \end{lstlisting}
 
+\vspace{1em}
 \noindent นอกจากนี้แล้วในการฝึกสอนโมเดล Neural Network นั้น เรามักนิยมใช้ Stochastic Gradient Descent โดยด้านล่างคือ%
 ตัวอย่างโค้ดของการเรียกใช้ Stochastic Gradient Descent (SGD) Optimizer ของ TensorFlow
 
@@ -301,6 +302,7 @@ for i in range(nb_epochs):
         params = params - learning_rate * params_grad
 \end{lstlisting}
 
+\vspace{1em}
 \noindent $\bullet$ \textbf{สรุปเปรียบเทียบอัลกอริทึมของ Gradient Descent}
 
 \begin{figure}[htbp]
@@ -458,6 +460,7 @@ def feed_forward(x, Wh, Wo):
     return output
 \end{lstlisting}
 
+\vspace{1em}
 เมื่อเราพิจารณาภาพที่ \ref{fig:nn_w_matrices} ซึ่งมีความซับซ้อนมากขึ้นโดยมีการเพิ่มจำนวน Neuron เข้าไปในชั้น Hidden Layer และ 
 Output Layer เราจะพบว่าค่าน้ำหนักที่ถูกคำนวณออกมาจากชั้น Input จะถูกส่งไปยังชั้น Hidden และค่าน้ำหนักที่ออกมาจากชั้น Hidden ก็ถูก%
 ส่งต่อไปยังชั้น Output ตามลำดับ โดยจะเห็นว่าทุก ๆ Neuron ของชั้นที่ถูกติดกันนั้นจะมีการแลกเปลี่ยนกันทุก Neuron โดยสมการที่ใช้ในการคำนวณ%
@@ -492,6 +495,7 @@ def init_weights():
             * np.sqrt(2.0/HIDDEN_LAYER)
 \end{lstlisting}
 
+\vspace{1em}
 \noindent และเรามักจะกำหนดค่าเริ่มต้นของความโน้มเอียง (Bias) ด้วยค่าน้อย ๆ เช่น 0.1 หรือ 0.2 ดังตัวอย่างต่อไปนี้
 
 \begin{lstlisting}[style=MyPython]
@@ -947,7 +951,9 @@ Function ถูกใช้ในการทำ Optimization นั่นก็
 $y$ นั่นก็คือจุดสีแดงและมีค่าเส้นน้ำเงินที่เป็นเส้นที่เกิดจากการ Fitting และมีเส้นสีเขียวที่บ่งบอกว่าจุดสีแดงแต่ละจุดนั้นมีการเบี่ยงเบน (Deviation) 
 ออกจากเส้นสีน้ำเงินมากน้อยเพียงใด
 
-\noindent \textbf{ฟังก์ชันสูญเสียสำหรับโจทย์ประเภท Regression}
+%--------------------------
+\subsubsection{ฟังก์ชันสูญเสียสำหรับโจทย์ประเภท Regression}
+%--------------------------
 
 การทำ Regression นั้นจะเกี่ยวข้องกับการทำนายค่าที่แน่นอนและมีความต่อเนื่อง ดังนั้น Loss Function ที่เหามะสมจึงจะต้องสามารถที่จะอธิบาย%
 ความต่อเนื่องของเอาต์พุตของแต่ละจุดในชุดข้อมูลได้ด้วย ตัวอย่างของ Loss Function ที่นิยมใช้ในโจทย์ประเภท Regression ของชุดข้อมูลที่มี 
@@ -1012,7 +1018,9 @@ Loss ซึ่งจะมีความไวต่อค่าที่ห่
 
 \noindent เพิ่มเติม: MAE กับ MSE นั้นจะมีชื่อเรียกอีกอย่างว่า L1 และ L2 ด้วย
 
-\noindent \textbf{ฟังก์ชันสูญเสียสำหรับโจทย์ประเภท Classification}
+%--------------------------
+\subsubsection{ฟังก์ชันสูญเสียสำหรับโจทย์ประเภท Classification}
+%--------------------------
 
 Loss Function สำหรับโจทย์แบบ Classfication นั้นจะแตกต่างจาก Regression โดยสิ้นเชิงเนื่องจากว่าเราไม่ได้ทำการหาค่าระยะห่างระหว่าง%
 จุดข้อมูลที่ได้จากการทำนายแล้ว แต่จะเป็นการหาความน่าจะเกิดที่เกิดขึ้นระหว่างข้อมู,ที่มีความไม่ต่อเนื่องกัน (Discrete Class Output) ซึ่งจะ%
@@ -1109,6 +1117,7 @@ def calculate_error(x, y):
     return 0.5 * (yhat - y)**2 
 \end{lstlisting}
 
+\vspace{1em}
 นอกจากนี้เรายังสามารถคำนวณอนุพันธ์ (Derivative) ของ Loss Function เทียบกับ $z$ โดยใช้กฎลูกโซ่ได้ดังนี้
 
 \begin{equation}\label{eq:loss_chain_rule}
@@ -1155,6 +1164,7 @@ Function ตามที่ต้องการ
     \end{align*}
 \end{minipage}}
 
+\vspace{1em}
 \noindent และเขียนโค้ดของฟังก์ชันได้ดังนี้\footnote{โดยทั่วไปแล้วในการคำนวณหา Error ของ Logistic Regression ควรจะทำการใส่%
 ค่าคงที่เข้าไปในฟังก์ชัน Log เพื่อป้องกันไม่ให้อินพุตของ Log นั้นเป็น 0}
 
@@ -1176,6 +1186,7 @@ def calculate_error(x, y):
     return -(y * np.log(y_hat) + (1 - y) * np.log(1 - y_hat))
 \end{lstlisting}
 
+\vspace{1em}
 เราเริ่มต้นด้วยวิธีเดียวกันกับที่เราใช้ในตัวอย่างที่แล้วคือการใช้กฎลูกโซ่ (สมการที่ \ref{eq:loss_chain_rule}) แล้วทำการหาอนุพันธ์ของแต่ละเทอม
 ดังนี้
 
@@ -1465,13 +1476,17 @@ plt.text(
 plt.show()
 \end{lstlisting}
 
+\vspace{1em}
 \noindent ได้กราฟดังต่อไปนี้
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/predict_solubility.png}
     \caption{เปรียบเทียบค่าสภาพการละลายที่ได้จากการทำนายและค่าอ้างอิง}
     \label{fig:pred_solubility}
 \end{figure}
+
+โดยภาพที่ \ref{fig:pred_solubility} แสดงการเปรียบเทียบค่าสภาพการละลายที่ได้จากการทำนายด้วย Neural Network และค่าอ้างอิง 
+เส้นตรงสีแดงที่ลากผ่านข้อมูลนั้นเป็นเส้นตรงที่มีความชันเท่ากับ 1 
 
 \end{enumerate}

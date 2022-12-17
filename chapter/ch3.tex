@@ -250,6 +250,7 @@ plt.scatter(x, y, c=label, s=60)
 plt.show()
 \end{lstlisting}
 
+\vspace{1em}
 \noindent เขียนฟังก์ชันสำหรับการ Mapping ดังนี้
 
 \begin{lstlisting}[style=MyPython]
@@ -267,6 +268,7 @@ def mapping(x, y):
     return trans_x	
 \end{lstlisting}
 
+\vspace{1em}
 \noindent แล้วทำการ Mapping, แสดงผลลัพธ์ และพล็อตข้อมูลหลังจาก Mapping
 
 \begin{lstlisting}[style=MyPython]
@@ -287,6 +289,7 @@ ax.set_zlabel('Z Label')
 plt.show()
 \end{lstlisting}
 
+\vspace{1em}
 โดยสรุปก็คือเคอร์เนลเป็นเทคนิคอย่างหนึ่งที่ช่วยให้เราสามารถทรานฟอร์มหรือแปลงข้อมูล (Transform) จากปริภูมิมิติต่ำ (Low-dimensional 
 Space) ไปยังปริภูมิมิติสูง (High-dimensional Space) ซึ่งฟังก์ชันที่เหมาะสมที่สุดที่เราสามารถเลือกมาใช้เป็นฟังก์ชันเคอร์เนลได้นั้นไม่มีใครรู้%
 ว่ามีหน้าตาเป็นอย่างไร ดังนั้นการที่เราจะทำ Mapping โดยเลือกใช้ทุกฟังก์ชันนั้นจึงแทบจะเป็นไปไม่ได้เลยเพราะว่ามีขีดจำกัดด้านการคำนวณ
