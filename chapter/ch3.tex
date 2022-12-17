@@ -370,6 +370,13 @@ KRR ก็คือ RR ในเวอร์ชั่นที่เป็น No
 (SVR) โดยความแตกต่างระหว่าง KRR กับ SVM ก็คือการใช้ Loss Function ที่ต่างกัน โดย KRR จะใช้ค่า Loss Error ยกกำลังสอง ในขณะที่ 
 SVR จะใช้ $\epsilon$-incentive Loss
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/krr_space.png}
+    \caption{ตัวอย่างของปริภูมิ Kernel Ridge Regression}
+    \label{fig:krr_space}
+\end{figure}
+
 นอกจากนี้ยังมีเทคนิคอื่น ๆ อีกที่อาศัยหลักการของ Kernel Trick โดยหนึ่งในนั้นก็คือ Gaussian Process Regression ซึ่งถูกนำมาใช้ในการ%
 พัฒนาเทคนิค Gaussian Approximation Potential (GAP) ซึ่งเป็นเทคนิคที่มีการใช้อย่างแพร่หลายโดยเฉพาะการศึกษาการทำนายพลังงาน%
 รวมของโมเลกุล\autocite{bartok2010,bartok2015}
@@ -391,7 +398,7 @@ SVR จะใช้ $\epsilon$-incentive Loss
 การกำหนดฟังก์ชันที่ควรจะเป็น (Likelihood Function) นอกจากนี้แล้ว GPR ยังใช้หลักการของ Bayes Theorem ซึ่งจะมีการกำหนดการ%
 แจกแจงภายหลัง (Posterior Distribution) โดยใช้ Gaussian Function เพื่อนำค่าเฉลี่ยมาใช้ในการทำนายคำตอบอีกด้วย
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/plot_gpr_kernel.png}
     \caption{เปรียบเทียบการเรียนรู้ Target ระหว่างเทคนิค KRR และ GPR (เครดิตภาพ: https://scikit-learn.org)}

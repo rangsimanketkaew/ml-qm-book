@@ -361,7 +361,7 @@ X = np.array([[1, 2], [3, 4], [1, 2], [3, 4]])
 y = np.array([1, 2, 3, 4])
 kf = KFold(n_splits=2)
 kf.split(X)
-kf.get_n_splits(X) # OUTPUT = 2
+kf.get_n_splits(X) # Output = 2
 
 for i, (train_index, test_index) in enumerate(kf.split(X)):
     print(f"Fold {i}:")
@@ -393,7 +393,7 @@ from sklearn.model_selection import LeaveOneOut
 X = np.array([[1, 2], [3, 4]])
 y = np.array([1, 2])
 loo = LeaveOneOut()
-loo.get_n_splits(X) # OUTPUT = 2 
+loo.get_n_splits(X) # Output = 2 
 
 for i, (train_index, test_index) in enumerate(loo.split(X)):
     print(f"Fold {i}:")
@@ -424,7 +424,7 @@ from sklearn.model_selection import LeavePOut
 X = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
 y = np.array([1, 2, 3, 4])
 lpo = LeavePOut(2)
-lpo.get_n_splits(X) # OUTPUT = 6
+lpo.get_n_splits(X) # Output = 6
 
 for i, (train_index, test_index) in enumerate(lpo.split(X)):
     print(f"Fold {i}:")

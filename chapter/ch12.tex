@@ -76,7 +76,15 @@ Coulomb Matrix นั่นเอง โดยชุดข้อมูลที�
 
 SchNet เป็นโมเดลที่ใช้ Continuous Convolutions ซึ่งได้แรงบันดาลใจมาจาก Convolutional Neural Network (CNN) สำหรับการ%
 อธิบายอัตรกิริยาระหว่างอะตอม\autocite{schutt2017,schutt2018} ผู้อ่านสามารถดูรายละเอียดและ Source Code ของ SchNet ได้ที่เว็บไซต์ 
-\url{https://github.com/atomistic-machine-learning/SchNet}
+\url{https://github.com/atomistic-machine-learning/SchNet} หรือที่เว็บไซต์ \url{https://paperswithcode.com/method/schnet}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig/schnet.png}
+    \caption{สถาปัตยกรรมของ SchNet (เครดิตภาพ: SchNet: A Continuous-Filter Convolutional Neural Network for 
+    Modeling Quantum Interactions)}
+    \label{fig:schnet_architect}
+\end{figure}
 
 %--------------------------
 \subsection{SchNOrb}
@@ -154,6 +162,8 @@ gdml = GDMLPredict(model)
 r, _ = io.read_xyz('geometry.xyz')
 e, f = gdml.predict(r)
 \end{lstlisting}
+
+\vspace{1em}
 
 รายละเอียดเพิ่มเติมเกี่ยวกับ sGDML นั้นสามารถดูได้ที่เว็บไซต์ \url{http://www.sgdml.org/}
 
@@ -580,3 +590,13 @@ Forcing นั่นเอง
     \bottomrule
     \end{tabular}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/youtube_dl_chem.jpg}
+    \caption{การเรียนรู้เชิงลึกสำหรับเคมี (TensorFlow)}
+    \label{fig:yt_dl_chem}
+\end{figure}
+
+ผู้อ่านที่ต้องการศึกษาการเขียนโค้ด Deep Learning สำหรับทำนายคุณสมบัติของโมเลกุลสามารถดูเพลลิสต์ที่ผู้เขียนได้จัดทำไว้บน YouTube 
+ที่เว็บไซต์ \url{https://www.youtube.com/playlist?list=PLt-twymrmZ2f5aDzxlmVMKb0-EAkF0KwH}

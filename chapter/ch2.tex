@@ -14,10 +14,10 @@
     \label{fig:supervised_ml}
 \end{figure}
 
-การเรียนรู้แบบมีผู้สอนหรือ Supervised Learning เป็นเทคนิคแรก ๆ ที่ถูกพัฒนาขึ้นมาในช่วงยุคเริ่มต้นของ ML ซึ่งเป็นแนวคิดที่ใช้อินพุตและเอาต์พุต%
-ในการฝึกสอนโมเดล ซึ่งโมเดลที่ได้ออกมานั้นจะเก็บข้อมูลที่อธิบายความสัมพันธ์ระหว่างอินพุตและเอาต์พุตนั่นเอง (เหมือนฟังก์ชันทางคณิคศาสตร์ $f(x))$ 
-ซึ่งผู้เขียนมีความคิดเห็นส่วนตัวว่าการสร้างโมเดลประเภทนี้ง่ายกว่าประเภทอื่นทั้งในแง่ทฤษฎีของอัลกอริทึม การเรียนรู้ของผู้เริ่มต้นศึกษา และการนำไปใช้จริง 
-โดยเทคนิคนี้ได้รับความนิยมมากที่สุดนั่นก็เพราะว่าสามารถนำไปประยุกต์ใช้งานกับโจทย์ที่หลากหลาย
+การเรียนรู้แบบมีผู้สอนหรือ Supervised Learning เป็นเทคนิคแรก ๆ ที่ถูกพัฒนาขึ้นมาในช่วงยุคเริ่มต้นของ ML ซึ่งเป็นแนวคิดที่ใช้อินพุตและ%
+เอาต์พุตในการฝึกสอนโมเดล ซึ่งโมเดลที่ได้ออกมานั้นจะเก็บข้อมูลที่อธิบายความสัมพันธ์ระหว่างอินพุตและเอาต์พุตนั่นเอง $($เปรียบเสมือนฟังก์ชัน%
+ทางคณิคศาสตร์ $f(x))$ ซึ่งผู้เขียนมีความคิดเห็นส่วนตัวว่าการสร้างโมเดลประเภทนี้ง่ายกว่าประเภทอื่นทั้งในแง่ทฤษฎีของอัลกอริทึม การเรียนรู้ของ%
+ผู้เริ่มต้นศึกษาและการนำไปใช้จริง โดยเทคนิคนี้ได้รับความนิยมมากที่สุดนั่นก็เพราะว่าสามารถนำไปประยุกต์ใช้งานกับโจทย์ที่หลากหลาย
 
 Supervised ML เป็นเทคนิคที่เข้าใจได้ง่ายที่สุดเพราะว่าเป็นการฝึกให้โมเดลมีความสามารถในการเรียนรู้ Target อย่างตรงไปตรงมา จริง ๆ นิยาม%
 ของ Supervised ML นั้นมีหลายนิยามมาก ขึ้นอยู่กับว่าเราต้องการนิยามในเชิงปรัชญา เชิงคณิตศาสตร์ หรือเชิงปฏิบัติ ทุกครั้งที่มีคนถามผู้เขียนว่า 
@@ -92,7 +92,7 @@ $x_{2}$ เป็นจำนวนวงอะโรมาติก (Aromatic) 
 \noindent ซึ่งจะมีความคล้ายกันกับ Ordinary Least Square นั่นเอง โดยในหัวข้อต่อไปเราจะมาดูรายละเอียดของเทคนิคที่เราสามารถนำมาใช้%
 ในการแก้ปัญหาของ Cost Function
 
-\noindent ขออธิบายเสริมครับ สำหรับฟังก์ชันที่มีความเป็นเชิงเส้นนั้นจะต้องสอดคล้องกับเงื่อนไขดังต่อไปนี้
+ขออธิบายเสริมครับ: สำหรับฟังก์ชันที่มีความเป็นเชิงเส้นนั้นจะต้องสอดคล้องกับเงื่อนไขดังต่อไปนี้
 
 \begin{equation}
     f(\vec{x} + \vec{y}) = f(\vec{x}) + f(\vec{y})
@@ -104,7 +104,7 @@ $x_{2}$ เป็นจำนวนวงอะโรมาติก (Aromatic) 
     f(s\vec{x}) = sf(x)
 \end{equation}
 
-\noindent ถ้าหากฟังก์ชันไม่สอดคล้องกับเงื่อนไขทั้งสองข้อด้านบน ฟังก์ชันนั้นจะมีความไม่เป็นเชิงเส้น (Nonlinearity)
+ถ้าหากฟังก์ชันไม่สอดคล้องกับเงื่อนไขทั้งสองข้อด้านบน ฟังก์ชันนั้นจะมีความไม่เป็นเชิงเส้น (Nonlinearity)
 
 %--------------------------
 \subsection{การถดถอยแบบง่าย}
@@ -173,27 +173,30 @@ Function ที่เราจะเลือกใช้นั้น คือ 
 
 \begin{figure}[htbp]
     \centering
-    \begin{subfigure}{0.5\textwidth}
+    \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_1.png}
         \caption{ครั้งที่ 1}
         \label{fig:plot_simple_reg_1}
-    \end{subfigure}%
-    \begin{subfigure}{0.5\textwidth}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_2.png}
         \caption{ครั้งที่ 2}
         \label{fig:plot_simple_reg_2}
     \end{subfigure}
-    \\
-    \vspace{1em}
-    \begin{subfigure}{0.5\textwidth}
+\end{figure}%
+\begin{figure}[htbp]\ContinuedFloat
+    \centering
+    \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_3.png}
         \caption{ครั้งที่ 3}
         \label{fig:plot_simple_reg_3}
-    \end{subfigure}%
-    \begin{subfigure}{0.5\textwidth}
+    \end{subfigure}
+    \\
+    \begin{subfigure}{0.8\textwidth}
         \centering
         \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_4.png}
         \caption{ครั้งที่ 4}
@@ -350,7 +353,8 @@ array([[0.51491375]])
 \end{lstlisting}
 
 \vspace{1em}
-\noindent เราสามารถแสดงเมทริกซ์ของค่าความน่าจะเป็น (Probability Matrix) ของข้อมูลแต่ละตัวได้ด้วย ดังนี้
+
+เราสามารถแสดงเมทริกซ์ของค่าความน่าจะเป็น (Probability Matrix) ของข้อมูลแต่ละตัวได้ด้วย ดังนี้
 
 \begin{lstlisting}[style=MyPython]
 model.predict_proba(x)
@@ -464,6 +468,41 @@ Principle Component Analysis (PCA) ซึ่งจะเป็นการลด
 การสุ่มป่าไม้ (Random Forest หรือ RF) เป็นวิธีหนึ่งในกลุ่มของโมเดลที่เรียกว่าการเรียนรู้แบบกลุ่มก้อน (Ensemble Learning) ที่มีหลักการคือ%
 การฝึกสอนโมเดลที่เหมือนกันหลาย ๆ ครั้ง (Multitude) บนข้อมูลชุดเดียวกัน โดยแต่ละครั้งของการเทรนจะเลือกส่วนของข้อมูลที่ฝึกสอนไม่เหมือนกัน 
 แล้วนำการตัดสินใจของโมเดลเหล่านั้นมาโหวตเลือกกันว่า Class ไหนถูกเลือกมากที่สุด\autocite{breiman2001,quinlan1986}
+
+ตัวอย่างการเขียนโค้ดโมเดล Random Forest สำหรับการทำ Regression 
+
+\begin{lstlisting}[style=MyPython]
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.datasets import make_regression
+
+X, y = make_regression(n_features=4, n_informative=2,
+                       random_state=0, shuffle=False)
+regr = RandomForestRegressor(max_depth=2, random_state=0)
+regr.fit(X, y)
+
+print(regr.predict([[0, 0, 0, 0]]))
+# Output
+[-8.32987858]
+\end{lstlisting}
+
+\vspace{1em}
+
+ตัวอย่างการเขียนโค้ดโมเดล Random Forest สำหรับการทำ Classification 
+
+\begin{lstlisting}[style=MyPython]
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
+
+X, y = make_classification(n_samples=1000, n_features=4,
+                           n_informative=2, n_redundant=0,
+                           random_state=0, shuffle=False)
+clf = RandomForestClassifier(max_depth=2, random_state=0)
+clf.fit(X, y)
+
+print(clf.predict([[0, 0, 0, 0]]))
+# Output
+[1]
+\end{lstlisting}
 
 %--------------------------
 \subsection{Artificial Neural Network}

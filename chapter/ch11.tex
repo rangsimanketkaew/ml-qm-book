@@ -37,13 +37,13 @@
     
     \item เลือก Representation/Descriptor ที่จะนำมาคำนวณ Feature 
     
-    \item เลือกอัลกอริทึม ML ที่เหมาะสมกับโจทย์ของเรา 
+    \item เลือกอัลกอริทึม ML ที่เหมาะสมกับโจทย์หรือชุดข้อมูล
     
     \item ฝึกสอนโมเดลและทำนายคำตอบ
     
-    \item ศึกษาผลกระทบจากการเปลี่ยน Hyperparameter และทำ Validation
+    \item ศึกษาผลกระทบจากการเปลี่ยน Hyperparameter และทำ Validation ต่อความถูกต้องในการทำนายเพื่อประเมินประสิทธิภาพของโมเดล
     
-    \item ประเมินประสิทธิภาพของโมเดลและวิเคราะห์ผลการทำนาย
+    \item สรุปปัจจัยและพารามิเตอร์ที่ทำให้โมเดลมีประสิทธิภาพดีที่สุดและวิเคราะห์ผลการทำนาย
 \end{enumerate}
 
 ขั้นตอนแรกของการนำ ML มาประยุกต์กับเคมีควอนตัมก็คือการเตรียมข้อมูลดิบ (Raw Data) นั่นก็คือข้อมูลทางเคมีเบื้องต้นของโมเลกุลที่เรามี 
@@ -445,14 +445,21 @@ Environment)
 \idxen{Molecular Property Prediction!Potential Energy Surface!Neural Network-based}
 %--------------------------
 
-\paragraph{High-dimensional Neural Network Potentials (HDNNP)}
-\autocite{behler2007}
+\paragraph{High-dimensional Neural Network Potentials (HDNNP)}\autocite{behler2007} เป็นสถาปัตยกรรม Neural Network 
+ที่ได้รับความนิยมมากในการทำนายพลังงานหรือศักย์ของโมเลกุล ซึ่งโมเดล HDNNP นั้นมีชื่อเรียกอีกชื่อว่า Behler-Parrinello Neural Network 
+(BPNN) แนวคิดของ BPNN นั้นก็คือการอธิบายพลังงานรวมของโมเลกุลโดยทำให้อยู่ในรูปของผลรวมเชิงเส้นของพลังงานย่อยของแต่ละอะตอมหรือ 
+Atomic Contribution โดย Neural Network ที่ถูกสร้างขึ้นมาและใช้ใน BPNN นั้นมีขนาดหรือจำนวนของหน่วยการเรียนรู้ที่สอดคล้องกับจำนวน%
+อะตอมภายในโมเลกุล
 
-\paragraph{ANAKIN-ME} เรียกสั้น ๆ ว่า ANI (ชื่อเต็มคือ Accurate NeurAl networK engINe for Molecular Energies)
+\paragraph{ANAKIN-ME} เรียกสั้น ๆ ว่า ANI (ชื่อเต็มคือ Accurate NeurAl networK engINe for Molecular Energies) เป็นโมเดล 
+Neural Network ที่ถูกพัฒนาขึ้นมาโดยใช้ BPNN โดยโมเดลในตระกูลของ ANI นั้นมีด้วยกันหลายโมเดลซึ่งสามารถทำนายพลังงานของโมเลกุลได้%
+เทียบเท่าหรือเทียบเคียงกับการคำนวณด้วยวิธีทางเคมีควอนตัมแบบดั้งเดิม เช่น วิธี Coupled Cluster
 
 \begin{itemize}
     \item ANI-1x\autocite{smith2017}
+    
     \item ANI-1ccx\autocite{smith2018}
+    
     \item ANI-2x\autocite{smith2019,devereux2020}
 \end{itemize}
 
