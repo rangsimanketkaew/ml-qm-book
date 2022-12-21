@@ -129,9 +129,6 @@ water = molecule("H2O")
 # Create SOAP output for the system
 soap_water = soap.create(water, positions=[0])
 
-print(soap_water)
-print(soap_water.shape)
-
 # Create output for multiple system
 samples = [molecule("H2O"), molecule("NO2"), molecule("CO2")]
 positions = [[0], [1, 2], [1, 2]]
@@ -139,6 +136,24 @@ positions = [[0], [1, 2], [1, 2]]
 coulomb_matrices = soap.create(samples, positions)
 # Parallel     
 coulomb_matrices = soap.create(samples, positions, n_jobs=2)
+\end{lstlisting}
+
+\vspace{1em}
+
+จากโค้ดด้านบนนั้นสิ่งที่เราจะได้ออกมาก็คือเมทริกซ์ที่แต่ละแถวนั้นจะบ่งบอกถึง Local Environment ของแต่ละอะตอมในโมเลกุล โดยความยาวของ 
+Feature Vector ของ SOAP นั้นจะขึ้นอยู่กับจำนวนของ Species ที่เรากำหนดและขึ้นอยู่กับค่า $n_{\text{max}}$ และ $l_{\text{max}}$ 
+ด้วย โดยผู้อ่านสามารถลองเปลี่ยนค่าของ $n_{\text{max}}$ และ $l_{\text{max}}$ เพื่อดูว่ามีผลต่อการเปลี่ยนค่าของ Feature Vector 
+อย่างไร
+
+นอกจากนี้เรายังสามารถเรียกใช้ Method \pyinline{derivatives} ของ Attribute \pyinline{soap} เพื่อคำนวณ Derivative ของ 
+SOAP ได้ด้วย ดังนี้
+
+\begin{lstlisting}[style=MyPython]
+derivatives, descriptors = soap.derivatives(
+    traj,
+    positions=[[[0, 0, 0]]] * len(r),
+    method="analytical"
+)
 \end{lstlisting}
 
 %--------------------------

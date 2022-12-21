@@ -161,6 +161,8 @@ model.fit(dataset, epochs=2)
 model.evaluate(dataset)
 \end{lstlisting}
 
+\vspace{1em}
+
 ตัวอย่างด้านบนเป็นการใช้ \pyinline{MirroredStrategy} ซึ่งเป็นวิธีหนึ่งของการทำ Distributed Training ของ TensorFlow 
 โดยเราทำการสร้าง Scope ขึ้นมาก่อน โดยในโค้ดด้านบนเราสร้าง \pyinline{mirrored_strategy} ซึ่งเราสามารถเลือก GPU ที่ต้องการใช้ใน%
 การฝึกสอนโมเดลได้ด้วย หลังจากนั้นก็ใช้ฟังก์ชัน \pyinline{with} สำหรับทำการกำหนด Scope และภายในฟังก์ชันนี้เราก็ทำการสร้าง Neural 
