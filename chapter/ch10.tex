@@ -340,13 +340,19 @@ max(size)
 นอกจาก QM9 แล้วยังมีชุดข้อมูลอื่น ๆ ที่นักวิจัยมักจะนำมาใช้ในการฝึกสอนโมเดลและทำวิจัย เช่น 
 
 \begin{itemize}[topsep=0pt]
-    \item QM7\autocite{blum2009,rupp2012}
+    \item QM7\autocite{blum2009,rupp2012} เป็นส่วนหนึ่งของชุดข้อมูล GDB-13 ซึ่งเป็นชุดข้อมูลที่มีโมเลกุลเคมีอินทรีย์เกือบหนึ่งพันล้าน%
+    โมเลกุล โดยชุดข้อมูล QM7 ประกอบไปด้วยโมเลกุลที่มีจำนวนอะตอมรวมกันสูงสุดถึง 23 อะตอม โดย Feature ที่ชุดข้อมูลนี้มีคือ Coulomb 
+    Matrix และพลังงานการทำให้เป็นอะตอม (Atomization Energy)
     
-    \item QM7b\autocite{blum2009,montavon2013}
+    \item QM7b\autocite{blum2009,montavon2013} เป็นส่วนขยายของชุดข้อมูล QM7 สำหรับใช้กับโมเดล ML ที่เป็นแบบ Multitask 
+    Learning โดยมี Feature เช่น Polarizability, ค่าไอเกนของ HOMO และ LUMO, และพลังงานกระตุ้น
     
-    \item QM8\autocite{ruddigkeit2012,ramakrishnan2015}
+    \item QM8\autocite{ruddigkeit2012,ramakrishnan2015} เป็นชุดข้อมูลสำหรับการพัฒนาโมเดล ML สำหรับการเรียนรู้สเปกตรัมเชิง%
+    อิเล็กทรอนิกส์ของโมเลกุล โดยชุดข้อมูลนี้มี Feature คือพลังงานกระตุ้นที่ถูกคำนวณด้วยวิธี Second-order Approximate 
+    Coupled-cluster (CC2)
     
-    \item ISO17\autocite{schutt2017,schutt2017a,ramakrishnan2014}
+    \item ISO17\autocite{schutt2017,schutt2017a,ramakrishnan2014} เป็นชุดข้อมูลที่ถูกสร้างขึ้นโดยใช้การจำลอง MD ด้วยโปรแกรม 
+    Fritz-Haber Institute ab initio Simulation (FHI-aims) โดยมี Feature คือพลังงานและแรงของแต่ละโมเลกุล
 \end{itemize}
 
 \noindent ซึ่งก็จะมี Label สำหรับวัตถุประสงค์ในการฝึกสอนโมเดลในการเพิ่มความสามารถการพยากรณ์คุณสมบัติเคมีของโมเลกุลที่ต่างกันออกไป 
