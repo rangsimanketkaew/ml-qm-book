@@ -243,11 +243,11 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 Neural Network ดังนั้นการที่เราจะต้องตัดสินใจเลือกใช้โมเดลสักโมเดลเพื่อมาใช้แก้ปัญหาโจทย์ของเรานั้นเราควรจะต้องพิจารณาทั้งสองปัจจัยนี้เป็นหลัก
 ซึ่งเราเรียกกระบวนการแบบนี้ว่าเป็นการชั่งน้ำหนักสำหรับการตัดสินใจหรือ Trade-off นั่นเอง
 
-ถ้าหากถามว่าทำไมการตีความโมเดลได้นั้นถึงสำคัญ นั่นก็เพราะว่าบ่อยครั้งที่เราต้องการวิเคราะห์ข้อมูลในลักษณะสามารถใช้พิจารณาผลกระทบและ%
-ความสำคัญของคุณสมบัติต่าง ๆ ได้อย่างตรงไปตรงมา โดยโมเดลที่ตีความได้ (Interpretable Model) นั้นไม่ว่าจะเป็นโมเดลอยู่ในรูปแบบของ%
-สมการ เช่น โมเดลจำพวก Regression ที่เราสามารถนำค่าสัมประสิทธิ์ของตัวแปรในสมการต่าง ๆ มาอธิบายผลกระทบที่ตัวแปรมีแก่ผลลัพธ์ที่ต้องการ%
-ทำนาย หรือ โมเดลจำพวกต้นไม้ตัดสินใจ (Decision Tree) ซึ่งหลังจากการฝึกฝนโมเดลแล้วนั้น เราสามารถศึกษากฎการตัดสินใจในขั้นต่าง ๆ 
-เพื่อจำแนกผลลัพธ์ที่ต้องการได้
+ถ้าหากถามว่าทำไมการตีความโมเดลได้นั้นถึงสำคัญ คำตอบก็คือเราต้องการที่จะสามารถอธิบายผลกระทบและความสำคัญของพารามิเตอร์ต่าง ๆ 
+ของโมเดลต่อประสิทธิภาพของโมเดลโดยที่เราต้องเข้าใจและสามารถวิเคราะห์ข้อมูลได้อย่างตรงไปตรงมาด้วย โดยโมเดลที่ตีความได้ (Interpretable 
+Model) นั้นไม่ว่าจะเป็นโมเดลอยู่ในรูปแบบของสมการ เช่น โมเดลจำพวก Regression ที่เราสามารถนำค่าสัมประสิทธิ์ของตัวแปรในสมการต่าง ๆ 
+มาอธิบายผลกระทบที่ตัวแปรมีแก่ผลลัพธ์ที่ต้องการทำนาย หรือโมเดลจำพวกต้นไม้ตัดสินใจ (Decision Tree) ซึ่งหลังจากการฝึกฝนโมเดลแล้วนั้น 
+เราสามารถศึกษากฎการตัดสินใจในขั้นต่าง ๆ เพื่อจำแนกผลลัพธ์ที่ต้องการได้
 
 %--------------------------
 \section{Cross Validation}
@@ -602,12 +602,16 @@ from copy import deepcopy
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import StandardScaler
 
-X_train, y_train, X_valid, y_valid = [...]  # split the quadratic dataset
+# Split the quadratic dataset
+X_train, y_train, X_valid, y_valid = [...]
 
-preprocessing = make_pipeline(PolynomialFeatures(degree=90, include_bias=False),
-                              StandardScaler())
+preprocessing = make_pipeline(
+    PolynomialFeatures(degree=90, include_bias=False),
+    StandardScaler()
+    )
 X_train_prep = preprocessing.fit_transform(X_train)
 X_valid_prep = preprocessing.transform(X_valid)
+
 sgd_reg = SGDRegressor(penalty=None, eta0=0.002, random_state=42)
 n_epochs = 500
 best_valid_rmse = float('inf')
@@ -616,7 +620,11 @@ best_valid_rmse = float('inf')
 for epoch in range(n_epochs):
     sgd_reg.partial_fit(X_train_prep, y_train)
     y_valid_predict = sgd_reg.predict(X_valid_prep)
-    val_error = mean_squared_error(y_valid, y_valid_predict, squared=False)
+    val_error = mean_squared_error(
+        y_valid, 
+        y_valid_predict, 
+        squared=False
+        )
     if val_error < best_valid_rmse:
         best_valid_rmse = val_error
         best_model = deepcopy(sgd_reg)
@@ -628,16 +636,24 @@ for epoch in range(n_epochs):
 \begin{lstlisting}[style=MyPython]
 import tensorflow as tf
 
-callback = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3)
+callback = tf.keras.callbacks.EarlyStopping(
+    monitor='loss', 
+    patience=3
+    )
 
-model = tf.keras.models.Sequential([tf.keras.layers.Dense(10)])
+model = tf.keras.models.Sequential(
+    [tf.keras.layers.Dense(10)]
+    )
 model.compile(tf.keras.optimizers.SGD(), loss='mse')
 
-history = model.fit(np.arange(100).reshape(5, 20), np.zeros(5),
-                    epochs=10, batch_size=1, callbacks=[callback],
-                    verbose=0)
+history = model.fit(
+    np.arange(100).reshape(5, 20), 
+    np.zeros(5), epochs=10, batch_size=1, 
+    callbacks=[callback], verbose=0
+    )
 
-len(history.history['loss'])  # Only 4 epochs are run.
+len(history.history['loss'])  # Number of epochs
+# Output
 4
 \end{lstlisting}
 
