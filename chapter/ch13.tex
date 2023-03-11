@@ -222,7 +222,9 @@ SchNetPack เป็นชุดโปรแกรมสำหรับการ
 sGDML เป็นไลบรารี่ที่รับความนิยมในการสร้างโมเดลของโมเลกุลโดยการใช้ค่าพลังงานและแรงในการฝึกสอนโมเดล\autocite{chmiela2019}
 คู่มือการใช้งานอ่านได้ที่ \url{http://quantum-machine.org/gdml/doc}
 
-\noindent เราสามารถติดตั้ง sGDML โดยใช้ Python Package Manager เช่น PIP ได้ด้วยคำสั่งต่อไปนี้
+\noindent เราสามารถติดตั้ง sGDML โดยใช้ Python Package Manager เช่น PIP ได้ด้วยคำสั่งต่อไปนี้%
+\footnote{เพื่อป้องกันปัญหา Conflict ระหว่างไลบรารี่ใน Python Environment ผู้เขียนได้สร้าง Environment แยกขึ้นมาสำหรับ sGDML 
+โดยเฉพาะซึ่งสามารถใช้ \inlinehighlight{venv} หรือ \inlinehighlight{conda} ในการสร้าง Environment ได้ครับ}
 
 \begin{lstlisting}[style=MyBash]
 pip install sgdml
@@ -241,6 +243,79 @@ sgdml: error: the following arguments are required: command
 \end{lstlisting}
 
 %--------------------------
+\subsubsection{ตัวอย่างการใช้งาน Force Field ที่ฝึกสอนด้วย sGDML}
+%--------------------------
+
+เมื่อเราฝึกสอนโมเดลด้วย sGDML แล้วสิ่งที่เราจะได้ออกมาก็คือโมเดล Force Field ที่เราสามารถนำไปใช้ในในการจำลองโมเลกุล เช่น การจำลอง%
+พลวัตโมเลกุลหรือ Molecular Dynamics (MD) ได้ซึ่ง Force Field ก็เปรียบเสมือนเป็นสิ่งที่คำนวณพลังงานและแรงของโมเลกุลให้กับ MD เพื่อ%
+นำไปใช้ในการขยับหรือเปลี่ยนตำแหน่งของโมเลกุลในเฟรม (Frame) ต่อ ๆ ไปในการจำลอง  โดยผู้อ่านสามารถดาวน์โหลดไฟล์โมเดล Force 
+Field ที่ผ่านการฝึกสอนมาแล้วหรือ Pre-trained Model (\inlinehighlight{m_ethanol.npz}) ได้โดยใช้คำสั่ง
+
+\begin{lstlisting}[style=MyBash]
+(sgdml) rangsiman@linux:~$ sgdml-get model
+\end{lstlisting}
+
+ตัวอย่างด้านล่างคือโค้ดที่ใช้ Force Field ที่ถูกฝึกสอนด้วย sGDML กับไลบรารี่ ASE ในการจำลองโมเลกุล Ethanol
+
+\begin{lstlisting}[style=MyPython]
+from sgdml.intf.ase_calc import SGDMLCalculator
+
+from ase.io import read
+from ase.optimize import QuasiNewton
+from ase.md.velocitydistribution import (MaxwellBoltzmannDistribution, Stationary, ZeroRotation)
+from ase.md.verlet import VelocityVerlet
+from ase import units
+
+model_path = 'm_ethanol.npz'
+calc = SGDMLCalculator(model_path)
+
+mol = read('ethanol.xyz')
+mol.set_calculator(calc)
+
+# do a quick geometry relaxation
+qn = QuasiNewton(mol)
+qn.run(1e-4, 100)
+
+# set the momenta corresponding to T=300K
+MaxwellBoltzmannDistribution(mol, 300 * units.kB)
+Stationary(mol) # zero linear momentum
+ZeroRotation(mol) # zero angular momentum
+
+# run MD with constant energy using the velocity verlet algorithm
+dyn = VelocityVerlet(mol, 0.2 * units.fs, trajectory='md.traj')  # 0.2 fs time step.
+
+# function to print the potential, kinetic and total energy
+def printenergy(a):
+    epot = a.get_potential_energy() / len(a)
+    ekin = a.get_kinetic_energy() / len(a)
+    print('Energy per atom: Epot = %.3feV  Ekin = %.3feV (T=%3.0fK)  '
+            'Etot = %.3feV' % (epot, ekin, ekin / (1.5 * units.kB), epot + ekin))
+
+# now run the MD simulation
+printenergy(mol)
+for i in range(10000):
+    dyn.run(10)
+    printenergy(mol)
+\end{lstlisting}
+
+\vspace{1em}
+\noindent โดยผู้อ่านสามารถใช้พิกัดตำแหน่งเริ่มต้นของโมเลกุล Ethanol ดังต่อไปนี้ได้ (\inlinehighlight{ethanol.xyz})
+
+\begin{lstlisting}[style=MyBash]  
+9
+
+C 	  0.423139 	  0.365862 	  0.380202
+C 	 -0.565742 	  0.883093 	 -0.769835
+O 	  0.153111 	 -1.105280 	  0.316890
+H 	  1.470913 	  0.558882 	  0.104617
+H 	  0.067699 	  0.805186 	  1.280056
+H 	 -0.194544 	  0.628689 	 -1.745578
+H 	 -1.498634 	  0.279985 	 -0.631160
+H 	 -0.685436 	  1.905989 	 -0.598842
+H 	  0.107894 	 -1.518377 	  1.203705
+\end{lstlisting}
+
+%--------------------------
 \subsection{PiNN}
 \label{ssec:lib_pinn}
 %--------------------------
@@ -248,7 +323,21 @@ sgdml: error: the following arguments are required: command
 PiNN\autocite{shao2020} เป็น Python Library ที่รวบรวมโมเดลและวิธีในการทำนายคุณสมบัติต่าง ๆ ของโมเลกุลเข้าไปด้วยกัน โดยใน%
 เวอร์ชันปัจจุบันนั้นมี Neural Network ที่ถูกติดตั้งไว้ใน PiNN แล้ว 2 โมเดลคือ PiNet และ Behler-Parrinello Neural Network
 
-รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://github.com/Teoroo-CMC/PiNN}
+ผู้อ่านสามารถติดตั้งไลบรารี่ PiNN ได้โดยใช้คำสั่งต่อไปนี้
+
+\begin{lstlisting}[style=MyBash]
+pip install git+https://github.com/Teoroo-CMC/PiNN
+\end{lstlisting}
+
+\noindent หรือ
+
+\begin{lstlisting}[style=MyBash]
+git clone https://github.com/Teoroo-CMC/PiNN.git 
+cd PiNN && pip install -e .
+\end{lstlisting}
+
+รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://github.com/Teoroo-CMC/PiNN} และศึกษาคู่มือการใช้งานได้ที่ 
+\url{https://teoroo-cmc.github.io/PiNN}
 
 %--------------------------
 \subsection{TorchANI}
@@ -258,4 +347,17 @@ PiNN\autocite{shao2020} เป็น Python Library ที่รวบรวม�
 TorchANI\autocite{gao2020} เป็น Neural Network ที่ใช้สำหรับการทำนายศักย์ (Potential) ของโมเลกุลซึ่งถูกพัฒนาโดยใช้ PyTorch 
 Framework เป็นหลัก 
 
-รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://github.com/aiqm/torchani}
+การติดตั้ง TorchANI สามารถทำได้โดยต้องติดตั้ง PyTorch ก่อนแล้ว ดังนี้
+
+\begin{lstlisting}[style=MyBash]
+# PyTorch
+pip install numpy
+DL_PT="https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html"
+pip install --pre torch torchvision -f $DOWNLOAD_PYTORCH
+
+# TorchANI
+pip install torchani
+\end{lstlisting}
+
+รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://github.com/aiqm/torchani} และศึกษาคู่มือการใช้งานได้ที่ 
+\url{https://aiqm.github.io/torchani}
