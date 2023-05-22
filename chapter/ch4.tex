@@ -677,8 +677,11 @@ Exploding Gradient Problem ซึ่งเกิดขึ้นในระห�
             \includegraphics[width=0.9\linewidth]{fig/actfunc_linear.png}
             \caption{%
                 \begin{equation}
-                    \begin{split}R(z,m) = \begin{Bmatrix} z*m \\
-                    \end{Bmatrix}\end{split}
+                    \begin{split}R(z,m) = 
+                        \begin{Bmatrix} 
+                            z*m \\
+                        \end{Bmatrix}
+                    \end{split}
                 \end{equation}
             }
             \label{fig:actfunc_lin}
@@ -688,8 +691,11 @@ Exploding Gradient Problem ซึ่งเกิดขึ้นในระห�
             \includegraphics[width=0.9\linewidth]{fig/actfunc_linear_der.png}
             \caption{%
                 \begin{equation}
-                    \begin{split}R'(z,m) = \begin{Bmatrix} m \\
-                    \end{Bmatrix}\end{split}
+                    \begin{split}R'(z,m) = 
+                        \begin{Bmatrix} 
+                            m \\
+                        \end{Bmatrix}
+                    \end{split}
                 \end{equation}
             }
             \label{fig:actfunc_lin_der}
@@ -714,8 +720,12 @@ Exploding Gradient Problem ซึ่งเกิดขึ้นในระห�
             \includegraphics[width=0.9\linewidth]{fig/actfunc_elu.png}
             \caption{%
                 \begin{equation}
-                    \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
-                        \alpha (e^z – 1) & z <= 0 \end{Bmatrix}\end{split}
+                    \begin{split}R(z) = 
+                        \begin{Bmatrix} 
+                            z & z > 0 \\
+                            \alpha (e^z – 1) & z <= 0 
+                        \end{Bmatrix}
+                    \end{split}
                 \end{equation}
             }
             \label{fig:actfunc_elu}
@@ -725,8 +735,12 @@ Exploding Gradient Problem ซึ่งเกิดขึ้นในระห�
             \includegraphics[width=0.9\linewidth]{fig/actfunc_elu_der.png}
             \caption{%
                 \begin{equation}
-                    \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
-                        \alpha e^z & z<0 \end{Bmatrix}\end{split}
+                    \begin{split}R'(z) = 
+                        \begin{Bmatrix} 
+                            1 & z>0 \\
+                            \alpha e^z & z<0 
+                        \end{Bmatrix}
+                    \end{split}
                 \end{equation}
             }
             \label{fig:actfunc_elu_der}
@@ -756,8 +770,12 @@ Exploding Gradient Problem ซึ่งเกิดขึ้นในระห�
             \includegraphics[width=0.9\linewidth]{fig/actfunc_relu.png}
             \caption{%
                 \begin{equation}
-                    \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
-                        0 & z <= 0 \end{Bmatrix}\end{split}
+                    \begin{split}R(z) = 
+                        \begin{Bmatrix} 
+                            z & z > 0 \\
+                            0 & z <= 0 
+                        \end{Bmatrix}
+                    \end{split}
                 \end{equation}
             }
             \label{fig:actfunc_relu}
@@ -767,8 +785,12 @@ Exploding Gradient Problem ซึ่งเกิดขึ้นในระห�
             \includegraphics[width=0.9\linewidth]{fig/actfunc_relu_der.png}
             \caption{%
                 \begin{equation}
-                    \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
-                        0 & z<0 \end{Bmatrix}\end{split}
+                    \begin{split}R'(z) = 
+                        \begin{Bmatrix} 
+                            1 & z>0 \\
+                            0 & z<0 
+                        \end{Bmatrix}
+                    \end{split}
                 \end{equation}
             }
             \label{fig:actfunc_relu_der}
@@ -805,8 +827,12 @@ Exploding Gradient Problem ซึ่งเกิดขึ้นในระห�
             \includegraphics[width=0.9\linewidth]{fig/actfunc_leakyrelu.png}
             \caption{%
                 \begin{equation}
-                    \begin{split}R(z) = \begin{Bmatrix} z & z > 0 \\
-                        \alpha z & z <= 0 \end{Bmatrix}\end{split}
+                    \begin{split}R(z) = 
+                        \begin{Bmatrix} 
+                            z & z > 0 \\
+                            \alpha z & z <= 0 
+                        \end{Bmatrix}
+                    \end{split}
                 \end{equation}
             }
             \label{fig:actfunc_leakyrelu}
@@ -816,8 +842,12 @@ Exploding Gradient Problem ซึ่งเกิดขึ้นในระห�
             \includegraphics[width=0.9\linewidth]{fig/actfunc_leakyrelu_der.png}
             \caption{%
                 \begin{equation}
-                    \begin{split}R'(z) = \begin{Bmatrix} 1 & z>0 \\
-                        \alpha & z<0 \end{Bmatrix}\end{split}
+                    \begin{split}R'(z) = 
+                        \begin{Bmatrix} 
+                            1 & z>0 \\
+                            \alpha & z<0 
+                        \end{Bmatrix}
+                    \end{split}
                 \end{equation}
             }
             \label{fig:actfunc_leakyrelu_der}
@@ -1088,7 +1118,7 @@ Cross-entropy นี้เป็น Loss Function ที่ได้รับค
 
 \noindent $\bullet$ Jensen-Shannon (JS) Divergence
 
-\begin{equation}\label{jensen_shannon_diver}
+\begin{equation}\label{eq:jensen_shannon_diver}
     JS(\hat{y} || y) = \frac{1}{2} \left ( KL \left ( y||\frac{y+\hat{y}}{2} \right ) + 
     KL \left ( \hat{y}||\frac{y+\hat{y}}{2} \right ) \right )
 \end{equation}

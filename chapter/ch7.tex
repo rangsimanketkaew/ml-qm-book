@@ -444,10 +444,10 @@ Matrix $(F)$ ได้
     det|F - \varepsilon S| = 0
 \end{equation}
 
-\noindent ซึ่งสมการด้านบนไม่สามารถแก้ได้แบบตรงไปตรงมาเพราะว่าสมาชิกของเมทริกซ์ $F_{o'o}$ นั้นเกี่ยวเนื่องโดยตรงกับ Integral ของ 
-Coulomb Operator และ Exchange Operator ซึ่งขึ้นอยู่กับ Spatial Wavefunction นั่นจึงทำให้การแก้สมการที่ \ref{eq:scf_secular} 
-นี้เป็นปัญหาแบบงูกินหาง ดังนั้นเราจึงต้องใช้กระบวนการวนซ้ำ (Iterative Method) ในการแก้ปัญหาจนกว่าคำตอบหรือผลลัพธ์ที่เราต้องการจากสมการ 
-(พลังงาน) จะลู่เข้านั่นเอง
+\noindent เนื่องจากว่าสมการที่ \ref{eq:scf_secular} นั้นไม่สามารถถูกแก้ได้แบบตรงไปตรงมาเพราะว่าสมาชิกของเมทริกซ์ $F_{o'o}$ 
+นั้นเกี่ยวเนื่องโดยตรงกับ Integral ของ Coulomb Operator และ Exchange Operator ซึ่งขึ้นอยู่กับ Spatial Wavefunction ดังนั้นจึงทำ%
+ให้การแก้สมการที่ \ref{eq:scf_secular} นั้นเป็นปัญหาแบบงูกินหาง อย่างไรก็ตามเราสามารถใช้กระบวนการวนซ้ำ (Iterative Method) 
+ในการแก้สมการนี้ (เรียกว่าเป็นการประมาณค่าก็ได้) จนกว่าคำตอบหรือผลลัพธ์ที่เราต้องการ (พลังงาน) จากสมการนั้นลู่เข้า
 \idxboth{โอเปอเรเตอร์คูลอมป์}{Coulomb Operator}
 \idxboth{โอเปอเรเตอร์แลกเปลี่ยน}{Exchange Operators}
 \idxboth{ฟังก์ชันคลื่นเชิงพื้นที่}{Spatial Wavefunction}
@@ -1527,7 +1527,7 @@ def get_coulomb(nx, x, eps=1e-1):
 \noindent ซึ่งเราสามารถเขียนความหนาแน่นให้อยู่ในรูปของผลรวมเชิงเส้นของออร์บิทัลยกกำลังสองได้ ดังนี้ 
 
 \begin{equation}
-    n(x)=\sum_n f_n \lvert \psi(x) \rvert ^2
+    n(x) = \sum_n f_n \lvert \psi(x) \rvert ^2
 \end{equation}
 
 \noindent โดยที่ $f_n$ คือ Occupation Number (จำนวนอิเล็กตรอนในออร์บิทัลที่ $n$) ซึ่งแต่ละ State นั้นจะมีอิเล็กตรอนที่มีสปินขึ้นและ%
