@@ -7,6 +7,8 @@
 
 - ดาวน์โหลดไฟล์หนังสือได้ที่ https://rangsimanketkaew.github.io/ml-qm-book.pdf
 
+- ดาวน์โหลดซอร์สโค้ดของหนังสือได้ที่ https://github.com/rangsimanketkaew/ml-qm-book
+
 - ดาวน์โหลดโค้ดในหนังสือได้ที่ https://github.com/rangsimanketkaew/ml-qm-book-code
 
 เรียบเรียงโดย [รังสิมันต์ เกษแก้ว](https://rangsimanketkaew.github.io/) <br>
