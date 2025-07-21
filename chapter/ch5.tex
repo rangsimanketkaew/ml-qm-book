@@ -7,7 +7,7 @@
 \chapter{การเลือกและปรับแต่งโมเดล}
 \label{ch:reg_sel_model}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/ml-prediction.jpg}
     \caption{การเลือกโมเดล ML (เครดิตภาพ: https://pythonnumericalmethods.berkeley.edu)}
@@ -51,7 +51,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item สามารถเขียนโค้ดได้ง่าย และฝึกสอนโมเดลได้อย่างมีประสิทธิภาพ
     
     \item ปัญหา Overfitting ของ Linear Regression สามารถแก้ได้ด้วยการทำ Regularization
@@ -60,7 +61,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item ข้อมูลที่อยู่ในชุดข้อมูลที่ใช่สำหรับการฝึกสอนโมเดล Linear Regression นั้นควรจะต้องไม่ขึ้นต่อกัน แต่ทว่าในชีวิตจริงนั้นข้อมูลก็%
     มักจะขึ้นต่อกันเสมอ
 
@@ -76,7 +78,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item โอกาสเกิด Overfitting น้อย แต่ว่าสามารถเกิด Overfitting ได้ในชุดข้อมูลที่มีจำนวนมิติสูง ๆ
     
     \item มีประสิทธิภาพมาก ๆ เมื่อชุดข้อมูลมี Features ที่สามารถแยกกันได้แบบเชิงเส้น
@@ -85,7 +88,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item ไม่ควรใช้อัลกอริทึมนี้สำหรับกรณีที่จำนวน Observation นั้นมีน้อยกว่าจำนวนของ Feature
 
     \item เหมาะสำหรับชุดข้อมูลที่มีความเป็นเชิงเส้น ซึ่งหาได้ยากในชีวิต (ปกติเรามักจะเจอชุดข้อมูลแบบที่ไม่เป็นเชิงเส้น)
@@ -100,7 +104,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item เหมาะสำหรับข้อมูลที่มีจำนวนมิติเยอะ ๆ (High-dimensional Data)
     
     \item สามารถใช้กับชุดข้อมูลที่มีขนาดเล็กได้ (จำนวนข้อมูลไม่เยอะ)
@@ -109,7 +114,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item ไม่ค่อยมีประสิทธิภาพเมื่อใช้กับชุดข้อมูลที่มีขนาดใหญ่
     
     \item ต้องเลือก Kernel ที่เหมาะสม ถ้าเลือก Kernel ไม่ดีก็จะได้โมเดลที่มีประสิทธิภาพต่ำ
@@ -122,7 +128,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item มีคุณสมบัติที่ทำให้โมเดลสามารถทำงานต่อไปได้แม้จะเกิด Failure ขึ้น เรียกง่าย ๆ ว่าทนทานต่อความเสียหาย (Fault Tolerance)
     \idxboth{ทนทานต่อความเสียหาย}{Fault Tolerance}
 
@@ -132,7 +139,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item ใช้ระยะเวลาในการฝึกสอนโมเดลนาน
     
     \item ไม่การันตีว่าการฝึกสอนโมเดลจะลู่เข้า (Non-gauranteed Convergence)
@@ -153,14 +161,16 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item สามารถลดความซับซ้อนของความสัมพันธ์ระหว่าง Feature ได้
     
     \item สามารถลดปัญหา Overfitting
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item องค์ประกอบหลัก (Principal Component) นั้นวิเคราะห์และตีความได้ยาก
     
     \item การใช้วิธีนี้ทำให้เราสูญเสียข้อมูล (ความสัมพันธ์ระหว่าง Feature) หรือ Information Loss
@@ -175,7 +185,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item สามารถเขียนโค้ดได้ง่าย ไม่ซับซ้อน
     
     \item สามารถนำไปใช้กับชุดข้อมูลที่มีขนาดใหญ่มาก ๆ ได้
@@ -186,7 +197,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item ไม่เหมาะสำหรับชุดข้อมูลที่มี Outlier
     
     \item การเลือกค่า $K$ สำหรับ Clustering นั้นค่อนข้างยุ่งยาก
@@ -203,7 +215,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 %--------------------------
 
 \noindent \textbf{ข้อดี}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item สามารถทำนายได้โดยไม่ต้องฝึกสอนโมเดล
     
     \item เป็นวิธีที่สิ้นเปลืองน้อยมาก โดยมี Time Complexity เท่ากับ $\mathcal{O}(n)$
@@ -212,7 +225,8 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 \end{itemize}
 
 \noindent \textbf{ข้อด้อย}
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item ไม่เหมาะสำหรับชุดข้อมูลขนาดใหญ่
     
     \item ไม่เหมาะสำหรับชุดข้อมูลที่มี Noise เยอะมากเกินไป และข้อมูลไม่ครบ รวมไปถึง Outlier ด้วย 
@@ -521,7 +535,7 @@ Underfitting
 \label{sec:fix_overfit}
 %--------------------------
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/overfitting.png}
     \caption{โมเดลที่มีความ Overfitting และ Underfitting กับชุดข้อมูลมากเกินไป}
@@ -665,7 +679,7 @@ len(history.history['loss'])  # Number of epochs
 \idxen{Ensemble Method}
 %--------------------------
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/ensemble_method.png}
     \caption{การทำงานร่วมกันของโมเดลหลาย ๆ โมเดลโดยใช้วิธี Ensemble (เครดิตภาพ: https://www.manning.com)}
@@ -678,8 +692,8 @@ len(history.history['loss'])  # Number of epochs
 รวมกันเพื่อให้ได้โมเดลที่มีประสิทธิมากขึ้นได้
 
 โดยเทคนิคย่อยของEnsemble Method ที่นิยมใช้กันนั้นมีอยู่ด้วยกัน 3 วิธี ดังนี้
-
-\begin{itemize}[topsep=0pt]
+%
+\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item \textbf{Bagging} เราจะทำการสร้างข้อมูลประเภทเดียวกันแบบหลาย ๆ ชุด แล้วทำการทดสอบกับข้อมูลเพียงแค่บางส่วน (Subset) 
     ของชุดข้อมูล จากนั้นนำผลการทำนายของโมเดลต่าง ๆ มารวมกัน ตัวอย่างของอัลกอริทึมที่ใช้ในการเรียนรู้สำหรับเทคนิค Bagging นี้ เช่น 
     Decision Tree, Random Forest และ Extra Tree

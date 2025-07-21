@@ -18,7 +18,7 @@
 $(y)$ ที่เราต้องการทำนายนั้นสามารถถูกทำนายหรืออธิบายได้ดีกว่าด้วยสมการไม่เชิงเส้น (Nonlinear Function) ของตัวแปร $x$ นั้น
 เราสามารถใช้สิ่งที่เรียกว่าเคอร์เนล (Kernel) ในการหาความสัมพันธ์ระหว่างอินพุตกับเอาต์พุตได้ ซึ่งเราจะมาทำความรู้จักและเรียนรู้เคอร์เนลกันในบทนี้
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/2d_to_3d_spaces.png}
     \caption{การทำ Mapping จากปริภูมิ 2 มิติไปเป็นปริภูมิ 3 มิติซึ่ง Observation ของเราสามารถถูกแยกได้โดยฟังก์ชันเชิงเส้น}
@@ -202,7 +202,7 @@ $d = 3$ นั้นมีสมการดังต่อไปนี้
     \end{bmatrix}
 \end{equation}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/gaussian-3d.png}
     \caption{ตัวอย่างพื้นผิวการกระจายตัวเกาส์เซียน (Gaussian Distribution) ในปริภูมิ 3 มิติ}
@@ -325,7 +325,7 @@ Space) ไปยังปริภูมิมิติสูง (High-dimension
     \min_{w} \lVert X_{w} - y \rVert_{2}^{2}
 \end{equation}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/plot_linear_regression.png}
     \caption{เส้นตรงที่ถูก Fit (สมดุล) ให้ผ่านจุดในชุดข้อมูล แกน $x$ คืออินพุตและแกน $y$ คือเอาต์พุต (เครดิตภาพ:
@@ -358,7 +358,7 @@ Space) ไปยังปริภูมิมิติสูง (High-dimension
 ยกกำลังสอง ซึ่งการยกกำลังนี้เป็นที่มาของการเรียกว่า $L2$ นั่นเอง สำหรับวิธีการปรับค่า $\alpha$ และผลกระทบที่เกิดขึ้นนั้นสามารถดูได้ตามรูปที่
 \ref{fig:ridge_res}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/plot_ridge_regression.png}
     \caption{สัมประสิทธิ์ของริดจ์ที่เป็นฟังก์ชันกับ Regularization (เครดิตภาพ: https://scikit-learn.org)}

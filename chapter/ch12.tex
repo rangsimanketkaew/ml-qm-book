@@ -187,7 +187,7 @@ $\Delta\text{ML}$ เป็นเทคนิคที่ใช้ค่าค�
     \item  หรือจะใช้วิธีที่แตกต่างกันก็ได้ เช่น ใช้วิธี DFT และวิธี Coupled Cluster (ใช้ Basis Set เดียวกัน)
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/delta_ml_base_target.jpg}
     \caption{แสดงค่าที่เป็น Baseline ซึ่งได้จากวิธีการทำนายที่ต่ำกว่าและค่าที่เป็น Targetline ซึ่งได้จากวิธีการทำนายที่สูงกว่า
@@ -239,7 +239,7 @@ $\Delta\text{ML}$ เป็นเทคนิคที่ใช้ค่าค�
 สำหรับโมเดล GNN ที่ผู้อ่านจะได้ศึกษาในหัวข้อนี้ก็คือ Message Passing Neural Network ซึ่งเป็นหนึ่งในโมเดล GNN ที่มีประสิทธิภาพในการ%
 ทำนายคุณสมบัติเชิงอิเล็กทรอนิกส์ของโมเลกุลสูงมาก
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/mol-2-graph.png}
     \caption{การแทนโมเลกุลด้วยกราฟ}
@@ -287,7 +287,7 @@ $\Delta\text{ML}$ เป็นเทคนิคที่ใช้ค่าค�
 \idxen{Message Passing Neural Network!Architecture}
 %--------------------------
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/mp-network.png}
     \caption{โครงข่ายของการส่งข้อความ}
@@ -361,7 +361,7 @@ Propagation นั้นจะเขียนแทนด้วย $T$ ซึ่
 ขอบระหว่างโหนด แล้วทำการรวมข้อมูลและแปลงให้เป็นคำตอบที่ต้องการทำนาย สมการที่ \eqref{eq:ff_mpnn} ก็คือการฝึกสอนโมเดล
 Feed-forward Neural Network โดยใช้ฟังก์ชันแบบไม่เชิงเส้น (Nonlinear) $f$
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/mp-operation.png}
     \caption{การดำเนินการของการทำการถดถอย (Regression) และการเรียกหรือดึงข้อมูลโดยใช้ Readout}
@@ -465,7 +465,7 @@ GAN และแอพพลิเคชั่น ผู้เขียนแน
           \idxen{Generative Adversarial Network!Discriminator}
 \end{enumerate}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \includegraphics[width=\linewidth]{fig/generative_adversarial_nets.pdf}
     \caption{โมเดล Generative Adversarial Network (GAN) ซึ่งประกอบไปด้วย Generator และ Discriminator ซึ่งทั้งสอง%
         โมเดลเป็น Neural Network}
@@ -495,7 +495,7 @@ $(\vec{x}_{\text{fake}})$ โดยเรียนรู้จากข้อม
 \idxen{Transformer}
 %--------------------------
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/transformer.png}
     \caption{สถาปัตยกรรมของโมเดล Transformer
@@ -533,21 +533,21 @@ Forcing นั่นเอง
 
 ประเภทของ Attention ที่ถูกนำมาใช้นั้นมีด้วยกัน 3 ประเภท ดังนี้
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{fig/attention_1_self.png}
     \caption{Self-Attention (เครดิตภาพ: Łukasz Kaiser)}
     \label{fig:self_attention}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{fig/attention_2_masked.png}
     \caption{Masked Self-Attention (เครดิตภาพ: Łukasz Kaiser)}
     \label{fig:masked_self_attention}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{fig/attention_3_enc-dec.png}
     \caption{Encoder-Decoder Attention (เครดิตภาพ: Łukasz Kaiser)}

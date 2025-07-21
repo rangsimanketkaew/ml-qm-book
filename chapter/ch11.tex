@@ -7,7 +7,7 @@
 \chapter{การทำนายคุณสมบัติของโมเลกุล}
 \label{ch:predict_molprop}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/ml_pred_chem.png}
     \caption{การสำรวจคุณสมบัติเชิงโมเลกุลในปริภูมิเชิงเคมีแบบ Local และ Global
@@ -79,14 +79,14 @@ Network โดยการใช้เทคนิคขั้นสูงกั
 Feature ที่เลือกใช้, เทคนิค ML และ Hyperparameters ต่าง ๆ ที่เราได้กำหนดและลองปรับเปลี่ยนค่าในระหว่างการฝึกสอนโมเดล
 เมื่อเราได้โมเดลที่ถูกฝึกสอนมาอย่างดีและมีประสิทธิภาพที่อยู่ในเกณฑ์ที่ยอมรับได้แล้วนั้น เราก็จะมีโมเดลที่พร้อมจะไปใช้งานจริงครับ
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/ml_workflow.png}
     \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์แบบที่ 1 (เครดิตภาพ: \url{https://learnbyinsight.com})}
     \label{fig:ml_workflow}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/ml_pipeline.png}
     \caption{แนวทางและขั้นตอนการสร้างโมเดลปัญญาประดิษฐ์แบบที่ 2 (เครดิตภาพ: \url{https://cds.cern.ch})}
@@ -351,7 +351,7 @@ plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{fig/qm9_cm_kernel_corr.png}
     \caption{ซ้าย: Correlation ของค่าพลังงานภายในของโมเลกุลที่เป็นค่าอ้างอิงและค่าที่ได้จากการทำนาย, ขวา: Histrogram Density
@@ -413,7 +413,7 @@ $s$ คือจำนวนของ Configuration (ขนาดของ Train
 ต่าง ๆ ที่ใช้ในการ Fit ได้นั่นเอง โดยเคอร์เนลในที่นี้คือการวัดความคล้ายคลึงกันระหว่าง Feature ของอะตอมแต่ละตัวในโมเลกุล (Atomic
 Environment)
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/gap_procedure.jpeg}
     \caption{ขั้นตอนการคำนวณ Representation และการใช้ Gaussian Approximation Potentials ในการทำนายพลังงานและแรง
