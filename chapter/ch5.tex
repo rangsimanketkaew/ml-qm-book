@@ -9,15 +9,14 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig/ml-prediction.jpg}
+    \includegraphics[width=0.98\linewidth]{fig/ml-prediction.jpg}
     \caption{การเลือกโมเดล ML (เครดิตภาพ: https://pythonnumericalmethods.berkeley.edu)}
     \label{fig:ml_prediction}
 \end{figure}
 
 การทำให้โมเดลมีความสม่ำเสมอ (Regularization) เพื่อเพิ่มความถูกต้องและการเลือกโมเดล (Model Selection) เป็นสิ่งที่จำเป็นมากในขั้นตอนของการฝึกสอนโมเดล ในบทนี้เราจะมาดูรายละเอียดและแนวทางในการเลือกอัลกอริทึมสำหรับสร้างโมเดล ML รวมไปถึงเทคนิคการปรับแต่งโมเดลเพื่อให้มีประสิทธิภาพในการทำนายมากที่สุด ตัวอย่างของขั้นตอนการพิจารณาเลือกอัลกอริทึม ML นั้นแสดงตามภาพที่ \ref{fig:ml_prediction}
 โดยเริ่มต้นจากปัญหาที่เราต้องการศึกษาก่อน แล้วก็พิจารณาว่าชุดข้อมูลของเรานั้นมี Label หรือคำตอบของแต่ละข้อมูลหรือไม่ ถ้าหากว่ามี Label 
-เราก็สามารถใช้อัลกอริทึมแบบ Supervised ML ได้ แต่ถ้าหากไม่มี Label เราก็ไม่มีทางเลือกอื่นนอกจากจะต้องใช้อัลกอริทึมแบบ Unsupervised 
-ML เท่านั้น (สำหรับกรณีที่มี Label นั้นเราอาจจะใช้ Unsupervised ML ด้วยก็ได้ โดยแกล้งทำเป็นไม่สนใจ Label) เมื่อเราแบ่งประเภทของโจทย์ปัญหาได้แล้ว ขั้นตอนต่อมาคือการเลือกวิธีในการแก้ปัญหา ซึ่งขั้นตอนนี้ก็จะนำไปสู่การเลือกอัลกอริทึม ML แบบต่าง ๆ นั่นเอง โดยโจทย์ปัญหาหลัก ๆ ที่เรามักจะเจอนั้นมีด้วยกัน 4 แบบดังนี้
+เราก็สามารถใช้อัลกอริทึมแบบ Supervised ML ได้ แต่ถ้าหากไม่มี Label เราก็ไม่มีทางเลือกอื่นนอกจากจะต้องใช้อัลกอริทึมแบบ Unsupervised ML เท่านั้น (สำหรับกรณีที่มี Label นั้นเราอาจจะใช้ Unsupervised ML ด้วยก็ได้ โดยแกล้งทำเป็นไม่สนใจ Label) เมื่อเราแบ่งประเภทของโจทย์ปัญหาได้แล้ว ขั้นตอนต่อมาคือการเลือกวิธีในการแก้ปัญหา ซึ่งขั้นตอนนี้ก็จะนำไปสู่การเลือกอัลกอริทึม ML แบบต่าง ๆ นั่นเอง โดยโจทย์ปัญหาหลัก ๆ ที่เรามักจะเจอนั้นมีด้วยกัน 4 แบบดังนี้
 %
 \begin{enumerate}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item Classification (การแบ่งประเภท)
@@ -238,7 +237,7 @@ ML เท่านั้น (สำหรับกรณีที่มี Label
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth,page=2]{fig/ml-trade-off.jpg}
+    \includegraphics[width=0.8\linewidth,page=2]{fig/ml-trade-off.jpg}
     \caption{เปรียบเทียบอัลกอริทึม ML แบบต่าง ๆ ตามความสัมพันธ์ระหว่างประสิทธิภาพของโมเดลกับการตีความโมเดล}
     \label{fig:ml_traide}
 \end{figure}
@@ -281,7 +280,7 @@ Model) นั้นไม่ว่าจะเป็นโมเดลอยู�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth,page=1]{fig/cross_validation.pdf}
+    \includegraphics[width=0.7\linewidth,page=1]{fig/cross_validation.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{train_test_split}}
     \label{fig:train_test_split}
 \end{figure}
@@ -306,7 +305,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth,page=2]{fig/cross_validation.pdf}
+    \includegraphics[width=0.7\linewidth,page=2]{fig/cross_validation.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{cross_val_score}}
     \label{fig:cross_val_score}
 \end{figure}
@@ -330,7 +329,7 @@ scores = cross_val_score(clf, iris.data, iris.target, cv=5)
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth,page=3]{fig/cross_validation.pdf}
+    \includegraphics[width=0.7\linewidth,page=3]{fig/cross_validation.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{cross_val_predict}}
     \label{fig:cross_val_predict}
 \end{figure}
@@ -355,7 +354,7 @@ predicted = cross_val_predict(clf, iris.data, iris.target, cv=10)
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth,page=4]{fig/cross_validation.pdf}
+    \includegraphics[width=0.7\linewidth,page=4]{fig/cross_validation.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{KFold}}
     \label{fig:f_fold}
 \end{figure}
@@ -388,7 +387,7 @@ for i, (train_index, test_index) in enumerate(kf.split(X)):
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth,page=5]{fig/cross_validation.pdf}
+    \includegraphics[width=0.7\linewidth,page=5]{fig/cross_validation.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{LeaveOneOut}}
     \label{fig:leave_one_out}
 \end{figure}
@@ -418,7 +417,7 @@ for i, (train_index, test_index) in enumerate(loo.split(X)):
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth,page=6]{fig/cross_validation.pdf}
+    \includegraphics[width=0.7\linewidth,page=6]{fig/cross_validation.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{LeavePOut}}
     \label{fig:leave_p_out}
 \end{figure}
@@ -575,7 +574,7 @@ Underfitting
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig/early_stopping.png}
+    \includegraphics[width=0.7\linewidth]{fig/early_stopping.png}
     \caption{การทำ Regularization ด้วยวิธี Early Stopping สำหรับการฝึกสอนโมเดล High-degree Polynomial Regression 
     โดยใช้ Batch Gradient Descent และใช้ RMSE ในการวัดค่าความคลาดเคลื่อน (เครดิตภาพ: https://www.oreilly.com)}
     \label{fig:early_stopping}
@@ -658,7 +657,7 @@ len(history.history['loss'])  # Number of epochs
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig/ensemble_method.png}
+    \includegraphics[width=0.8\linewidth]{fig/ensemble_method.png}
     \caption{การทำงานร่วมกันของโมเดลหลาย ๆ โมเดลโดยใช้วิธี Ensemble (เครดิตภาพ: https://www.manning.com)}
     \label{fig:ensemble_method}
 \end{figure}

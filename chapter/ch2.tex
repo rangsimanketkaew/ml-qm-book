@@ -9,7 +9,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig/supervised_ml.png}
+    \includegraphics[width=0.7\linewidth]{fig/supervised_ml.png}
     \caption{หุ่นยนต์กำลังเรียนรู้หาความเชื่อมโยงระหว่างโครงสร้างกับคุณสมบัติของโมเลกุล (เครดิตภาพ: https://puentesdigitales.com)}
     \label{fig:supervised_ml}
 \end{figure}
@@ -90,7 +90,7 @@ $x_{2}$ เป็นจำนวนวงอะโรมาติก (Aromatic) 
 \begin{equation}
     f(s\vec{x}) = sf(x)
 \end{equation}
-
+%
 ถ้าหากฟังก์ชันไม่สอดคล้องกับเงื่อนไขทั้งสองข้อด้านบน ฟังก์ชันนั้นจะมีความไม่เป็นเชิงเส้น (Nonlinearity)
 
 %--------------------------
@@ -157,32 +157,28 @@ Function ที่เราจะเลือกใช้นั้น คือ 
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{0.8\textwidth}
+    \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_1.png}
+        \includegraphics[width=\linewidth]{fig/plot_simple_reg_1.png}
         \caption{ครั้งที่ 1}
         \label{fig:plot_simple_reg_1}
-    \end{subfigure}
-    \\
-    \begin{subfigure}{0.8\textwidth}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_2.png}
+        \includegraphics[width=\linewidth]{fig/plot_simple_reg_2.png}
         \caption{ครั้งที่ 2}
         \label{fig:plot_simple_reg_2}
     \end{subfigure}
-\end{figure}%
-\begin{figure}[H]\ContinuedFloat
-    \centering
-    \begin{subfigure}{0.8\textwidth}
+    \\
+    \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_3.png}
+        \includegraphics[width=\linewidth]{fig/plot_simple_reg_3.png}
         \caption{ครั้งที่ 3}
         \label{fig:plot_simple_reg_3}
-    \end{subfigure}
-    \\
-    \begin{subfigure}{0.8\textwidth}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
         \centering
-        \includegraphics[width=0.9\linewidth]{fig/plot_simple_reg_4.png}
+        \includegraphics[width=\linewidth]{fig/plot_simple_reg_4.png}
         \caption{ครั้งที่ 4}
         \label{fig:plot_simple_reg_4}
     \end{subfigure}
@@ -216,7 +212,7 @@ Function ที่เราจะเลือกใช้นั้น คือ 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/plot_multivar_reg.png}
+    \includegraphics[width=0.7\linewidth]{fig/plot_multivar_reg.png}
     \caption{ความสัมพันธ์ของข้อมูลหลายตัวแปร (Multivariables Data)}
     \label{fig:multi_var_reg}
 \end{figure}
@@ -271,7 +267,7 @@ Binary Classification ซึ่งค่า $y$ จะมีค่าได้�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/s_curve_logistic_func.png}
+    \includegraphics[width=0.6\linewidth]{fig/s_curve_logistic_func.png}
     \caption{Logistic Function หรือ Sigmoid Function}
     \label{fig:s_curve_logistic}
 \end{figure}
@@ -363,15 +359,12 @@ Regularization เพื่อทำการหลีกเลี่ยงป�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\linewidth]{fig/svm.png}
-    \caption{Maximum Margin Hyperplan และ Margi สำหรับการฝึกสอนโมเดลของชุดข้อมูลตัวอย่างที่มี 2 คลาสด้วย Support Vector
-        Machine (เครดิตภาพ: \url{https://en.wikipedia.org/wiki/Support_vector_machine})}
+    \includegraphics[width=0.45\linewidth]{fig/svm.png}
+    \caption{Maximum Margin Hyperplan และ Margi สำหรับการฝึกสอนโมเดลของชุดข้อมูลตัวอย่างที่มี 2 คลาสด้วย Support Vector Machine (เครดิตภาพ: \url{https://en.wikipedia.org/wiki/Support_vector_machine})}
     \label{fig:svm_margin}
 \end{figure}
 
-ภาพที่ \ref{fig:svm_margin} แสดงชุดข้อมูลตัวอย่างที่มี 2 คลาส (สีน้ำเงินกับสีเขียว) โดยมีระนาบระยะห่างที่มากที่สุด (Maximum Margin
-Hyperplan หรือ MMH) เป็นตัวแบ่งข้อมูลซึ่งอ้างอิงโดยจุดข้อมูลที่อยู่ใกล้กับ Hyperplan ซึ่งจุดข้อมูลเหล่านี้มีชื่อเรียกว่าเวกเตอร์ค้ำยัน (Support
-Vector) โดยเราคำนวณ Support Vector จากช่องว่าง (Margin) ระหว่างคลาสทั้ง 2 คลาสโดยใช้ระยะห่างที่น้อยที่สุด ดังนั้นเป้าหมายของการฝึกสอนโมเดลด้วย SVM ก็คือการหา Hyperplan ที่สามารถแบ่งข้อมูลทั้ง 2 คลาสออกจากกันได้ดีที่สุด
+ภาพที่ \ref{fig:svm_margin} แสดงชุดข้อมูลตัวอย่างที่มี 2 คลาส (สีน้ำเงินกับสีเขียว) โดยมีระนาบระยะห่างที่มากที่สุด (Maximum Margin Hyperplan หรือ MMH) เป็นตัวแบ่งข้อมูลซึ่งอ้างอิงโดยจุดข้อมูลที่อยู่ใกล้กับ Hyperplan ซึ่งจุดข้อมูลเหล่านี้มีชื่อเรียกว่าเวกเตอร์ค้ำยัน (Support Vector) โดยเราคำนวณ Support Vector จากช่องว่าง (Margin) ระหว่างคลาสทั้ง 2 คลาสโดยใช้ระยะห่างที่น้อยที่สุด ดังนั้นเป้าหมายของการฝึกสอนโมเดลด้วย SVM ก็คือการหา Hyperplan ที่สามารถแบ่งข้อมูลทั้ง 2 คลาสออกจากกันได้ดีที่สุด
 \idxen{Supervised Learning!Support Vector Machine!Hyperplane}
 \idxen{Supervised Learning!Support Vector Machine!Margin}
 
@@ -488,8 +481,8 @@ Neural Net) เป็นอัลกอริทึมรูปแบบหน�
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig/neuron.png}
-    \caption{การรับส่งข้อมูลภายในเซลล์ประสาท}
+    \includegraphics[width=0.8\linewidth]{fig/neuron.png}
+    \caption{การรับส่งข้อมูลภายในเซลล์ประสาท (เครดิตภาพ: https://en.wikipedia.org/wiki/Biological\_neuron\_model)}
     \label{fig:neuron}
 \end{figure}
 
