@@ -13,22 +13,14 @@
 \idxboth{ไลบรารี่!ลักษณะเฉพาะเชิงโครงสร้าง}{Library!Molecular Structural Feature}
 %--------------------------
 
-ลักษณะเฉพาะเชิงโครงสร้างของโมเลกุลไม่มีความซับซ้อนและสามารถคำนวณออกมาได้ง่าย จริง ๆ แล้วเราอาจจะเขียนสคริปต์สำหรับคำนวณลักษณเฉพาะ%
-ได้โดยที่ไม่ต้องใช้ไลบรารี่เลยก็ได้ อย่างไรก็ตาม ในกรณีที่เราต้องการที่จะคำนวณลักษณะเฉพาะเชิงโครงสร้างหลาย ๆ ตัวสำหรับหลาย ๆ โมเลกุลพร้อมกัน 
-การใช้ไลบรารี่ก็จะสะดวกกว่าในกรณีแบบนี้
+ลักษณะเฉพาะเชิงโครงสร้างของโมเลกุลไม่มีความซับซ้อนและสามารถคำนวณออกมาได้ง่าย จริง ๆ แล้วเราอาจจะเขียนสคริปต์สำหรับคำนวณลักษณเฉพาะได้โดยที่ไม่ต้องใช้ไลบรารี่เลยก็ได้ อย่างไรก็ตาม ในกรณีที่เราต้องการที่จะคำนวณลักษณะเฉพาะเชิงโครงสร้างหลาย ๆ ตัวสำหรับหลาย ๆ โมเลกุลพร้อมกัน การใช้ไลบรารี่ก็จะสะดวกกว่าในกรณีแบบนี้
 
 %--------------------------
 \subsection{RDKit}
 \label{ssec:rdkit}
 %--------------------------
 
-ไลบรารี่ RDKit\autocite{rdkit} เป็นไลบรารี่สำหรับงานทางด้านเคมีสารสนเทศน์ (Cheminformatics)\footnote{Cheminformatics
-หรือเรียกอีกอย่างว่า Chemoinformatics เป็นทฤษฎีทางเคมีเชิงฟิสิกส์ที่ใช้คอมพิวเตอร์และข้อมูลสารสนเทศน์ (Informatics) หรือที่เรียกใน%
-ภาษาละตินว่า \textit{in silico} มาใช้ในการแก้ปัญหาทางเคมี โดยมีการประยุกต์ใช้ Cheminformatics ทั้งในชีวิวทยาและเคมี นอกจากนี้%
-ยังถูกใช้ในงานวิจัยที่ศึกษาการค้นหาตัวยา (Drug Discovery) อีกด้วย} ได้รับความนิยมเป็นอย่างมากเนื่องจากสามารถคำนวณลักษณะเฉพาะเชิง%
-โครงสร้างได้หลากหลาย\footnote{\url{https://www.rdkit.org}} ตัวอย่างโค้ดสำหรับการใช้งาน RDKit สามารถดูได้ที่ 
-\url{https://www.rdkit.org/docs/Cookbook.html} โดยจะมีโค้ดสำหรับการเปลี่ยนข้อมูลเชิงโมเลกุลจากโครงสร้างไปเป็น SMILES 
-และโค้ดสำหรับการแสดงข้อมูลเชิงโครงสร้างของโมเลกุล เช่น จำนวณของอะตอมแต่ละชนิด, จำนวนพันธะคู่, และจำนวนวงเบนซีน 
+ไลบรารี่ RDKit\autocite{rdkit} เป็นไลบรารี่สำหรับงานทางด้านเคมีสารสนเทศน์ (Cheminformatics)\footnote{Cheminformatics หรือเรียกอีกอย่างว่า Chemoinformatics เป็นทฤษฎีทางเคมีเชิงฟิสิกส์ที่ใช้คอมพิวเตอร์และข้อมูลสารสนเทศน์ (Informatics) หรือที่เรียกในภาษาละตินว่า \textit{in silico} มาใช้ในการแก้ปัญหาทางเคมี โดยมีการประยุกต์ใช้ Cheminformatics ทั้งในชีวิวทยาและเคมี นอกจากนี้ยังถูกใช้ในงานวิจัยที่ศึกษาการค้นหาตัวยา (Drug Discovery) อีกด้วย} ได้รับความนิยมเป็นอย่างมากเนื่องจากสามารถคำนวณลักษณะเฉพาะเชิงโครงสร้างได้หลากหลาย\footnote{\url{https://www.rdkit.org}} ตัวอย่างโค้ดสำหรับการใช้งาน RDKit สามารถดูได้ที่ \url{https://www.rdkit.org/docs/Cookbook.html} โดยจะมีโค้ดสำหรับการเปลี่ยนข้อมูลเชิงโมเลกุลจากโครงสร้างไปเป็น SMILES และโค้ดสำหรับการแสดงข้อมูลเชิงโครงสร้างของโมเลกุล เช่น จำนวณของอะตอมแต่ละชนิด, จำนวนพันธะคู่, และจำนวนวงเบนซีน 
 \idxboth{เคมีสารสนเทศน์}{Cheminformatics}
 
 %--------------------------
@@ -64,16 +56,14 @@
     \end{tabular}
 \end{table}
 
-ตารางที่ \ref{tab:review_lib_data_qm} แสดงไลบรารี่หรือโปรแกรมแพคเกจที่มีชุดข้อมูลให้เรานำมาใช้ได้ รวมถึงไลบรารี่ที่สามารถคำนวณ 
-Feature ของอะตอมและโมเลกุลได้ด้วย
+ตารางที่ \ref{tab:review_lib_data_qm} แสดงไลบรารี่หรือโปรแกรมแพคเกจที่มีชุดข้อมูลให้เรานำมาใช้ได้ รวมถึงไลบรารี่ที่สามารถคำนวณ Feature ของอะตอมและโมเลกุลได้ด้วย
 
 %--------------------------
 \subsection{DScribe}
 \label{ssec:dscribe}
 %--------------------------
 
-DScribe เป็นไลบรารี่ที่สามารถคำนวณลักษณะเฉพาะเชิงอิเล็กทรอนิกส์ของโมเลกุลที่ซับซ้อนได้เยอะมาก\autocite{himanen2020}
-สำหรับเวอร์ชันปัจจุบันสามารถคำนวณลักษณะเฉพาะดังต่อไปนี้\footnote{$^{\ast}$ สามารถคำนวณ Derivative ได้}
+DScribe เป็นไลบรารี่ที่สามารถคำนวณลักษณะเฉพาะเชิงอิเล็กทรอนิกส์ของโมเลกุลที่ซับซ้อนได้เยอะมาก\autocite{himanen2020} สำหรับเวอร์ชันปัจจุบันสามารถคำนวณลักษณะเฉพาะดังต่อไปนี้\footnote{$^{\ast}$ สามารถคำนวณ Derivative ได้}
 %
 \begin{itemize}[topsep=0pt,noitemsep]
     \setlength\itemsep{0.5em}
@@ -135,13 +125,9 @@ coulomb_matrices = soap.create(samples, positions, n_jobs=2)
 
 \vspace{1em}
 
-จากโค้ดด้านบนนั้นสิ่งที่เราจะได้ออกมาก็คือเมทริกซ์ที่แต่ละแถวนั้นจะบ่งบอกถึง Local Environment ของแต่ละอะตอมในโมเลกุล โดยความยาวของ 
-Feature Vector ของ SOAP นั้นจะขึ้นอยู่กับจำนวนของ Species ที่เรากำหนดและขึ้นอยู่กับค่า $n_{\text{max}}$ และ $l_{\text{max}}$ 
-ด้วย โดยผู้อ่านสามารถลองเปลี่ยนค่าของ $n_{\text{max}}$ และ $l_{\text{max}}$ เพื่อดูว่ามีผลต่อการเปลี่ยนค่าของ Feature Vector 
-อย่างไร
+จากโค้ดด้านบนนั้นสิ่งที่เราจะได้ออกมาก็คือเมทริกซ์ที่แต่ละแถวนั้นจะบ่งบอกถึง Local Environment ของแต่ละอะตอมในโมเลกุล โดยความยาวของ Feature Vector ของ SOAP นั้นจะขึ้นอยู่กับจำนวนของ Species ที่เรากำหนดและขึ้นอยู่กับค่า $n_{\text{max}}$ และ $l_{\text{max}}$ ด้วย โดยผู้อ่านสามารถลองเปลี่ยนค่าของ $n_{\text{max}}$ และ $l_{\text{max}}$ เพื่อดูว่ามีผลต่อการเปลี่ยนค่าของ Feature Vector อย่างไร
 
-นอกจากนี้เรายังสามารถเรียกใช้ Method \pyinline{derivatives} ของ Attribute \pyinline{soap} เพื่อคำนวณ Derivative ของ 
-SOAP ได้ด้วย ดังนี้
+นอกจากนี้เรายังสามารถเรียกใช้ Method \pyinline{derivatives} ของ Attribute \pyinline{soap} เพื่อคำนวณ Derivative ของ SOAP ได้ด้วย ดังนี้
 
 \begin{lstlisting}[style=MyPython]
 derivatives, descriptors = soap.derivatives(
@@ -190,15 +176,12 @@ derivatives, descriptors = soap.derivatives(
 \label{ssec:lib_schnetpack}
 %--------------------------
 
-SchNetPack เป็นชุดโปรแกรมสำหรับการฝึกสอนโมเดล Neural Network สำหรับการทำนายคุณสมบัติเชิงอะตอม\autocite{schutt2019}
-ถูกเขียนโดยภาษา Python 100\% และใช้ไลบรารี PyTorch เป็น Backend สำหรับการสร้างโมเดล SchNet ซึ่งเป็นตัวโมเดลหลักของ SchNetPack
-ผู้อ่านสามารถดาวน์โหลดซอร์สโค้ดของ SchNetPack และศึกษาวิธีการติดตั้งและใช้งานได้ที่เว็บไซต์ \url{https://schnetpack.readthedocs.io}
+SchNetPack เป็นชุดโปรแกรมสำหรับการฝึกสอนโมเดล Neural Network สำหรับการทำนายคุณสมบัติเชิงอะตอม\autocite{schutt2019} ถูกเขียนโดยภาษา Python 100\% และใช้ไลบรารี PyTorch เป็น Backend สำหรับการสร้างโมเดล SchNet ซึ่งเป็นตัวโมเดลหลักของ SchNetPack ผู้อ่านสามารถดาวน์โหลดซอร์สโค้ดของ SchNetPack และศึกษาวิธีการติดตั้งและใช้งานได้ที่เว็บไซต์ \url{https://schnetpack.readthedocs.io}
 
 \noindent Feature หลัก ๆ ของ SchNetPack มีดังนี้
 %
 \begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
-    \item รองรับการสร้างโมเดล SchNet ซึ่งถูกพัฒนาโดยใช้อัลกอริทึม Convolutional Neural Network (CNN) สำหรับโมเลกุลโดยเฉพาะ%
-    \autocite{schutt2017,schutt2017a}
+    \item รองรับการสร้างโมเดล SchNet ซึ่งถูกพัฒนาโดยใช้อัลกอริทึม Convolutional Neural Network (CNN) สำหรับโมเลกุลโดยเฉพาะ\autocite{schutt2017,schutt2017a}
     
     \item รองรับการสร้างโมเดล PaiNN ซึ่งเป็น Equivariant Message-Passing สำหรับโมเลกุลเช่นเดียวกัน\autocite{schutt2021}
     
@@ -214,12 +197,9 @@ SchNetPack เป็นชุดโปรแกรมสำหรับการ
 \label{ssec:lib_sgdml}
 %--------------------------
 
-sGDML เป็นไลบรารี่ที่รับความนิยมในการสร้างโมเดลของโมเลกุลโดยการใช้ค่าพลังงานและแรงในการฝึกสอนโมเดล\autocite{chmiela2019}
-คู่มือการใช้งานอ่านได้ที่ \url{http://quantum-machine.org/gdml/doc}
+sGDML เป็นไลบรารี่ที่รับความนิยมในการสร้างโมเดลของโมเลกุลโดยการใช้ค่าพลังงานและแรงในการฝึกสอนโมเดล\autocite{chmiela2019} คู่มือการใช้งานอ่านได้ที่ \url{http://quantum-machine.org/gdml/doc}
 
-\noindent เราสามารถติดตั้ง sGDML โดยใช้ Python Package Manager เช่น PIP ได้ด้วยคำสั่งต่อไปนี้%
-\footnote{เพื่อป้องกันปัญหา Conflict ระหว่างไลบรารี่ใน Python Environment ผู้เขียนได้สร้าง Environment แยกขึ้นมาสำหรับ sGDML 
-โดยเฉพาะซึ่งสามารถใช้ \inlinehighlight{venv} หรือ \inlinehighlight{conda} ในการสร้าง Environment ได้ครับ}
+\noindent เราสามารถติดตั้ง sGDML โดยใช้ Python Package Manager เช่น PIP ได้ด้วยคำสั่งต่อไปนี้\footnote{เพื่อป้องกันปัญหา Conflict ระหว่างไลบรารี่ใน Python Environment ผู้เขียนได้สร้าง Environment แยกขึ้นมาสำหรับ sGDML โดยเฉพาะซึ่งสามารถใช้ \inlinehighlight{venv} หรือ \inlinehighlight{conda} ในการสร้าง Environment ได้ครับ}
 
 \begin{lstlisting}[style=MyBash]
 pip install sgdml
@@ -241,10 +221,7 @@ sgdml: error: the following arguments are required: command
 \subsubsection{ตัวอย่างการใช้งาน Force Field ที่ฝึกสอนด้วย sGDML}
 %--------------------------
 
-เมื่อเราฝึกสอนโมเดลด้วย sGDML แล้วสิ่งที่เราจะได้ออกมาก็คือโมเดล Force Field ที่เราสามารถนำไปใช้ในในการจำลองโมเลกุล เช่น การจำลอง%
-พลวัตโมเลกุลหรือ Molecular Dynamics (MD) ได้ซึ่ง Force Field ก็เปรียบเสมือนเป็นสิ่งที่คำนวณพลังงานและแรงของโมเลกุลให้กับ MD เพื่อ%
-นำไปใช้ในการขยับหรือเปลี่ยนตำแหน่งของโมเลกุลในเฟรม (Frame) ต่อ ๆ ไปในการจำลอง  โดยผู้อ่านสามารถดาวน์โหลดไฟล์โมเดล Force 
-Field ที่ผ่านการฝึกสอนมาแล้วหรือ Pre-trained Model (\inlinehighlight{m_ethanol.npz}) ได้โดยใช้คำสั่ง
+เมื่อเราฝึกสอนโมเดลด้วย sGDML แล้วสิ่งที่เราจะได้ออกมาก็คือโมเดล Force Field ที่เราสามารถนำไปใช้ในในการจำลองโมเลกุล เช่น การจำลองพลวัตโมเลกุลหรือ Molecular Dynamics (MD) ได้ซึ่ง Force Field ก็เปรียบเสมือนเป็นสิ่งที่คำนวณพลังงานและแรงของโมเลกุลให้กับ MD เพื่อนำไปใช้ในการขยับหรือเปลี่ยนตำแหน่งของโมเลกุลในเฟรม (Frame) ต่อ ๆ ไปในการจำลอง  โดยผู้อ่านสามารถดาวน์โหลดไฟล์โมเดล Force Field ที่ผ่านการฝึกสอนมาแล้วหรือ Pre-trained Model (\inlinehighlight{m_ethanol.npz}) ได้โดยใช้คำสั่ง
 
 \begin{lstlisting}[style=MyBash]
 (sgdml) rangsiman@linux:~$ sgdml-get model
@@ -315,8 +292,7 @@ H 	  0.107894 	 -1.518377 	  1.203705
 \label{ssec:lib_pinn}
 %--------------------------
 
-PiNN\autocite{shao2020} เป็น Python Library ที่รวบรวมโมเดลและวิธีในการทำนายคุณสมบัติต่าง ๆ ของโมเลกุลเข้าไปด้วยกัน โดยใน%
-เวอร์ชันปัจจุบันนั้นมี Neural Network ที่ถูกติดตั้งไว้ใน PiNN แล้ว 2 โมเดลคือ PiNet และ Behler-Parrinello Neural Network
+PiNN\autocite{shao2020} เป็น Python Library ที่รวบรวมโมเดลและวิธีในการทำนายคุณสมบัติต่าง ๆ ของโมเลกุลเข้าไปด้วยกัน โดยในเวอร์ชันปัจจุบันนั้นมี Neural Network ที่ถูกติดตั้งไว้ใน PiNN แล้ว 2 โมเดลคือ PiNet และ Behler-Parrinello Neural Network
 
 ผู้อ่านสามารถติดตั้งไลบรารี่ PiNN ได้โดยใช้คำสั่งต่อไปนี้
 
@@ -331,16 +307,14 @@ git clone https://github.com/Teoroo-CMC/PiNN.git
 cd PiNN && pip install -e .
 \end{lstlisting}
 
-รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://github.com/Teoroo-CMC/PiNN} และศึกษาคู่มือการใช้งานได้ที่ 
-\url{https://teoroo-cmc.github.io/PiNN}
+รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://github.com/Teoroo-CMC/PiNN} และศึกษาคู่มือการใช้งานได้ที่ \url{https://teoroo-cmc.github.io/PiNN}
 
 %--------------------------
 \subsection{TorchANI}
 \label{ssec:lib_torchani}
 %--------------------------
 
-TorchANI\autocite{gao2020} เป็น Neural Network ที่ใช้สำหรับการทำนายศักย์ (Potential) ของโมเลกุลซึ่งถูกพัฒนาโดยใช้ PyTorch 
-Framework เป็นหลัก 
+TorchANI\autocite{gao2020} เป็น Neural Network ที่ใช้สำหรับการทำนายศักย์ (Potential) ของโมเลกุลซึ่งถูกพัฒนาโดยใช้ PyTorch Framework เป็นหลัก 
 
 การติดตั้ง TorchANI สามารถทำได้โดยต้องติดตั้ง PyTorch ก่อนแล้ว ดังนี้
 
