@@ -15,13 +15,7 @@
     \label{fig:ml_pred_chem}
 \end{figure}
 
-ในบทนี้เราจะมาศึกษาการทำนายสมบัติของโมเลกุลด้วย ML ซึ่งถือได้ว่าเป็นหัวใจสำคัญของส่วนที่สองของหนังสือเล่มนี้เลยก็ว่าได้ โดยผู้อ่านจะได้%
-เรียนรู้และทำความเข้าใจลำดับขั้นตอนในการใช้โมเดล ML ในการทำนายคุณสมบัติเชิงอิเล็กทรอนิกส์ทางควอนตัมต่าง ๆ ที่ได้ศึกษาไปแล้วในบทที่
-\ref{ch:el_prop} ซึ่งเป้าหมายหลักของการทำวิจัยในสาขานี้ก็คือการศึกษาและพัฒนา Representation และโมเดล ML ที่สามารถทำนาย%
-คุณสมบัติเชิงควอนตัมของโมเลกุลที่ต้องการได้อย่างแม่นยำและเทียบเคียงได้กับผลจากการคำนวณด้วยวิธีเคมีควอนตัมแบบมาตรฐาน เช่น วิธี DFT
-และวิธีเชิงฟังก์ชันคลื่น\autocite{ceriotti2018} นอกจากนี้ผู้อ่านจะได้ศึกษาตัวอย่างโค้ดที่สามารถนำไปใช้งานในการทำนายได้จริงซึ่งผู้เขียน%
-เชื่อว่าการศึกษาทฤษฎีควบคู่ไปพร้อมกับการเขียนโปรแกรมนั้นจะช่วยทำให้เข้าใจทฤษฎีได้อย่างถูกต้องและรวดเร็วเพราะการเขียนโปรแกรมช่วยให้เรา%
-คิดอย่างเป็นระบบและเข้าใจสิ่งที่ศึกษาอย่างเป็นขั้นเป็นตอน
+ในบทนี้เราจะมาศึกษาการทำนายสมบัติของโมเลกุลด้วย ML ซึ่งถือได้ว่าเป็นหัวใจสำคัญของส่วนที่สองของหนังสือเล่มนี้เลยก็ว่าได้ โดยผู้อ่านจะได้เรียนรู้และทำความเข้าใจลำดับขั้นตอนในการใช้โมเดล ML ในการทำนายคุณสมบัติเชิงอิเล็กทรอนิกส์ทางควอนตัมต่าง ๆ ที่ได้ศึกษาไปแล้วในบทที่ \ref{ch:el_prop} ซึ่งเป้าหมายหลักของการทำวิจัยในสาขานี้ก็คือการศึกษาและพัฒนา Representation และโมเดล ML ที่สามารถทำนายคุณสมบัติเชิงควอนตัมของโมเลกุลที่ต้องการได้อย่างแม่นยำและเทียบเคียงได้กับผลจากการคำนวณด้วยวิธีเคมีควอนตัมแบบมาตรฐาน เช่น วิธี DFT และวิธีเชิงฟังก์ชันคลื่น\autocite{ceriotti2018} นอกจากนี้ผู้อ่านจะได้ศึกษาตัวอย่างโค้ดที่สามารถนำไปใช้งานในการทำนายได้จริงซึ่งผู้เขียนเชื่อว่าการศึกษาทฤษฎีควบคู่ไปพร้อมกับการเขียนโปรแกรมนั้นจะช่วยทำให้เข้าใจทฤษฎีได้อย่างถูกต้องและรวดเร็วเพราะการเขียนโปรแกรมช่วยให้เราคิดอย่างเป็นระบบและเข้าใจสิ่งที่ศึกษาอย่างเป็นขั้นเป็นตอน
 \idxboth{การทำนายคุณสมบัติของโมเลกุล}{Molecular Property Prediction}
 
 %--------------------------
@@ -46,23 +40,11 @@
     \item สรุปปัจจัยและพารามิเตอร์ที่ทำให้โมเดลมีประสิทธิภาพดีที่สุดและวิเคราะห์ผลการทำนาย
 \end{enumerate}
 
-ขั้นตอนแรกของการนำ ML มาประยุกต์กับเคมีควอนตัมก็คือการเตรียมข้อมูลดิบ (Raw Data) นั่นก็คือข้อมูลทางเคมีเบื้องต้นของโมเลกุลที่เรามี
-โดยส่วนใหญ่แล้วนักเคมีเชิงคำนวณมักจะเริ่มต้นด้วยการเตรียม Cartesian Coordinates ของชุดโมเลกุลที่ต้องการศึกษา เช่น โมเลกุลอินทรีย์
-สารประกอบโลหะ ฯลฯ เมื่อเรามีชุดข้อมูลแล้วสิ่งที่เราควรทำต่อไปก็คือการวิเคราะห์ข้อมูลแบบเชิงลึก (Exploratory Data Analysis หรือ EDA)
-ซึ่งในขั้นตอนนี้เราควรจะต้องทำความสะอาดข้อมูลดิบด้วย เช่น การนำค่าผิดปกติออกไป การแปลงพารามิเตอร์บางค่าให้อยู่ในรูปแบบที่เหมาะสม
-โดยเราสามารถใช้เทคนิค Unsupervised ML เช่น Elliptic Envelope, Isolation Forest, และ Local Outlier Factor (LOF)
-ในการตรวจหาค่าผิดปกติได้
+ขั้นตอนแรกของการนำ ML มาประยุกต์กับเคมีควอนตัมก็คือการเตรียมข้อมูลดิบ (Raw Data) นั่นก็คือข้อมูลทางเคมีเบื้องต้นของโมเลกุลที่เรามี โดยส่วนใหญ่แล้วนักเคมีเชิงคำนวณมักจะเริ่มต้นด้วยการเตรียม Cartesian Coordinates ของชุดโมเลกุลที่ต้องการศึกษา เช่น โมเลกุลอินทรีย์ สารประกอบโลหะ ฯลฯ เมื่อเรามีชุดข้อมูลแล้วสิ่งที่เราควรทำต่อไปก็คือการวิเคราะห์ข้อมูลแบบเชิงลึก (Exploratory Data Analysis หรือ EDA) ซึ่งในขั้นตอนนี้เราควรจะต้องทำความสะอาดข้อมูลดิบด้วย เช่น การนำค่าผิดปกติออกไป การแปลงพารามิเตอร์บางค่าให้อยู่ในรูปแบบที่เหมาะสม โดยเราสามารถใช้เทคนิค Unsupervised ML เช่น Elliptic Envelope, Isolation Forest, และ Local Outlier Factor (LOF) ในการตรวจหาค่าผิดปกติได้
 \idxen{Best Practice!Data Analysis}
 \idxen{Best Practice!Data Cleaning}
 
-ลำดับถัดมาคือเราจะต้องเลือก Representation หรือ Descriptor ที่เราต้องการนำมาคำนวณมาคุณสมบัติต่าง ๆ ของโมเลกุล
-ซึ่งเรามักจะได้มาจากการคำนวณด้วยวิธีแบบดั้งเดิม โดยการคำนวณ Representation นั้นก็จะมีให้เลือกมากมาย ขึ้นอยู่กับความสอดคล้องของอินพุต
-(Feature ที่เราคำนวณ) กับเอาต์พุตที่เราต้องการจะทำนาย ซึ่งขั้นตอนนี้จะเป็นการสร้าง Feature Vector สำหรับการฝึกโมเดล ML นั่นเอง
-เมื่อเราได้ชุดข้อมูลที่มี Input Feature แล้ว อาจจะมีขั้นตอนที่เพิ่มเข้ามาเพื่อช่วยให้เราเข้าใจชุดข้อมูลได้มากขึ้น เช่น เราอาจจะใช้วิธีทางสถิติเข้า%
-มาช่วยคำนวณค่าทางสถิติของชุดข้อมูลก่อนนำไปฝึกสอนโมเดล เช่น ค่าเฉลี่ย (Mean), ค่าเบี่ยงเบน (Deviation), การแจกแจงความถี่,
-(Frequency), ความแปรปรวน (Variance), และสหสัมพันธ์ของเพียร์สัน (Pearson Correlation) ซึ่งค่าทางสถิติเหล่านี้จะช่วยให้เข้าใจการ%
-กระจายตัวในชุดข้อมูลรวมไปถึงความสำคัญ (Importance) ของ Feature แต่ละตัวในชุดข้อมูล ซึ่งนำไปสู่การตัดสินใจและวิเคราะห์ว่า Feature
-ตัวไหนที่น่าจะมีผลต่อประสิทธิภาพของโมเดลเรามากที่สุด
+ลำดับถัดมาคือเราจะต้องเลือก Representation หรือ Descriptor ที่เราต้องการนำมาคำนวณมาคุณสมบัติต่าง ๆ ของโมเลกุล ซึ่งเรามักจะได้มาจากการคำนวณด้วยวิธีแบบดั้งเดิม โดยการคำนวณ Representation นั้นก็จะมีให้เลือกมากมาย ขึ้นอยู่กับความสอดคล้องของอินพุต (Feature ที่เราคำนวณ) กับเอาต์พุตที่เราต้องการจะทำนาย ซึ่งขั้นตอนนี้จะเป็นการสร้าง Feature Vector สำหรับการฝึกโมเดล ML นั่นเอง เมื่อเราได้ชุดข้อมูลที่มี Input Feature แล้ว อาจจะมีขั้นตอนที่เพิ่มเข้ามาเพื่อช่วยให้เราเข้าใจชุดข้อมูลได้มากขึ้น เช่น เราอาจจะใช้วิธีทางสถิติเข้ามาช่วยคำนวณค่าทางสถิติของชุดข้อมูลก่อนนำไปฝึกสอนโมเดล เช่น ค่าเฉลี่ย (Mean), ค่าเบี่ยงเบน (Deviation), การแจกแจงความถี่, (Frequency), ความแปรปรวน (Variance), และสหสัมพันธ์ของเพียร์สัน (Pearson Correlation) ซึ่งค่าทางสถิติเหล่านี้จะช่วยให้เข้าใจการกระจายตัวในชุดข้อมูลรวมไปถึงความสำคัญ (Importance) ของ Feature แต่ละตัวในชุดข้อมูล ซึ่งนำไปสู่การตัดสินใจและวิเคราะห์ว่า Feature ตัวไหนที่น่าจะมีผลต่อประสิทธิภาพของโมเดลเรามากที่สุด
 
 เมื่อเราได้ชุดข้อมูลที่มีความเหมาะสมแล้ว ขั้นตอนต่อมาคือการเลือกเทคนิค ML ที่เราต้องการจะใช้สำหรับฝึกสอน ข้อแนะนำก็คือในช่วงเริ่มต้นเราอาจ%
 จะยังไม่ต้องไปใช้เทคนิคที่ซับซ้อนหรืออลังการมากก็ได้ เพราะการที่เราใช้เทคนิคที่ซับซ้อนหรือมีความสิ้นเปลืองสูงตั้งแต่แรกนั้นอาจจะไม่ได้การันตีว่า%
@@ -114,7 +96,7 @@ Feature ที่เลือกใช้, เทคนิค ML และ Hyper
 
     \item ระยะเวลาในการทำนาย (Prediction Time): นอกเหนือจากระยะเวลาในการฝึกสอนเราก็ควรคำนึงถึงระยะเวลาที่ใช้ในการทำนายด้วย โดยอัลกอริทึมอย่างเช่น Linear Regression, Logistic Regression และ Neural Network บางประเภทนั้นสามารถทำนายได้อย่างรวดเร็ว อย่างไรก็ตามอัลกอริทึมอย่างเช่น KNN หรือการทำ Ensemble Model นั้นใช้เวลาเยอะกว่ามากในการทำนาย
 
-    \item หน่วยความจำที่ต้องใช้ (Memory Requirements): ถ้าหากชุดข้อมูลของเรามีขนาดใหญ่ก็จะทำให้พารามิเตอร์หรือตัวแปรที่ถูกสร้างขึ้นและถูกคำนวณในระหว่างการฝึกสอนโมเดลนั้นเยอะตามไปด้วย ส่งผลให้ปริมาณของหน่วยความจำ (Memory) นั้นต้องเพียงพอสำหรับการฝึกสอนโมเดล ดังนั้นถ้าหากเรามีข้อมูลที่มีขนาดใหญ่ การเลือกอัลกอริทึม ML ที่เหมาะสมและไม่ซับซ้อนมากก็จะทำให้ไม่มีปัญหาเกี่ยวกับMemory
+    \item หน่วยความจำที่ต้องใช้ (Memory Requirements): ถ้าหากชุดข้อมูลของเรามีขนาดใหญ่ก็จะทำให้พารามิเตอร์หรือตัวแปรที่ถูกสร้างขึ้นและถูกคำนวณในระหว่างการฝึกสอนโมเดลนั้นเยอะตามไปด้วย ส่งผลให้ปริมาณของหน่วยความจำ (Memory) นั้นต้องเพียงพอสำหรับการฝึกสอนโมเดล ดังนั้นถ้าหากเรามีข้อมูลที่มีขนาดใหญ่ การเลือกอัลกอริทึม ML ที่เหมาะสมและไม่ซับซ้อนมากก็จะทำให้ไม่มีปัญหาเกี่ยวกับ Memory
 \end{itemize}
 
 นอกจากนี้แล้วผู้อ่านขออธิบายเพิ่มเติมในส่วนของการเลือกเคอร์เนล (Kernel) สำหรับการทำ Regression โดยเคอร์เนลที่มักถูกใช้นั้นมีดังต่อไปนี้
@@ -135,30 +117,72 @@ Feature ที่เลือกใช้, เทคนิค ML และ Hyper
 \idxboth{เคอร์เนล!เกาส์เซียน}{Kernel!Gaussian}
 \idxboth{เคอร์เนล!ลาปลาเซียน}{Kernel!Laplacian}
 
-การเลือก Kernel ที่เหมาะสมนั้นจริง ๆ แล้วขึ้นกับอัลกอริทึมของ ML ที่เราจะเลือกใช้ด้วย โดย Kernel ที่สามารถนำไปใช้แล้วทำให้เกิดการเรียนรู้
-Regression ได้อย่างดีเยี่ยมก็คือ Gaussian Kernel นั่นก็เพราะว่ามีคุณสมบัติ อย่างเช่น ความสมมาตรและความต่อเนื่องตลอดช่วงของฟังก์ชัน
+การเลือก Kernel ที่เหมาะสมนั้นจริง ๆ แล้วขึ้นกับอัลกอริทึมของ ML ที่เราจะเลือกใช้ด้วย โดย Kernel ที่สามารถนำไปใช้แล้วทำให้เกิดการเรียนรู้ Regression ได้อย่างดีเยี่ยมก็คือ Gaussian Kernel เพราะว่ามีคุณสมบัติอย่างเช่นความสมมาตรและความต่อเนื่องตลอดช่วงของฟังก์ชัน
 
 %--------------------------
-\section{การทำนายพลังงานของโมเลกุล}
-\label{sec:pred_tot_ener}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พลังงานรวมของโมเลกุล}
-\idxen{Molecular Property Prediction!Total Energy}
+\section{การทำนายพื้นผิวพลังงานศักย์}
+\label{sec:pred_pot_ener}
+\idxth{การทำนายคุณสมบัติของโมเลกุล!พื้นผิวพลังงานศักย์}
+\idxen{Molecular Property Prediction!Potential Energy Surface}
 %--------------------------
 
-การคำนวณพลังงานรวมเชิงอิเล็กทรอนิกส์ของโมเลกุลถือได้ว่าเป็นหนึ่งในการคำนวณพื้นฐานที่สุดในการศึกษาความเสถียรของโมเลกุลเลยก็ว่าได้
-โดยเราจะมาดูการเขียนโค้ดสำหรับการทำนายพลังงานของโมเลกุลจากชุดข้อมูล QM9 โดยใช้ Feature ที่เป็น Coulomb Matrix (CM)
-ซึ่งเราได้ดูรายละเอียดการคำนวณ CM รวมถึงการวิเคราะห์ไปแล้วในหัวข้อที่ \ref{sec:dataset_analysis} โดยโมเดล ML ที่ผู้เขียนเลือกคือ
-Molecular Kernel สำหรับการทำ Regression ซึ่งสามารถเรียกใช้ได้จากไลบรารี่ QML
+การทำนายพื้นผิวพลังงานศักย์ (Potential Energy Surface หรือ PES) เป็นการคำนวณพื้นผิวพลังงานที่เกี่ยวข้องกับการตำแหน่งของอะตอมหรือโครงสร้างของโมเลกุลในระบบทางเคมีหรือฟิสิกส์ โดยทั่วไปแล้ว จะเกี่ยวข้องกับการคำนวณพลังงานของระบบที่สภาวะต่าง ๆ และการนำผลลัพธ์ไปสร้างแบบจำลองทางคณิตศาสตร์ที่แสดงความสัมพันธ์ระหว่างตำแหน่งของอะตอมและพลังงานของระบบเพื่อใช้ในการทำนายคุณสมบัติของโมเลกุลที่สนใจ
 
-ไอเดียของ Molecular Kernel ก็คือเริ่มต้นด้วยการกำหนด Kernel ขึ้นมาก่อน ดังนี้
+Machine Learning Potentials (MLP)\footnote{มีชื่อเรียกอีกอย่างว่า Machine Learning Interatomic Potentials (MLIPs)} แปลได้ตรงตัวคือ \textit{การเรียนรู้พลังงานศักย์ของเครื่อง} เป็นอีกหนึ่งเครื่องมือสำคัญที่ช่วยลดระยะเวลาในการศึกษาคุณสมบัติเชิงอิเล็กทรอนิกส์ของโมเลกุล แทนที่เราจะใช้วิธีการการจำลองในระดับอะตอม (Atomistic Simulation) ด้วยวิธีแบบ First-Principles เช่น Post-HF, Multi-Reference SCF, หรือ DFT เราก็ใช้ MLP Model ที่ถูกเทรนให้มีประสิทธิภาพเทียบเท่ากับวิธีมาตรฐานมาใช้ในการทำนายคุณสมบัติของโมเลกุลแทน ซึ่งช่วยประหยัดเวลาได้หลายเท่าตัวเพราะว่าวิธี MLP นั้นมีความเป็นเส้นตรง (Linear Scaling)
 
-\begin{equation}\label{eq:mol_kernel}
-    \alpha = (\bm{K} + \lambda\bm{I} ) ^{-1} \bm{y}
+ในปัจจุบันมีงานวิจัยที่ได้มีการพัฒนาทั้ง Representation และอัลกอริทึม ML\autocite{behler2016,botu2017,brockherde2017} สำหรับการทำนายพลังงานศักย์ของโมเลกุลโดยเฉพาะ ตัวอย่างของงานวิจัยเฉพาะทางที่ใช้ MLP เช่น การศึกษาพลังงานศักย์ระหว่างอะตอมเพื่อเพิ่มความแม่นยำในการจำลองพลวัตเชิงโมเลกุล (Molecular Dynamics หรือ MD)\autocite{deringer2019,mortazavi2020,zuo2020,dhaliwal2022}, หรือการพัฒนา Force Field สำหรับการจำลองแบบดั้งเดิม (Classical MD)\autocite{noe2020} และสำหรับการจำลองแบบเริ่มแรก (\textit{ab initio} MD หรือ AIMD)\autocite{sivaraman2020,schran2021,li2022}
+\idxboth{พลวัตเชิงโมเลกุล}{Molecular Dynamics}
+\idxboth{พลวัตเชิงโมเลกุล!แบบดั้งเดิม}{Molecular Dynamics!Classical Molecular Dynamics}
+\idxboth{พลวัตเชิงโมเลกุล!แบบเริ่มแรก}{Molecular Dynamics!\textit{ab initio} Molecular Dynamics}
+
+MLP แบ่งออกได้เป็นสองประเภทตามรูปแบบของอัลกอริทึมของ ML คือแบบเคอร์เนล (Kernel-based Potentials) และแบบโครงข่ายประสาท
+(Neural Network-based Potentials)
+
+%--------------------------
+\subsection{การทำนายพลังงานศักย์ด้วยวิธีเชิงเคอร์เนล}
+\label{ssec:pred_pot_ener_kernel}
+\idxth{การทำนายคุณสมบัติของโมเลกุล!พื้นผิวพลังงานศักย์!วิธีเชิงเคอร์เนล}
+\idxen{Molecular Property Prediction!Potential Energy Surface!Kernel-based}
+%--------------------------
+
+เรามาดูรายละเอียดของ Kernel-based Potentials กันก่อน ซึ่งผู้เขียนขอยกมาให้ดู 4 วิธี
+
+%--------------------------
+\subsubsection{Kernel Ridge Regression (KRR)} 
+%--------------------------
+
+วิธีแรกคือ Kernel Ridge Regression (KRR) โดยมีโมเดลทางคณิตศาสตร์คือ 
+%
+\begin{equation}
+    y\left(\widetilde{\bm{X}} \right) 
+    = 
+    \sum_i \alpha_i \  K\left( \widetilde{\mathbf{X}}, \bm{X}_i\right)
 \end{equation}
+%
+เป็นโมเดลที่แสดงความเชื่อมโยงระหว่างคุณสมบัติของระบบ $y$ กับตัวแปรควบคุม (Covariates) $X$ โดย Kernel ที่เราจะใช้ก็คือ Gaussian Kernel Function ซึ่งมีหน้าตาดังต่อไปนี้
+%
+\begin{equation}
+    K_{ij} 
+    = 
+    K\left( \mathbf{X}_i, \bm{X}_j\right) 
+    = 
+    \exp\left( -\frac{\| \bm{X}_i - \bm{X}_j\|_2^2}{2\sigma^2}\right)
+\end{equation}
+%
+ไอเดียของ Molecular Kernel ก็คือเริ่มต้นด้วยการกำหนด Kernel ขึ้นมาก่อน ดังนี้
+%
+\begin{equation}\label{eq:mol_kernel}
+    \bm{\alpha} 
+    = 
+    (\bm{K} + \lambda \bm{I})^{-1} \bm{y}
+\end{equation}
+%
+เป้าหมายของเราก็คือการหาค่าของพารามิเตอร์ $\alpha$ ซึ่งเป็นสัมประสิทธิ์ที่เหมาะสมที่สุด (Best Fit for Regression) นั่นหมายความว่าเราจะต้องทำการแก้สมการที่ \eqref{eq:mol_kernel} ซึ่งสามารถทำได้โดยใช้ Cholesky Decomposition\footnote{การแยกส่วนประกอบโชเลสกี (Cholesky Decomposition เป็นวิธีการแยกเมทริกซ์ของเมทริกซ์สมมาตรที่เป็นบวกแน่นอน (Symmetric Positive-definite Matrix) ไปเป็นเมทริกซ์สามเหลี่ยมล่าง (Lower Triangular Matrix, $L)$ และเมทริกซ์สลับเปลี่ยนของเมทริกซ์สามเหลี่ยมล่าง $(L^{T})$}
 
-\noindent เป้าหมายของเราก็คือการหาค่าของพารามิเตอร์ $\alpha$ ซึ่งเป็นสัมประสิทธิ์ที่เหมาะสมที่สุด (Best Fit for Regression) นั่นหมายความว่าเราจะต้องทำการแก้สมการที่ \eqref{eq:mol_kernel} ซึ่งสามารถทำได้โดยใช้ Cholesky Decomposition\footnote{การแยกส่วนประกอบโชเลสกี (Cholesky Decomposition เป็นวิธีการแยกเมทริกซ์ของเมทริกซ์สมมาตรที่เป็นบวกแน่นอน (Symmetric Positive-definite Matrix) ไปเป็นเมทริกซ์สามเหลี่ยมล่าง (Lower Triangular Matrix, $L)$ และเมทริกซ์สลับเปลี่ยนของเมทริกซ์สามเหลี่ยมล่าง $(L^{T})$}
+โดยเราจะมาดูการเขียนโค้ดสำหรับการทำนายพลังงานของโมเลกุลจากชุดข้อมูล QM9 ด้วย Molecular Kernel ที่เรียกใช้จากไลบรารี่ QML โดยใช้ Feature ที่เป็น Coulomb Matrix (CM) ซึ่งเราได้ดูรายละเอียดการคำนวณ CM รวมถึงการวิเคราะห์ไปแล้วในหัวข้อที่ \ref{sec:dataset_analysis}
 
 เราเริ่มต้นเขียนโค้ดสำหรับแบ่งชุดข้อมูลออกเป็นชุดข้อมูลสำหรับการฝึกสอนและการทดสอบตามลำดับ
+%
 \begin{lstlisting}[style=MyPython]
 from sklearn.model_selection import train_test_split
 
@@ -166,12 +190,14 @@ X_cm_train, X_cm_test, Y_cm_train, Y_cm_test = train_test_split(cm, target, test
 \end{lstlisting}
 
 \noindent ตามด้วยการกำหนด Kernel ซึ่งเราจะใช้ Gaussian Kernel
-
+%
 \begin{equation}\label{eq:gaussian_kernel}
-    K(x_{i}, x_{j}) = \exp \left( -\frac{||x_{i}-x_{j}||^2}{2\sigma^2} \right)
+    K(x_{i}, x_{j}) 
+    = 
+    \exp \left( -\frac{||x_{i}-x_{j}||^2}{2\sigma^2} \right)
 \end{equation}
-
-\noindent พร้อมกับสร้างลิสต์ของ $\sigma$ หลาย ๆ ค่า ซึ่งเราจะทำการหาค่าที่เหมาะสมที่สุดโดยการคำนวณระยะห่างแบบคู่ (Pairwise)
+%
+พร้อมกับสร้างลิสต์ของ $\sigma$ หลาย ๆ ค่า ซึ่งเราจะทำการหาค่าที่เหมาะสมที่สุดโดยการคำนวณระยะห่างแบบคู่ (Pairwise)
 ระหว่าง CM เพื่อเพิ่มความเร็วในการคำนวณเพราะว่าเราจะทำการแก้ Kernel หลาย ๆ อันพร้อมกับเปลี่ยนค่า $\sigma$ หลาย ๆ ค่าไปพร้อม ๆ กัน
 
 \begin{lstlisting}[style=MyPython]
@@ -193,6 +219,7 @@ dm_train_test = sklearn.metrics.pairwise_distances(
 \end{lstlisting}
 
 \vspace{1em}
+
 \noindent หลังจากนั้นจึงเริ่มทำการหาค่า $\sigma$ โดยใช้ Loop
 
 \begin{lstlisting}[style=MyPython]
@@ -211,13 +238,13 @@ for sigma in sigmas:
     test_MAE = np.mean(np.abs(Y_cm_predicted - Y_cm_test))
     test_maes.append(test_MAE)
 \end{lstlisting}
-
+%
 \vspace{1em}
-
+%
 โดยสิ่งที่เกิดขึ้นภายใน Loop ของโค้ดด้านบนมีขั้นตอนดังนี้
 %
 \begin{enumerate}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
-    \item เราเริ่มด้วยการคำนวณ Kernel ซึ่งถูกกำหนดด้วยสมการ \eqref{eq:mol_kernel}
+    \item เราเริ่มด้วยการคำนวณ Kernel ซึ่งถูกกำหนดด้วยสมการที่ \eqref{eq:mol_kernel}
 
     \item เพิ่มค่า $\lambda$ ที่มีค่าน้อย ๆ เข้าไปในสมาชิกแนวทแยงของ Kernel Matrix
 
@@ -231,7 +258,7 @@ for sigma in sigmas:
 \end{enumerate}
 
 เมื่อทำ Regression เสร็จแล้ว เราสามารถพล็อตกราฟเพื่อดูความสัมพันธ์ค่า $\sigma$ ของ Kernel กับค่าความคลาดเคลื่อน MAE ได้ดังนี้
-
+%
 \begin{lstlisting}[style=MyPython]
 import matplotlib.pyplot as plt
 
@@ -247,12 +274,12 @@ plt.show()
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig/qm9_cm_mae_sigma.png}
+    \includegraphics[width=0.8\linewidth]{fig/qm9_cm_mae_sigma.png}
     \caption{ค่าความคลาดเคลื่อน MAE กับค่าความกว้างของ Kernel $(\sigma)$}
     \label{fig:qm9_cm_kernel_mae}
 \end{figure}
 
-นอกจากนี้เรายังสามารถทำการวิเคราะห์เพิ่มเติมได้ เช่น แสดงค่า $\sigma$ ที่เหมาะสมที่สุด (ให้ MAE น้อยที่สุด)
+นอกจากนี้เรายังสามารถทำการวิเคราะห์เพิ่มเติมได้ เช่น แสดงค่า $\sigma$ ที่เหมาะสมที่สุด (มีค่าความคลาดเคลื่อน MAE น้อยที่สุด)
 
 \begin{lstlisting}[style=MyPython]
 best_sigma = sigmas[np.argmin(test_maes)]
@@ -282,6 +309,7 @@ print(alpha_cm)
 \end{lstlisting}
 
 \vspace{1em}
+
 \noindent แล้วคำนวณต่อ Kernel ระหว่างชุดข้อมูลฝึกสอนกับชุดข้อมูลทดสอบได้โดยใช้ค่า $\sigma$ เดียวกัน
 
 \begin{lstlisting}[style=MyPython]
@@ -299,6 +327,7 @@ MAE:  25.908959327933474 kcal/mol
 \end{lstlisting}
 
 \vspace{1em}
+
 ขั้นตอนสุดท้ายคือการพล็อต Correlation ระหว่างค่าอ้างอิง (Reference) กับค่าที่ได้จากการทำนาย (Prediction) และแสดง Histogram
 ของความคลาดเคลื่อนเพื่อตรวจสอบประสิทธิภาพของโมเดล
 
@@ -339,44 +368,13 @@ plt.show()
 \end{figure}
 
 %--------------------------
-\section{การทำนายพื้นผิวพลังงานศักย์}
-\label{sec:pred_pot_ener}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พื้นผิวพลังงานศักย์}
-\idxen{Molecular Property Prediction!Potential Energy Surface}
+\subsubsection{Gaussian Approximation Potentials (GAPs)} 
 %--------------------------
 
-การทำนายพื้นผิวพลังงานศักย์ (Potential Energy Surface หรือ PES)
-
-Machine Learning Potentials (MLP) แปลได้ตรงตัวคือ \textit{การเรียนรู้พลังงานศักย์ของเครื่อง} ซึ่งเป็นอีกหนึ่งเครื่องมือสำคัญสำหรับ%
-การจำลองในระดับอะตอม (Atomistic Simulation) โดยเฉพาะการศึกษาพลังงานศักย์ของโมเลกุล โดยมีงานวิจัยที่ได้มีการพัฒนาทั้ง 
-Representation และอัลกอริทึม ML\autocite{behler2016,botu2017,brockherde2017} ตัวอย่างของงานวิจัยเฉพาะทางที่ใช้ MLP
-เช่น การศึกษาพลังงานศักย์ระหว่างอะตอมเพื่อเพิ่มความแม่นยำในการจำลองพลวัตเชิงโมเลกุล (Molecular Dynamics หรือ MD)%
-\autocite{deringer2019,mortazavi2020,zuo2020,dhaliwal2022}, หรือการพัฒนา Force Field สำหรับการจำลองแบบดั้งเดิม
-(Classical MD)\autocite{noe2020} และสำหรับการจำลองแบบเริ่มแรก (\textit{ab initio} MD หรือ AIMD)%
-\autocite{sivaraman2020,schran2021,li2022}
-\idxboth{พลวัตเชิงโมเลกุล}{Molecular Dynamics}
-\idxboth{พลวัตเชิงโมเลกุล!แบบดั้งเดิม}{Molecular Dynamics!Classical Molecular Dynamics}
-\idxboth{พลวัตเชิงโมเลกุล!แบบเริ่มแรก}{Molecular Dynamics!\textit{ab initio} Molecular Dynamics}
-
-MLP แบ่งออกได้เป็นสองประเภทตามรูปแบบของอัลกอริทึมของ ML คือแบบเคอร์เนล (Kernel-based Potentials) และแบบโครงข่ายประสาท
-(Neural Network-based Potentials)
-
-%--------------------------
-\subsection{การทำนายพลังงานศักย์ด้วยวิธีเชิงเคอร์เนล}
-\label{ssec:pred_pot_ener_kernel}
-\idxth{การทำนายคุณสมบัติของโมเลกุล!พื้นผิวพลังงานศักย์!วิธีเชิงเคอร์เนล}
-\idxen{Molecular Property Prediction!Potential Energy Surface!Kernel-based}
-%--------------------------
-
-เรามาดูรายละเอียดของ Kernel-based Potentials กันก่อน ซึ่งผู้เขียนขอยกมาให้ดู 3 วิธี
-
-\paragraph{Gaussian Approximation Potentials (GAP)} เป็นวิธีที่นำเสนอโดย Albert P. Bart\'{o}k และคณะ ซึ่งตีพิมพ์บทความ%
-วิจัยเรื่อง \enquote{Gaussian Approximation Potentials: The Accuracy of Quantum Mechanics, without the Electrons}
-ในวารสาร Physical Review Letters\autocite{bartok2010} GAP เป็นวิธีคำนวณที่ใช้สำหรับการทำนายพลังงานและแรงของแต่ละอะตอม%
-ภายในโมเลกุลโดยที่ GAP จะทำการเรียนรู้ค่าทั้งสองจาก PES ซึ่งมักจะได้มาจากการคำนวณด้วยวิธีง่าย ๆ ทั่วไป เช่น DFT
+Gaussian Approximation Potentials (GAPs) เป็นวิธีที่นำเสนอโดย Albert P. Bart\'{o}k และคณะ ซึ่งตีพิมพ์บทความวิจัยเรื่อง \enquote{Gaussian Approximation Potentials: The Accuracy of Quantum Mechanics, without the Electrons} ในวารสาร Physical Review Letters\autocite{bartok2010} GAP เป็นวิธีคำนวณที่ใช้สำหรับการทำนายพลังงานและแรงของแต่ละอะตอมภายในโมเลกุลโดยที่ GAP จะทำการเรียนรู้ค่าทั้งสองจาก PES ซึ่งมักจะได้มาจากการคำนวณด้วยวิธีง่าย ๆ ทั่วไป เช่น DFT
 \idxen{Gaussian Approximation Potentials (GAP)}
 
-GAP นั้นเป็นการทำ Kernel Regression ของ PES แบบ Non-parametric ซึ่งเป็นการประมาณค่าของพลังงานแบบเฉพาะที่ (Local Energy)
+GAP นั้นเป็นการทำ Kernel Regression ของ PES แบบ Non-Parametric ซึ่งเป็นการประมาณค่าของพลังงานแบบเฉพาะที่ (Local Energy)
 ดังนี้
 
 \begin{equation}\label{eq:gap}
@@ -412,13 +410,17 @@ Environment)
 ฝึกสอน สามารถอธิบายการเปลี่ยนแปลงทางเคมี เช่น การสร้างพันธะหรือการสลายพันธะ ซึ่งเป็นสิ่งที่สนามแรง (Force Field) แบบดั้งเดิมหรือ%
 ทั่วไปนั่นทำได้ยาก\autocite{ceriotti2018}
 
-\paragraph{Moment Tensor Potentials (MTP)}
-\autocite{shapeev2016}
+%--------------------------
+\subsubsection{Moment Tensor Potentials (MTP)} 
+%--------------------------
 
-Moment Tensor Potentials (MTPs) เป็นหนึ่งในวิธีการที่ได้รับความนิยมและมีประสิทธิภาพสูงในกลุ่มของ achine Learning Interatomic Potentials (MLIPs) โดยมีวัตถุประสงค์หลักคือการทำนายพลังงานศักย์ (Potentials) และแรงกระทำระหว่างอะตอม (Atomic Forces)
+Moment Tensor Potentials (MTPs) เป็นหนึ่งในวิธีการที่ได้รับความนิยมและมีประสิทธิภาพสูงในกลุ่มของ Machine Learning Interatomic Potentials (MLIPs) โดยมีวัตถุประสงค์หลักคือการทำนายพลังงานศักย์ (Potentials) และแรงกระทำระหว่างอะตอม (Atomic Forces)\autocite{shapeev2016}
 
-\paragraph{Spectral Neighbor Analysis Potentials (SNAP)}
-\autocite{thompson2015,deng2019,cusentino2020,domina2022}
+%--------------------------
+\subsubsection{Spectral Neighbor Analysis Potentials (SNAP)} 
+%--------------------------
+
+Spectral Neighbor Analysis Potentials (SNAP)\autocite{thompson2015,deng2019,cusentino2020,domina2022}
 
 %--------------------------
 \subsection{การทำนายพลังงานศักย์ด้วยวิธีเชิงโครงข่ายประสาท}
@@ -506,40 +508,38 @@ ML และ NN ในการทำนายพลังงาน โดยค
 โดยใช้ BoB\autocite{huang2016} และ BAML\autocite{faber2017} เป็น Representation ในการฝึกสอน
 
 \begin{table}[H]
-    \begin{threeparttable}[b]
-        \centering
-        \caption{ค่าความคลาดเคลื่อน (Mean Absolute Error หรือ MAE) ของพลังงานการทำให้เกิดอะตอม $(U_{0})$ ในหน่วย kcal/mol
-            และพลังงานของออร์บิทัลชั้นที่สูงสุดที่มีอิเล็กตรอน (HOMO) และชั้นที่ต่ำที่สุดที่ไม่มีอิเล็กตรอน (LUMO) ในหน่วย eV ที่ทำนายด้วยอัลกอริทึม
-            Neural Network (NN) เช่น Message-passing Neural Network (MPNN)}
-        \label{tab:pred_ener_atom_orb_nn}
-        \begin{tabular}{lcccl}
-            \toprule
-            \textbf{โมเดล NN}        & \textbf{$U_{0}$} & HOMO  & LUMO & \textbf{อ้างอิง}                                             \\
-            \midrule
-            MPNN\tnote{1}            & 0.45             & 0.99  & 0.87 & Gilmer และคณะ\autocite{gilmer2017}                         \\
-            ANI-1a NN/ACSF\tnote{2}  & <1.5             & -     & -    & Smith และคณะ\autocite{smith2017,smith2018,smith2019}       \\
-            HDNN/w-ACSF\tnote{1}     & <1.8             & -     & -    & Gastegger และคณะ\autocite{gastegger2018}                   \\
-            Multitask NN/CM\tnote{1} & 44               & 0.38  & 0.63 & Hou และคณะ\autocite{hou2018}                               \\
-            SchNet NN\tnote{1}       & 0.32             & 0.04  & 0.03 & Schütt และคณะ\autocite{schutt2018}                         \\
-            HIP-NN\tnote{1}          & 0.26             & -     & -    & Lubbers และคณะ\autocite{lubbers2018}                       \\
-            HDNN\tnote{1}            & 0.41             & -     & -    & Unke และ Meuwly\autocite{unke2018}                         \\
-            RNN/VAE\tnote{1}         & -                & 0.16  & 0.16 & G\'{o}mez-Bombarelli และคณะ\autocite{gomez-bombarelli2018} \\
-            PhysNet NN\tnote{1}      & 0.14             & -     & -    & Unke และ Meuwly\autocite{unke2019}                         \\
-            SchNOrb NN\tnote{3}      & <0.046           & <0.02 & <0.1 & Sch\"{u}tt และคณะ\autocite{schutt2019a}                    \\
-            \bottomrule
-        \end{tabular}
-        \begin{tablenotes}
-            \item [1]ชุดข้อมูล QM9
-            \item [2]ชุดข้อมูล COMP6
-            \item [3]ชุดข้อมูล MD17
-        \end{tablenotes}
-    \end{threeparttable}
+\begin{threeparttable}[b]
+    \centering
+    \caption{ค่าความคลาดเคลื่อน (Mean Absolute Error หรือ MAE) ของพลังงานการทำให้เกิดอะตอม $(U_{0})$ ในหน่วย kcal/mol และพลังงานของออร์บิทัลชั้นที่สูงสุดที่มีอิเล็กตรอน (HOMO) และชั้นที่ต่ำที่สุดที่ไม่มีอิเล็กตรอน (LUMO) ในหน่วย eV ที่ทำนายด้วยอัลกอริทึม Neural Network (NN) เช่น Message-passing Neural Network (MPNN)}
+    \label{tab:pred_ener_atom_orb_nn}
+    \begin{tabular}{lcccl}
+        \toprule
+        \textbf{โมเดล NN}        & \textbf{$U_{0}$} & HOMO  & LUMO & \textbf{อ้างอิง}                                             \\
+        \midrule
+        MPNN\tnote{1}            & 0.45             & 0.99  & 0.87 & Gilmer และคณะ\autocite{gilmer2017}                         \\
+        ANI-1a NN/ACSF\tnote{2}  & <1.5             & -     & -    & Smith และคณะ\autocite{smith2017,smith2018,smith2019}       \\
+        HDNN/w-ACSF\tnote{1}     & <1.8             & -     & -    & Gastegger และคณะ\autocite{gastegger2018}                   \\
+        Multitask NN/CM\tnote{1} & 44               & 0.38  & 0.63 & Hou และคณะ\autocite{hou2018}                               \\
+        SchNet NN\tnote{1}       & 0.32             & 0.04  & 0.03 & Schütt และคณะ\autocite{schutt2018}                         \\
+        HIP-NN\tnote{1}          & 0.26             & -     & -    & Lubbers และคณะ\autocite{lubbers2018}                       \\
+        HDNN\tnote{1}            & 0.41             & -     & -    & Unke และ Meuwly\autocite{unke2018}                         \\
+        RNN/VAE\tnote{1}         & -                & 0.16  & 0.16 & G\'{o}mez-Bombarelli และคณะ\autocite{gomez-bombarelli2018} \\
+        PhysNet NN\tnote{1}      & 0.14             & -     & -    & Unke และ Meuwly\autocite{unke2019}                         \\
+        SchNOrb NN\tnote{3}      & <0.046           & <0.02 & <0.1 & Sch\"{u}tt และคณะ\autocite{schutt2019a}                    \\
+        \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+        \item [1]ชุดข้อมูล QM9
+        \item [2]ชุดข้อมูล COMP6
+        \item [3]ชุดข้อมูล MD17
+    \end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 \autocite{pereira2017,stuke2019,chang2019,rahaman2020,moore2022,ye2022}
 
 %--------------------------
-\section{การจำลองสนามแรง}
+\section{การจำลองสนามแรง (Force Field)}
 \label{sec:model_ff}
 \idxth{การทำนายคุณสมบัติของโมเลกุล!สนามแรง}
 \idxen{Molecular Property Prediction!Force Field}
@@ -569,12 +569,9 @@ Force Field (MLFF) เริ่มต้นสมมติว่าเราม�
     \end{bmatrix}
 \end{align}
 
-\noindent จากสมการ \eqref{eq:force_pred} นั้นเราอธิบายได้ว่า $\nabla_{\bm{D}} f$ เป็นค่าอนุพันธ์ของคำตอบของโมเดล ML
-ซึ่งจะเทียบกับ Descriptor $\bm{D}$ และ $\nabla_{\bm{r}_{i}} \bm{D}$ เป็นอนุพันธ์ของ Descriptor ที่เทียบกับ%
-ตำแหน่งของอะตอมซึ่งตามที่เราได้ศึกษามาก่อนหน้านี้ว่า Neural Network นั้นจะให้คำตอบที่เป็นแบบ Analytical Solution
+\noindent จากสมการ \eqref{eq:force_pred} นั้นเราอธิบายได้ว่า $\nabla_{\bm{D}} f$ เป็นค่าอนุพันธ์ของคำตอบของโมเดล ML ซึ่งจะเทียบกับ Descriptor $\bm{D}$ และ $\nabla_{\bm{r}_{i}} \bm{D}$ เป็นอนุพันธ์ของ Descriptor ที่เทียบกับตำแหน่งของอะตอมซึ่งตามที่เราได้ศึกษามาก่อนหน้านี้ว่า Neural Network นั้นจะให้คำตอบที่เป็นแบบ Analytical Solution
 
-โค้ดดังต่อไปนี้คือการใช้ไลบรารี่ DScribe ในการสร้างชุดข้อมูลโดยมี SOAP เป็น Descriptor สำหรับคำนวณ Feature Vector แล้วฝึกสอน%
-โมเดล Fully Connected Neural Network เพื่อเรียนรู้ MLFF ต่อไป
+โค้ดดังต่อไปนี้คือการใช้ไลบรารี่ DScribe ในการสร้างชุดข้อมูลโดยมี SOAP เป็น Descriptor สำหรับคำนวณ Feature Vector แล้วฝึกสอนโมเดล Fully Connected Neural Network เพื่อเรียนรู้ MLFF ต่อไป
 
 \textbf{ขั้นตอนที่ 1} สร้างชุดข้อมูลของพลังงานและแรงของ Lennard-Jones
 
@@ -904,13 +901,7 @@ plt.show()
     ผู้อ่านอยากมี Exchange-Correlation Functional ที่ใช้อธิบายพลังงานอันตรกิริยาระหว่างอิเล็กตรอนสำหรับ DFT เป็นของตัวเองไหมครับ?
 \end{framed}
 
-เหตุผลที่ผู้เขียนเริ่มต้นหัวข้อนี้ด้วยคำถามนี้ก็เพราะว่าเราสามารถใช้ ML สร้าง Exchange-Correlation หรือ XC Functional ของเราเองได้นั่นเอง
-โดยไม่ได้เป็นการหลอกลวงผู้อ่านแต่อย่างใดเพราะสามารถทำได้จริง อย่างที่ทราบกันดีว่าในการคำนวณ DFT นั้นเราจะต้องทำการเลือก XC Functional
-ที่ต้องการใช้ซึ่งปกติแล้วเราก็ลองผิดลองถูกกันไป\footnote{จริง ๆ จะบอกว่าลองแบบมั่ว ๆ ก็ไม่ได้เพราะว่าในปัจจุบันมีบทความรีวิวที่อธิบายจุดเด่น%
-    และจุดด้อยของแต่ละ XC Functional รวมไปถึง Protocol สำหรับการเลือกใช้ XC Functional ที่เหมาะสมกับระบบโมเลกุลที่เราต้องการจะศึกษา}
-ถ้า XC Functional อันไหนให้ผลการคำนวณที่แม่นยำและใกล้เคียงกับผลการทดลองมากที่สุดก็ใช้อันนั้นไป เพื่อแก้ปัญหาของการที่ XC Functional
-แบบดั้งเดิมนั้นไม่มีความสามารถในการส่งต่อความสามารถในการเรียนรู้หรือการนำไปใช้ได้กับระบบที่หลากหลาย ในปัจจุบันได้มีงานวิจัยที่พัฒนาอัลกอริทึม
-ML สำหรับการเรียนรู้ XC Functional ที่สามารถนำไปใช้งานกับระบบต่าง ๆ ทางเคมีได้อย่างครอบคลุม เช่น
+เหตุผลที่ผู้เขียนเริ่มต้นหัวข้อนี้ด้วยคำถามนี้ก็เพราะว่าเราสามารถใช้ ML สร้าง Exchange-Correlation หรือ XC Functional ของเราเองได้นั่นเอง โดยไม่ได้เป็นการหลอกลวงผู้อ่านแต่อย่างใดเพราะสามารถทำได้จริง อย่างที่ทราบกันดีว่าในการคำนวณ DFT นั้นเราจะต้องทำการเลือก XC Functional ที่ต้องการใช้ซึ่งปกติแล้วเราก็ลองผิดลองถูกกันไป\footnote{จริง ๆ จะบอกว่าลองแบบมั่ว ๆ ก็ไม่ได้เพราะว่าในปัจจุบันมีบทความรีวิวที่อธิบายจุดเด่นและจุดด้อยของแต่ละ XC Functional รวมไปถึง Protocol สำหรับการเลือกใช้ XC Functional ที่เหมาะสมกับระบบโมเลกุลที่เราต้องการจะศึกษา} ถ้า XC Functional อันไหนให้ผลการคำนวณที่แม่นยำและใกล้เคียงกับผลการทดลองมากที่สุดก็ใช้อันนั้นไป เพื่อแก้ปัญหาของการที่ XC Functional แบบดั้งเดิมนั้นไม่มีความสามารถในการส่งต่อความสามารถในการเรียนรู้หรือการนำไปใช้ได้กับระบบที่หลากหลาย ในปัจจุบันได้มีงานวิจัยที่พัฒนาอัลกอริทึม ML สำหรับการเรียนรู้ XC Functional ที่สามารถนำไปใช้งานกับระบบต่าง ๆ ทางเคมีได้อย่างครอบคลุม เช่น
 %
 \begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item ฝึกสอนโมเดล ML โดยใช้ Topological Atom\autocite{mcdonagh2018}
@@ -928,21 +919,11 @@ ML สำหรับการเรียนรู้ XC Functional ที่�
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{fig/neuralxc.png}
-    \caption{สถาปัตยกรรมของอัลกอริทึม NeuralXC โดยเริ่มต้นจากการใช้ DFT คำนวณ Electron Density แบบ Real Space
-        แล้วทำการคำนวณ Feature Vectors จาก Density แล้วก็ใช้เป็นอินพุตสำหรับ BPN โดยเราจะใช้ Network แบบเดียวกันกับอะตอมทุกตัว%
-        เพื่อไม่ให้ Descriptor นั้นขึ้นอยู่กับลำดับของอะตอม (Permutation Invariance) ในระหว่างการฝึกสอนโมเดลนั้นเมื่อพลังงานถูกคำนวณ%
-        แล้วก็จะมีการคำนวณอนุพันธ์ของพลังงานโดยเทียบกับความหนาแน่นอิเล็กตรอนโดยใช้ Backpropagation เพื่อหาเทอม XC Potential
-        ต่อไป (เครดิตภาพ: \textit{Nat Commun} 2020, 11, 3509)}
+    \caption{สถาปัตยกรรมของอัลกอริทึม NeuralXC โดยเริ่มต้นจากการใช้ DFT คำนวณ Electron Density แบบ Real Space แล้วทำการคำนวณ Feature Vectors จาก Density แล้วก็ใช้เป็นอินพุตสำหรับ BPN โดยเราจะใช้ Network แบบเดียวกันกับอะตอมทุกตัวเพื่อไม่ให้ Descriptor นั้นขึ้นอยู่กับลำดับของอะตอม (Permutation Invariance) ในระหว่างการฝึกสอนโมเดลนั้นเมื่อพลังงานถูกคำนวณแล้วก็จะมีการคำนวณอนุพันธ์ของพลังงานโดยเทียบกับความหนาแน่นอิเล็กตรอนโดยใช้ Backpropagation เพื่อหาเทอม XC Potential ต่อไป (เครดิตภาพ: \textit{Nat Commun} 2020, 11, 3509)}
     \label{fig:neuralxc}
 \end{figure}
 
-หนึ่งในงานวิจัยที่ผู้เขียนคิดว่าผู้อ่านที่สนใจงานทางด้านการพัฒนา XC Functional สำหรับวิธี DFT ควรอ่านนั้นคืองานที่เสนออัลกอริทึม Supervised
-ML ที่ชื่อว่า NeuralXC\autocite{dick2020} โดยเป็น ML ที่เรียนรู้ทั้งเทอมที่ใช้อธิบายพลังงาน Exchange และพลังงาน Correlation สำหรับ
-DFT (ปกติแล้วเทอม Correlation นั้นจะมีความซับซ้อนมากกว่าเทอม Exchange) ซึ่งในงานวิจัยนี้ก็ได้มีการฝึกสอนโมเดลโดยใช้ความหนาแน่น%
-อิเล็กตรอน (Electron Density) ซึ่งงานวิจัยอื่น ๆ ก็มักจะใช้ Electron Density มาเป็นอินพุตเริ่มต้น ซึ่ง Representation ที่ใช้ในงานนี้%
-สำหรับการระบุ Electron Density ก็คือ Atom-centered Basis Functions (ACSF) ส่วนอัลกอริทึม ML ที่ใช้คือ Behler-Parrinello
-Neural Networks (BPNN) โดยสมการของ XC Functional ที่โมเดล NeuralXC สร้างออกมาให้เราก็จะอยู่ในรูปของฟังก์ชันกระตุ้น
-(Activation Function) ที่ขึ้น Electron Density $(\rho ({\bm{r}}))$ ตามสมการดังต่อไปนี้ (ตามสมการที่ 5 ในบทความเต็ม)
+หนึ่งในงานวิจัยที่ผู้เขียนคิดว่าผู้อ่านที่สนใจงานทางด้านการพัฒนา XC Functional สำหรับวิธี DFT ควรอ่านนั้นคืองานที่เสนออัลกอริทึม Supervised ML ที่ชื่อว่า NeuralXC\autocite{dick2020} โดยเป็น ML ที่เรียนรู้ทั้งเทอมที่ใช้อธิบายพลังงาน Exchange และพลังงาน Correlation สำหรับ DFT (ปกติแล้วเทอม Correlation นั้นจะมีความซับซ้อนมากกว่าเทอม Exchange) ซึ่งในงานวิจัยนี้ก็ได้มีการฝึกสอนโมเดลโดยใช้ความหนาแน่นอิเล็กตรอน (Electron Density) ซึ่งงานวิจัยอื่น ๆ ก็มักจะใช้ Electron Density มาเป็นอินพุตเริ่มต้น ซึ่ง Representation ที่ใช้ในงานนี้สำหรับการระบุ Electron Density ก็คือ Atom-centered Basis Functions (ACSF) ส่วนอัลกอริทึม ML ที่ใช้คือ Behler-Parrinello Neural Networks (BPNN) โดยสมการของ XC Functional ที่โมเดล NeuralXC สร้างออกมาให้เราก็จะอยู่ในรูปของฟังก์ชันกระตุ้น (Activation Function) ที่ขึ้น Electron Density $(\rho ({\bm{r}}))$ ตามสมการดังต่อไปนี้ (ตามสมการที่ 5 ในบทความเต็ม)
 
 \begin{align}
     E_{\text{ML}} [\rho ({\bm{r}})] & = E_{\text{ML}}({\bm{d}}[\rho ({\bm{r}})]) \nonumber                               \\
@@ -961,34 +942,19 @@ Neural Networks (BPNN) โดยสมการของ XC Functional ที่
 \noindent โดยเรากระจายอนุพันธ์ของพลังงานให้อยู่ในรูปของอนุพันธ์ของพลังงานเทียบกับ Descriptor ที่เป็นเกี่ยวข้องกับ Basis Function
 $(c_{nlm})$
 
-ผู้วิจัยได้ทดสอบ XC Functional ที่ได้จาก NeuralXC กับชุดข้อมูลทางเคมีและอัลกอริทึม ML อื่น ๆ ด้วย เช่น sGDML และมีการเปรียบเทียบ%
-ประสิทธิภาพการทำนายกับ Functional อย่าง SCAN และ $\omega$B97M-V ซึ่งเหมาะสำหรับการศึกษาโมเลกุลและโครงสร้างวัสดุโดยเฉพาะ
-นอกจากนี้ XC Functional ที่ได้นั้นก็สามารถทำนาย Electron Density ของโมเลกุลได้อย่างแม่นยำโดยมีค่าความคลาดเคลื่อนเทียบกับวิธี%
-การคำนวณขั้นสูงแบบคลาสสิค เช่น CCSD(T) ที่น้อยมาก (เมื่อเทียบกับผลการคำนวณด้วยวิธี DFT ที่ใช้ฟังก์ชันนอล PBE เป็นค่าอ้างอิงหลัก)
-แต่จุดอ่อนอย่างหนึ่งของการใช้ Representation หรือ Loss Function ที่มีความจำเพาะเจาะจงกับค่าเอาต์พุตหรือเป้าหมายมากเกินไปนั้นก็อาจ%
-จะส่งผลให้ Transferability ลดลงได้เมื่อนำโมเดลไปใช้ในการทำนายกับโมเลกุลชนิดอื่นที่มีความแตกต่างไปจากโมเลกุลที่นำมาใช้ในการสร้าง%
-ชุดข้อมูลที่ใช้ฝึกสอนโมเดล สำหรับผู้อ่านที่สนใจฝึกสอนโมเดลเพื่อคำนวณหา XC Functional เพื่อนำมาใช้ในงานวิจัยสามารถศึกษารายละเอียด%
-ในบทความฉบับเต็ม \enquote{Machine Learning Accurate Exchange and Correlation Functionals of the Electronic Density}
+ผู้วิจัยได้ทดสอบ XC Functional ที่ได้จาก NeuralXC กับชุดข้อมูลทางเคมีและอัลกอริทึม ML อื่น ๆ ด้วย เช่น sGDML และมีการเปรียบเทียบประสิทธิภาพการทำนายกับ Functional อย่าง SCAN และ $\omega$B97M-V ซึ่งเหมาะสำหรับการศึกษาโมเลกุลและโครงสร้างวัสดุโดยเฉพาะ นอกจากนี้ XC Functional ที่ได้นั้นก็สามารถทำนาย Electron Density ของโมเลกุลได้อย่างแม่นยำโดยมีค่าความคลาดเคลื่อนเทียบกับวิธีการคำนวณขั้นสูงแบบคลาสสิค เช่น CCSD(T) ที่น้อยมาก (เมื่อเทียบกับผลการคำนวณด้วยวิธี DFT ที่ใช้ฟังก์ชันนอล PBE เป็นค่าอ้างอิงหลัก) แต่จุดอ่อนอย่างหนึ่งของการใช้ Representation หรือ Loss Function ที่มีความจำเพาะเจาะจงกับค่าเอาต์พุตหรือเป้าหมายมากเกินไปนั้นก็อาจจะส่งผลให้ Transferability ลดลงได้เมื่อนำโมเดลไปใช้ในการทำนายกับโมเลกุลชนิดอื่นที่มีความแตกต่างไปจากโมเลกุลที่นำมาใช้ในการสร้าง%
+ชุดข้อมูลที่ใช้ฝึกสอนโมเดล สำหรับผู้อ่านที่สนใจฝึกสอนโมเดลเพื่อคำนวณหา XC Functional เพื่อนำมาใช้ในงานวิจัยสามารถศึกษารายละเอียดในบทความฉบับเต็ม \enquote{Machine Learning Accurate Exchange and Correlation Functionals of the Electronic Density}
 
-นอกการพัฒนาโมเดลแล้วในงานวิจัยนี้ยังได้พัฒนาไลบรารี่สำหรับการสร้าง XC Functional อีกด้วยซึ่งผู้เขียนสนับสนุนงานวิจัยที่เผยแพร่โค้ดเนื่อง%
-จากว่างานวิจัยส่วนใหญ่นั้นมักจะโชว์แต่ทฤษฎีแล้วก็ผลการทดลอง แต่มักจะไม่มีโค้ดให้ได้ลองทดสอบ ทำให้เราก็ไม่รู้ว่าวิธีหรือทฤษฎีที่ผู้วิจัยได้เสนอ%
-มานั้นถูกต้องไหมหรือมีประสิทธิภาพมากน้อยเพียงใดและยังทำให้นักวิจัยคนอื่น ๆ เข้าถึงงานเราได้มากยิ่งขึ้น
+นอกการพัฒนาโมเดลแล้วในงานวิจัยนี้ยังได้พัฒนาไลบรารี่สำหรับการสร้าง XC Functional อีกด้วยซึ่งผู้เขียนสนับสนุนงานวิจัยที่เผยแพร่โค้ดเนื่องจากว่างานวิจัยส่วนใหญ่นั้นมักจะโชว์แต่ทฤษฎีแล้วก็ผลการทดลอง แต่มักจะไม่มีโค้ดให้ได้ลองทดสอบ ทำให้เราก็ไม่รู้ว่าวิธีหรือทฤษฎีที่ผู้วิจัยได้เสนอมานั้นถูกต้องไหมหรือมีประสิทธิภาพมากน้อยเพียงใดและยังทำให้นักวิจัยคนอื่น ๆ เข้าถึงงานเราได้มากยิ่งขึ้น
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{fig/ml-xc-conv-network.jpeg}
-    \caption{สถาปัตยกรรมของ Three-dimensional Convolutional Neural Network สำหรับการเรียนรู้ XC Potential โดยที่
-        $\rho$ คือความหนาแน่นอิเล็กตรอนและ $v$ คือ XC Potential (เครดิตภาพ: \textit{J. Phys. Chem. Lett.} 2019, 10, 22,
-        7264-7269)}
+    \caption{สถาปัตยกรรมของ Three-dimensional Convolutional Neural Network สำหรับการเรียนรู้ XC Potential โดยที่ $\rho$ คือความหนาแน่นอิเล็กตรอนและ $v$ คือ XC Potential (เครดิตภาพ: \textit{J. Phys. Chem. Lett.} 2019, 10, 22, 7264-7269)}
     \label{fig:xc_3dcnn}
 \end{figure}
 
-งานวิจัยชิ้นที่สองที่น่าสนใจก็คือ \enquote{Toward the Exact Exchange-Correlation Potential: A Three-Dimensional
-    Convolutional Neural Network Construct} โดย Zhou และคณะ\autocite{zhou2019} โดยเป็นการใช้ Neural Network ที่เป็น%
-แบบคอนโวลูชันแบบสามมิติ (Three-dimensional Convolutional Neural Network หรือ 3D-CNN) ในการเรียนรู้ความสัมพันธ์ระหว่าง%
-ความแน่นอิเล็กตรอนแบบที่เกือบจะเป็นเชิงพื้นที่ (Quasi-local Electron Density) และพลังงานศักย์แลกเปลี่ยนและสหสัมพันธ์ (XC Potential)
-โดย Electron Density นั้นได้มาจากการคำนวณด้วยวิธี CCSD ส่วน XC Potential นั้นได้มาจากการคำนวณโดยใช้วิธี Direct Optimization
-ของ Wu และ Yang\autocite{wu2003} ซึ่งเป็นวิธีสำหรับการปรับพลังงานศักย์ (Optimized Effective Potential หรือ OEP)
+งานวิจัยชิ้นที่สองที่น่าสนใจก็คือ \enquote{Toward the Exact Exchange-Correlation Potential: A Three-Dimensional Convolutional Neural Network Construct} โดย Zhou และคณะ\autocite{zhou2019} โดยเป็นการใช้ Neural Network ที่เป็นแบบคอนโวลูชันแบบสามมิติ (Three-dimensional Convolutional Neural Network หรือ 3D-CNN) ในการเรียนรู้ความสัมพันธ์ระหว่างความแน่นอิเล็กตรอนแบบที่เกือบจะเป็นเชิงพื้นที่ (Quasi-local Electron Density) และพลังงานศักย์แลกเปลี่ยนและสหสัมพันธ์ (XC Potential) โดย Electron Density นั้นได้มาจากการคำนวณด้วยวิธี CCSD ส่วน XC Potential นั้นได้มาจากการคำนวณโดยใช้วิธี Direct Optimization ของ Wu และ Yang\autocite{wu2003} ซึ่งเป็นวิธีสำหรับการปรับพลังงานศักย์ (Optimized Effective Potential หรือ OEP)
 
 %--------------------------
 \section{การทำนายพลังงานกระตุ้นของปฏิกิริยาเคมี}
@@ -997,10 +963,7 @@ $(c_{nlm})$
 \idxen{Molecular Property Prediction!Activation Energy}
 %--------------------------
 
-พลังงานกระตุ้น (Activation Energy) เป็นค่าพลังงานที่ต่ำที่สุดที่ใช้เพื่อกระตุ้นปฏิกิริยาเคมี บ่งบอกถึงความยากง่ายของการเกิดปฏิกิริยาเคมีที่%
-สามารถดำเนินไปได้ ณ สภาวะหนึ่ง ๆ ปัจจัยที่มีผลต่อพลังงานกระตุ้น เช่น ความร้อนและตัวเร่งปฏิกิริยา โดยในปัจจุบันนั้นก็ได้มีการนำ ML เข้ามา%
-ช่วยในการทำนายพลังงานกระตุ้นอย่างแพร่หลาย\autocite{lewis-atwell2022} โดยหนึ่งในงานวิจัยนั้นก็คือการใช้ Graph Neural Network
-มาสร้างและฝึกสอนโมเดล\autocite{grambow2020}
+พลังงานกระตุ้น (Activation Energy) เป็นค่าพลังงานที่ต่ำที่สุดที่ใช้เพื่อกระตุ้นปฏิกิริยาเคมี บ่งบอกถึงความยากง่ายของการเกิดปฏิกิริยาเคมีที่สามารถดำเนินไปได้ ณ สภาวะหนึ่ง ๆ ปัจจัยที่มีผลต่อพลังงานกระตุ้น เช่น ความร้อนและตัวเร่งปฏิกิริยา โดยในปัจจุบันนั้นก็ได้มีการนำ ML เข้ามาช่วยในการทำนายพลังงานกระตุ้นอย่างแพร่หลาย\autocite{lewis-atwell2022} โดยหนึ่งในงานวิจัยนั้นก็คือการใช้ Graph Neural Network มาสร้างและฝึกสอนโมเดล\autocite{grambow2020}
 
 \begin{figure}[H]
     \centering
@@ -1009,13 +972,7 @@ $(c_{nlm})$
     \label{fig:ml_act_energy_regio}
 \end{figure}
 
-นอกจากนี้ยังมีงานวิจัยของ Xin Li และทีมวิจัยที่ได้ใช้โมเดล ML หลายตัวด้วยกันไม่ว่าจะเป็น Linear Regression, Support Vector Regression,
-Random Forest Rregression, Kernel Ridge Regression, Gaussian Process Regression, หรือ Gradient boosting มาใช้ใน%
-การทำนายการเลือกเกิดเฉพาะที่ของปฏิกิริยาเคมี (Regioselectivity) ของปฏิกิริยาที่เป็นการ Functionalization ของ \ce{C-H} Radical
-ของสารประกอบเฮทเทอโรไซคลิกจำนวน 3,406 ปฏิกิริยา\autocite{li2020} โดยค่าพลังงานกระตุ้นนั้นถูกเรียนรู้ด้วยโมเดล ML จากค่าความ%
-แตกต่างระหว่างพลังงานอิสระกิบส์ (Gibbs Free Energies) ของสารตั้งต้นและสภาวะทรานซิชั่น (Transition State) ซึ่งถูกปรับโครงสร้าง%
-ด้วยวิธี DFT โดยใช้ฟังก์ชันนอล B3LYP และ 6-311+G(2d,p) และคำนวณค่าพลังงานด้วย M06-2X และ aug-cc-pVTZ โดย Regioselectivity
-ของปฏิกิริยาเคมีที่ศึกษานั้นถูกคำนวณโดยใช้ความแตกต่างระหว่างค่าพลังงานอิสระ $(\Delta\Delta G^{\ddagger})$
+นอกจากนี้ยังมีงานวิจัยของ Xin Li และทีมวิจัยที่ได้ใช้โมเดล ML หลายตัวด้วยกันไม่ว่าจะเป็น Linear Regression, Support Vector Regression, Random Forest Rregression, Kernel Ridge Regression, Gaussian Process Regression, หรือ Gradient boosting มาใช้ในการทำนายการเลือกเกิดเฉพาะที่ของปฏิกิริยาเคมี (Regioselectivity) ของปฏิกิริยาที่เป็นการ Functionalization ของ \ce{C-H} Radical ของสารประกอบเฮทเทอโรไซคลิกจำนวน 3,406 ปฏิกิริยา\autocite{li2020} โดยค่าพลังงานกระตุ้นนั้นถูกเรียนรู้ด้วยโมเดล ML จากค่าความแตกต่างระหว่างพลังงานอิสระกิบส์ (Gibbs Free Energies) ของสารตั้งต้นและสภาวะทรานซิชั่น (Transition State) ซึ่งถูกปรับโครงสร้างด้วยวิธี DFT โดยใช้ฟังก์ชันนอล B3LYP และ 6-311+G(2d,p) และคำนวณค่าพลังงานด้วย M06-2X และ aug-cc-pVTZ โดย Regioselectivity ของปฏิกิริยาเคมีที่ศึกษานั้นถูกคำนวณโดยใช้ความแตกต่างระหว่างค่าพลังงานอิสระ $(\Delta\Delta G^{\ddagger})$
 
 %--------------------------
 \section{การทำนายประจุของอะตอม}
@@ -1024,39 +981,29 @@ Random Forest Rregression, Kernel Ridge Regression, Gaussian Process Regression,
 \idxen{Molecular Property Prediction!Atomic Charge}
 %--------------------------
 
-อีกหนึ่งหัวข้องานวิจัยทางเคมีควอนตัมที่ได้รับความนิยมในช่วง 3-4 ปี (ตั้งแต่ปี ค.ศ. 2018) คือการใช้ ML สำหรับการระบุประจุย่อยของอะตอมใน%
-โมเลกุล (Partial Atomic Charge Assignment) งานวิจัยโดดเด่นและได้รับการตีพิมพ์ในวารสารชั้นแนวหน้าที่ใช้ ML เข้ามาในการทำนายหรือ%
-ระบุประจุของอะตอมที่ผู้เขียนได้เลือกมาซึ่งเรียงลำดับตาม Timeline มีดังนี้
+อีกหนึ่งหัวข้องานวิจัยทางเคมีควอนตัมที่ได้รับความนิยมในช่วง 3-4 ปี (ตั้งแต่ปี ค.ศ. 2018) คือการใช้ ML สำหรับการระบุประจุย่อยของอะตอมในโมเลกุล (Partial Atomic Charge Assignment) งานวิจัยโดดเด่นและได้รับการตีพิมพ์ในวารสารชั้นแนวหน้าที่ใช้ ML เข้ามาในการทำนายหรือระบุประจุของอะตอมที่ผู้เขียนได้เลือกมาซึ่งเรียงลำดับตาม Timeline มีดังนี้
 %
 \begin{enumerate}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
-    \item \enquote{Fast and Accurate Generation of \textit{ab initio} Quality Atomic Charges Using Nonparametric
-              Statistical Regression}\autocite{rai2013} \\
-          หนึ่งในงานวิจัยแรก ๆ ที่เริ่มมีการประยุกต์เทคนิคทางสถิติ (Regression) เข้ามาใช้ในการสร้างโมเดลเรียนรู้การทำนายประจุย่อย
+    \item \enquote{Fast and Accurate Generation of \textit{ab initio} Quality Atomic Charges Using Nonparametric Statistical Regression}\autocite{rai2013} \\ 
+    หนึ่งในงานวิจัยแรก ๆ ที่เริ่มมีการประยุกต์เทคนิคทางสถิติ (Regression) เข้ามาใช้ในการสร้างโมเดลเรียนรู้การทำนายประจุย่อย
 
-    \item \enquote{Machine Learning of Partial Charges Derived from High-Quality Quantum-Mechanical Calculations}
-          \autocite{bleiziffer2018} \\
-          งานวิจัยที่ต่อยอดมาจากงานของ โดยใช้ Feature ที่ชื่อว่า \enquote{Atom-centered Atom-pairs Fingerprint}\autocite{carhart1985}
-          ในการฝึกสอนโมเดลและนำมาใช้ในทำนายประจุย่อยได้อย่างแม่นยำมาก ๆ
+    \item \enquote{Machine Learning of Partial Charges Derived from High-Quality Quantum-Mechanical Calculations}\autocite{bleiziffer2018} \\ 
+    งานวิจัยที่ต่อยอดมาจากงานของ โดยใช้ Feature ที่ชื่อว่า \enquote{Atom-centered Atom-pairs Fingerprint}\autocite{carhart1985} ในการฝึกสอนโมเดลและนำมาใช้ในทำนายประจุย่อยได้อย่างแม่นยำมาก ๆ
 
-    \item \enquote{Transferable Dynamic Molecular Charge Assignment Using Deep Neural Networks}\autocite{nebgen2018} \\
-          งานวิจัยนี้ใช้ Neural Network ในการทำนายประจุย่อยแบบไดนามิกส์
+    \item \enquote{Transferable Dynamic Molecular Charge Assignment Using Deep Neural Networks}\autocite{nebgen2018} \\ 
+    งานวิจัยนี้ใช้ Neural Network ในการทำนายประจุย่อยแบบไดนามิกส์
 
-    \item \enquote{PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments, and Partial Charges}
-          \autocite{unke2019} \\
-          งานวิจัยนี้นำเสนอโมเดล ML ที่ชื่อว่า PhysNet ซึ่งสามารถทำนายคุณสมบัติเชิงโมเลกุล ประกอบไปด้วย พลังงาน, แรง, ไดโพลโมเมนต์,
-          และประจุย่อย
+    \item \enquote{PhysNet: A Neural Network for Predicting Energies, Forces, Dipole Moments, and Partial Charges} \autocite{unke2019} \\ 
+    งานวิจัยนี้นำเสนอโมเดล ML ที่ชื่อว่า PhysNet ซึ่งสามารถทำนายคุณสมบัติเชิงโมเลกุล ประกอบไปด้วย พลังงาน, แรง, ไดโพลโมเมนต์, และประจุย่อย
 
-    \item \enquote{Fast and Accurate Machine Learning Strategy for Calculating Partial Atomic Charges in
-              Metal-Organic Frameworks}\autocite{kancharlapalli2021} \\
-          งานวิจัยนี้เป็นการทำนายประจุของอะตอมในสารประกอบ Metal-Organic Frameworks (MOFs)
+    \item \enquote{Fast and Accurate Machine Learning Strategy for Calculating Partial Atomic Charges in Metal-Organic Frameworks}\autocite{kancharlapalli2021} \\
+    งานวิจัยนี้เป็นการทำนายประจุของอะตอมในสารประกอบ Metal-Organic Frameworks (MOFs)
 
-    \item \enquote{High-Precision Atomic Charge Prediction for Protein Systems Using Fragment Molecular Orbital
-              Calculation and Machine Learning}\autocite{kato2020} \\
-          งานวิจัยนี้สนใจการทำนายประจุเชิงอะตอมของโปรตีโดยใช้ Fragment Molecular Orbital
+    \item \enquote{High-Precision Atomic Charge Prediction for Protein Systems Using Fragment Molecular Orbital Calculation and Machine Learning}\autocite{kato2020} \\ 
+    งานวิจัยนี้สนใจการทำนายประจุเชิงอะตอมของโปรตีโดยใช้ Fragment Molecular Orbital
 
-    \item \enquote{DeepChargePredictor: A Web Server for Predicting QM-based Atomic Charges via State-of-the-art
-              Machine-learning Algorithms}\autocite{wang2021} \\
-          งานวิจัยนี้พัฒนาเว็บไซต์ที่ช่วยให้เราสามารถทำนายประจุย่อยได้
+    \item \enquote{DeepChargePredictor: A Web Server for Predicting QM-based Atomic Charges via State-of-the-art Machine-learning Algorithms}\autocite{wang2021} \\ 
+    งานวิจัยนี้พัฒนาเว็บไซต์ที่ช่วยให้เราสามารถทำนายประจุย่อยได้
 \end{enumerate}
 
 %--------------------------
@@ -1066,10 +1013,7 @@ Random Forest Rregression, Kernel Ridge Regression, Gaussian Process Regression,
 \idxen{Molecular Property Prediction!Dipole Moment}
 %--------------------------
 
-การทำนายไดโพลโมเมนต์นั้นถือว่าเป็นอีกหนึ่งหัวข้องานวิจัยที่ได้รับความนิยมเพราะว่าไดโพลโมเมนต์นี้เป็นคุณสมบัติที่สำคัญมาก ซึ่งเกี่ยวข้องโดย%
-โดยตรงกับเทคนิคทางการทดลอง เช่น Infrared Spectroscopy ดังนั้นการที่ ML เข้ามาช่วยเราให้สามารถทำนายไดโพลโมเมนต์ได้รวดเร็วและ%
-ถูกต้องได้นั้นก็จะเป็นการช่วยทำให้เราสามารถศึกษาโมเลกุลได้ง่ายมากยิ่งขึ้นโดยไม่จำเป็นที่จะต้องไปใช้วิธีการคำนวณแบบดั้งเดิมซึ่งมีความซับซ้อน%
-เชิงการคำนวณและสิ้นเปลืองเวลาเยอะกว่ามาก\autocite{knijff2021,liu2020,pereira2018,staacke2022,sun2022,veit2020,vo2019}
+การทำนายไดโพลโมเมนต์นั้นถือว่าเป็นอีกหนึ่งหัวข้องานวิจัยที่ได้รับความนิยมเพราะว่าไดโพลโมเมนต์นี้เป็นคุณสมบัติที่สำคัญมาก ซึ่งเกี่ยวข้องโดยโดยตรงกับเทคนิคทางการทดลอง เช่น Infrared Spectroscopy ดังนั้นการที่ ML เข้ามาช่วยเราให้สามารถทำนายไดโพลโมเมนต์ได้รวดเร็วและถูกต้องได้นั้นก็จะเป็นการช่วยทำให้เราสามารถศึกษาโมเลกุลได้ง่ายมากยิ่งขึ้นโดยไม่จำเป็นที่จะต้องไปใช้วิธีการคำนวณแบบดั้งเดิมซึ่งมีความซับซ้อนเชิงการคำนวณและสิ้นเปลืองเวลาเยอะกว่ามาก\autocite{knijff2021,liu2020,pereira2018,staacke2022,sun2022,veit2020,vo2019}
 
 %--------------------------
 \section{การทำนายคุณสมบัติของโมเลกุลที่สถานะกระตุ้น}
@@ -1078,11 +1022,7 @@ Random Forest Rregression, Kernel Ridge Regression, Gaussian Process Regression,
 \idxen{Molecular Property Prediction!Excited State}
 %--------------------------
 
-หนึ่งในงานวิจัยที่น่าสนใจที่ตีพิมพ์ในบทความ \enquote{Excited State Non-adiabatic Dynamics of Large Photoswitchable Molecules
-    Using a Chemically Transferable Machine Learning Potential}\autocite{axelrod2022} มีงานวิจัยที่ได้ใช้ ML ในการทำนาย
-Quantum Yield\footnote{ผู้เขียนขอใช้ทับศัพท์เพราะถ้าหากช้คำแปลเป็นภาษาไทยจะใช้คำว่า \enquote{ผลผลิตควอนตัม} ซึ่งยากต่อการเข้าใจ
-    ดังนั้นจึงขอใช้คำว่า Quantum Yield ตรง ๆ} ของโมเลกุลขนาดใหญ่ ณ สถานะกระตุ้น ซึ่งในงานวิจัยนี้ได้ศึกษาอนุพันธ์ของโมเลกุลเอโซเบนซีน
-(Azobenzene) รวมถึงไปการทรานซิชันระหว่างคอนฟอร์เมอร์ \textit{cis} กับ \textit{trans} อีกด้วย
+หนึ่งในงานวิจัยที่น่าสนใจที่ตีพิมพ์ในบทความ \enquote{Excited State Non-adiabatic Dynamics of Large Photoswitchable Molecules Using a Chemically Transferable Machine Learning Potential}\autocite{axelrod2022} มีงานวิจัยที่ได้ใช้ ML ในการทำนาย Quantum Yield\footnote{ผู้เขียนขอใช้ทับศัพท์เพราะถ้าหากช้คำแปลเป็นภาษาไทยจะใช้คำว่า \enquote{ผลผลิตควอนตัม} ซึ่งยากต่อการเข้าใจ ดังนั้นจึงขอใช้คำว่า Quantum Yield ตรง ๆ} ของโมเลกุลขนาดใหญ่ ณ สถานะกระตุ้น ซึ่งในงานวิจัยนี้ได้ศึกษาอนุพันธ์ของโมเลกุลเอโซเบนซีน (Azobenzene) รวมถึงไปการทรานซิชันระหว่างคอนฟอร์เมอร์ \textit{cis} กับ \textit{trans} อีกด้วย
 
 %--------------------------
 \section{การทำนายค่าคู่ควบเชิงเล็กอิเล็กทรอนิกส์}
@@ -1091,8 +1031,7 @@ Quantum Yield\footnote{ผู้เขียนขอใช้ทับศัพ
 \idxen{Molecular Property Prediction!Electronic Coupling}
 %--------------------------
 
-ค่าคู่ควบเชิงเล็กอิเล็กทรอนิกส์ (Electronic Coupling) คือค่าความเกี่ยวเนื่องเชิงอิเล็กทรอนิกส์ระหว่าง 2 สถานะใด ๆ ของอิเล็กตรอน เช่น
-สถานะเริ่มต้นและสถานะสิ้นสุดในกระบวนการทางควอนตัม
+ค่าคู่ควบเชิงเล็กอิเล็กทรอนิกส์ (Electronic Coupling) คือค่าความเกี่ยวเนื่องเชิงอิเล็กทรอนิกส์ระหว่าง 2 สถานะใด ๆ ของอิเล็กตรอน เช่น สถานะเริ่มต้นและสถานะสิ้นสุดในกระบวนการทางควอนตัม
 
 %--------------------------
 \subsection{ค่าคู่ควบของการถ่ายโอนอิเล็กตรอน}
@@ -1119,18 +1058,9 @@ Quantum Yield\footnote{ผู้เขียนขอใช้ทับศัพ
 \idxen{Molecular Property Prediction!Spectra}
 %--------------------------
 
-การทำนายสเปกตรัมเป็นอีกหนึ่งหัวข้องานวิจัยทางด้านเคมีควอนตัมที่ได้รับความสนใจเป็นอย่างมากนั่นก็เพราะว่าเทคนิคทางสเปกโทรสโกปีนั้นมีประโยชน์%
-อย่างมากในงานทางด้านเคมีสังเคราะห์ ทั้งเคมีอินทรีย์และเคมีอนินทรีย์ รวมไปถึงด้านอื่น ๆ เช่น วัสดุศาสตร์หรือพอลิเมอร์ด้วย
+การทำนายสเปกตรัมเป็นอีกหนึ่งหัวข้องานวิจัยทางด้านเคมีควอนตัมที่ได้รับความสนใจเป็นอย่างมากนั่นก็เพราะว่าเทคนิคทางสเปกโทรสโกปีนั้นมีประโยชน์อย่างมากในงานทางด้านเคมีสังเคราะห์ ทั้งเคมีอินทรีย์และเคมีอนินทรีย์ รวมไปถึงด้านอื่น ๆ เช่น วัสดุศาสตร์หรือพอลิเมอร์ด้วย
 
-สเปกโทรสโกปีเป็นเทคนิคที่เกี่ยวข้องกับแสงซึ่งเป็นคลื่นแม่เหล็กไฟฟ้าที่มีลักษณะเป็นแถบพลังงาน (Spectrum) โดยมีความยาวคลื่นตั้งแต่ในช่วง
-คลื่นวิทยุ คลื่นไมโครเวฟ คลื่นอินฟราเรด คลื่นในช่วงที่สายตามนุษย์มองเห็น รวมถึงคลื่นอัลตราไวโอเลต สำหรับคลื่นแม่เหล็กไฟฟ้าที่นักเคมีสนใจนั้น%
-จะเกี่ยวข้องโดยตรงกับการระบุถึงความจำเพาะเจาะจงของโมเลกุล นั่นคือคลื่นแม่เหล็กไฟฟ้าในช่วงอินฟราเรด ซึ่งจะมีความยาวคลื่น (Wavelength)
-ในช่วง 650 - 4,000 nm หรือมีเลขคลื่น (Wavenumber) ในช่วง 14,286-12,800 $cm^{-1}$ โดยหลักการคร่าว ๆ ของเทคนิคอินฟราเรด%
-สเปกโทรโกปีก็คือแสงอินฟราเรดตกกระทบโมเลกุลจะเกิดอันตรกิริยาระหว่างแสงกับโมเลกุล โดยที่แสงอินฟราเรดในบางช่วงที่มีความถี่ตรงกันกับความถี่%
-ของการสั่นของพันธะในโมเลกุลจะถูกดูดกลืนไป ซึ่งทำให้เกิดทรานซิชันการสั่นพร้อมกับทรานซิชันการหมุน ซึ่งทรานซิชันการสั่นนี้จะเราทราบชนิดของ%
-หมู่ฟังก์ชัน เช่น พันธะคู่ พันธะสาม หมู่คาร์บอนิล หมู่ไฮดรอกซิล หรือหมู่อะมิโน ภายในโครงสร้างของโมเลกุลอินทรีย์ได้ ดังนั้นความเข้มของแสง%
-อินฟราเรดที่ทะลุผ่านสารตัวอย่าง (Transmitted Infrared) จึงมีความเข้มแสงลดลงในบางช่วงของความถี่ทั้งหมดของอินฟราเรดเนื่องมาจากการ%
-ถูกดูดกลืนโดยหมู่ฟังก์ชันดังกล่าวนั่นเอง
+สเปกโทรสโกปีเป็นเทคนิคที่เกี่ยวข้องกับแสงซึ่งเป็นคลื่นแม่เหล็กไฟฟ้าที่มีลักษณะเป็นแถบพลังงาน (Spectrum) โดยมีความยาวคลื่นตั้งแต่ในช่วง คลื่นวิทยุ คลื่นไมโครเวฟ คลื่นอินฟราเรด คลื่นในช่วงที่สายตามนุษย์มองเห็น รวมถึงคลื่นอัลตราไวโอเลต สำหรับคลื่นแม่เหล็กไฟฟ้าที่นักเคมีสนใจนั้นจะเกี่ยวข้องโดยตรงกับการระบุถึงความจำเพาะเจาะจงของโมเลกุล นั่นคือคลื่นแม่เหล็กไฟฟ้าในช่วงอินฟราเรด ซึ่งจะมีความยาวคลื่น (Wavelength) ในช่วง 650 - 4,000 nm หรือมีเลขคลื่น (Wavenumber) ในช่วง 14,286-12,800 $cm^{-1}$ โดยหลักการคร่าว ๆ ของเทคนิคอินฟราเรดสเปกโทรโกปีก็คือแสงอินฟราเรดตกกระทบโมเลกุลจะเกิดอันตรกิริยาระหว่างแสงกับโมเลกุล โดยที่แสงอินฟราเรดในบางช่วงที่มีความถี่ตรงกันกับความถี่ของการสั่นของพันธะในโมเลกุลจะถูกดูดกลืนไป ซึ่งทำให้เกิดทรานซิชันการสั่นพร้อมกับทรานซิชันการหมุน ซึ่งทรานซิชันการสั่นนี้จะเราทราบชนิดของหมู่ฟังก์ชัน เช่น พันธะคู่ พันธะสาม หมู่คาร์บอนิล หมู่ไฮดรอกซิล หรือหมู่อะมิโน ภายในโครงสร้างของโมเลกุลอินทรีย์ได้ ดังนั้นความเข้มของแสงอินฟราเรดที่ทะลุผ่านสารตัวอย่าง (Transmitted Infrared) จึงมีความเข้มแสงลดลงในบางช่วงของความถี่ทั้งหมดของอินฟราเรดเนื่องมาจากการถูกดูดกลืนโดยหมู่ฟังก์ชันดังกล่าวนั่นเอง
 
 %--------------------------
 \subsection{การทำนายอินฟราเรดสเปกโทรโกปี}
