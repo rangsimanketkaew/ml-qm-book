@@ -9,7 +9,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.98\linewidth]{fig/ml-prediction.jpg}
+    \includegraphics[width=0.8\linewidth]{fig/ml-prediction.jpg}
     \caption{การเลือกโมเดล ML (เครดิตภาพ: https://pythonnumericalmethods.berkeley.edu)}
     \label{fig:ml_prediction}
 \end{figure}
@@ -234,7 +234,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth,page=2]{fig/ml-trade-off.jpg}
+    \includegraphics[width=0.6\linewidth,page=2]{fig/ml-trade-off.jpg}
     \caption{เปรียบเทียบอัลกอริทึม ML แบบต่าง ๆ ตามความสัมพันธ์ระหว่างประสิทธิภาพของโมเดลกับการตีความโมเดล}
     \label{fig:ml_traide}
 \end{figure}
@@ -263,7 +263,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth,page=1]{fig/cross_validation.pdf}
+    \includegraphics[width=0.5\linewidth]{fig/cross_validation-1.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{train_test_split}}
     \label{fig:train_test_split}
 \end{figure}
@@ -288,7 +288,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth,page=2]{fig/cross_validation.pdf}
+    \includegraphics[width=0.5\linewidth]{fig/cross_validation-2.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{cross_val_score}}
     \label{fig:cross_val_score}
 \end{figure}
@@ -312,7 +312,7 @@ scores = cross_val_score(clf, iris.data, iris.target, cv=5)
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth,page=3]{fig/cross_validation.pdf}
+    \includegraphics[width=0.5\linewidth]{fig/cross_validation-3.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{cross_val_predict}}
     \label{fig:cross_val_predict}
 \end{figure}
@@ -336,7 +336,7 @@ predicted = cross_val_predict(clf, iris.data, iris.target, cv=10)
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth,page=4]{fig/cross_validation.pdf}
+    \includegraphics[width=0.5\linewidth]{fig/cross_validation-4.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{KFold}}
     \label{fig:f_fold}
 \end{figure}
@@ -367,7 +367,7 @@ for i, (train_index, test_index) in enumerate(kf.split(X)):
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth,page=5]{fig/cross_validation.pdf}
+    \includegraphics[width=0.5\linewidth]{fig/cross_validation-5.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{LeaveOneOut}}
     \label{fig:leave_one_out}
 \end{figure}
@@ -397,7 +397,7 @@ for i, (train_index, test_index) in enumerate(loo.split(X)):
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\linewidth,page=6]{fig/cross_validation.pdf}
+    \includegraphics[width=0.5\linewidth]{fig/cross_validation-6.pdf}
     \caption{การทำ Cross Validation ด้วย \pyinline{LeavePOut}}
     \label{fig:leave_p_out}
 \end{figure}
@@ -495,7 +495,7 @@ E\left[\left(y - \hat{f}(\vec{x})\right)^2\right] =
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\linewidth]{fig/overfitting.png}
+    \includegraphics[width=0.9\linewidth]{fig/overfitting.png}
     \caption{โมเดลที่มีความ Overfitting และ Underfitting กับชุดข้อมูลมากเกินไป}
     \label{fig:overfitting}
 \end{figure}
@@ -510,16 +510,18 @@ E\left[\left(y - \hat{f}(\vec{x})\right)^2\right] =
 
 ภาพที่ \ref{fig:overfitting} แสดงการเปรียบเทียบระหว่างกรณีของ Underfitting และ Overfitting ซึ่งเป็นหนึ่งในปัญหาหลักที่มักจะพบเจอได้ทั่วไปใน ML โดยเราสามารถสรุปความสัมพันธ์จากกรณีได้กล่าวได้ดังนี้
 
-\fbox{%
+\begin{framed}
+\vspace{-5ex}
 \begin{minipage}{0.9\linewidth}
     \begin{align*}
         \text{Bias สูง} &\;\longleftrightarrow\; \text{Underfitting}\\
         \text{Variance สูง} &\;\longleftrightarrow\; \text{Overfitting}\\
-        \text{$\sigma^2$ มาก} &\;\longleftrightarrow\; \text{Noisy Data}\\
+        \text{$\sigma^2$ มาก} &\;\longleftrightarrow\; \text{Noisy Data}
     \end{align*}
-\end{minipage}}
+\end{minipage}
+\end{framed}
 
-วิธีการจัดการกับ Overfitting แบบที่ง่ายที่สุดคือการเพิ่มจำนวนข้อมูลในการฝึกสอนโมเดล นอกจากนี้ยังมีวิธีอื่น ๆ ที่เราสามารถใช้ในการจัดการกับปัญหาข้างต้นได้เช่นเดียวกัน มีดังต่อไปนี้
+วิธีที่ง่ายที่สุดในการจัดการกับ Overfitting คือการเพิ่มจำนวนข้อมูลในในชุดข้อมูล นอกจากนี้ยังมีวิธีอื่น ๆ ที่เราสามารถใช้ในการจัดการกับปัญหาข้างต้นได้เช่นเดียวกัน ดังนี้
 
 %--------------------------
 \subsection{Data Augmentation}
@@ -529,13 +531,13 @@ E\left[\left(y - \hat{f}(\vec{x})\right)^2\right] =
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{fig/data_aug_butterfly.jpg}
+    \includegraphics[width=0.75\linewidth]{fig/data_aug_butterfly.jpg}
     \caption{ตัวอย่างการทำ Data Augmentation สำหรับข้อมูลที่เป็นรูปภาพ เช่น การเปลี่ยนสี การเพิ่มความคมชัด การเพิ่ม Noise 
     (เครดิตภาพ: \textit{PLoS ONE} 12(8): e0183838)}
     \label{fig:data_aug_butterfly}
 \end{figure}
 
-วิธีการทำ Data Augmentation นั้นจะตรงข้ามกับการทำความสะอาดข้อมูล (Data Cleaning) นั่นก็คือจะเป็นวิธีที่เราจะใส่ Noise หรือสิ่งที่ไม่ได้เกี่ยวข้องกับข้อมูลโดยตรงเข้าไปในชุดการฝึกสอน รวมไปถึงการแก้ไขข้อมูลให้แตกต่างไปจากเดิม แต่ยังคงไว้ซึ่งลักษณะของข้อมูลนั้น ซึ่งการทำ Data Augmentation จะเป็นการช่วยไม่ใช่ให้เกิดการเรียนรู้ที่มันยึดติดกับชุดข้อมูลฝึกสอนมากเกินไป ในปัจจุบันวิธีการนี้ได้รับความนิยมเพราะสามารถทำได้ง่าย สะดวก และไม่มีความซับซ้อนในการทำ โดยมีความจำเป็นอย่างยิ่งกรณีที่ชุดข้อมูลมีขนาดเล็ก (จำนวนข้อมูลไม่เยอะ) แต่ต้องการนำมาใช้ในการฝึกสอนด้วยเทคนิค ML ที่ต้องการข้อมูลในปริมาณที่เยอะในการฝึกสอน เช่น Deep Learning\autocite{bengio2021}
+Data Augmentation เป็นการนำข้อมูลที่เรามีอยู่แล้วมาปรับแต่งหรือปรับแก้เพื่อให้ได้ข้อมูลเพิ่มขึ้นมา การทำ Data Augmentation แบบที่ง่ายที่สุดก็คือการใส่ Noise หรือสิ่งที่ไม่ได้เกี่ยวข้องกับข้อมูลโดยตรงเข้าไปในชุดการฝึกสอน ซึ่งจะตรงข้ามกับการทำความสะอาดข้อมูล (Data Cleaning) นอกจากนี้ยังรวมไปถึงการแก้ไขข้อมูลให้แตกต่างไปจากเดิม แต่ยังคงไว้ซึ่งลักษณะของข้อมูลนั้นด้วย การทำ Data Augmentation จะช่วยไม่ให้โมเดลที่ถูกฝึกสอนนั้นมีการเรียนรู้ที่ยึดติดกับชุดข้อมูลฝึกสอนมากเกินไป ในปัจจุบันวิธีการนี้ได้รับความนิยมเพราะสามารถทำได้ง่าย สะดวก และไม่มีความซับซ้อนในการทำ โดยมีความจำเป็นอย่างยิ่งกรณีที่ชุดข้อมูลมีขนาดเล็ก (จำนวนข้อมูลไม่เยอะ) แต่ต้องการนำมาใช้ในการฝึกสอนด้วยเทคนิค ML ที่ต้องการข้อมูลในปริมาณที่เยอะในการฝึกสอน เช่น Deep Learning\autocite{bengio2021}
 
 %--------------------------
 \subsection{Early Stopping}
@@ -545,7 +547,7 @@ E\left[\left(y - \hat{f}(\vec{x})\right)^2\right] =
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{fig/early_stopping.png}
+    \includegraphics[width=0.6\linewidth]{fig/early_stopping.png}
     \caption{การทำ Regularization ด้วยวิธี Early Stopping สำหรับการฝึกสอนโมเดล High-degree Polynomial Regression โดยใช้ Batch Gradient Descent และใช้ RMSE ในการวัดค่าความคลาดเคลื่อน (เครดิตภาพ: https://www.oreilly.com)}
     \label{fig:early_stopping}
 \end{figure}
@@ -624,7 +626,7 @@ len(history.history['loss'])  # Number of epochs
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/ensemble_method.png}
+    \includegraphics[width=0.6\linewidth]{fig/ensemble_method.png}
     \caption{การทำงานร่วมกันของโมเดลหลาย ๆ โมเดลโดยใช้วิธี Ensemble (เครดิตภาพ: https://www.manning.com)}
     \label{fig:ensemble_method}
 \end{figure}

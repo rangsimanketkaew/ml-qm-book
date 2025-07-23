@@ -14,7 +14,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{fig/gigo.png}
+    \includegraphics[width=0.6\linewidth]{fig/gigo.png}
     \caption{แนวคิดของ Garbage In, Garbage Out (GIGO) (เครดิตภาพ: \url{http://oliverhoeller.com})}
     \label{fig:gigo}
 \end{figure}
@@ -26,7 +26,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{fig/dataset.png}
+    \includegraphics[width=0.5\linewidth]{fig/dataset.png}
     \caption{ตัวอย่างชุดข้อมูลแบบ 2 มิติ โดยมี Feature คือ Score, Attempts, และ Qualify (เครดิตภาพ: w3resource.com)}
     \label{fig:dataset}
 \end{figure}
@@ -50,7 +50,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/dataset_splitting.png}
+    \includegraphics[width=0.65\linewidth]{fig/dataset_splitting.png}
     \caption{การแบ่งชุดข้อมูลทั้งหมดออกเป็น (A) Training Set และ Test Set และ (B) Training Set, Validation Set และ 
     Test Set (เครดิตภาพ: Wikimedia Commons)}
     \label{fig:dataset_splitting}
@@ -87,7 +87,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/many_ml_little_dataset.png}
+    \includegraphics[width=0.65\linewidth]{fig/many_ml_little_dataset.png}
     \caption{แสดงปัญหาของการที่เรามีชุดข้อมูลที่มีขนาดเล็กเกินไป ซึ่งอัลกอริทึม ML ส่วนใหญ่นั้นต้องการชุดข้อมูลที่มีขนาดใหญ่ (เครดิตภาพ: \url{https://www.exxactcorp.com})}
     \label{fig:many_ml_little_dataset}
 \end{figure}
@@ -95,11 +95,11 @@
 โดยทั่วไปแล้วการเลือกใช้อัลกอริทึม ML นั้นควรจะต้องสอดคล้องกับขนาดของชุดข้อมูล (ปริมาณข้อมูล) ปัญหาก็คือว่าเรามีอัลกอริทึม ML ให้เลือกใช้เยอะมากแต่ว่าบางครั้งเรามีชุดข้อมูลที่มีขนาดเล็กมากหรือไม่มีชุดข้อมูลเลย ดังนั้นสิ่งที่เราต้องทำก็คือสร้างชุดข้อมูลขึ้นมาเองจากข้อมูลดิบหรือทำการเพิ่มปริมาณข้อมูลเพื่อให้ได้ชุดข้อมูลที่มีขนาดที่เหมาะสมเพราะว่าอัลกอริทึม ML หลาย ๆ อัลกอริทึมนั้นต้องการชุดข้อมูลที่มีขนาดใหญ่ ซึ่งถ้าถามว่าเราต้องการชุดข้อมูลที่ใหญ่ขนาดไหนนั้นไม่มีใครสามารถตอบได้ เพราะว่าชุดข้อมูลแต่ละประเภทนั้นไม่เหมือนกัน แต่ถ้าหากเรามีชุดข้อมูลที่ใหญ่ไว้ก่อนก็จะได้เปรียบ เพราะว่าการที่เรามีข้อมูลที่เยอะนั้นย่อมทำให้การฝึกสอนโมเดลนั้นเป็นไปอย่างมีประสิทธิภาพ ขั้นตอนการสร้างชุดข้อมูลประกอบไปด้วย 3 ขั้นหลักดังนี้
 %
 \begin{enumerate}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
-    \item \textbf{1. รวบรวมข้อมูล (Data Collection)} สิ่งแรกที่เราจะทำในการมองหา Dataset ก็คือแหล่งข้อมูลที่เราสามารถนำข้อมูลมาใช้ได้ ถ้าหากแหล่งข้อมูลไม่น่าเชื่อถือเราก็มักจะได้ชุดข้อมูลที่มีคุณภาพต่ำซึ่งอาจจะมีข้อผิดพลาดในชุดข้อมูลด้วยเช่นกัน เช่น ข้อมูลที่ถูกสร้างขึ้นมา (ข้อมูลปลอมหรือ Fake Data) 
+    \item \textbf{รวบรวมข้อมูล (Data Collection)} สิ่งแรกที่เราจะทำในการมองหา Dataset ก็คือแหล่งข้อมูลที่เราสามารถนำข้อมูลมาใช้ได้ ถ้าหากแหล่งข้อมูลไม่น่าเชื่อถือเราก็มักจะได้ชุดข้อมูลที่มีคุณภาพต่ำซึ่งอาจจะมีข้อผิดพลาดในชุดข้อมูลด้วยเช่นกัน เช่น ข้อมูลที่ถูกสร้างขึ้นมา (ข้อมูลปลอมหรือ Fake Data) 
     
-    \item \textbf{2. ประมวลผลข้อมูลก่อน (Data Preprocessing)} หลักการสำคัญข้อหนึ่งของวิทยาศาสตร์ข้อมูลก็คือทำความสะอาดชุดข้อมูล (Data Cleaning) รวมไปถึงการทราบที่มาที่ไปและการทำความเข้าใจชุดข้อมูล เราต้องถามตัวเองก่อนว่าชุดข้อมูลที่เราสนใจนั้นเคยถูกใช้มาก่อนหน้านี้แล้วหรือยัง ถ้าหากว่ายังและเป็นชุดข้อมูลใหม่ เราควรจะต้องตั้งข้อสังเกตหรือสมมติฐานไว้ก่อนว่าชุดข้อมูลชุดนี้อาจจะมีข้อมูลที่ผิดปกติซ่อนอยู่ได้ หรืออาจจะมีข้อมูลที่ไม่ครบถ้วนขาดหายไป เราสามารถทำการประมวลผลชุดข้อมูลก่อนนำไปใช้งานจริงได้โดยการดูที่คุณภาพของ Features รวมไปถึง Bias ภายในชุดข้อมูล บางชุดข้อมูลมี Features เยอะมากแต่ว่ามี Bias เยอะมาก ๆ กับ Features เพียงแค่ 2-3 Features นอกจากนี้แล้วปริมาณของชุดข้อมูลก็มีผลด้วยเพราะว่าถ้าหากเรามีปริมาณข้อมูลที่น้อยเกินไปก็อาจจะเกิดปัญหา Overfitting ได้ในภายหลัง
+    \item \textbf{ประมวลผลข้อมูลก่อน (Data Preprocessing)} หลักการสำคัญข้อหนึ่งของวิทยาศาสตร์ข้อมูลก็คือทำความสะอาดชุดข้อมูล (Data Cleaning) รวมไปถึงการทราบที่มาที่ไปและการทำความเข้าใจชุดข้อมูล เราต้องถามตัวเองก่อนว่าชุดข้อมูลที่เราสนใจนั้นเคยถูกใช้มาก่อนหน้านี้แล้วหรือยัง ถ้าหากว่ายังและเป็นชุดข้อมูลใหม่ เราควรจะต้องตั้งข้อสังเกตหรือสมมติฐานไว้ก่อนว่าชุดข้อมูลชุดนี้อาจจะมีข้อมูลที่ผิดปกติซ่อนอยู่ได้ หรืออาจจะมีข้อมูลที่ไม่ครบถ้วนขาดหายไป เราสามารถทำการประมวลผลชุดข้อมูลก่อนนำไปใช้งานจริงได้โดยการดูที่คุณภาพของ Features รวมไปถึง Bias ภายในชุดข้อมูล บางชุดข้อมูลมี Features เยอะมากแต่ว่ามี Bias เยอะมาก ๆ กับ Features เพียงแค่ 2-3 Features นอกจากนี้แล้วปริมาณของชุดข้อมูลก็มีผลด้วยเพราะว่าถ้าหากเรามีปริมาณข้อมูลที่น้อยเกินไปก็อาจจะเกิดปัญหา Overfitting ได้ในภายหลัง
 
-    \item \textbf{3. การทำคำอธิบายประกอบ (Annotatation)} หลังจากทำความสะอาดข้อมูลเสร็จเรียบร้อยแล้วสิ่งที่เราควรจะต้องในลำดับต่อไปคือ Annotate นั่นคือเป็นการทำให้มั่นใจว่าข้อมูลของเรานั้นมันสามารถนำไปใช้ในการสอนเครื่องจักรเข้าใจได้ อธิบายง่าย ๆ คือทำให้คอมพิวเตอร์สามารถเรียนรู้จากข้อมูลได้ นั่นก็เพราะว่าเครื่องจักรไม่สามารถเข้าใจข้อมูลเหมือนอย่างที่มนุษย์เข้าใจ ดังนั้นเราควรจะต้องทำการเพิ่มคำอธิบายเชิงดิจิทัลให้กับข้อมูลนั่นก็คือการระบุค่าเฉพาะสำหรับข้อมูลนั้น ๆ หรือที่เรียกว่าการติดป้าย (Labeling)
+    \item \textbf{การทำคำอธิบายประกอบ (Annotatation)} หลังจากทำความสะอาดข้อมูลเสร็จเรียบร้อยแล้วสิ่งที่เราควรจะต้องในลำดับต่อไปคือ Annotate นั่นคือเป็นการทำให้มั่นใจว่าข้อมูลของเรานั้นมันสามารถนำไปใช้ในการสอนเครื่องจักรเข้าใจได้ อธิบายง่าย ๆ คือทำให้คอมพิวเตอร์สามารถเรียนรู้จากข้อมูลได้ นั่นก็เพราะว่าเครื่องจักรไม่สามารถเข้าใจข้อมูลเหมือนอย่างที่มนุษย์เข้าใจ ดังนั้นเราควรจะต้องทำการเพิ่มคำอธิบายเชิงดิจิทัลให้กับข้อมูลนั่นก็คือการระบุค่าเฉพาะสำหรับข้อมูลนั้น ๆ หรือที่เรียกว่าการติดป้าย (Labeling)
 \end{enumerate}
 
 %--------------------------
@@ -305,11 +305,11 @@ max(size)
     
     \item \textbf{QMugs}\autocite{mendez2019} 
     \begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
-        \item GFN2 + DFT: Total, Internal Atomic และ Formation Energies, Dipole, Rotational Constants, HOMO/LUMO/Gap Energies, Mulliken Partial Charges
+        \item \textbf{GFN2 + DFT}: Total, Internal Atomic และ Formation Energies, Dipole, Rotational Constants, HOMO/LUMO/Gap Energies, Mulliken Partial Charges
         
-        \item GFN2: Total Enthalpy, Total Free Energy, Quadrupole, Enthalpy, Heat Capacity, Entropy, Fermi Level, Covalent Coordination Number, Molecular Dispersion Coefficient, Atomic Dispersion Coefficients, Molecular Polarizability, Atomic Polarizabilities, Wiberg Bond Orders, Total Wiberg Bond Orders
+        \item \textbf{GFN2}: Total Enthalpy, Total Free Energy, Quadrupole, Enthalpy, Heat Capacity, Entropy, Fermi Level, Covalent Coordination Number, Molecular Dispersion Coefficient, Atomic Dispersion Coefficients, Molecular Polarizability, Atomic Polarizabilities, Wiberg Bond Orders, Total Wiberg Bond Orders
         
-        \item DFT: Electrostatic Potential, L\"{o}wdin Partial Charges, Exchange Correlation Energy, Nuclear Eepulsion Energy, One-electron Energy, Two-electron Energy, Mayer Bond Orders, Wiberg-L\"{o}wdin Bond Orders, Total Mayer Bond Orders, Total Wiberg-L\"{o}wdin Bond Orders, Density/Orbital Matrices, Atomic-orbital-to-symmetry-orbital Transformer Matrix
+        \item \textbf{DFT}: Electrostatic Potential, L\"{o}wdin Partial Charges, Exchange Correlation Energy, Nuclear Eepulsion Energy, One-electron Energy, Two-electron Energy, Mayer Bond Orders, Wiberg-L\"{o}wdin Bond Orders, Total Mayer Bond Orders, Total Wiberg-L\"{o}wdin Bond Orders, Density/Orbital Matrices, Atomic-orbital-to-symmetry-orbital Transformer Matrix
     \end{itemize}
     
     \item $\nabla$\textbf{DFT}\autocite{khrabrov2022} DFT: Electrostatic Potential, L\"{o}wdin Partial Charges, Exchange Correlation Energy, Nuclear Repulsion Energy, One-electron Energy, Two-electron Energy, Mayer Bond Orders, Wiberg-L\"{o}wdin Bond Orders, Total Mayer Bond Orders, Total Wiberg-L\"{o}wdin Bond Orders, Density/Orbital Matrices, Atomic-orbital-to-symmetry-orbital Transformer Matrix, Hamiltonian Matrix

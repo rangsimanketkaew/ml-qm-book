@@ -16,20 +16,20 @@
 \idxboth{ฟังก์ชันคลื่น!ออร์บิทัลของอะตอมไฮโดรเจน}{Wavefunction!Hydrogen Orbital}
 
 ในหัวข้อนี้ผู้อ่านจะได้เรียนรู้วิธีการเขียนโค้ดด้วยภาษา Python สำหรับการพล็อตรูปร่างของ Wavefunction หรือออร์บิทัลของอะตอมไฮโดรเจน ก่อนอื่นนั้นเราจะต้องมาทำความเข้าใจกับสมการ Wavefunction ของอะตอมไฮโดรเจนที่มี 1 อิเล็กตรอนกันก่อน โดยมีสมการดังต่อไปนี้
-
+%
 \begin{equation}\label{eq:hydro_wfn}
     \psi_{nlm}(r,\theta,\phi) = R_{nl}(r) Y_{lm}(\theta,\phi)
 \end{equation}
-
+%
 \noindent ซึ่งเป็นผลคูณระหว่างส่วนที่เป็นเชิงรัศมี (Radial Part) หรือ $R_{nl}(r)$ และส่วนที่เป็นเชิงมุม (Angular Part) หรือ $Y_{lm}(\theta, \phi$ ตามลำดับ โดยมีสมการที่เป็นฟังก์ชันของเลขควอนตัมดังต่อไปนี้
-
+%
 \begin{equation}\label{eq:hydro_wfn_rad}
     R_{nl}(r) = \sqrt{\Big(\frac{2}{n a_0}\Big)^3 \frac{(n-l-1)!}{2n (n+l)!}} e^{-r/n a_0} 
         \Big( \frac{2r}{na_0}\Big)^l  \cdot L^{2l+1}_{n-l-1} \Big(\frac{2r}{n a_0} \Big)
 \end{equation}
-
+%
 \noindent และ
-
+%
 \begin{equation}\label{eq:hydro_wfn_ang}
     Y_{lm}(\theta,\phi) = \Theta_{lm}(\theta) \Phi_m (\phi) 
         = \sqrt{\frac{2l+1}{4\pi} \frac{(l-m)!}{(l+m)!} } 
@@ -40,6 +40,7 @@
 
 \noindent \textbf{หมายเหตุ} 
 \begin{enumerate}[topsep=0pt,noitemsep]
+    \setlength\itemsep{0.5em}
     \item เราพิจารณาส่วนจริง (Real Part) ของ Psherical Harmonics ของ Wavefunction เท่านั้น โดยเราจะไม่พิจารณาส่วนจินตภาพ (Imaginary Part)
 
     \item เราจะใช้ Atomic Units สำหรับปริมาณดังต่อไปนี้เพื่อความสะดวกในการเขียนโค้ด $a_0=1, \hbar=1, m_e=1, e=1$
@@ -52,9 +53,9 @@
 
 ผู้เขียนแนะนำให้ผู้อ่านใช้ IPython-based Platform สำหรับเขียนโค้ด เช่น Jupyter Notebook
 
-\bigskip
+\medskip
 
-$\bullet$ \textbf{เตรียมไลบรารี่}
+\noindent $\bullet$ \textbf{เตรียมไลบรารี่}
 
 \begin{lstlisting}[style=MyPython]
 %matplotlib inline
@@ -83,9 +84,9 @@ pip install LIBRARY_NAME
 
 \bigskip
 
-$\bullet$ \textbf{พล็อต Radial Part ของ Wavefunction}
+\noindent $\bullet$ \textbf{พล็อต Radial Part ของ Wavefunction}
 
-เริ่มต้นด้วยการสร้างฟังก์ชันสำหรับ Radial Part ของ Wavefunction ซึ่งเราจะใช้พหุนามลาแกร์ (Laguerre Polynomials) โดยกำหนดให้ $n = 0$ และ $l = =$ เป็นค่าเริ่มต้น
+เริ่มต้นด้วยการสร้างฟังก์ชันสำหรับ Radial Part ของ Wavefunction ซึ่งเราจะใช้พหุนามลาแกร์ (Laguerre Polynomials) โดยกำหนดให้ $n = 0$ และ $l = 0$ เป็นค่าเริ่มต้น
 
 \begin{lstlisting}[style=MyPython]
 def psi_R(r, n=1, l=0):
@@ -109,7 +110,7 @@ plt.grid('True')
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/wfn_hydro_radial.png}
+    \includegraphics[width=0.6\linewidth]{fig/wfn_hydro_radial.png}
     \caption{Radial Part สำหรับ $n = 5$ และ $l = 0$}
     \label{fig:wfn_hydro_radial}
 \end{figure}
@@ -237,7 +238,7 @@ ax.set_zlim(-1, 1)
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/wfn_hydro_angular.png}
+    \includegraphics[width=0.7\linewidth]{fig/wfn_hydro_angular.png}
     \caption{Angular Part สำหรับ $l = 2$ และ $m = 0$}
     \label{fig:wfn_hydro_angular}
 \end{figure}
@@ -246,20 +247,21 @@ ax.set_zlim(-1, 1)
 
 $\bullet$ \textbf{รวม Radial Part และ Angular Part สำหรับพล็อตออร์บิทัล}
 
-สร้างฟังก์ชันสำหรับคำนวณ Wavefunction ของไฮโดรเจนโดยรับค่าอินพุตดังต่อไปนี้ 
+\noindent สร้างฟังก์ชันสำหรับคำนวณ Wavefunction ของไฮโดรเจนโดยรับค่าอินพุตดังต่อไปนี้ 
 
 \begin{itemize}[topsep=0pt,noitemsep]
-    \item r: Radial Coordinate $(r)$
+    \setlength\itemsep{0.5em}
+    \item \inlinehighlight{r}: Radial Coordinate $(r)$
     
-    \item theta: Polar Coordinate $(\theta)$
+    \item \inlinehighlight{theta}: Polar Coordinate $(\theta)$
     
-    \item phi: Azimuthal Coordinate $(\phi)$
+    \item \inlinehighlight{phi}: Azimuthal Coordinate $(\phi)$
     
-    \item n: Principle Quantum Number $(n)$
+    \item \inlinehighlight{n}: Principle Quantum Number $(n)$
     
-    \item l: Angular Momentum Quantum Number $(l)$
+    \item \inlinehighlight{l}: Angular Momentum Quantum Number $(l)$
     
-    \item m: Magnetic Quantum Number $(m)$
+    \item \inlinehighlight{m}: Magnetic Quantum Number $(m)$
 \end{itemize}
 
 \noindent แล้วทำการคืนค่าออกมาเป็น Wavefunction ซึ่งได้จากผลคูณระหว่าง $\psi_{R}$ และ $\psi_{\text{ang}}$
@@ -384,7 +386,7 @@ ipv.show()
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{fig/wfn_hydro_3d_n2_l1_m1.png}
+    \includegraphics[width=0.6\linewidth]{fig/wfn_hydro_3d_n2_l1_m1.png}
     \caption{ออร์บิทัลของอะตอมไฮโดรเจนในปริภูมิ 3 มิติ สำหรับ $n = 2$, $l = 1$ และ $m = 1$}
     \label{fig:wfn_hydro_3d_n2_l1_m1}
 \end{figure}
