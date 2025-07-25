@@ -86,7 +86,7 @@ pip install LIBRARY_NAME
 
 \noindent $\bullet$ \textbf{พล็อต Radial Part ของ Wavefunction}
 
-เริ่มต้นด้วยการสร้างฟังก์ชันสำหรับ Radial Part ของ Wavefunction ซึ่งเราจะใช้พหุนามลาแกร์ (Laguerre Polynomials) โดยกำหนดให้ $n = 0$ และ $l = 0$ เป็นค่าเริ่มต้น
+\noindent เริ่มต้นด้วยการสร้างฟังก์ชันสำหรับ Radial Part ของ Wavefunction ซึ่งเราจะใช้พหุนามลาแกร์ (Laguerre Polynomials) โดยกำหนดให้ $n = 0$ และ $l = 0$ เป็นค่าเริ่มต้น
 
 \begin{lstlisting}[style=MyPython]
 def psi_R(r, n=1, l=0):
@@ -184,7 +184,7 @@ def plot_radial(n=1, l=0):
 
 $\bullet$ \textbf{พล็อต Angular Part ของ Wavefunction}
 
-สร้างฟังก์ชันสำหรับสร้าง Angular Part (สนใจเฉพาะส่วนจริงเท่านั้น) เช่นเดียวกันกับ Radial Part
+\noindent สร้างฟังก์ชันสำหรับสร้าง Angular Part (สนใจเฉพาะส่วนจริงเท่านั้น) เช่นเดียวกันกับ Radial Part
 
 \begin{lstlisting}[style=MyPython]
 def psi_ang(phi,theta, l=0, m=0):
@@ -194,6 +194,7 @@ def psi_ang(phi,theta, l=0, m=0):
 \end{lstlisting}
 
 \vspace{1em}
+
 \noindent ทำการสร้าง Grid Space สำหรับการพล็อต Spherical Harmonics แบบ 3 มิติ
 
 \begin{lstlisting}[style=MyPython]
@@ -203,6 +204,7 @@ Ylm = psi_ang(theta,phi,l=2,m=0)
 \end{lstlisting}
 
 \vspace{1em}
+
 \noindent ทำการกำหนดค่าเริ่มต้น Domain สำหรับการพล็อตออร์บิทัล นั่นคือ $x$ กับ $y$ แล้วทำการคำนวณค่ามุม Angular Part $z$ สำหรับแต่ละจุดบน Grid
 
 \begin{lstlisting}[style=MyPython]
@@ -212,6 +214,7 @@ z = np.cos(phi) * abs(Ylm)
 \end{lstlisting}
 
 \vspace{1em}
+
 \noindent ทำการกำหนดตั้งค่าสำหรับการพล็อตแบบ 3 มิติ โดยกำหนดให้ \pyinline{projection='3d'} สำหรับ Matplotlib
 
 \begin{lstlisting}[style=MyPython]

@@ -500,7 +500,7 @@ E\left[\left(y - \hat{f}(\vec{x})\right)^2\right] =
     \label{fig:overfitting}
 \end{figure}
 
-\begin{description}[style=nextline]
+\begin{description}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item[Overfitting] โมเดลตอบสนองต่อ Noise ที่มากเกินไป ทำให้เกิดการเรียนรู้และจดจำ Noise และไม่สามารถที่จะเรียนรู้รายละเอียดจริง ๆ ของข้อมูลได้ ซึ่งส่งผลให้ทำนายข้อมูลไม่ได้หรือผิดพลาดมากกว่าที่คาดไว้หรือยอมรับได้ โดยกรณีนี้โมเดลจะมีค่าความแปรปรวนของข้อมูลสูง (High Variance)
     
     \item[Underfitting] โมเดลของเราไม่สามารถหาความสัมพันธ์ระหว่างอินพุต $(x)$ กับเอาต์พุต $(y)$ ได้เพราะว่ามีข้อมูลที่ใช้ในการเทรนน้อยเกินไปหรือดึงข้อมูลออกมาจาก Training Set ได้ไม่เพียงพอที่จะเรียนรู้ โดยในกรณีนี้โมเดลจะมีค่าความเอนเอียงสูง (High Bias)
@@ -635,7 +635,7 @@ len(history.history['loss'])  # Number of epochs
 
 โดยเทคนิคย่อยของEnsemble Method ที่นิยมใช้กันนั้นมีอยู่ด้วยกัน 3 วิธี ดังนี้
 %
-\begin{itemize}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
+\begin{enumerate}[topsep=0pt,noitemsep]\setlength\itemsep{0.5em}
     \item \textbf{Bagging} เราจะทำการสร้างข้อมูลประเภทเดียวกันแบบหลาย ๆ ชุด แล้วทำการทดสอบกับข้อมูลเพียงแค่บางส่วน (Subset) ของชุดข้อมูล จากนั้นนำผลการทำนายของโมเดลต่าง ๆ มารวมกัน ตัวอย่างของอัลกอริทึมที่ใช้ในการเรียนรู้สำหรับเทคนิค Bagging นี้ เช่น Decision Tree, Random Forest และ Extra Tree
     \idxen{Ensemble Method!Bagging}
 
@@ -644,7 +644,7 @@ len(history.history['loss'])  # Number of epochs
 
     \item \textbf{Voting} เราจะเริ่มด้วยการสร้างโมเดลที่แตกต่างกันหลาย ๆ โมเดล เช่น Decision Tree, Support Vector Machine, K-Nearest Neighbors จากนั้นทำการฝึกสอนโมเดลด้วยชุดข้อมูลชุดเดียวกันเพื่อดูผลการทำนายที่ดีที่สุดของแต่ละโมเดล แล้วใช้การโหวตผลที่เหมือนกันหรือคล้ายกันเพื่อเป็นคำตอบสุดท้าย
     \idxen{Ensemble Method!Voting} 
-\end{itemize}
+\end{enumerate}
 
 %--------------------------
 \subsection{Dropout}
@@ -655,7 +655,7 @@ len(history.history['loss'])  # Number of epochs
 วิธีการ Dropout เป็นเทคนิคพิเศษที่ถูกคิดค้นขึ้นมาเพื่อแก้ปัญหา Overfitting ใน Deep Learning โดยเฉพาะ ซึ่งไอเดียของเทคนิคนี้ก็คือเราจะทำการตัด (Drop out หรือเอาออกไป) หน่วยการเรียนรู้ (Learning Unit หรือ Neuron) ใน Neural Network ออกไป ซึ่งจะเป็นการช่วยให้โมเดลของเราลด Bias ที่เกิดจากการเรียนรู้ของข้อมูลที่มากเกินไป โดยจำนวนของ Neuron ที่จะตัดออกไปนั้นส่วนใหญ้แล้วจะคิดเป็นเปอร์เซนต์ของ Neuron ทั้งหมด เช่น ตัดออกไป 5 เปอร์เซนต์
 \idxen{Overfitting}
 
-โค้ดของการทำ Dropout โดยใช้ไลบรารี่ TensorFlow
+\noindent โค้ดของการทำ Dropout โดยใช้ไลบรารี่ TensorFlow
 
 \begin{lstlisting}[style=MyPython]
 >>> tf.random.set_seed(0)

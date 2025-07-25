@@ -303,7 +303,7 @@ array([[0.51491375]])
 
 \vspace{1em}
 
-เราสามารถแสดงเมทริกซ์ของค่าความน่าจะเป็น (Probability Matrix) ของข้อมูลแต่ละตัวได้ด้วย ดังนี้
+\noindent เราสามารถแสดงเมทริกซ์ของค่าความน่าจะเป็น (Probability Matrix) ของข้อมูลแต่ละตัวได้ด้วย ดังนี้
 
 \begin{lstlisting}[style=MyPython]
 model.predict_proba(x)
@@ -400,7 +400,7 @@ array([0, 0, 0, 1, 1, 1, 1, 1, 1, 1])
 
 การสุ่มป่าไม้ (Random Forest หรือ RF) เป็นวิธีหนึ่งในกลุ่มของโมเดลที่เรียกว่าการเรียนรู้แบบกลุ่มก้อน (Ensemble Learning) ที่มีหลักการคือการฝึกสอนโมเดลที่เหมือนกันหลาย ๆ ครั้ง (Multitude) บนข้อมูลชุดเดียวกัน โดยแต่ละครั้งของการเทรนจะเลือกส่วนของข้อมูลที่ฝึกสอนไม่เหมือนกัน แล้วนำการตัดสินใจของโมเดลเหล่านั้นมาโหวตเลือกกันว่า Class ไหนถูกเลือกมากที่สุด\autocite{breiman2001,quinlan1986}
 
-ตัวอย่างการเขียนโค้ดโมเดล Random Forest สำหรับการทำ Regression
+\noindent ตัวอย่างการเขียนโค้ดโมเดล Random Forest สำหรับการทำ Regression
 %
 \begin{lstlisting}[style=MyPython]
 from sklearn.ensemble import RandomForestRegressor
@@ -418,7 +418,7 @@ print(regr.predict([[0, 0, 0, 0]]))
 
 \vspace{1em}
 
-ตัวอย่างการเขียนโค้ดโมเดล Random Forest สำหรับการทำ Classification
+\noindent ตัวอย่างการเขียนโค้ดโมเดล Random Forest สำหรับการทำ Classification
 %
 \begin{lstlisting}[style=MyPython]
 from sklearn.ensemble import RandomForestClassifier
@@ -475,4 +475,4 @@ print(clf.predict([[0, 0, 0, 0]]))
     \item โครงข่ายแบบยิงกระตุ้น (Spiking Neural Networks)
 \end{itemize}
 
-โดยในหนังสือเล่มนี้จะอธิบายเฉพาะ Neural Network แบบเพอร์เซ็ปตรอนชั้นเดียวและเพอร์เซ็ปตรอนหลายชั้น (บทที่ \ref{ch:deep_learning}) สำหรับผู้อ่านที่สนใจศึกษารายละเอียดของ Neural Network ประเภทอื่น ๆ นั้นสามารถศึกษาได้จากหนังสือเฉพาะทางด้าน Neural Network เช่น \enquote{Deep Learning} เขียนโดย Ian Goodfellow, Yoshua Bengio และ Aaron Courville\autocite{Goodfellow-et-al-2016} รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://www.deeplearningbook.org}
+โดยในหนังสือเล่มนี้จะอธิบายเฉพาะ Neural Network แบบเพอร์เซ็ปตรอนชั้นเดียวและเพอร์เซ็ปตรอนหลายชั้น (บทที่ \ref{ch:deep_learning}) สำหรับผู้อ่านที่สนใจศึกษารายละเอียดของ Neural Network ประเภทอื่น สามารถศึกษาได้จากหนังสือเฉพาะทาง เช่น \enquote{Deep Learning} เขียนโดย Ian Goodfellow, Yoshua Bengio และ Aaron Courville\autocite{Goodfellow-et-al-2016} รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://www.deeplearningbook.org}

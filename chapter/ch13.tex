@@ -127,7 +127,7 @@ coulomb_matrices = soap.create(samples, positions, n_jobs=2)
 
 จากโค้ดด้านบนนั้นสิ่งที่เราจะได้ออกมาก็คือเมทริกซ์ที่แต่ละแถวนั้นจะบ่งบอกถึง Local Environment ของแต่ละอะตอมในโมเลกุล โดยความยาวของ Feature Vector ของ SOAP นั้นจะขึ้นอยู่กับจำนวนของ Species ที่เรากำหนดและขึ้นอยู่กับค่า $n_{\text{max}}$ และ $l_{\text{max}}$ ด้วย โดยผู้อ่านสามารถลองเปลี่ยนค่าของ $n_{\text{max}}$ และ $l_{\text{max}}$ เพื่อดูว่ามีผลต่อการเปลี่ยนค่าของ Feature Vector อย่างไร
 
-นอกจากนี้เรายังสามารถเรียกใช้ Method \pyinline{derivatives} ของ Attribute \pyinline{soap} เพื่อคำนวณ Derivative ของ SOAP ได้ด้วย ดังนี้
+\noindent นอกจากนี้เรายังสามารถเรียกใช้ Method \pyinline{derivatives} ของ Attribute \pyinline{soap} เพื่อคำนวณ Derivative ของ SOAP ได้ด้วย ดังนี้
 
 \begin{lstlisting}[style=MyPython]
 derivatives, descriptors = soap.derivatives(
@@ -227,7 +227,7 @@ sgdml: error: the following arguments are required: command
 (sgdml) rangsiman@linux:~$ sgdml-get model
 \end{lstlisting}
 
-ตัวอย่างด้านล่างคือโค้ดที่ใช้ Force Field ที่ถูกฝึกสอนด้วย sGDML กับไลบรารี่ ASE ในการจำลองโมเลกุล Ethanol
+\noindent ตัวอย่างด้านล่างคือโค้ดที่ใช้ Force Field ที่ถูกฝึกสอนด้วย sGDML กับไลบรารี่ ASE ในการจำลองโมเลกุล Ethanol
 
 \begin{lstlisting}[style=MyPython]
 from sgdml.intf.ase_calc import SGDMLCalculator
@@ -294,7 +294,7 @@ H 	  0.107894 	 -1.518377 	  1.203705
 
 PiNN\autocite{shao2020} เป็น Python Library ที่รวบรวมโมเดลและวิธีในการทำนายคุณสมบัติต่าง ๆ ของโมเลกุลเข้าไปด้วยกัน โดยในเวอร์ชันปัจจุบันนั้นมี Neural Network ที่ถูกติดตั้งไว้ใน PiNN แล้ว 2 โมเดลคือ PiNet และ Behler-Parrinello Neural Network
 
-ผู้อ่านสามารถติดตั้งไลบรารี่ PiNN ได้โดยใช้คำสั่งต่อไปนี้
+\noindent ผู้อ่านสามารถติดตั้งไลบรารี่ PiNN ได้โดยใช้คำสั่งต่อไปนี้
 
 \begin{lstlisting}[style=MyBash]
 pip install git+https://github.com/Teoroo-CMC/PiNN
@@ -316,7 +316,7 @@ cd PiNN && pip install -e .
 
 TorchANI\autocite{gao2020} เป็น Neural Network ที่ใช้สำหรับการทำนายศักย์ (Potential) ของโมเลกุลซึ่งถูกพัฒนาโดยใช้ PyTorch Framework เป็นหลัก 
 
-การติดตั้ง TorchANI สามารถทำได้โดยต้องติดตั้ง PyTorch ก่อนแล้ว ดังนี้
+\noindent การติดตั้ง TorchANI สามารถทำได้โดยต้องติดตั้ง PyTorch ก่อนแล้ว ดังนี้
 
 \begin{lstlisting}[style=MyBash]
 # PyTorch
@@ -328,5 +328,5 @@ pip install --pre torch torchvision -f $DOWNLOAD_PYTORCH
 pip install torchani
 \end{lstlisting}
 
-\noindent รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://github.com/aiqm/torchani} และศึกษาคู่มือการใช้งานได้ที่ 
+รายละเอียดเพิ่มเติมดูได้ที่เว็บไซต์ \url{https://github.com/aiqm/torchani} และศึกษาคู่มือการใช้งานได้ที่ 
 \url{https://aiqm.github.io/torchani}
