@@ -126,6 +126,8 @@ Machine Learning Potentials (MLP)\footnote{มีชื่อเรียกอ�
 \idxboth{พลวัตเชิงโมเลกุล!แบบดั้งเดิม}{Molecular Dynamics!Classical Molecular Dynamics}
 \idxboth{พลวัตเชิงโมเลกุล!แบบเริ่มแรก}{Molecular Dynamics!\textit{ab initio} Molecular Dynamics}
 
+
+
 MLP แบ่งออกได้เป็นสองประเภทตามรูปแบบของอัลกอริทึมของ ML คือแบบเคอร์เนล (Kernel-based Potentials) และแบบโครงข่ายประสาท (Neural Network-based Potentials)
 
 %--------------------------
@@ -1183,7 +1185,7 @@ plt.show()
     \item \enquote{Comparison of the Performance of Machine Learning Models in Representing High-Dimensional Free Energy Surfaces and Generating Observables}\autocite{cendagorta2020} \\
     ตีพิมพ์เมื่อวันที่ 10 เมษายน ค.ศ. 2020
 
-    \item \enquote{Kernel-Based Machine Learning for Efficient Simulations of Molecular Liquids}\autocite{scherer2020} \\
+    \item \enquote{Kernel-based Machine Learning for Efficient Simulations of Molecular Liquids}\autocite{scherer2020} \\
     ตีพิมพ์เมื่อวันที่ 13 เมษายน ค.ศ. 2020
 
     \item \enquote{Machine Learning Force Fields}\autocite{unke2021} \\
@@ -1206,37 +1208,36 @@ plt.show()
     \label{tab:review_ml_chem}
     \begin{tabular}{cll}
         \toprule
-        \textbf{ปี ค.ศ. ที่ตีพิมพ์} & \textbf{ผู้แต่งและบทความอ้างอิง}\footnotetext{ผู้แต่งในที่นี้คือนามสกุลของผู้แต่ง}
-                              & \textbf{หัวข้อที่รีวิว}                                                                                           \\
+        \textbf{ปี ค.ศ. ที่ตีพิมพ์} & \textbf{ผู้แต่งและบทความอ้างอิง}\footnotetext{ผู้แต่งในที่นี้คือนามสกุลของผู้แต่ง}  & \textbf{หัวข้อที่รีวิว}                       \\
         \midrule
         2017                  & Behler\autocite{behler2017}                                       & พลังงานศักย์ระหว่างอะตอม                    \\
-        2018                  & Goldsmith และคณะ\autocite{goldsmith2018}                          & ML สำหรับ Catalysis                       \\
+        2018                  & Goldsmith และคณะ\autocite{goldsmith2018}                          & ML สำหรับ Catalysis                     \\
         2019                  & Carleo และคณะ\autocite{carleo2019}                                & ML สำหรับวิทยาศาสตร์เชิงกายภาพ               \\
-        2019                  & Yang และคณะ\autocite{yang2019}                                    & Drug Discovery                          \\
-        2019                  & Elton และคณะ\autocite{elton2019}                                  & Molecular Design                        \\
-        2019                  & Schleder และคณะ\autocite{schleder2019}                            & ML สำหรับวัสดุศาสตร์                         \\
+        2019                  & Yang และคณะ\autocite{yang2019}                                    & Drug Discovery                        \\
+        2019                  & Elton และคณะ\autocite{elton2019}                                  & Molecular Design                      \\
+        2019                  & Schleder และคณะ\autocite{schleder2019}                            & ML สำหรับวัสดุศาสตร์                       \\
         2019                  & Ceriotti\autocite{ceriotti2019}                                   & การเรียนรู้แบบไม่มีผู้สอน                      \\
-        2020                  & Dral\autocite{dral2020a}                                          & ML สำหรับเคมีควอนตัม                        \\
+        2020                  & Dral\autocite{dral2020a}                                          & ML สำหรับเคมีควอนตัม                      \\
         2020                  & No\'{e} และคณะ\autocite{noe2020}                                  & การจำลองเชิงโมเลกุล                        \\
-        2020                  & von Lilienfeld และคณะ\autocite{vonlilienfeld2020}                 & ปริภูมิเคมี                                 \\
+        2020                  & von Lilienfeld และคณะ\autocite{vonlilienfeld2020}                 & ปริภูมิเคมี                                \\
         2020                  & Mueller และคณะ\autocite{mueller2020}                              & พลังงานศักย์ระหว่างอะตอม                    \\
         2020                  & Manzhos และคณะ\autocite{manzhos2021}                              & ML สำหรับโมเลกุลและปฏิกิริยาขนาดเล็ก           \\
-        2020                  & Gkeka และคณะ\autocite{gkeka2020}                                  & Force Fields และ Coarse Graining        \\
-        2020                  & Unke และคณะ\autocite{unke2021}                                    & Force Fields                            \\
+        2020                  & Gkeka และคณะ\autocite{gkeka2020}                                  & Force Fields และ Coarse Graining      \\
+        2020                  & Unke และคณะ\autocite{unke2021}                                    & Force Fields                          \\
         2020                  & Toyao และคณะ\autocite{toyao2020}                                  & การเร่งปฏิกิริยาเชิงข้อมูล                     \\
         2020                  & Manzhos\autocite{manzhos2020}                                     & ML สำหรับโครงสร้างเชิงอิเล็กทรอนิกส์            \\
-        2020                  & \makecell[tl]{Westermayr และ \\ Marquetand\autocite{westermayr2021a}} &ML สำหรับสถานะกระตุ้น \\
-        2021                  & Behler\autocite{behler2021}                                       & Neural Network Potentials               \\
-        2021                  & Westermayr และคณะ\autocite{westermayr2021b}                       & ML สำหรับเคมีเชิงคำนวณและวัสดุศาสตร์            \\
+        2020                  & \makecell[tl]{Westermayr และ \\ Marquetand\autocite{westermayr2021a}} &ML สำหรับสถานะกระตุ้น                   \\
+        2021                  & Behler\autocite{behler2021}                                       & Neural Network Potentials            \\
+        2021                  & Westermayr และคณะ\autocite{westermayr2021b}                       & ML สำหรับเคมีเชิงคำนวณและวัสดุศาสตร์           \\
         2021                  & Zheng และคณะ\autocite{zheng2021}                                  & วิธีทางควอนตัมและการทำนายพลังงาน             \\
-        2022                  & Sajjan และคณะ\autocite{sajjan2022}                                & การพัฒนา ML สำหรับ Quantum Computing       \\
-        2022                  & Lim และคณะ\autocite{lim2022}                                      & คุณสมบัติของโมเลกุลและ Drug Discovery       \\
-        2022                  & Raghunathan และคณะ\autocite{raghunathan2022}                      & Representation สำหรับ ML                  \\
-        2022                  & Stuyver และคณะ\autocite{stuyver2022}                              & ML สำหรับความว่องไวของปฏิกิริยาเคมี            \\
-        2022                  & Tavakoli และคณะ\autocite{tavakoli2022}                            & ML (Graph) สำหรับความว่องไวของปฏิกิริยาเคมี    \\
-        2022                  & Han และคณะ\autocite{han2022}                                      & ML สำหรับสเปกโทรสโกปี                      \\
+        2022                  & Sajjan และคณะ\autocite{sajjan2022}                                & การพัฒนา ML สำหรับ Quantum Computing      \\
+        2022                  & Lim และคณะ\autocite{lim2022}                                      & คุณสมบัติของโมเลกุลและ Drug Discovery        \\
+        2022                  & Raghunathan และคณะ\autocite{raghunathan2022}                      & Representation สำหรับ ML                 \\
+        2022                  & Stuyver และคณะ\autocite{stuyver2022}                              & ML สำหรับความว่องไวของปฏิกิริยาเคมี              \\
+        2022                  & Tavakoli และคณะ\autocite{tavakoli2022}                            & ML (Graph) สำหรับความว่องไวของปฏิกิริยาเคมี      \\
+        2022                  & Han และคณะ\autocite{han2022}                                      & ML สำหรับสเปกโทรสโกปี                       \\
         2022                  & van Gerwen และคณะ\autocite{gerwen2022}                            & Representation สำหรับ Chemical Reactivity \\
-        2022                  & Qiao และคณะ\autocite{qiao2022}                                    & Geometric Deep Learning                 \\
+        2022                  & Qiao และคณะ\autocite{qiao2022}                                    & Geometric Deep Learning                  \\
         \bottomrule
     \end{tabular}
 \end{table}
